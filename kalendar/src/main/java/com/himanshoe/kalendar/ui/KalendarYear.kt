@@ -12,6 +12,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarShape
@@ -91,6 +93,7 @@ fun Kalendar(
     var selectedYear by rememberSaveable { mutableStateOf(todayDate.get(Calendar.YEAR)) }
     var selectedMonth by rememberSaveable { mutableStateOf(todayDate.get(Calendar.MONTH)) }
     var selectedDayOfMonth by rememberSaveable { mutableStateOf(currentDate.get(Calendar.DAY_OF_MONTH)) }
+    val haptic = LocalHapticFeedback.current
 
     KalendarTheme {
         val color = backgroundColor ?: KalendarTheme.colors.generalDisabled
@@ -116,17 +119,20 @@ fun Kalendar(
                 selectedDayOfMonth = selectedDayOfMonth,
                 startOfMonthDayOfWeek = getDayOfWeek(currentCalendarStartOfMonth.get(Calendar.DAY_OF_WEEK)),
                 onDateClick = { year: Int, month: Int, day: Int ->
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     selectedYear = year
                     selectedMonth = month
                     selectedDayOfMonth = day
                 },
                 onPreviousMonthClick = {
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     currentDate.add(Calendar.MONTH, -1)
                     currentCalendarStartOfMonth.add(Calendar.MONTH, -1)
                     currentMonth = currentDate.get(Calendar.MONTH)
                     currentYear = currentDate.get(Calendar.YEAR)
                 },
                 onNextMonthClick = {
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     currentDate.add(Calendar.MONTH, 1)
                     currentCalendarStartOfMonth.add(Calendar.MONTH, 1)
                     currentMonth = currentDate.get(Calendar.MONTH)
