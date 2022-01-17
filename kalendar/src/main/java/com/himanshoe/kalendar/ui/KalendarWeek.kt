@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import com.himanshoe.design.theme.Grid
 
 const val DAYS_IN_WEEK = 7
 
@@ -12,7 +11,7 @@ const val DAYS_IN_WEEK = 7
 internal fun KalendarWeek(
     startColumn: Int,
     endColumn: Int,
-    fromDay: Int,
+    startDay: Int,
     currentYear: Int,
     currentMonth: Int,
     todayYear: Int,
@@ -30,15 +29,13 @@ internal fun KalendarWeek(
         val modifier = Modifier
             .requiredWidth(size)
             .requiredHeight(size)
-            .graphicsLayer(clip = false)
 
-        var currentDay = fromDay
+        var currentDay = startDay
 
         Row {
             repeat(DAYS_IN_WEEK) { index: Int ->
                 if (index in startColumn..endColumn) {
-                    val isSelected =
-                        currentYear == selectedYear && currentMonth == selectedMonth && currentDay == selectedDayOfMonth
+                    val isSelected = currentYear == selectedYear && currentMonth == selectedMonth && currentDay == selectedDayOfMonth
                     KalendarDay(
                         size = size,
                         modifier = modifier,

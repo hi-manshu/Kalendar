@@ -31,16 +31,16 @@ fun KalendarMonth(
             .graphicsLayer(clip = false)
 
     ) {
-        val numberOfRows =
-            ceil((currentMonthNumberOfDays + startOfMonthDayOfWeek.value) / DAYS_IN_WEEK.toDouble()).toInt()
+        val numberOfRows = ceil((currentMonthNumberOfDays + startOfMonthDayOfWeek.value) / DAYS_IN_WEEK.toDouble()).toInt()
         var startDay = 1
         repeat(numberOfRows) {
             val startColumn = if (it == 0) startOfMonthDayOfWeek.value else 0
             val endColumn = if (it != numberOfRows - 1) 6 else currentMonthNumberOfDays - startDay
+
             KalendarWeek(
                 startColumn = startColumn,
                 endColumn = endColumn,
-                fromDay = startDay,
+                startDay = startDay,
                 currentYear = currentYear,
                 currentMonth = currentMonth,
                 todayYear = todayYear,

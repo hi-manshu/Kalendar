@@ -11,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
@@ -19,11 +18,12 @@ import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarShape
 import com.himanshoe.design.theme.KalendarTheme
 import com.himanshoe.kalendar.DayOfWeek
+import com.himanshoe.kalendar.config.KalendarConfig
 import com.himanshoe.kalendar.getDayOfWeek
 import java.util.*
 
 @Composable
-private fun CalendarScreen(
+private fun KalendarView(
     currentYear: Int,
     currentMonth: Int,
     currentMonthNumberOfDays: Int,
@@ -34,7 +34,7 @@ private fun CalendarScreen(
     selectedMonth: Int,
     selectedDayOfMonth: Int,
     startOfMonthDayOfWeek: DayOfWeek,
-    onDateClick: (Int, Int, Int) -> Unit,
+    onCurrentDayClick: (Int, Int, Int) -> Unit,
     onPreviousMonthClick: () -> Unit,
     onNextMonthClick: () -> Unit
 ) {
@@ -61,16 +61,14 @@ private fun CalendarScreen(
             selectedMonth = selectedMonth,
             selectedDayOfMonth = selectedDayOfMonth,
             startOfMonthDayOfWeek = startOfMonthDayOfWeek,
-            onDateClick = onDateClick
+            onDateClick = onCurrentDayClick
         )
     }
 }
 
 @Composable
 fun Kalendar(
-    backgroundColor: Color? = null,
-    calendarColor: Color? = null,
-    hasRadius: Boolean = true
+    kalendarConfig: KalendarConfig = KalendarConfig()
 ) {
     val currentCalendarStartOfMonth = rememberSaveable {
         Calendar.getInstance().apply {
@@ -81,7 +79,6 @@ fun Kalendar(
     var currentYear by rememberSaveable { mutableStateOf(currentDate.get(Calendar.YEAR)) }
     var currentMonth by rememberSaveable { mutableStateOf(currentDate.get(Calendar.MONTH)) }
 
-
     val currentMonthNumberOfDays =
         rememberSaveable { currentDate.getActualMaximum(Calendar.DAY_OF_MONTH) }
 
@@ -90,24 +87,26 @@ fun Kalendar(
     val todayMonth = todayDate.get(Calendar.MONTH)
     val todayDayOfMonth = todayDate.get(Calendar.DAY_OF_MONTH)
 
-    var selectedYear by rememberSaveable { mutableStateOf(todayDate.get(Calendar.YEAR)) }
-    var selectedMonth by rememberSaveable { mutableStateOf(todayDate.get(Calendar.MONTH)) }
+    var selectedYear by rememberSaveable { mutableStateOf(todayYear) }
+    var selectedMonth by rememberSaveable { mutableStateOf(todayMonth) }
     var selectedDayOfMonth by rememberSaveable { mutableStateOf(currentDate.get(Calendar.DAY_OF_MONTH)) }
     val haptic = LocalHapticFeedback.current
 
     KalendarTheme {
-        val color = backgroundColor ?: KalendarTheme.colors.generalDisabled
-        val calendarBackgroundColor = calendarColor ?: KalendarTheme.colors.background
-        val shape = if (hasRadius) KalendarShape.SelectedShape else KalendarShape.DefaultRectangle
+        val color = kalendarConfig.backgroundColor ?: KalendarTheme.colors.generalDisabled
+        val calendarBackgroundColor =
+            kalendarConfig.calendarColor ?: KalendarTheme.colors.background
+        val shape =
+            if (kalendarConfig.hasRadius) KalendarShape.SelectedShape else KalendarShape.DefaultRectangle
         Card(
             modifier = Modifier
                 .background(color)
                 .padding(Grid.OneHalf),
             shape = shape,
-            elevation = if(hasRadius) Grid.One else 0.dp,
+            elevation = if (kalendarConfig.hasRadius) Grid.One else 0.dp,
             backgroundColor = calendarBackgroundColor,
         ) {
-            CalendarScreen(
+            KalendarView(
                 currentYear = currentYear,
                 currentMonth = currentMonth,
                 currentMonthNumberOfDays = currentMonthNumberOfDays,
@@ -118,7 +117,7 @@ fun Kalendar(
                 selectedMonth = selectedMonth,
                 selectedDayOfMonth = selectedDayOfMonth,
                 startOfMonthDayOfWeek = getDayOfWeek(currentCalendarStartOfMonth.get(Calendar.DAY_OF_WEEK)),
-                onDateClick = { year: Int, month: Int, day: Int ->
+                onCurrentDayClick = { year: Int, month: Int, day: Int ->
                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     selectedYear = year
                     selectedMonth = month
