@@ -16,11 +16,10 @@ object KalendarTheme {
 
 @Composable
 fun ProvideKalendarTheme(
-    kalendarType: KalendarType = KalendarType.Fire,
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
-        LocalKalendarColors provides colorPalette(kalendarType),
+        LocalKalendarColors provides colorPalette(),
         LocalClueTypography provides Typography,
         content = content
     )

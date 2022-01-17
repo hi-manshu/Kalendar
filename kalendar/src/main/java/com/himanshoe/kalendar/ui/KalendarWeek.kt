@@ -4,14 +4,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import com.himanshoe.design.theme.Grid
 
 const val DAYS_IN_WEEK = 7
 
 @Composable
 internal fun KalendarWeek(
-    startColumn: Int, // 0..6
-    endColumn: Int,   // 0..6 && startColumn <= endColumn
-    fromDay: Int,    // 1..31
+    startColumn: Int,
+    endColumn: Int,
+    fromDay: Int,
     currentYear: Int,
     currentMonth: Int,
     todayYear: Int,
@@ -24,7 +25,7 @@ internal fun KalendarWeek(
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
 
-        val size = maxWidth / DAYS_IN_WEEK
+        val size = (maxWidth / DAYS_IN_WEEK)
 
         val modifier = Modifier
             .requiredWidth(size)

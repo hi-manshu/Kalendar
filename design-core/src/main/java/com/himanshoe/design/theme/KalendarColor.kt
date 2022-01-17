@@ -15,8 +15,7 @@ data class KalendarColor(
     val black: Color,
 )
 
-internal fun colorPalette(kalendarType: KalendarType) = if (kalendarType is KalendarType.Fire) {
-    KalendarColor(
+internal fun colorPalette() =  KalendarColor(
         generalColor = Fire100,
         generalDisabled = Fire50,
         generalSelected = Fire15,
@@ -25,17 +24,6 @@ internal fun colorPalette(kalendarType: KalendarType) = if (kalendarType is Kale
         white = Color.White,
         black = Color.Black
     )
-} else {
-    KalendarColor(
-        generalColor = Fire100,
-        generalDisabled = Fire50,
-        generalSelected = Fire15,
-        background = Color.White,
-        transparent = Color.Transparent,
-        white = Color.White,
-        black = Color.Black
-    )
-}
 
 /**
  * A Material [Colors] implementation which sets all colors to [debugColor] to discourage usage of
