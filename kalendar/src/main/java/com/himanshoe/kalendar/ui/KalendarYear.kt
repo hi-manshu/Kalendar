@@ -13,12 +13,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.unit.dp
 import com.himanshoe.design.theme.Grid
-import com.himanshoe.design.theme.KalendarShape
 import com.himanshoe.design.theme.KalendarTheme
 import com.himanshoe.kalendar.DayOfWeek
-import com.himanshoe.kalendar.config.KalendarConfig
+import com.himanshoe.kalendar.config.KalendarKonfig
 import com.himanshoe.kalendar.getDayOfWeek
 import java.util.*
 
@@ -68,7 +66,8 @@ private fun KalendarView(
 
 @Composable
 fun Kalendar(
-    kalendarConfig: KalendarConfig = KalendarConfig()
+    modifier: Modifier = Modifier,
+    kalendarKonfig: KalendarKonfig = KalendarKonfig(),
 ) {
     val currentCalendarStartOfMonth = rememberSaveable {
         Calendar.getInstance().apply {
@@ -93,17 +92,15 @@ fun Kalendar(
     val haptic = LocalHapticFeedback.current
 
     KalendarTheme {
-        val color = kalendarConfig.backgroundColor ?: KalendarTheme.colors.generalDisabled
+        val color = kalendarKonfig.backgroundColor ?: KalendarTheme.colors.generalDisabled
         val calendarBackgroundColor =
-            kalendarConfig.calendarColor ?: KalendarTheme.colors.background
-        val shape =
-            if (kalendarConfig.hasRadius) KalendarShape.SelectedShape else KalendarShape.DefaultRectangle
+            kalendarKonfig.calendarColor ?: KalendarTheme.colors.background
         Card(
-            modifier = Modifier
+            modifier = modifier
                 .background(color)
                 .padding(Grid.OneHalf),
-            shape = shape,
-            elevation = if (kalendarConfig.hasRadius) Grid.One else 0.dp,
+            shape = kalendarKonfig.shape,
+            elevation = kalendarKonfig.elevation,
             backgroundColor = calendarBackgroundColor,
         ) {
             KalendarView(
