@@ -45,7 +45,7 @@ fun KalendarHeader(
             contentDescription = "Previous Month",
             onClick = onPreviousMonthClick
         )
-        KalendarText.Text4.Demibold(
+        KalendarText.Text2.Demibold(
             modifier = Modifier
                 .padding(Grid.Two),
             text = "${monthNames[currentMonth]} $currentYear",

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import com.himanshoe.design.primitive.texts.Demibold
 import com.himanshoe.design.primitive.texts.KalendarText
@@ -37,7 +38,7 @@ private fun KalendarWeekDay(
         modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
-        KalendarText.Text4.Demibold(text = text)
+        KalendarText.Text4.Demibold(text = text,modifier = Modifier.alpha(0.5F))
     }
 }
 
