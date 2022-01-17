@@ -7,13 +7,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.himanshoe.design.primitive.texts.Demibold
 import com.himanshoe.design.primitive.texts.KalendarText
+import com.himanshoe.design.theme.Grid
 
 private val weekdays = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
 
 @Composable
 fun KalendarWeekDayNames() {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-        val width = maxWidth / DAYS_IN_WEEK
+        val width = (maxWidth / DAYS_IN_WEEK)
         Row(modifier = Modifier.fillMaxWidth()) {
             weekdays.forEach { weekDay: String ->
                 KalendarWeekDay(
