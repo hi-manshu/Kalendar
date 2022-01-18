@@ -13,15 +13,15 @@ import com.himanshoe.design.theme.Grid
 private val weekdays = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
 
 @Composable
-fun KalendarWeekDayNames() {
+internal fun KalendarWeekDayNames() {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-        val width = (maxWidth / DAYS_IN_WEEK)
+        val width = (maxWidth / 7)
         Row(modifier = Modifier.fillMaxWidth()) {
             weekdays.forEach { weekDay: String ->
                 KalendarWeekDay(
                     modifier = Modifier
                         .requiredWidth(width)
-                        .requiredHeight(50.dp),
+                        .wrapContentHeight(),
                     text = weekDay
                 )
             }
@@ -30,7 +30,7 @@ fun KalendarWeekDayNames() {
 }
 
 @Composable
-private fun KalendarWeekDay(
+internal fun KalendarWeekDay(
     modifier: Modifier = Modifier,
     text: String
 ) {

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -15,24 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.himanshoe.design.primitive.texts.Demibold
 import com.himanshoe.design.primitive.texts.KalendarText
-import com.himanshoe.kalendar.monthNames
 import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarTheme
+import java.time.YearMonth
 
 @Composable
-fun KalendarHeader(
-    currentYear: Int,
-    currentMonth: Int,
+internal fun KalendarHeader(
+    text: String,
     onPreviousMonthClick: () -> Unit,
-    onNextMonthClick: () -> Unit
+    onNextMonthClick: () -> Unit,
 ) {
 
     Row(
@@ -48,7 +41,7 @@ fun KalendarHeader(
         KalendarText.Text2.Demibold(
             modifier = Modifier
                 .padding(Grid.Two),
-            text = "${monthNames[currentMonth]} $currentYear",
+            text = text,
             textAlign = TextAlign.Center,
         )
         KalendarButton(

@@ -1,14 +1,15 @@
 package com.himanshoe.kalendar
 
-enum class DayOfWeek(val value: Int) {
-    Sunday(0),
-    Monday(1),
-    Tuesday(2),
-    Wednesday(3),
-    Thursday(4),
-    Friday(5),
-    Saturday(6),
+sealed class DayOfWeek(val value: Int) {
+    object Sunday : DayOfWeek(0)
+    object Monday : DayOfWeek(1)
+    object Tuesday : DayOfWeek(2)
+    object Wednesday : DayOfWeek(3)
+    object Thursday : DayOfWeek(4)
+    object Friday : DayOfWeek(5)
+    object Saturday : DayOfWeek(6)
 }
+
 val monthNames = listOf(
     "January",
     "February",

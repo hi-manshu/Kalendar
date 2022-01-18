@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 
 @Composable
-fun KalendarEmptyDay(modifier: Modifier = Modifier) {
+internal fun KalendarEmptyDay(modifier: Modifier = Modifier) {
     Text(
         modifier = modifier,
         text = " ",
