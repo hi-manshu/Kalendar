@@ -80,7 +80,7 @@ internal fun KalendarMonth(
     }
 }
 
-fun getDays(monthState: MutableState<YearMonth>): List<LocalDate> {
+private fun getDays(monthState: MutableState<YearMonth>): List<LocalDate> {
     return mutableListOf<LocalDate>().apply {
         val firstDay = monthState.value.atDay(1)
         val firstSunday = if (firstDay.dayOfWeek == java.time.DayOfWeek.SUNDAY) {
