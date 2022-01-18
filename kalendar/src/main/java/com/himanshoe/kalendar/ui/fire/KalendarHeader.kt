@@ -26,7 +26,6 @@ internal fun KalendarHeader(
     onPreviousMonthClick: () -> Unit,
     onNextMonthClick: () -> Unit,
 ) {
-
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly,

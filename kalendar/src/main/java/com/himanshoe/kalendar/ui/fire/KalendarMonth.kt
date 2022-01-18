@@ -7,10 +7,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.himanshoe.kalendar.getMonthNameFormatter
 import java.time.LocalDate
-import java.time.Year
 import java.time.YearMonth
-import java.time.format.DateTimeFormatter
 
 private const val DAYS_IN_WEEK = 7
 
@@ -31,13 +30,9 @@ internal fun KalendarMonth(
         val selectedDay = remember {
             mutableStateOf(LocalDate.now())
         }
-        val formatter = remember {
-            DateTimeFormatter.ofPattern(
-                if (Year.now().value == monthState.value.year) "MMMM" else "MMMM y"
-            )
-        }
+
         KalendarHeader(
-            text = monthState.value.format(formatter),
+            text = monthState.value.format(monthState.getMonthNameFormatter()),
             onPreviousMonthClick = {
                 monthState.value = monthState.value.minusMonths(1)
             },
