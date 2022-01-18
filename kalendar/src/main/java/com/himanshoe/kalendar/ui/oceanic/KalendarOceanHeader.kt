@@ -100,7 +100,7 @@ fun LocalDate.getNext7Dates(): List<LocalDate> {
     return dates
 }
 
-private fun LocalDate.getPrevious7Dates(): List<LocalDate> {
+fun LocalDate.getPrevious7Dates(): List<LocalDate> {
     val dates = mutableListOf<LocalDate>()
     repeat(7) { day ->
         dates.add(this.minusDays(day.toLong()))
