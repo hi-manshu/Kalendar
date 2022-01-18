@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui.ocean
+package com.himanshoe.kalendar.ui.oceanic
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

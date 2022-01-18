@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui.fire
+package com.himanshoe.kalendar.ui.firey
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.himanshoe.design.primitive.texts.KalendarText

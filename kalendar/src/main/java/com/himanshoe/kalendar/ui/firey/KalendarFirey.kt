@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui.fire
+package com.himanshoe.kalendar.ui.firey
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
@@ -13,7 +13,7 @@ import com.himanshoe.kalendar.config.KalendarKonfig
 import java.time.LocalDate
 
 @Composable
-fun KalendarFire(
+internal fun KalendarFirey(
     modifier: Modifier = Modifier,
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
     onCurrentDayClick: (LocalDate) -> Unit,

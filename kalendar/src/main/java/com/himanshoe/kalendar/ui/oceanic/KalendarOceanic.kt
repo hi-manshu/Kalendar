@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui.ocean
+package com.himanshoe.kalendar.ui.oceanic
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +15,7 @@ import com.himanshoe.kalendar.config.KalendarKonfig
 import java.time.LocalDate
 
 @Composable
-fun KalendarOcean(
+internal fun KalendarOceanic(
     modifier: Modifier = Modifier,
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
     startDate: LocalDate = LocalDate.now(),
@@ -30,7 +30,7 @@ fun KalendarOcean(
             modifier = modifier
                 .background(color)
                 .padding(bottom = Grid.One),
-            shape = kalendarKonfig.bottonCurved,
+            shape = kalendarKonfig.bottomCurved,
             elevation = kalendarKonfig.elevation,
             backgroundColor = calendarBackgroundColor,
         ) {
@@ -55,5 +55,6 @@ private fun KalendarOceanPreview(
     modifier: Modifier = Modifier,
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
 ) {
-    KalendarOcean {}
+    KalendarOceanic {
+    }
 }

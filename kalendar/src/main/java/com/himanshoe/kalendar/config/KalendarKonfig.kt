@@ -14,5 +14,5 @@ data class KalendarKonfig(
     val hasRadius: Boolean = true,
     val elevation: Dp = if (hasRadius) Grid.One else 0.dp,
     val shape: Shape = if (hasRadius) KalendarShape.SelectedShape else KalendarShape.DefaultRectangle,
-    val bottonCurved :Shape= ButtomCurvedShape
+    val bottomCurved: Shape = ButtomCurvedShape
 )

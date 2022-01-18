@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui.fire
+package com.himanshoe.kalendar.ui.firey
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
