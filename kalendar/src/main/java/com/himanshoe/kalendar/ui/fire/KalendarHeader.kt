@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui
+package com.himanshoe.kalendar.ui.fire
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,7 +19,6 @@ import com.himanshoe.design.primitive.texts.Demibold
 import com.himanshoe.design.primitive.texts.KalendarText
 import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarTheme
-import java.time.YearMonth
 
 @Composable
 internal fun KalendarHeader(

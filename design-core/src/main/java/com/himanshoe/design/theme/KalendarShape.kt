@@ -12,4 +12,7 @@ object KalendarShape {
     @Stable
     val DefaultRectangle: Shape = RectangleShape
 
+    @Stable
+    val ButtomCurvedShape: Shape =  RoundedCornerShape(bottomEnd = Grid.Two,bottomStart = Grid.Two)
+
 }

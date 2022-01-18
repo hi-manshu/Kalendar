@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui
+package com.himanshoe.kalendar.ui.fire
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable

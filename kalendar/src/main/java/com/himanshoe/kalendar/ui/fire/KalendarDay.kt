@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui
+package com.himanshoe.kalendar.ui.fire
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable

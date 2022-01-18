@@ -1,8 +1,6 @@
-package com.himanshoe.kalendar.ui
+package com.himanshoe.kalendar.ui.fire
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
@@ -13,27 +11,9 @@ import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarTheme
 import com.himanshoe.kalendar.config.KalendarKonfig
 import java.time.LocalDate
-import java.time.YearMonth
 
 @Composable
-internal fun KalendarView(
-    yearMonth: YearMonth = YearMonth.now(),
-    onCurrentDayClick: (LocalDate) -> Unit,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(Grid.Half)
-    ) {
-        KalendarMonth(
-            yearMonth,
-            onCurrentDayClick,
-        )
-    }
-}
-
-@Composable
-fun Kalendar(
+fun KalendarFire(
     modifier: Modifier = Modifier,
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
     onCurrentDayClick: (LocalDate) -> Unit,
