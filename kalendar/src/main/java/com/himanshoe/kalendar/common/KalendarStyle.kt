@@ -18,6 +18,7 @@ import com.himanshoe.design.theme.KalendarShape
 data class KalendarStyle(
     val kalendarBackgroundColor: Color? = null,
     val kalendarColor: Color? = null,
+    val kalendarSelector: KalendarSelector = KalendarSelector.Dot(),
     val hasRadius: Boolean = true,
     val elevation: Dp = if (hasRadius) Grid.One else Grid.Zero,
     val shape: Shape = KalendarShape.ButtomCurvedShape,

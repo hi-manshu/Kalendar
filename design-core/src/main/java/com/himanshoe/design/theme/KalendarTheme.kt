@@ -5,9 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 
 object KalendarTheme {
-    val colors: KalendarColor
-        @Composable
-        get() = LocalKalendarColors.current
+    val colors: KalendarColor = colorPalette()
 
     val typography: KalendarTypography
         @Composable
@@ -19,7 +17,6 @@ fun ProvideKalendarTheme(
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
-        LocalKalendarColors provides colorPalette(),
         LocalKalendarTypography provides Typography,
         content = content
     )

@@ -12,8 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.style.TextAlign
-import com.himanshoe.design.primitive.texts.Medium
 import com.himanshoe.design.primitive.texts.KalendarText
+import com.himanshoe.design.primitive.texts.Medium
 import com.himanshoe.design.primitive.texts.Regular
 import com.himanshoe.design.theme.KalendarShape
 import com.himanshoe.design.theme.KalendarTheme
@@ -94,12 +94,12 @@ internal fun KalendarOceanWeek(
 private fun getColor(selectedDate: LocalDate, providedDate: LocalDate): Color {
     return if (providedDate == LocalDate.now()) {
         when (selectedDate) {
-            providedDate -> KalendarTheme.colors.generalDisabled
-            else -> KalendarTheme.colors.generalSelected
+            providedDate -> KalendarTheme.colors.selectedColor
+            else -> KalendarTheme.colors.todayColor
         }
     } else {
         when (selectedDate) {
-            providedDate -> KalendarTheme.colors.generalDisabled
+            providedDate -> KalendarTheme.colors.selectedColor
             else -> Color.Transparent
         }
     }

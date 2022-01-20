@@ -2,13 +2,11 @@ package com.himanshoe.design.theme
 
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 data class KalendarColor(
-    val generalColor: Color,
-    val generalDisabled: Color,
-    val generalSelected: Color,
+    val selectedColor: Color,
+    val todayColor: Color,
     val background: Color,
     val transparent: Color,
     val white: Color,
@@ -16,9 +14,8 @@ data class KalendarColor(
 )
 
 internal fun colorPalette() = KalendarColor(
-    generalColor = Fire100,
-    generalDisabled = Fire50,
-    generalSelected = Fire15,
+    selectedColor = Fire50,
+    todayColor = Fire15,
     background = Color.White,
     transparent = Color.Transparent,
     white = Color.White,
@@ -47,9 +44,4 @@ fun debugColors(
     onError = debugColor,
     isLight = !darkTheme
 )
-
-internal val LocalKalendarColors = staticCompositionLocalOf<KalendarColor> {
-    error("No KalendarColorPalette provided")
-}
-
 

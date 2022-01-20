@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.himanshoe.design.theme.Grid
+import com.himanshoe.kalendar.common.KalendarSelector
 import com.himanshoe.kalendar.common.YearRange
 import java.time.LocalDate
 import java.time.YearMonth
@@ -17,6 +18,7 @@ internal fun KalendarView(
     selectedDay: LocalDate,
     yearRange: YearRange,
     errorMessageLogged: (String) -> Unit,
+    kalendarSelector: KalendarSelector,
 ) {
     Column(
         modifier = Modifier
@@ -29,6 +31,7 @@ internal fun KalendarView(
             yearRange,
             onCurrentDayClick,
             errorMessageLogged,
+            kalendarSelector
         )
     }
 }

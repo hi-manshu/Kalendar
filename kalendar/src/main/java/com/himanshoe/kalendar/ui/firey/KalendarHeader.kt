@@ -61,7 +61,7 @@ private fun KalendarButton(
         modifier = Modifier
             .size(Grid.Three)
             .clip(CircleShape)
-            .background(KalendarTheme.colors.generalSelected)
+            .background(KalendarTheme.colors.todayColor)
     ) {
         Icon(
             modifier = Modifier

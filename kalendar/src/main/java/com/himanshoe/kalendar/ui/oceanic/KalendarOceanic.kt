@@ -25,7 +25,7 @@ internal fun KalendarOceanic(
     errorMessageLogged: (String) -> Unit,
 ) {
     KalendarTheme {
-        val color = kalendarStyle.kalendarBackgroundColor ?: KalendarTheme.colors.generalDisabled
+        val color = kalendarStyle.kalendarBackgroundColor ?: KalendarTheme.colors.selectedColor
         val calendarBackgroundColor =
             kalendarStyle.kalendarColor ?: KalendarTheme.colors.background
 
