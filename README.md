@@ -70,8 +70,8 @@ YearRange takes value min -max for years in Int
 You can customize you calendar by editing the params in KalendarStyle which looks like,
 ```kotlin
 data class KalendarStyle(
-    val backgroundColor: Color? = null,
-    val calendarColor: Color? = null,
+    val kalendarBackgroundColor: Color? = null,
+    val kalendarColor: Color? = null,
     val hasRadius: Boolean = true,
     val elevation: Dp = if (hasRadius) Grid.One else 0.dp,
     val shape: Shape = ButtomCurvedShape,

@@ -21,9 +21,9 @@ internal fun KalendarFirey(
 ) {
 
     KalendarTheme {
-        val color = kalendarStyle.calendarBackgroundColor ?: KalendarTheme.colors.generalDisabled
+        val color = kalendarStyle.kalendarBackgroundColor ?: KalendarTheme.colors.generalDisabled
         val calendarBackgroundColor =
-            kalendarStyle.calendarColor ?: KalendarTheme.colors.background
+            kalendarStyle.kalendarColor ?: KalendarTheme.colors.background
         Card(
             modifier = Modifier
                 .background(color)
