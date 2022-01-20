@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.style.TextAlign
-import com.himanshoe.design.primitive.texts.Demibold
+import com.himanshoe.design.primitive.texts.Medium
 import com.himanshoe.design.primitive.texts.KalendarText
 import com.himanshoe.design.primitive.texts.Regular
 import com.himanshoe.design.theme.KalendarShape
@@ -57,14 +57,14 @@ internal fun KalendarOceanWeek(
                     Column(
                         modifier = Modifier.clip(KalendarShape.SelectedShape)
                     ) {
-                        KalendarText.Text5.Regular(
+                        KalendarText.Body1.Regular(
                             text = date.dayOfWeek.toString().subSequence(0, 3).toString(),
                             modifier = Modifier
                                 .width(size)
                                 .wrapContentHeight(),
                             textAlign = TextAlign.Center
                         )
-                        KalendarText.Text4.Demibold(
+                        KalendarText.H4.Medium(
                             text = date.dayOfMonth.toString(),
                             modifier = Modifier
                                 .size(size)

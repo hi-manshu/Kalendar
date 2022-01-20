@@ -1,14 +1,10 @@
 package  com.himanshoe.design.primitive.texts
 
 object KalendarText {
-    object Text1
-    object Text2
-    object Text3
-    object Text4
-    object Text5
-    object Text6
-    object Text7
-
-    object Link1
-    object Link2
+    object H1
+    object H2
+    object H3
+    object H4
+    object Body1
+    object Body2
 }

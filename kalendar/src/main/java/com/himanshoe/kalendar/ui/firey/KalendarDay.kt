@@ -47,7 +47,7 @@ internal fun KalendarDay(
             modifier = localModifier,
             contentAlignment = Alignment.Center
         ) {
-            KalendarText.Text4.Regular(
+            KalendarText.H4.Regular(
                 text = date.dayOfMonth.toString(),
                 maxLines = 1,
                 textAlign = TextAlign.End,

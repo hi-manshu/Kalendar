@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.himanshoe.design.theme.KalendarTheme
 
 @Composable
-fun KalendarText.Text7.Regular(
+fun KalendarText.H3.Regular(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
@@ -27,20 +27,12 @@ fun KalendarText.Text7.Regular(
         overflow = overflow,
         softWrap = softWrap,
         maxLines = maxLines,
-        style = KalendarTheme.typography.text7Regular,
+        style = KalendarTheme.typography.h3Regular,
     )
 }
 
 @Composable
-@Preview
-private fun Text7RegularPreview() {
-    KalendarTheme {
-        KalendarText.Text7.Regular(text = "Text7Regular")
-    }
-}
-
-@Composable
-fun KalendarText.Text7.Demibold(
+fun KalendarText.H3.Medium(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
@@ -57,14 +49,28 @@ fun KalendarText.Text7.Demibold(
         overflow = overflow,
         softWrap = softWrap,
         maxLines = maxLines,
-        style = KalendarTheme.typography.text7Demibold,
+        style = KalendarTheme.typography.h3Medium,
     )
 }
 
 @Composable
-@Preview
-private fun Text7DemiboldPreview() {
-    KalendarTheme {
-        KalendarText.Text7.Demibold(text = "Text7Demibold")
-    }
+fun KalendarText.H3.Bold(
+    text: String,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    textAlign: TextAlign? = null,
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true,
+    maxLines: Int = Int.MAX_VALUE,
+) {
+    Text(
+        text = text,
+        modifier = modifier,
+        color = color,
+        textAlign = textAlign,
+        overflow = overflow,
+        softWrap = softWrap,
+        maxLines = maxLines,
+        style = KalendarTheme.typography.h3,
+    )
 }

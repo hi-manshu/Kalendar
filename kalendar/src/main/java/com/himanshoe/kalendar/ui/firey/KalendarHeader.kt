@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
-import com.himanshoe.design.primitive.texts.Demibold
+import com.himanshoe.design.primitive.texts.Medium
 import com.himanshoe.design.primitive.texts.KalendarText
 import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarTheme
@@ -36,7 +36,7 @@ internal fun KalendarHeader(
             contentDescription = "Previous Month",
             onClick = onPreviousMonthClick
         )
-        KalendarText.Text2.Demibold(
+        KalendarText.H2.Medium(
             modifier = Modifier
                 .padding(Grid.Two),
             text = text,

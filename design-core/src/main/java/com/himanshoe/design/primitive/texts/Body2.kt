@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.himanshoe.design.theme.KalendarTheme
 
 @Composable
-fun KalendarText.Text5.Regular(
+fun KalendarText.Body2.Regular(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
@@ -29,20 +29,20 @@ fun KalendarText.Text5.Regular(
         overflow = overflow,
         softWrap = softWrap,
         maxLines = maxLines,
-        style = KalendarTheme.typography.text5Regular,
+        style = KalendarTheme.typography.body2,
     )
 }
 
 @Composable
 @Preview
-private fun Text5RegularPreview() {
+private fun Text6RegularPreview() {
     KalendarTheme {
-        KalendarText.Text5.Regular(text = "Text5Regular")
+        KalendarText.Body2.Regular(text = "Text6Regular")
     }
 }
 
 @Composable
-fun KalendarText.Text5.Italic(
+fun KalendarText.Body2.Italic(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
@@ -59,21 +59,13 @@ fun KalendarText.Text5.Italic(
         overflow = overflow,
         softWrap = softWrap,
         maxLines = maxLines,
-        style = KalendarTheme.typography.text5Regular,
+        style = KalendarTheme.typography.body2,
         fontStyle = FontStyle.Italic
     )
 }
 
 @Composable
-@Preview
-private fun Text5ItalicPreview() {
-    KalendarTheme {
-        KalendarText.Text5.Italic(text = "Text5Italic")
-    }
-}
-
-@Composable
-fun KalendarText.Text5.Demibold(
+fun KalendarText.Body2.Medium(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
@@ -90,20 +82,12 @@ fun KalendarText.Text5.Demibold(
         overflow = overflow,
         softWrap = softWrap,
         maxLines = maxLines,
-        style = KalendarTheme.typography.text5Demibold,
+        style = KalendarTheme.typography.body2Medium,
     )
 }
 
 @Composable
-@Preview
-private fun Text5DemiboldPreview() {
-    KalendarTheme {
-        KalendarText.Text5.Demibold(text = "Text5Demibold")
-    }
-}
-
-@Composable
-fun KalendarText.Text5.InlineRegular(
+fun KalendarText.Body2.InlineMedium(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
@@ -120,15 +104,7 @@ fun KalendarText.Text5.InlineRegular(
         overflow = overflow,
         softWrap = softWrap,
         maxLines = maxLines,
-        style = KalendarTheme.typography.text5Regular,
+        style = KalendarTheme.typography.body2Medium,
         textDecoration = TextDecoration.Underline
     )
-}
-
-@Composable
-@Preview
-private fun Text5RegularInlinePreview() {
-    KalendarTheme {
-        KalendarText.Text5.InlineRegular(text = "Text5InlineRegular")
-    }
 }
