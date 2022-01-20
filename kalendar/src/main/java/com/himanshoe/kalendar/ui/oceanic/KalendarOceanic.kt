@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarTheme
-import com.himanshoe.kalendar.config.KalendarKonfig
-import com.himanshoe.kalendar.config.KalendarStyle
+import com.himanshoe.kalendar.common.KalendarKonfig
+import com.himanshoe.kalendar.common.KalendarStyle
 import java.time.LocalDate
 
 @Composable

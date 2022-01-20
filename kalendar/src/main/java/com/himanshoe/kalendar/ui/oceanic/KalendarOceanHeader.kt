@@ -24,7 +24,7 @@ import com.himanshoe.design.primitive.texts.Medium
 import com.himanshoe.design.primitive.texts.KalendarText
 import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarTheme
-import com.himanshoe.kalendar.config.YearRange
+import com.himanshoe.kalendar.common.YearRange
 import com.himanshoe.kalendar.util.validateMaxDate
 import com.himanshoe.kalendar.util.validateMinDate
 import java.time.LocalDate

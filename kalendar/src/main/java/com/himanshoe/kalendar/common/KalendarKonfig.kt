@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.config
+package com.himanshoe.kalendar.common
 
 /**
  * [KalendarKonfig] represents the config needed for rendering calendar

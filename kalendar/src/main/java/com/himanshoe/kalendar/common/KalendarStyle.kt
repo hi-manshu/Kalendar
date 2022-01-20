@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.config
+package com.himanshoe.kalendar.common
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape

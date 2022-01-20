@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.himanshoe.design.theme.Grid
-import com.himanshoe.kalendar.config.YearRange
+import com.himanshoe.kalendar.common.YearRange
 import java.time.LocalDate
 import java.time.YearMonth
 
