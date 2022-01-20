@@ -11,6 +11,6 @@ val ttCommonsFontFamily = FontFamily(
     Font(R.font.tt_commons_regular, FontWeight.Normal),
     Font(R.font.tt_commons_italic, FontWeight.Normal, FontStyle.Italic),
     Font(R.font.tt_commons_medium, FontWeight.Medium),
-    Font(R.font.tt_commons_Medium, FontWeight.SemiBold),
-    Font(R.font.tt_commons_Medium, FontWeight.Bold)
+    Font(R.font.tt_commons_demibold, FontWeight.SemiBold),
+    Font(R.font.tt_commons_demibold, FontWeight.Bold)
 )
