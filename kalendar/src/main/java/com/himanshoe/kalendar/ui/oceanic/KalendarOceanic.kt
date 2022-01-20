@@ -12,27 +12,29 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarTheme
 import com.himanshoe.kalendar.config.KalendarKonfig
+import com.himanshoe.kalendar.config.KalendarStyle
 import java.time.LocalDate
 
 @Composable
 internal fun KalendarOceanic(
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
+    kalendarStyle: KalendarStyle = KalendarStyle(),
     startDate: LocalDate = LocalDate.now(),
     selectedDay: LocalDate = startDate,
     onCurrentDayClick: (LocalDate) -> Unit,
     errorMessageLogged: (String) -> Unit,
 ) {
     KalendarTheme {
-        val color = kalendarKonfig.backgroundColor ?: KalendarTheme.colors.generalDisabled
+        val color = kalendarStyle.calendarBackgroundColor ?: KalendarTheme.colors.generalDisabled
         val calendarBackgroundColor =
-            kalendarKonfig.calendarColor ?: KalendarTheme.colors.background
+            kalendarStyle.calendarColor ?: KalendarTheme.colors.background
 
         Card(
             modifier = Modifier
                 .background(color)
                 .padding(bottom = Grid.One),
-            shape = kalendarKonfig.shape,
-            elevation = kalendarKonfig.elevation,
+            shape = kalendarStyle.shape,
+            elevation = kalendarStyle.elevation,
             backgroundColor = calendarBackgroundColor,
         ) {
             Column(
