@@ -42,6 +42,7 @@ import com.himanshoe.design.primitive.texts.Regular
 import com.himanshoe.design.theme.KalendarShape
 import com.himanshoe.kalendar.common.KalendarSelector
 import com.himanshoe.kalendar.common.YearRange
+import com.himanshoe.kalendar.common.data.KalendarEvent
 import com.himanshoe.kalendar.common.ui.KalendarDot
 import java.time.LocalDate
 
@@ -50,9 +51,10 @@ internal fun KalendarOceanWeek(
     startDate: LocalDate = LocalDate.now(),
     selectedDay: LocalDate = startDate,
     yearRange: YearRange,
-    onCurrentDayClick: (LocalDate) -> Unit,
+    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
     errorMessageLogged: (String) -> Unit,
     kalendarSelector: KalendarSelector,
+    kalendarEvents: List<KalendarEvent>,
 ) {
     val isDot = kalendarSelector is KalendarSelector.Dot
     val haptic = LocalHapticFeedback.current
@@ -85,6 +87,7 @@ internal fun KalendarOceanWeek(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        val event: KalendarEvent? = kalendarEvents.find { it.date == date }
                         KalendarText.Body1.Regular(
                             text = date.dayOfWeek.toString().subSequence(0, 3).toString(),
                             modifier = Modifier
@@ -94,13 +97,13 @@ internal fun KalendarOceanWeek(
                         )
                         KalendarText.H4.Medium(
                             text = date.dayOfMonth.toString(),
-                            color = if (isSelected) kalendarSelector.selectedTextColor else kalendarSelector.defaultTextColor,
+                            color = getTextColor(isSelected, kalendarSelector, event != null),
                             modifier = Modifier
                                 .size(size)
                                 .clip(if (isDot) KalendarShape.DefaultRectangle else kalendarSelector.shape)
                                 .background(
                                     if (!isDot) {
-                                        getColor(
+                                        getBackgroundColor(
                                             kalendarSelector = kalendarSelector,
                                             selectedDate = clickedDate.value,
                                             providedDate = date
@@ -110,7 +113,7 @@ internal fun KalendarOceanWeek(
                                 .clickable {
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                     clickedDate.value = date
-                                    onCurrentDayClick(date)
+                                    onCurrentDayClick(date, event)
                                 }
                                 .wrapContentHeight(),
                             textAlign = TextAlign.Center
@@ -127,8 +130,7 @@ internal fun KalendarOceanWeek(
     }
 }
 
-@Composable
-private fun getColor(
+private fun getBackgroundColor(
     selectedDate: LocalDate,
     providedDate: LocalDate,
     kalendarSelector: KalendarSelector,
@@ -142,6 +144,20 @@ private fun getColor(
         when (selectedDate) {
             providedDate -> kalendarSelector.selectedColor
             else -> kalendarSelector.defaultColor
+        }
+    }
+}
+
+private fun getTextColor(
+    isSelected: Boolean,
+    kalendarSelector: KalendarSelector,
+    isEvent: Boolean,
+): Color {
+    return when {
+        isEvent -> kalendarSelector.eventTextColor
+        else -> when {
+            isSelected -> kalendarSelector.selectedTextColor
+            else -> kalendarSelector.defaultTextColor
         }
     }
 }

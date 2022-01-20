@@ -36,14 +36,17 @@ import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarTheme
 import com.himanshoe.kalendar.common.KalendarKonfig
 import com.himanshoe.kalendar.common.KalendarStyle
+import com.himanshoe.kalendar.common.data.KalendarEvent
 import java.time.LocalDate
+
 @Composable
 internal fun KalendarOceanic(
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
     kalendarStyle: KalendarStyle = KalendarStyle(),
     startDate: LocalDate = LocalDate.now(),
     selectedDay: LocalDate = startDate,
-    onCurrentDayClick: (LocalDate) -> Unit,
+    kalendarEvents: List<KalendarEvent>,
+    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
     errorMessageLogged: (String) -> Unit,
 ) {
     KalendarTheme {
@@ -70,6 +73,7 @@ internal fun KalendarOceanic(
                     yearRange = kalendarKonfig.yearRange,
                     startDate = startDate,
                     selectedDay = selectedDay,
+                    kalendarEvents = kalendarEvents,
                     onCurrentDayClick = onCurrentDayClick,
                     errorMessageLogged = errorMessageLogged
                 )
@@ -84,6 +88,6 @@ private fun KalendarOceanPreview(
     modifier: Modifier = Modifier,
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
 ) {
-    KalendarOceanic(onCurrentDayClick = {
-    }, errorMessageLogged = {})
+    KalendarOceanic(onCurrentDayClick = { _, _ ->
+    }, errorMessageLogged = {}, kalendarEvents = emptyList())
 }

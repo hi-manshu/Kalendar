@@ -2,7 +2,8 @@
 
 ![Kalendar](art/kalendar.png)
 
-This is a calendar to integrate Calendar with Custom design in your jetpack compose project.
+This is a calendar to integrate Calendar with Custom design in your jetpack compose project.You can
+also add list of events for your days.
 _Made with ❤️ for Android Developers by Himanshu_
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.himanshoe/kalendar)](https://search.maven.org/artifact/com.himanshoe/kalendar)
@@ -22,7 +23,7 @@ In `build.gradle` of app module, include this dependency
 
 ```gradle
 dependencies {
-  implementation("com.himanshoe:kalendar:0.0.1-alpha02")
+  implementation("com.himanshoe:kalendar:0.0.1-alpha03")
 }
 ```
 
@@ -31,15 +32,18 @@ dependencies {
 #### 1. Setup the Kalendar
 
 ```kotlin
-    Kalendar(kalendarType = KalendarType.Firey(), onCurrentDayClick = {
+    Kalendar(kalendarType = KalendarType.Firey(), onCurrentDayClick = { day, event ->
     //handle the date click listener                                                       
 }, errorMessage = {
     //Handle the error if any
 })
 ```
 
+> In `onCurrentDayClick` you will get a `LocalDate` and `KalendarEvent?`.
+
 #### Here, you can also pass optional params:
 
+- **List<KalendarEvent>**: It lets you pass a list of all events in `KalendarEvent` format.
 - **KalendarKonfig** : It lets you set the configuration for Kalendar.
 - **KalendarStyle** : It lets you setup the design of Kalendar.
 - **LocalDate** : the by default selection where the KalendarSelector is placed.
@@ -67,13 +71,13 @@ data class KalendarKonfig(
 
 where,
 
-```kotlin
-YearRange takes value min -max for years in Int
+```md
+YearRange takes value min to max for years in Int
 ```
 
 ### 4. KalendarStyle
 
-You can customize you calendar by editing the params in KalendarStyle which looks like,
+You can customize you calendar by editing the params in `KalendarStyle` which looks like,
 
 ```kotlin
 data class KalendarStyle(
@@ -81,7 +85,7 @@ data class KalendarStyle(
     val kalendarColor: Color? = null,
     val kalendarSelector: KalendarSelector = KalendarSelector.Circle(),
     val hasRadius: Boolean = true,
-    val elevation: Dp = if (hasRadius) Grid.One else 0.dp,
+    val elevation: Dp = if (hasRadius) Grid.One else Grid.Zero,
     val shape: Shape = ButtomCurvedShape,
 )
 ```
@@ -90,19 +94,49 @@ Here, if you have to design and change the selector shape and color you need to 
 **KalendarSelector** to the Shape. The options here are, `Circle`, `Rounded`, `Dot` and `Square`.
 
 ### 5. KalendarSelector
+
 ```kotlin
 sealed class KalendarSelector(
-     val shape: Shape,
-     val selectedColor: Color,
-     val defaultColor: Color,
-     val todayColor: Color,
-     val selectedTextColor: Color,
-     val defaultTextColor: Color,
+    val shape: Shape,
+    val selectedColor: Color,
+    val defaultColor: Color,
+    val todayColor: Color,
+    val selectedTextColor: Color,
+    val defaultTextColor: Color,
+    val eventTextColor: Color
 ) 
 ```
-Here the **KalendarSelector** has 4 different shapes with default colors. If you want to set your custom color you can pass the shape and your desired color set like,
+
+Here the **KalendarSelector** has 4 different shapes with default colors. If you want to set your
+custom color you can pass the shape and your desired color set like,
+
 ```kotlin
 KalendarSelector.Circle(
     // Colors set based on above variables
 )
 ```
+
+### 6. KalendarEvent
+
+You can also add list of `KalendarEvent` which can be used to list the event for the specific day.
+`KalendarEvent` looks like,
+
+```kotlin
+data class KalendarEvent(
+    val date: LocalDate,
+    val eventName: String,
+    val eventDescription: String? = null,
+)
+```
+
+Here,
+
+- date: The Localdate on which the event is recorded
+- eventName: Pass a name for the event.
+- eventDescription: Pass a description for the event.
+
+If the event is marked it looks like,
+
+![Kalendar](art/event-marked.png)
+
+Here, `10 Jan 2022` is an event on the calendar and you verify it on `onCurrentDayClick`
