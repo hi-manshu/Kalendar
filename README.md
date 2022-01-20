@@ -22,7 +22,7 @@ In `build.gradle` of app module, include this dependency
 
 ```gradle
 dependencies {
-  implementation("com.himanshoe:kalendar:0.0.1-alpha1")
+  implementation("com.himanshoe:kalendar:0.0.1-alpha02")
 }
 ```
 
