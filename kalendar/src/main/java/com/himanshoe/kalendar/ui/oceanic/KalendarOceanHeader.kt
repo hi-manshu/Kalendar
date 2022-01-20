@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.text.style.TextAlign
-import com.himanshoe.design.primitive.texts.Demibold
+import com.himanshoe.design.primitive.texts.Medium
 import com.himanshoe.design.primitive.texts.KalendarText
 import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarTheme
@@ -43,7 +43,7 @@ internal fun KalendarOceanHeader(
             .padding(start = Grid.One, bottom = Grid.Two),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        KalendarText.Text3.Demibold(
+        KalendarText.H3.Medium(
             text = text,
             modifier = Modifier.align(Alignment.CenterVertically),
             color = KalendarTheme.colors.black,

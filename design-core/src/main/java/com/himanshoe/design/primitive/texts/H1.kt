@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.himanshoe.design.theme.KalendarTheme
 
 @Composable
-fun KalendarText.Text1.Demibold(
+fun KalendarText.H1.Medium(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
@@ -27,14 +27,6 @@ fun KalendarText.Text1.Demibold(
         overflow = overflow,
         softWrap = softWrap,
         maxLines = maxLines,
-        style = KalendarTheme.typography.text1Demibold,
+        style = KalendarTheme.typography.h1Medium,
     )
-}
-
-@Composable
-@Preview
-private fun Text1DemiboldPreview() {
-    KalendarTheme {
-        KalendarText.Text1.Demibold(text = "Text1Demibold")
-    }
 }

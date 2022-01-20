@@ -9,10 +9,7 @@ object Grid {
     val One = 8.dp
     val OneHalf = 12.dp
     val Two = 16.dp
-    val TwoHalf = 20.dp
     val Three = 24.dp
-    val ThreeHalf = 28.dp
-    val Six = 48.dp
 }
 
 object TextUnit {
