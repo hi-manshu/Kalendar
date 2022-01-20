@@ -3,7 +3,7 @@
 ![Kalendar](art/kalendar.png)
 
 This is a calendar to integrate Calendar with Custom design in your jetpack compose project.You can
-as
+also add list of events for your days.
 _Made with ❤️ for Android Developers by Himanshu_
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.himanshoe/kalendar)](https://search.maven.org/artifact/com.himanshoe/kalendar)
