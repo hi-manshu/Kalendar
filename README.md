@@ -22,7 +22,7 @@ In `build.gradle` of app module, include this dependency
 
 ```gradle
 dependencies {
-        implementation("com.himanshoe:kalendar:0.0.1-alpha1")
+  implementation("com.himanshoe:kalendar:0.0.1-alpha1")
 }
 ```
 
@@ -36,8 +36,13 @@ dependencies {
 }, errorMessage = {
     //Handle the error if any
 })
-
 ```
+
+#### Here, you can also pass optional params:
+
+- **KalendarKonfig** : It lets you set the configuration for Kalendar.
+- **KalendarStyle** : It lets you setup the design of Kalendar.
+- **LocalDate** : the by default selection where the KalendarSelector is placed.
 
 ### 2. Pass KalendarType
 
@@ -50,7 +55,7 @@ and Ocenic represents the Week View.
 
 ![Kalendar](art/oceanic-kalendar.png)
 
-### 3. Edit KalendarKonfig
+### 3. KalendarKonfig
 
 By default it takes the initial values added to it.
 
@@ -67,13 +72,37 @@ YearRange takes value min -max for years in Int
 ```
 
 ### 4. KalendarStyle
+
 You can customize you calendar by editing the params in KalendarStyle which looks like,
+
 ```kotlin
 data class KalendarStyle(
     val kalendarBackgroundColor: Color? = null,
     val kalendarColor: Color? = null,
+    val kalendarSelector: KalendarSelector = KalendarSelector.Circle(),
     val hasRadius: Boolean = true,
     val elevation: Dp = if (hasRadius) Grid.One else 0.dp,
     val shape: Shape = ButtomCurvedShape,
+)
+```
+
+Here, if you have to design and change the selector shape and color you need to configure the
+**KalendarSelector** to the Shape. The options here are, `Circle`, `Rounded`, `Dot` and `Square`.
+
+### 5. KalendarSelector
+```kotlin
+sealed class KalendarSelector(
+     val shape: Shape,
+     val selectedColor: Color,
+     val defaultColor: Color,
+     val todayColor: Color,
+     val selectedTextColor: Color,
+     val defaultTextColor: Color,
+) 
+```
+Here the **KalendarSelector** has 4 different shapes with default colors. If you want to set your custom color you can pass the shape and your desired color set like,
+```kotlin
+KalendarSelector.Circle(
+    // Colors set based on above variables
 )
 ```

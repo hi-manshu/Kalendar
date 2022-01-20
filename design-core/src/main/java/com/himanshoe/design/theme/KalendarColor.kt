@@ -1,14 +1,35 @@
 package com.himanshoe.design.theme
+/*
+* MIT License
+*
+* Copyright (c) 2022 Himanshu Singh
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
 
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 data class KalendarColor(
-    val generalColor: Color,
-    val generalDisabled: Color,
-    val generalSelected: Color,
+    val selectedColor: Color,
+    val todayColor: Color,
     val background: Color,
     val transparent: Color,
     val white: Color,
@@ -16,9 +37,8 @@ data class KalendarColor(
 )
 
 internal fun colorPalette() = KalendarColor(
-    generalColor = Fire100,
-    generalDisabled = Fire50,
-    generalSelected = Fire15,
+    selectedColor = Fire50,
+    todayColor = Fire15,
     background = Color.White,
     transparent = Color.Transparent,
     white = Color.White,
@@ -47,9 +67,4 @@ fun debugColors(
     onError = debugColor,
     isLight = !darkTheme
 )
-
-internal val LocalKalendarColors = staticCompositionLocalOf<KalendarColor> {
-    error("No KalendarColorPalette provided")
-}
-
 

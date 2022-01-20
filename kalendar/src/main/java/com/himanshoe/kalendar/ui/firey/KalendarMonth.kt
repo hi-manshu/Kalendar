@@ -9,8 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
+import com.himanshoe.kalendar.common.KalendarSelector
 import com.himanshoe.kalendar.common.YearRange
-import com.himanshoe.kalendar.getMonthNameFormatter
+import com.himanshoe.kalendar.ui.common.KalendarWeekDayNames
+import com.himanshoe.kalendar.util.getMonthNameFormatter
 import com.himanshoe.kalendar.util.validateMaxDate
 import com.himanshoe.kalendar.util.validateMinDate
 import java.time.LocalDate
@@ -25,6 +27,7 @@ internal fun KalendarMonth(
     yearRange: YearRange,
     onCurrentDayClick: (LocalDate) -> Unit,
     errorMessageLogged: (String) -> Unit,
+    kalendarSelector: KalendarSelector,
 ) {
     Column(
         modifier = Modifier
@@ -84,6 +87,7 @@ internal fun KalendarMonth(
                                 date = localDate,
                                 isSelected = isSelected,
                                 isToday = localDate == LocalDate.now(),
+                                kalendarSelector= kalendarSelector,
                                 onDayClick = { date ->
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                     clickedDay.value = date

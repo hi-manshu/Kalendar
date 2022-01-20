@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui.firey
+package com.himanshoe.kalendar.common.ui
 /*
 * MIT License
 *
@@ -23,39 +23,36 @@ package com.himanshoe.kalendar.ui.firey
 * SOFTWARE.
 */
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.himanshoe.design.theme.Grid
 import com.himanshoe.kalendar.common.KalendarSelector
-import com.himanshoe.kalendar.common.YearRange
-import java.time.LocalDate
-import java.time.YearMonth
 
 @Composable
-internal fun KalendarView(
-    yearMonth: YearMonth = YearMonth.now(),
-    onCurrentDayClick: (LocalDate) -> Unit,
-    selectedDay: LocalDate,
-    yearRange: YearRange,
-    errorMessageLogged: (String) -> Unit,
+internal fun KalendarDot(
+    isSelected: Boolean,
+    isToday: Boolean,
     kalendarSelector: KalendarSelector,
 ) {
-    Column(
+    Surface(shape = kalendarSelector.shape,
+        color = getColor(isSelected, isToday, kalendarSelector),
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(Grid.Half)
-    ) {
-        KalendarMonth(
-            selectedDay,
-            yearMonth,
-            yearRange,
-            onCurrentDayClick,
-            errorMessageLogged,
-            kalendarSelector
-        )
+            .size(Grid.One), content = {})
+}
+
+private fun getColor(
+    isSelected: Boolean,
+    isToday: Boolean,
+    kalendarSelector: KalendarSelector,
+): Color {
+    return when {
+        isToday -> kalendarSelector.todayColor
+        isSelected -> kalendarSelector.selectedColor
+        else -> kalendarSelector.defaultColor
     }
 }
+
 
