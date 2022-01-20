@@ -13,9 +13,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Kalendar(kalendarType = KalendarType.Firey(), kalendarStyle = KalendarStyle(
-                kalendarSelector = KalendarSelector.Circle()
-            ), onCurrentDayClick = {}, errorMessage = {})
+            Kalendar(kalendarType = KalendarType.Oceanic(), onCurrentDayClick = {}, errorMessage = {})
         }
     }
 }

@@ -44,6 +44,7 @@ internal fun KalendarOceanic(
                 verticalArrangement = Arrangement.SpaceAround
             ) {
                 KalendarOceanWeek(
+                    kalendarSelector = kalendarStyle.kalendarSelector,
                     yearRange = kalendarKonfig.yearRange,
                     startDate = startDate,
                     selectedDay = selectedDay,
