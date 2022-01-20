@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Shape
 import com.himanshoe.design.theme.KalendarShape
 import com.himanshoe.kalendar.common.KalendarKonfig
 import com.himanshoe.kalendar.common.KalendarStyle
+import com.himanshoe.kalendar.common.data.KalendarEvent
 import com.himanshoe.kalendar.ui.KalendarType.Firey
 import com.himanshoe.kalendar.ui.KalendarType.Oceanic
 import com.himanshoe.kalendar.ui.firey.KalendarFirey
@@ -61,7 +62,8 @@ fun Kalendar(
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
     kalendarStyle: KalendarStyle = KalendarStyle(),
     selectedDay: LocalDate = LocalDate.now(),
-    onCurrentDayClick: (LocalDate) -> Unit,
+    kalendarEvents: List<KalendarEvent> = emptyList(),
+    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
     errorMessage: (String) -> Unit = {},
 ) {
     val shape =
@@ -72,6 +74,7 @@ fun Kalendar(
             kalendarKonfig,
             kalendarStyle.copy(shape = shape),
             selectedDay,
+            kalendarEvents,
             onCurrentDayClick,
             errorMessage
         )
@@ -80,6 +83,7 @@ fun Kalendar(
             kalendarStyle.copy(shape = KalendarShape.ButtomCurvedShape),
             kalendarType.startDate,
             selectedDay,
+            kalendarEvents,
             onCurrentDayClick,
             errorMessage
         )

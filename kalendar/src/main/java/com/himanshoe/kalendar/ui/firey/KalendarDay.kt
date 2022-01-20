@@ -32,6 +32,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -40,6 +41,7 @@ import com.himanshoe.design.primitive.texts.Regular
 import com.himanshoe.design.theme.KalendarShape
 import com.himanshoe.design.theme.KalendarTheme
 import com.himanshoe.kalendar.common.KalendarSelector
+import com.himanshoe.kalendar.common.data.KalendarEvent
 import com.himanshoe.kalendar.common.ui.KalendarDot
 import java.time.LocalDate
 
@@ -50,10 +52,12 @@ internal fun KalendarDay(
     date: LocalDate,
     isSelected: Boolean,
     isToday: Boolean,
-    onDayClick: (LocalDate) -> Unit,
+    kalendarEvents: List<KalendarEvent>,
     kalendarSelector: KalendarSelector,
+    onDayClick: (LocalDate, KalendarEvent?) -> Unit,
 ) {
     val isDot = kalendarSelector is KalendarSelector.Dot
+    val event = kalendarEvents.find { it.date == date }
 
     Surface(
         color = if (isSelected && !isDot) kalendarSelector.selectedColor else kalendarSelector.defaultColor,
@@ -61,9 +65,7 @@ internal fun KalendarDay(
     ) {
         var localModifier = modifier
             .size(size)
-            .clickable {
-                onDayClick(date)
-            }
+            .clickable { onDayClick(date, event) }
 
         if (isToday && !isDot) {
             localModifier = localModifier.border(
@@ -81,13 +83,31 @@ internal fun KalendarDay(
                 text = date.dayOfMonth.toString(),
                 maxLines = 1,
                 textAlign = TextAlign.End,
-                color = if (isSelected) kalendarSelector.selectedTextColor else kalendarSelector.defaultTextColor
+                color = getTextColor(
+                    isSelected,
+                    kalendarSelector,
+                    event != null
+                )
             )
             if (isDot) {
                 KalendarDot(kalendarSelector = kalendarSelector,
                     isSelected = isSelected,
                     isToday = isToday)
             }
+        }
+    }
+}
+
+private fun getTextColor(
+    isSelected: Boolean,
+    kalendarSelector: KalendarSelector,
+    isEvent: Boolean,
+): Color {
+    return when {
+        isEvent -> kalendarSelector.eventTextColor
+        else -> when {
+            isSelected -> kalendarSelector.selectedTextColor
+            else -> kalendarSelector.defaultTextColor
         }
     }
 }

@@ -31,17 +31,20 @@ import androidx.compose.ui.Modifier
 import com.himanshoe.design.theme.Grid
 import com.himanshoe.kalendar.common.KalendarSelector
 import com.himanshoe.kalendar.common.YearRange
+import com.himanshoe.kalendar.common.data.KalendarEvent
 import java.time.LocalDate
 import java.time.YearMonth
 
 @Composable
 internal fun KalendarView(
     yearMonth: YearMonth = YearMonth.now(),
-    onCurrentDayClick: (LocalDate) -> Unit,
     selectedDay: LocalDate,
     yearRange: YearRange,
-    errorMessageLogged: (String) -> Unit,
     kalendarSelector: KalendarSelector,
+    kalendarEvents: List<KalendarEvent>,
+    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
+    errorMessageLogged: (String) -> Unit,
+
 ) {
     Column(
         modifier = Modifier
@@ -54,7 +57,8 @@ internal fun KalendarView(
             yearRange,
             onCurrentDayClick,
             errorMessageLogged,
-            kalendarSelector
+            kalendarSelector,
+            kalendarEvents
         )
     }
 }

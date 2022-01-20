@@ -32,6 +32,7 @@ import com.himanshoe.design.theme.Grid
 import com.himanshoe.design.theme.KalendarTheme
 import com.himanshoe.kalendar.common.KalendarKonfig
 import com.himanshoe.kalendar.common.KalendarStyle
+import com.himanshoe.kalendar.common.data.KalendarEvent
 import java.time.LocalDate
 
 @Composable
@@ -39,7 +40,8 @@ internal fun KalendarFirey(
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
     kalendarStyle: KalendarStyle = KalendarStyle(),
     selectedDay: LocalDate = LocalDate.now(),
-    onCurrentDayClick: (LocalDate) -> Unit,
+    kalendarEvents: List<KalendarEvent>,
+    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
     errorMessageLogged: (String) -> Unit,
 ) {
 
@@ -60,8 +62,9 @@ internal fun KalendarFirey(
                 yearRange = kalendarKonfig.yearRange,
                 errorMessageLogged = errorMessageLogged,
                 selectedDay = selectedDay,
-                onCurrentDayClick = { date ->
-                    onCurrentDayClick(date)
+                kalendarEvents = kalendarEvents,
+                onCurrentDayClick = { date, event ->
+                    onCurrentDayClick(date, event)
                 }
             )
         }

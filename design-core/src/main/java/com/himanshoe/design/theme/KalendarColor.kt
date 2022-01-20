@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 
 data class KalendarColor(
     val selectedColor: Color,
+    val eventTextColor: Color,
     val todayColor: Color,
     val background: Color,
     val transparent: Color,
@@ -37,6 +38,7 @@ data class KalendarColor(
 )
 
 internal fun colorPalette() = KalendarColor(
+    eventTextColor = Fire100,
     selectedColor = Fire50,
     todayColor = Fire15,
     background = Color.White,
