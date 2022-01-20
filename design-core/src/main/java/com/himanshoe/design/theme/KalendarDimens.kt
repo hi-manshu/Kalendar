@@ -4,6 +4,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 object Grid {
+    val Zero = 0.dp
     val Quarter = 2.dp
     val Half = 4.dp
     val One = 8.dp

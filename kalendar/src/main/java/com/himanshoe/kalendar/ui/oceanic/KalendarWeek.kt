@@ -17,7 +17,7 @@ import com.himanshoe.design.primitive.texts.KalendarText
 import com.himanshoe.design.primitive.texts.Regular
 import com.himanshoe.design.theme.KalendarShape
 import com.himanshoe.design.theme.KalendarTheme
-import com.himanshoe.kalendar.config.YearRange
+import com.himanshoe.kalendar.common.YearRange
 import java.time.LocalDate
 
 @Composable

@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
-import com.himanshoe.kalendar.config.YearRange
+import com.himanshoe.kalendar.common.YearRange
 import com.himanshoe.kalendar.getMonthNameFormatter
 import com.himanshoe.kalendar.util.validateMaxDate
 import com.himanshoe.kalendar.util.validateMinDate

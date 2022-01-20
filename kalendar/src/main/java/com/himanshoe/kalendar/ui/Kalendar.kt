@@ -26,7 +26,8 @@ package com.himanshoe.kalendar.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
 import com.himanshoe.design.theme.KalendarShape
-import com.himanshoe.kalendar.config.KalendarKonfig
+import com.himanshoe.kalendar.common.KalendarKonfig
+import com.himanshoe.kalendar.common.KalendarStyle
 import com.himanshoe.kalendar.ui.KalendarType.Firey
 import com.himanshoe.kalendar.ui.KalendarType.Oceanic
 import com.himanshoe.kalendar.ui.firey.KalendarFirey
@@ -49,7 +50,7 @@ sealed class KalendarType {
 /**
  * [Kalendar] is exposed to be used as composable
  * @param kalendarType is the type of calendar.See [KalendarType]
- * @param kalendarType is the type of calendar.See [KalendarType]
+ * @param kalendarStyle sets the style of calendar.See [KalendarStyle]
  * @param kalendarKonfig is user to setup config needed for rendering calendar.See [KalendarKonfig]
  * @param selectedDay is representation for selected marker.
  * @param onCurrentDayClick gives the day click listener
@@ -59,22 +60,25 @@ sealed class KalendarType {
 fun Kalendar(
     kalendarType: KalendarType,
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
+    kalendarStyle: KalendarStyle = KalendarStyle(),
     selectedDay: LocalDate = LocalDate.now(),
     onCurrentDayClick: (LocalDate) -> Unit,
     errorMessage: (String) -> Unit = {},
 ) {
     val shape =
-        if (kalendarKonfig.hasRadius) KalendarShape.SelectedShape else KalendarShape.DefaultRectangle
+        if (kalendarStyle.hasRadius) KalendarShape.SelectedShape else KalendarShape.DefaultRectangle
 
     when (kalendarType) {
         is Firey -> KalendarFirey(
-            kalendarKonfig.copy(shape = shape),
+            kalendarKonfig,
+            kalendarStyle.copy(shape = shape),
             selectedDay,
             onCurrentDayClick,
             errorMessage
         )
         is Oceanic -> KalendarOceanic(
-            kalendarKonfig.copy(shape = KalendarShape.ButtomCurvedShape),
+            kalendarKonfig,
+            kalendarStyle.copy(shape = KalendarShape.ButtomCurvedShape),
             kalendarType.startDate,
             selectedDay,
             onCurrentDayClick,
