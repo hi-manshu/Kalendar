@@ -51,7 +51,7 @@ android {
 
 dependencies {
 //    implementation(project(":kalendar"))
-    implementation("com.himanshoe:kalendar:0.0.1-alpha1")
+    implementation("com.himanshoe:kalendar:0.0.1-alpha02")
     // jetpack compose
     implementation(project(ProjectPath.kalendar))
     implementation(project(ProjectPath.designCore))
