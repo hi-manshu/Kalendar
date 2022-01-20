@@ -1,0 +1,117 @@
+package com.himanshoe.kalendar.ui.firey
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.unit.dp
+import com.himanshoe.kalendar.config.YearRange
+import com.himanshoe.kalendar.getMonthNameFormatter
+import com.himanshoe.kalendar.util.validateMaxDate
+import com.himanshoe.kalendar.util.validateMinDate
+import java.time.LocalDate
+import java.time.YearMonth
+
+private const val DAYS_IN_WEEK = 7
+
+@Composable
+internal fun KalendarMonth(
+    selectedDay: LocalDate,
+    yearMonth: YearMonth = YearMonth.now(),
+    yearRange: YearRange,
+    onCurrentDayClick: (LocalDate) -> Unit,
+    errorMessageLogged: (String) -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        val haptic = LocalHapticFeedback.current
+
+        val monthState = remember {
+            mutableStateOf(yearMonth)
+        }
+        val clickedDay = remember {
+            mutableStateOf(selectedDay)
+        }
+
+        KalendarHeader(
+            text = monthState.value.format(getMonthNameFormatter()),
+            onPreviousMonthClick = {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                val year = monthState.value.year
+                val isLimitAttached = year.validateMinDate(yearRange.min)
+                if (isLimitAttached) {
+                    monthState.value = monthState.value.minusMonths(1)
+                } else {
+                    errorMessageLogged("Minimum year limit reached")
+                }
+            },
+            onNextMonthClick = {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                val year = monthState.value.year
+                val isLimitAttached = year.validateMaxDate(yearRange.max)
+                if (isLimitAttached) {
+                    monthState.value = monthState.value.plusMonths(1)
+                } else {
+                    errorMessageLogged("Minimum year limit reached")
+                }
+            },
+        )
+        KalendarWeekDayNames()
+
+        val days: List<LocalDate> = getDays(monthState)
+
+        days.chunked(DAYS_IN_WEEK).forEach { weekDays ->
+            BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+                val size = (maxWidth / DAYS_IN_WEEK)
+                Row(horizontalArrangement = Arrangement.spacedBy(0.dp)) {
+                    weekDays.forEach { localDate ->
+                        val isFromCurrentMonth = YearMonth.from(localDate) == monthState.value
+                        if (isFromCurrentMonth) {
+                            val isSelected = monthState.value.month == clickedDay.value.month &&
+                                    monthState.value.year == clickedDay.value.year &&
+                                    localDate == clickedDay.value
+
+                            KalendarDay(
+                                size = size,
+                                date = localDate,
+                                isSelected = isSelected,
+                                isToday = localDate == LocalDate.now(),
+                                onDayClick = { date ->
+                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    clickedDay.value = date
+                                    onCurrentDayClick(date)
+                                }
+                            )
+                        } else {
+                            KalendarEmptyDay(modifier = Modifier.size(size))
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun getDays(monthState: MutableState<YearMonth>): List<LocalDate> {
+    return mutableListOf<LocalDate>().apply {
+        val firstDay = monthState.value.atDay(1)
+        val firstSunday = if (firstDay.dayOfWeek == java.time.DayOfWeek.SUNDAY) {
+            firstDay
+        } else {
+            firstDay.minusDays(firstDay.dayOfWeek.value.toLong())
+        }
+        repeat(6) { weekIndex ->
+            (0..6).forEach { dayIndex ->
+                add(firstSunday.plusDays((7 * weekIndex + dayIndex).toLong()))
+            }
+        }
+    }
+}
