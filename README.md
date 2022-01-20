@@ -77,4 +77,3 @@ data class KalendarStyle(
     val shape: Shape = ButtomCurvedShape,
 )
 ```
-

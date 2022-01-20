@@ -9,6 +9,7 @@ import com.himanshoe.design.theme.KalendarShape
 /** [KalendarStyle]sets the style for the calendar
  * @param [kalendarBackgroundColor] represents the color in background of calendar
  * @param [kalendarColor] represents the color of the view
+
  * @param [hasRadius] gives the radius check for monthView
  * @param [elevation] provides info for Elevation for Firey
  * @param [shape] provides shape for views
