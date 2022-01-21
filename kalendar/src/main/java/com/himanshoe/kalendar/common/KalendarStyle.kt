@@ -26,8 +26,8 @@ package com.himanshoe.kalendar.common
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
-import com.himanshoe.design.theme.Grid
-import com.himanshoe.design.theme.KalendarShape
+import com.himanshoe.kalendar.common.theme.Grid
+import com.himanshoe.kalendar.common.theme.KalendarShape
 
 /** [KalendarStyle]sets the style for the calendar
  * @param [kalendarBackgroundColor] represents the color in background of calendar

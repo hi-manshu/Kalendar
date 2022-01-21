@@ -40,7 +40,6 @@ android {
 }
 
 dependencies {
-    implementation(project(ProjectPath.designCore))
     implementation(Deps.Compose.ui)
     implementation(Deps.Compose.material)
     implementation(Deps.Compose.uiToolingPreview)

@@ -28,8 +28,8 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.himanshoe.design.theme.Grid
 import com.himanshoe.kalendar.common.KalendarSelector
+import com.himanshoe.kalendar.common.theme.Grid
 
 @Composable
 internal fun KalendarDot(

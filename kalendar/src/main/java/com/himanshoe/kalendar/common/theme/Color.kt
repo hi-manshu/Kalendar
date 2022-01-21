@@ -1,4 +1,4 @@
-package  com.himanshoe.design.primitive.texts
+package com.himanshoe.kalendar.common.theme
 /*
 * MIT License
 *
@@ -23,11 +23,9 @@ package  com.himanshoe.design.primitive.texts
 * SOFTWARE.
 */
 
-object KalendarText {
-    object H1
-    object H2
-    object H3
-    object H4
-    object Body1
-    object Body2
-}
+import androidx.compose.ui.graphics.Color
+
+val Fire100 = Color(0xFFFF780C)
+val Fire75 = Color(0xFFFF8C30)
+val Fire50 = Color(0xFFFFBC86)
+val Fire15 = Color(0xFFFFEBDB)

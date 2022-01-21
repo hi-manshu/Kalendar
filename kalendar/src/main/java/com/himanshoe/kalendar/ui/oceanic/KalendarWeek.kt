@@ -26,6 +26,8 @@ package com.himanshoe.kalendar.ui.oceanic
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,14 +37,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import com.himanshoe.design.primitive.texts.KalendarText
-import com.himanshoe.design.primitive.texts.Medium
-import com.himanshoe.design.primitive.texts.Regular
-import com.himanshoe.design.theme.KalendarShape
 import com.himanshoe.kalendar.common.KalendarSelector
 import com.himanshoe.kalendar.common.YearRange
 import com.himanshoe.kalendar.common.data.KalendarEvent
+import com.himanshoe.kalendar.common.theme.KalendarShape
 import com.himanshoe.kalendar.common.ui.KalendarDot
 import java.time.LocalDate
 
@@ -88,15 +88,18 @@ internal fun KalendarOceanWeek(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         val event: KalendarEvent? = kalendarEvents.find { it.date == date }
-                        KalendarText.Body1.Regular(
-                            text = date.dayOfWeek.toString().subSequence(0, 3).toString(),
+                        Text(
+                            text = date.dayOfWeek.toString().subSequence(0, 2).toString(),
+                            style = MaterialTheme.typography.body1,
                             modifier = Modifier
                                 .width(size)
                                 .wrapContentHeight(),
                             textAlign = TextAlign.Center
                         )
-                        KalendarText.H4.Medium(
+                        Text(
                             text = date.dayOfMonth.toString(),
+                            style = MaterialTheme.typography.body1,
+                            fontWeight = FontWeight.SemiBold,
                             color = getTextColor(isSelected, kalendarSelector, event != null),
                             modifier = Modifier
                                 .size(size)

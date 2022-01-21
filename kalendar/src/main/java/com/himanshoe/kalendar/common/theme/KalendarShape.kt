@@ -1,4 +1,4 @@
-package com.himanshoe.design.theme
+package com.himanshoe.kalendar.common.theme
 /*
 * MIT License
 *
@@ -23,17 +23,22 @@ package com.himanshoe.design.theme
 * SOFTWARE.
 */
 
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import com.himanshoe.design.R
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.Stable
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 
-val ttCommonsFontFamily = FontFamily(
-    Font(R.font.tt_commons_light, FontWeight.Light),
-    Font(R.font.tt_commons_regular, FontWeight.Normal),
-    Font(R.font.tt_commons_italic, FontWeight.Normal, FontStyle.Italic),
-    Font(R.font.tt_commons_medium, FontWeight.Medium),
-    Font(R.font.tt_commons_demibold, FontWeight.SemiBold),
-    Font(R.font.tt_commons_demibold, FontWeight.Bold)
-)
+object KalendarShape {
+    @Stable
+    val SelectedShape: Shape = RoundedCornerShape(Grid.Two)
+
+    @Stable
+    val DefaultRectangle: Shape = RectangleShape
+
+    @Stable
+    val ButtomCurvedShape: Shape = RoundedCornerShape(bottomEnd = Grid.Two, bottomStart = Grid.Two)
+
+    @Stable
+    val CircularShape: Shape = CircleShape
+}

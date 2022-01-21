@@ -9,4 +9,3 @@ dependencyResolutionManagement {
 rootProject.name = "sample-app"
 include ':app'
 include ':kalendar'
-include ':design-core'

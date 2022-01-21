@@ -1,4 +1,4 @@
-package com.himanshoe.design.theme
+package com.himanshoe.kalendar.common.theme
 /*
 * MIT License
 *
@@ -23,22 +23,32 @@ package com.himanshoe.design.theme
 * SOFTWARE.
 */
 
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.runtime.Stable
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 
-object KalendarShape {
-    @Stable
-    val SelectedShape: Shape = RoundedCornerShape(Grid.Two)
+object KalendarTheme {
+    val colors: KalendarColor = colorPalette()
+}
 
-    @Stable
-    val DefaultRectangle: Shape = RectangleShape
+@Composable
+fun ProvideKalendarTheme(
+    content: @Composable () -> Unit,
+) {
+    CompositionLocalProvider(
+        content = content
+    )
 
-    @Stable
-    val ButtomCurvedShape: Shape = RoundedCornerShape(bottomEnd = Grid.Two, bottomStart = Grid.Two)
+}
 
-    @Stable
-    val CircularShape: Shape = CircleShape
+@Composable
+fun KalendarTheme(
+    content: @Composable () -> Unit,
+) {
+    ProvideKalendarTheme {
+        MaterialTheme(
+            colors = debugColors(),
+            content = content
+        )
+    }
 }

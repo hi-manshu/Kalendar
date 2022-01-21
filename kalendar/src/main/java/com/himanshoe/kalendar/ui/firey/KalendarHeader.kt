@@ -27,6 +27,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -37,16 +39,15 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
-import com.himanshoe.design.primitive.texts.Medium
-import com.himanshoe.design.primitive.texts.KalendarText
-import com.himanshoe.design.theme.Grid
-import com.himanshoe.design.theme.KalendarTheme
+import com.himanshoe.kalendar.common.KalendarSelector
+import com.himanshoe.kalendar.common.theme.Grid
 
 @Composable
 internal fun KalendarHeader(
     text: String,
     onPreviousMonthClick: () -> Unit,
     onNextMonthClick: () -> Unit,
+    kalendarSelector: KalendarSelector,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -54,20 +55,23 @@ internal fun KalendarHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         KalendarButton(
+            kalendarSelector = kalendarSelector,
             imageVector = Icons.Default.ArrowBack,
             contentDescription = "Previous Month",
             onClick = onPreviousMonthClick
         )
-        KalendarText.H2.Medium(
+        Text(
             modifier = Modifier
                 .padding(Grid.Two),
+            style = MaterialTheme.typography.h6,
             text = text,
             textAlign = TextAlign.Center,
         )
         KalendarButton(
             imageVector = Icons.Default.ArrowForward,
             contentDescription = "Next Month",
-            onClick = onNextMonthClick
+            onClick = onNextMonthClick,
+            kalendarSelector = kalendarSelector
         )
     }
 }
@@ -77,13 +81,14 @@ private fun KalendarButton(
     imageVector: ImageVector,
     contentDescription: String,
     onClick: () -> Unit,
+    kalendarSelector: KalendarSelector,
 ) {
     IconButton(
         onClick = onClick,
         modifier = Modifier
             .size(Grid.Three)
             .clip(CircleShape)
-            .background(KalendarTheme.colors.todayColor)
+            .background(kalendarSelector.todayColor)
     ) {
         Icon(
             modifier = Modifier
