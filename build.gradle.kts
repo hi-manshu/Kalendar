@@ -8,6 +8,7 @@ buildscript {
         classpath(Deps.Gradle.androidGradlePlugin)
         classpath(Deps.Gradle.kotlinGradlePlugin)
         classpath(Deps.Gradle.vanniktechGradlePlugin)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20")
     }
 }
 
