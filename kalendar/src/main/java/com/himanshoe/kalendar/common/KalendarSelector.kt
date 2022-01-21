@@ -28,8 +28,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
-import com.himanshoe.design.theme.Grid
-import com.himanshoe.design.theme.KalendarTheme
+import com.himanshoe.kalendar.common.theme.Grid
+import com.himanshoe.kalendar.common.theme.KalendarTheme
 
 sealed class KalendarSelector(
     open val shape: Shape,

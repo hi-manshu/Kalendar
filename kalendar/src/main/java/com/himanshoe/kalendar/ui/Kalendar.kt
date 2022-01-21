@@ -24,10 +24,10 @@ package com.himanshoe.kalendar.ui
 */
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
-import com.himanshoe.design.theme.KalendarShape
 import com.himanshoe.kalendar.common.KalendarKonfig
 import com.himanshoe.kalendar.common.KalendarStyle
 import com.himanshoe.kalendar.common.data.KalendarEvent
+import com.himanshoe.kalendar.common.theme.KalendarShape
 import com.himanshoe.kalendar.ui.KalendarType.Firey
 import com.himanshoe.kalendar.ui.KalendarType.Oceanic
 import com.himanshoe.kalendar.ui.firey.KalendarFirey

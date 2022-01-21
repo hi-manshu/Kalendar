@@ -1,4 +1,4 @@
-package  com.himanshoe.design.primitive.texts
+package com.himanshoe.kalendar.common.theme
 /*
 * MIT License
 *
@@ -23,33 +23,28 @@ package  com.himanshoe.design.primitive.texts
 * SOFTWARE.
 */
 
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import com.himanshoe.design.theme.KalendarTheme
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
-@Composable
-fun KalendarText.H1.Medium(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    textAlign: TextAlign? = null,
-    overflow: TextOverflow = TextOverflow.Clip,
-    softWrap: Boolean = true,
-    maxLines: Int = Int.MAX_VALUE,
-) {
-    Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        textAlign = textAlign,
-        overflow = overflow,
-        softWrap = softWrap,
-        maxLines = maxLines,
-        style = KalendarTheme.typography.h1Medium,
-    )
+object Grid {
+    val Zero = 0.dp
+    val Quarter = 2.dp
+    val Half = 4.dp
+    val One = 8.dp
+    val OneHalf = 12.dp
+    val Two = 16.dp
+    val Three = 24.dp
+}
+
+object TextUnit {
+    val Twelve = 12.sp
+    val Fourteen = 14.sp
+    val Sixteen = 16.sp
+    val Eighteen = 18.sp
+    val Twenty = 20.sp
+    val TwentyTwo = 22.sp
+    val TwentyFour = 24.sp
+    val TwentySix = 26.sp
+    val Thirty = 30.sp
+    val ThirtyFour = 34.sp
 }

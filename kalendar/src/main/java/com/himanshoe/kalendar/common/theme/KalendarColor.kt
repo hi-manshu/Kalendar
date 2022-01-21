@@ -1,4 +1,4 @@
-package com.himanshoe.design.theme
+package com.himanshoe.kalendar.common.theme
 /*
 * MIT License
 *

@@ -32,11 +32,11 @@ import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.himanshoe.design.theme.Grid
-import com.himanshoe.design.theme.KalendarTheme
 import com.himanshoe.kalendar.common.KalendarKonfig
 import com.himanshoe.kalendar.common.KalendarStyle
 import com.himanshoe.kalendar.common.data.KalendarEvent
+import com.himanshoe.kalendar.common.theme.Grid
+import com.himanshoe.kalendar.common.theme.KalendarTheme
 import java.time.LocalDate
 
 @Composable
