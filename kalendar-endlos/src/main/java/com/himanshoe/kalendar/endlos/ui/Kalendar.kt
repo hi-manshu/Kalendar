@@ -26,7 +26,6 @@ import androidx.compose.runtime.Composable
 import com.himanshoe.kalendar.endlos.common.KalendarKonfig
 import com.himanshoe.kalendar.endlos.common.KalendarStyle
 import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
-import com.himanshoe.kalendar.endlos.ui.firey.KalendarFirey
 import java.time.LocalDate
 
 /**
