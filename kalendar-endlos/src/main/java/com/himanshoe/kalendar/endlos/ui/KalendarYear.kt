@@ -81,5 +81,4 @@ internal fun KalendarView(
             kalendarEvents
         )
     }
-
 }

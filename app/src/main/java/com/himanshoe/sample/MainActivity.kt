@@ -3,10 +3,6 @@ package com.himanshoe.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.himanshoe.kalendar.common.KalendarSelector
-import com.himanshoe.kalendar.endlos.common.KalendarKonfig
-import com.himanshoe.kalendar.endlos.common.KalendarStyle
-import com.himanshoe.kalendar.endlos.ui.Kalendar
 
 
 class MainActivity : ComponentActivity() {
@@ -14,14 +10,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Kalendar(
-                kalendarKonfig = KalendarKonfig(2023),
+                kalendarKonfig = KalendarKonfig(),
                 kalendarStyle = KalendarStyle(
-                    kalendarSelector = KalendarSelector.Dot()
+                    kalendarSelector = KalendarSelector.Circle()
                 ),
                 onCurrentDayClick = { date, event ->
 
                 },
-                errorMessage = {})
+                errorMessage = {}, kalendarType = KalendarType.Firey())
         }
     }
 }

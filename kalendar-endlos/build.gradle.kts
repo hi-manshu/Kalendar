@@ -44,7 +44,6 @@ dependencies {
     implementation(Deps.Compose.material)
     implementation(Deps.Compose.uiToolingPreview)
     implementation(Deps.Compose.activity)
-    implementation(Deps.Compose.paging)
 
     debugApi(Deps.Compose.uiTooling)
 
