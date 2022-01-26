@@ -24,19 +24,17 @@ package com.himanshoe.kalendar.endlos.ui
 */
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.himanshoe.kalendar.endlos.common.KalendarKonfig
 import com.himanshoe.kalendar.endlos.common.KalendarStyle
 import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
-import com.himanshoe.kalendar.endlos.common.theme.Grid
 import com.himanshoe.kalendar.endlos.common.theme.KalendarTheme
 import java.time.LocalDate
 
 @Composable
-internal fun KalendarFirey(
+internal fun KalendarEndlos(
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
     kalendarStyle: KalendarStyle = KalendarStyle(),
     selectedDay: LocalDate = LocalDate.now(),
@@ -46,20 +44,14 @@ internal fun KalendarFirey(
 ) {
 
     KalendarTheme {
-        val color = kalendarStyle.kalendarBackgroundColor ?: KalendarTheme.colors.selectedColor
-        val calendarBackgroundColor =
-            kalendarStyle.kalendarColor ?: KalendarTheme.colors.background
-        Card(
-            modifier = Modifier
-                .background(color)
-                .padding(Grid.OneHalf),
-            shape = kalendarStyle.shape,
-            elevation = kalendarStyle.elevation,
-            backgroundColor = calendarBackgroundColor,
-        ) {
+        val color = kalendarStyle.kalendarColor ?: KalendarTheme.colors.background
+
+        Box(modifier = Modifier
+            .background(color = color)) {
+
             KalendarView(
+                kalendarKonfig = kalendarKonfig,
                 kalendarSelector = kalendarStyle.kalendarSelector,
-                yearRange = kalendarKonfig.yearRange,
                 errorMessageLogged = errorMessageLogged,
                 selectedDay = selectedDay,
                 kalendarEvents = kalendarEvents,

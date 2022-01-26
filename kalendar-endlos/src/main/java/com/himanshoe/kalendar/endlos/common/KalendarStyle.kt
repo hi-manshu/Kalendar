@@ -31,7 +31,6 @@ import com.himanshoe.kalendar.endlos.common.theme.Grid
 import com.himanshoe.kalendar.endlos.common.theme.KalendarShape
 
 /** [KalendarStyle]sets the style for the calendar
- * @param [kalendarBackgroundColor] represents the color in background of calendar
  * @param [kalendarColor] represents the color of the view
  * @param [kalendarSelector] represents the design for selector
  * @param [hasRadius] gives the radius check for monthView
@@ -40,7 +39,6 @@ import com.himanshoe.kalendar.endlos.common.theme.KalendarShape
  */
 
 data class KalendarStyle(
-    val kalendarBackgroundColor: Color? = null,
     val kalendarColor: Color? = null,
     val kalendarSelector: KalendarSelector = KalendarSelector.Circle(),
     val hasRadius: Boolean = true,

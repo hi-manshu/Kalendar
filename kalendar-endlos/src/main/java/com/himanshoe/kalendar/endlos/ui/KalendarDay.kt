@@ -107,7 +107,7 @@ private fun getTextColor(
         isEvent -> kalendarSelector.eventTextColor
         else -> when {
             isSelected -> kalendarSelector.selectedTextColor
-            else -> kalendarSelector.defaultTextColor
+            else -> kalendarSelector.textColor
         }
     }
 }

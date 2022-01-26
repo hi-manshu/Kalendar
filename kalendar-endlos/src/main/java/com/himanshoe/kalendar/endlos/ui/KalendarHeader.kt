@@ -22,22 +22,12 @@ package com.himanshoe.kalendar.endlos.ui
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import com.himanshoe.kalendar.common.KalendarSelector
 import com.himanshoe.kalendar.endlos.common.theme.Grid
@@ -45,57 +35,15 @@ import com.himanshoe.kalendar.endlos.common.theme.Grid
 @Composable
 internal fun KalendarHeader(
     text: String,
-    onPreviousMonthClick: () -> Unit,
-    onNextMonthClick: () -> Unit,
     kalendarSelector: KalendarSelector,
 ) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        KalendarButton(
-            kalendarSelector = kalendarSelector,
-            imageVector = Icons.Default.ArrowBack,
-            contentDescription = "Previous Month",
-            onClick = onPreviousMonthClick
-        )
-        Text(
-            modifier = Modifier
-                .padding(Grid.Two),
-            style = MaterialTheme.typography.h6,
-            text = text,
-            textAlign = TextAlign.Center,
-        )
-        KalendarButton(
-            imageVector = Icons.Default.ArrowForward,
-            contentDescription = "Next Month",
-            onClick = onNextMonthClick,
-            kalendarSelector = kalendarSelector
-        )
-    }
-}
-
-@Composable
-private fun KalendarButton(
-    imageVector: ImageVector,
-    contentDescription: String,
-    onClick: () -> Unit,
-    kalendarSelector: KalendarSelector,
-) {
-    IconButton(
-        onClick = onClick,
+    Text(
         modifier = Modifier
-            .size(Grid.Three)
-            .clip(CircleShape)
-            .background(kalendarSelector.todayColor)
-    ) {
-        Icon(
-            modifier = Modifier
-                .padding(Grid.Half)
-                .alpha(0.6F),
-            imageVector = imageVector,
-            contentDescription = contentDescription
-        )
-    }
+            .padding(Grid.Two)
+            .fillMaxWidth(),
+        color = kalendarSelector.textColor,
+        style = MaterialTheme.typography.h6,
+        text = text,
+        textAlign = TextAlign.Center,
+    )
 }

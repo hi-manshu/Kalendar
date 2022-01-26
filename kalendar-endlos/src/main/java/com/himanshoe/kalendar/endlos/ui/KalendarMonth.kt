@@ -1,21 +1,19 @@
 package com.himanshoe.kalendar.endlos.ui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.common.KalendarSelector
-import com.himanshoe.kalendar.endlos.common.YearRange
 import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
-import com.himanshoe.kalendar.endlos.ui.KalendarWeekDayNames
 import com.himanshoe.kalendar.endlos.util.getMonthNameFormatter
-import com.himanshoe.kalendar.endlos.util.validateMaxDate
-import com.himanshoe.kalendar.endlos.util.validateMinDate
 import java.time.LocalDate
 import java.time.YearMonth
 
@@ -25,9 +23,7 @@ private const val DAYS_IN_WEEK = 7
 internal fun KalendarMonth(
     selectedDay: LocalDate,
     yearMonth: YearMonth = YearMonth.now(),
-    yearRange: YearRange,
     onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
-    errorMessageLogged: (String) -> Unit,
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
 ) {
@@ -49,26 +45,6 @@ internal fun KalendarMonth(
         KalendarHeader(
             kalendarSelector = kalendarSelector,
             text = monthState.value.format(getMonthNameFormatter()),
-            onPreviousMonthClick = {
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                val year = monthState.value.year
-                val isLimitAttached = year.validateMinDate(yearRange.min)
-                if (isLimitAttached) {
-                    monthState.value = monthState.value.minusMonths(1)
-                } else {
-                    errorMessageLogged("Minimum year limit reached")
-                }
-            },
-            onNextMonthClick = {
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                val year = monthState.value.year
-                val isLimitAttached = year.validateMaxDate(yearRange.max)
-                if (isLimitAttached) {
-                    monthState.value = monthState.value.plusMonths(1)
-                } else {
-                    errorMessageLogged("Minimum year limit reached")
-                }
-            },
         )
         KalendarWeekDayNames()
 
@@ -105,6 +81,10 @@ internal fun KalendarMonth(
                 }
             }
         }
+
+        Divider(color = kalendarSelector.selectedColor,
+            modifier = Modifier.alpha(0.5F),
+            thickness = 1.dp)
     }
 }
 

@@ -25,9 +25,6 @@ package com.himanshoe.kalendar.endlos.common.theme/*
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.graphics.Color
-import com.himanshoe.kalendar.endlos.common.theme.Fire100
-import com.himanshoe.kalendar.endlos.common.theme.Fire15
-import com.himanshoe.kalendar.endlos.common.theme.Fire50
 
 data class KalendarColor(
     val selectedColor: Color,

@@ -23,15 +23,19 @@ package com.himanshoe.kalendar.endlos.ui
 * SOFTWARE.
 */
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.himanshoe.kalendar.common.KalendarSelector
-import com.himanshoe.kalendar.endlos.common.YearRange
+import com.himanshoe.kalendar.endlos.common.KalendarKonfig
 import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
 import com.himanshoe.kalendar.endlos.common.theme.Grid
+import com.himanshoe.kalendar.endlos.util.CalendarMonthSource.getInitialMonths
+import com.himanshoe.kalendar.endlos.util.CalendarMonthSource.next6Months
+import com.himanshoe.kalendar.endlos.util.InfiniteLoadingList
 import java.time.LocalDate
 import java.time.YearMonth
 
@@ -39,27 +43,43 @@ import java.time.YearMonth
 internal fun KalendarView(
     yearMonth: YearMonth = YearMonth.now(),
     selectedDay: LocalDate,
-    yearRange: YearRange,
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
+    kalendarKonfig: KalendarKonfig,
     onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
     errorMessageLogged: (String) -> Unit,
+) {
+    val monthsList: MutableList<Int> = getInitialMonths() as MutableList<Int>
 
-    ) {
-    Column(
+    val monthsState = remember { mutableStateOf(monthsList) }
+
+    InfiniteLoadingList(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(Grid.Half)
-    ) {
+            .padding(Grid.Half),
+        items = monthsState.value,
+        loadMore = {
+            val year = yearMonth.plusMonths(monthsState.value.last().toLong()).year
+            if (year != 0 && year <= kalendarKonfig.maxYear) {
+                val newMonths = next6Months(monthsState.value.last()).filter {
+                    yearMonth.plusMonths(it.toLong()).year <= kalendarKonfig.maxYear
+                }
+                monthsList.addAll(newMonths)
+                monthsState.value = monthsList
+            } else {
+                errorMessageLogged("Max limit reached")
+            }
+        }
+    ) { _, item ->
+        val month = item as Int
+
         KalendarMonth(
             selectedDay,
-            yearMonth,
-            yearRange,
+            yearMonth.plusMonths(month.toLong()),
             onCurrentDayClick,
-            errorMessageLogged,
             kalendarSelector,
             kalendarEvents
         )
     }
-}
 
+}

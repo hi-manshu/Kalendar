@@ -22,7 +22,6 @@ package com.himanshoe.kalendar.ui
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape
 import com.himanshoe.kalendar.common.KalendarKonfig
@@ -34,7 +33,6 @@ import com.himanshoe.kalendar.ui.KalendarType.Oceanic
 import com.himanshoe.kalendar.ui.firey.KalendarFirey
 import com.himanshoe.kalendar.ui.oceanic.KalendarOceanic
 import java.time.LocalDate
-import java.time.YearMonth
 
 /**
  * [KalendarType] is used to distinguish the type of calendar

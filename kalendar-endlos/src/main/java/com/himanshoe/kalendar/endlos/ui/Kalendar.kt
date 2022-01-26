@@ -45,7 +45,7 @@ fun Kalendar(
     onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
     errorMessage: (String) -> Unit = {},
 ) {
-    KalendarFirey(
+    KalendarEndlos(
         kalendarKonfig = kalendarKonfig,
         kalendarStyle = kalendarStyle,
         selectedDay = selectedDay,
