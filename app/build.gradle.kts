@@ -50,8 +50,8 @@ android {
 }
 
 dependencies {
-//    implementation(project(":kalendar"))
-    implementation("com.himanshoe:kalendar:1.0.0-RC2")
+    implementation(project(":kalendar-endlos"))
+//    implementation("com.himanshoe:kalendar:1.0.0-RC2")
     // jetpack compose
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5") // <- this dependency is required
     implementation(Deps.Compose.ui)
