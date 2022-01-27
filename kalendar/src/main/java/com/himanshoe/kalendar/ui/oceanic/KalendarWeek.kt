@@ -72,7 +72,6 @@ internal fun KalendarOceanWeek(
         val size = (maxWidth / 7)
         val monthName = "${displayWeek.value.last().month.name} ${displayWeek.value.last().year}"
         Column(Modifier.fillMaxWidth()) {
-
             KalendarOceanHeader(monthName, displayWeek, haptic, yearRange, errorMessageLogged)
 
             Row(
