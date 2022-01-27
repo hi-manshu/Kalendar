@@ -26,9 +26,11 @@ package com.himanshoe.kalendar.common
 /**
  * [KalendarKonfig] represents the config needed for rendering calendar
  * @param[yearRange] gives the min/max year range
+ * @param[kalendarLanguage] gives language
  */
 data class KalendarKonfig(
     val yearRange: YearRange = YearRange(),
+    val kalendarLanguage: KalendarLanguage = KalendarLanguage.English
 )
 
 /**

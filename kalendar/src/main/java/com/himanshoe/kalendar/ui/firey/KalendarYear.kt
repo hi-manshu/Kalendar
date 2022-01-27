@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.himanshoe.kalendar.common.KalendarLanguage
 import com.himanshoe.kalendar.common.KalendarSelector
 import com.himanshoe.kalendar.common.YearRange
 import com.himanshoe.kalendar.common.data.KalendarEvent
@@ -44,6 +45,7 @@ internal fun KalendarView(
     kalendarEvents: List<KalendarEvent>,
     onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
     errorMessageLogged: (String) -> Unit,
+    kalendarLanguage: KalendarLanguage,
 
     ) {
     Column(
@@ -58,7 +60,8 @@ internal fun KalendarView(
             onCurrentDayClick,
             errorMessageLogged,
             kalendarSelector,
-            kalendarEvents
+            kalendarEvents,
+            kalendarLanguage
         )
     }
 }

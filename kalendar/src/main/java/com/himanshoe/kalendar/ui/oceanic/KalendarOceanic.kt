@@ -72,6 +72,7 @@ internal fun KalendarOceanic(
                     kalendarSelector = kalendarStyle.kalendarSelector,
                     yearRange = kalendarKonfig.yearRange,
                     startDate = startDate,
+                    kalendarLanguage = kalendarKonfig.kalendarLanguage,
                     selectedDay = selectedDay,
                     kalendarEvents = kalendarEvents,
                     onCurrentDayClick = onCurrentDayClick,

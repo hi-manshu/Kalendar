@@ -31,10 +31,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 
-private val weekdays = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
 
 @Composable
-internal fun KalendarWeekDayNames() {
+internal fun KalendarWeekDayNames(weekdays: List<String>) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
         val width = (maxWidth / 7)
         Row(modifier = Modifier.fillMaxWidth()) {

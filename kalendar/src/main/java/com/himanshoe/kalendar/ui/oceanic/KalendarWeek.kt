@@ -39,12 +39,15 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import com.himanshoe.kalendar.common.KalendarLanguage
 import com.himanshoe.kalendar.common.KalendarSelector
 import com.himanshoe.kalendar.common.YearRange
 import com.himanshoe.kalendar.common.data.KalendarEvent
 import com.himanshoe.kalendar.common.theme.KalendarShape
 import com.himanshoe.kalendar.common.ui.KalendarDot
 import java.time.LocalDate
+import java.time.format.TextStyle
+import java.util.*
 
 @Composable
 internal fun KalendarOceanWeek(
@@ -55,6 +58,7 @@ internal fun KalendarOceanWeek(
     errorMessageLogged: (String) -> Unit,
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
+    kalendarLanguage: KalendarLanguage,
 ) {
     val isDot = kalendarSelector is KalendarSelector.Dot
     val haptic = LocalHapticFeedback.current
@@ -70,7 +74,7 @@ internal fun KalendarOceanWeek(
             .fillMaxWidth()
     ) {
         val size = (maxWidth / 7)
-        val monthName = "${displayWeek.value.last().month.name} ${displayWeek.value.last().year}"
+        val monthName = "${displayWeek.value.last().month.getDisplayName(TextStyle.FULL, kalendarLanguage.local)} ${displayWeek.value.last().year}"
         Column(Modifier.fillMaxWidth()) {
 
             KalendarOceanHeader(monthName, displayWeek, haptic, yearRange, errorMessageLogged)
@@ -89,7 +93,7 @@ internal fun KalendarOceanWeek(
                     ) {
                         val event: KalendarEvent? = kalendarEvents.find { it.date == date }
                         Text(
-                            text = date.dayOfWeek.toString().subSequence(0, 2).toString(),
+                            text = date.dayOfWeek.getDisplayName(TextStyle.FULL,kalendarLanguage.local).toString().subSequence(0, 2).toString(),
                             style = MaterialTheme.typography.body1,
                             modifier = Modifier
                                 .width(size)

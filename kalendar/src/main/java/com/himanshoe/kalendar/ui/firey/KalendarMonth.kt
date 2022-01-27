@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
+import com.himanshoe.kalendar.common.KalendarLanguage
 import com.himanshoe.kalendar.common.KalendarSelector
 import com.himanshoe.kalendar.common.YearRange
 import com.himanshoe.kalendar.common.data.KalendarEvent
@@ -30,6 +31,7 @@ internal fun KalendarMonth(
     errorMessageLogged: (String) -> Unit,
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
+    kalendarLanguage: KalendarLanguage
 ) {
     Column(
         modifier = Modifier
@@ -48,7 +50,7 @@ internal fun KalendarMonth(
 
         KalendarHeader(
             kalendarSelector = kalendarSelector,
-            text = monthState.value.format(getMonthNameFormatter()),
+            text = monthState.value.format(getMonthNameFormatter(kalendarLanguage.local)),
             onPreviousMonthClick = {
                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 val year = monthState.value.year
@@ -70,7 +72,7 @@ internal fun KalendarMonth(
                 }
             },
         )
-        KalendarWeekDayNames()
+        KalendarWeekDayNames(kalendarLanguage.days)
 
         val days: List<LocalDate> = getDays(monthState)
 

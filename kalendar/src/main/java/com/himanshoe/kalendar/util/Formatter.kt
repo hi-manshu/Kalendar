@@ -3,6 +3,7 @@ package com.himanshoe.kalendar.util
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 /*
 * MIT License
@@ -29,10 +30,10 @@ import java.time.format.DateTimeFormatter
 */
 
 @Composable
-fun getMonthNameFormatter(): DateTimeFormatter {
+fun getMonthNameFormatter(locale: Locale): DateTimeFormatter {
     return remember {
         DateTimeFormatter.ofPattern(
-            "MMMM y"
+            "MMMM y", locale
         )
     }
 }

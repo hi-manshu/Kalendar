@@ -60,6 +60,7 @@ internal fun KalendarFirey(
             KalendarView(
                 kalendarSelector = kalendarStyle.kalendarSelector,
                 yearRange = kalendarKonfig.yearRange,
+                kalendarLanguage = kalendarKonfig.kalendarLanguage,
                 errorMessageLogged = errorMessageLogged,
                 selectedDay = selectedDay,
                 kalendarEvents = kalendarEvents,
