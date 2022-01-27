@@ -60,8 +60,12 @@ internal fun KalendarView(
         items = monthsState.value,
         loadMore = {
             val year = yearMonth.plusMonths(monthsState.value.last().toLong()).year
-            if (year != 0 && year <= kalendarKonfig.maxYear) {
-                val newMonths = next6Months(monthsState.value.last()).filter {
+            val newMonths = next6Months(monthsState.value.last())
+            if (kalendarKonfig.maxYear == 0) {
+                monthsList.addAll(newMonths)
+                monthsState.value = monthsList
+            } else if (kalendarKonfig.maxYear != 0 && year <= kalendarKonfig.maxYear) {
+                newMonths.filter {
                     yearMonth.plusMonths(it.toLong()).year <= kalendarKonfig.maxYear
                 }
                 monthsList.addAll(newMonths)
