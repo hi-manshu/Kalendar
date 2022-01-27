@@ -26,8 +26,9 @@ dependencies {
   implementation("com.himanshoe:kalendar:1.0.0-RC2")
 }
 ```
-If you want to use scrolling calendar from current month use `kalendar-endlos`.
-In `build.gradle` of app module, include this dependency
+
+If you want to use scrolling calendar from current month use `kalendar-endlos`. In `build.gradle` of
+app module, include this dependency
 
 ```gradle
 dependencies {
@@ -38,7 +39,9 @@ dependencies {
 ### Usage
 
 #### 1. Setup the Kalendar
-##### If you are using, the `kalendar` package use, 
+
+##### If you are using, the `kalendar` package use,
+
 ```kotlin
     Kalendar(kalendarType = KalendarType.Firey(), onCurrentDayClick = { day, event ->
     //handle the date click listener                                                       
@@ -46,7 +49,9 @@ dependencies {
     //Handle the error if any
 })
 ```
+
 ##### OR, if you are using `kalendar-endloss` module use,
+
 ```kotlin
     Kalendar(onCurrentDayClick = { day, event ->
     //handle the date click listener                                                       
@@ -54,6 +59,7 @@ dependencies {
     //Handle the error if any
 })
 ```
+
 > In `onCurrentDayClick` you will get a `LocalDate` and `KalendarEvent?`.
 
 #### Here, you can also pass optional params:
