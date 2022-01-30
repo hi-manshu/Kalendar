@@ -37,4 +37,3 @@ internal fun KalendarEmptyDay(modifier: Modifier = Modifier) {
         textAlign = TextAlign.Center
     )
 }
-

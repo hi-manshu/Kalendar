@@ -1,0 +1,21 @@
+naming:
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][A-Za-z0-9]*'
+  FunctionNaming:
+    functionPattern: '([A-Za-z][a-zA-Z0-9]*)|(`.*`)'
+  MatchingDeclarationName:
+    active: false
+
+style:
+  MagicNumber:
+    ignorePropertyDeclaration: true
+  UnusedPrivateMember:
+    ignoreAnnotated: [ 'Preview' ]
+
+complexity:
+  LongParameterList:
+    functionThreshold: 25
+    constructorThreshold: 25
+    ignoreDefaultParameters: true
+  TooManyFunctions:
+    thresholdInFiles: 20

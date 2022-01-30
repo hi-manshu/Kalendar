@@ -45,7 +45,7 @@ internal fun KalendarView(
     onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
     errorMessageLogged: (String) -> Unit,
 
-    ) {
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -62,4 +62,3 @@ internal fun KalendarView(
         )
     }
 }
-

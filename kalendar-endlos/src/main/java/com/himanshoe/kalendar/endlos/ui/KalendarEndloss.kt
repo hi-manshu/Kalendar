@@ -46,8 +46,10 @@ internal fun KalendarEndlos(
     KalendarTheme {
         val color = kalendarStyle.kalendarColor ?: KalendarTheme.colors.background
 
-        Box(modifier = Modifier
-            .background(color = color)) {
+        Box(
+            modifier = Modifier
+                .background(color = color)
+        ) {
 
             KalendarView(
                 kalendarKonfig = kalendarKonfig,

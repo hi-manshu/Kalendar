@@ -37,10 +37,13 @@ internal fun KalendarDot(
     isToday: Boolean,
     kalendarSelector: KalendarSelector,
 ) {
-    Surface(shape = kalendarSelector.shape,
+    Surface(
+        shape = kalendarSelector.shape,
         color = getColor(isSelected, isToday, kalendarSelector),
         modifier = Modifier
-            .size(Grid.One), content = {})
+            .size(Grid.One),
+        content = {}
+    )
 }
 
 private fun getColor(
@@ -54,5 +57,3 @@ private fun getColor(
         else -> kalendarSelector.defaultColor
     }
 }
-
-
