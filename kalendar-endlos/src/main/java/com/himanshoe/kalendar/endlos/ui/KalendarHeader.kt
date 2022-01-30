@@ -29,7 +29,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.himanshoe.kalendar.common.KalendarSelector
+import com.himanshoe.kalendar.endlos.common.KalendarSelector
 import com.himanshoe.kalendar.endlos.common.theme.Grid
 
 @Composable
@@ -41,7 +41,7 @@ internal fun KalendarHeader(
         modifier = Modifier
             .padding(Grid.Two)
             .fillMaxWidth(),
-        color = kalendarSelector.textColor,
+        color = kalendarSelector.defaultTextColor,
         style = MaterialTheme.typography.h6,
         text = text,
         textAlign = TextAlign.Center,

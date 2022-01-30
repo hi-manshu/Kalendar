@@ -6,7 +6,8 @@ This is a calendar to integrate Calendar with Custom design in your jetpack comp
 also add list of events for your days.
 _Made with ❤️ for Android Developers by Himanshu_
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.himanshoe/kalendar)](https://search.maven.org/artifact/com.himanshoe/kalendar)
+[![Kalendar](https://img.shields.io/maven-central/v/com.himanshoe/kalendar)](https://search.maven.org/artifact/com.himanshoe/kalendar)
+[![Kalenda-Endlos](https://img.shields.io/maven-central/v/com.himanshoe/kalendar)](https://search.maven.org/artifact/com.himanshoe/kalendar-endlos)
 [![Github Followers](https://img.shields.io/github/followers/hi-manshu?label=Follow&style=social)](https://github.com/hi-manshu)
 [![Twitter Follow](https://img.shields.io/twitter/follow/hi_man_shoe?label=Follow&style=social)](https://twitter.com/hi_man_shoe)
 
@@ -23,7 +24,7 @@ In `build.gradle` of app module, include this dependency
 
 ```gradle
 dependencies {
-  implementation("com.himanshoe:kalendar:1.0.0-RC2")
+  implementation("com.himanshoe:kalendar:1.0.0-RC4")
 }
 ```
 
@@ -32,7 +33,7 @@ app module, include this dependency
 
 ```gradle
 dependencies {
-    implementation("com.himanshoe:kalendar-endlos:1.0.0-alpha1")
+    implementation("com.himanshoe:kalendar-endlos:1.0.0-RC1")
 }
 ```
 

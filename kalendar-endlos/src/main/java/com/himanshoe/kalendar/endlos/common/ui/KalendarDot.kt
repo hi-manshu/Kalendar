@@ -28,7 +28,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.himanshoe.kalendar.common.KalendarSelector
+import com.himanshoe.kalendar.endlos.common.KalendarSelector
 import com.himanshoe.kalendar.endlos.common.theme.Grid
 
 @Composable
