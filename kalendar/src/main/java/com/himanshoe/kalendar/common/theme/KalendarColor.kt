@@ -69,4 +69,3 @@ fun debugColors(
     onError = debugColor,
     isLight = !darkTheme
 )
-

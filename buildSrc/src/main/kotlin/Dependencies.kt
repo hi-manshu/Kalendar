@@ -4,6 +4,8 @@ object Plugins {
     val android by lazy { "android" }
     val kotlinAndroid by lazy { "kotlin-android" }
     val vanniktechPublish by lazy { "com.vanniktech.maven.publish" }
+    val ktlint by lazy { "org.jlleitschuh.gradle.ktlint" }
+    val detekt by lazy { "io.gitlab.arturbosch.detekt" }
 }
 
 object Deps {
@@ -44,10 +46,11 @@ object Deps {
         val kotlinGradlePlugin by lazy { "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}" }
         val androidGradlePlugin by lazy { "com.android.tools.build:gradle:${Versions.androidGradlePlugin}" }
         val vanniktechGradlePlugin by lazy { "com.vanniktech:gradle-maven-publish-plugin:${Versions.vanniktechGradlePlugin}" }
+        val ktlintGradlePlugin by lazy { "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktlint}" }
+        val detektGradlePlugin by lazy { "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.detekt}" }
     }
 }
 
 object ProjectPath {
-    const val designCore = ":design-core"
     const val kalendar = ":kalendar"
 }

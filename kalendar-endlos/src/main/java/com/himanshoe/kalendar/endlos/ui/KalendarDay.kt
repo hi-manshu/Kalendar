@@ -90,9 +90,11 @@ internal fun KalendarDay(
                 )
             )
             if (isDot) {
-                KalendarDot(kalendarSelector = kalendarSelector,
+                KalendarDot(
+                    kalendarSelector = kalendarSelector,
                     isSelected = isSelected,
-                    isToday = isToday)
+                    isToday = isToday
+                )
             }
         }
     }

@@ -90,4 +90,5 @@ private fun KalendarOceanPreview(
 ) {
     KalendarOceanic(onCurrentDayClick = { _, _ ->
     }, errorMessageLogged = {}, kalendarEvents = emptyList())
-}
+    }
+    

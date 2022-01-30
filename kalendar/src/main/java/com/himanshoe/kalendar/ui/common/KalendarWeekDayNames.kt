@@ -23,7 +23,12 @@ package com.himanshoe.kalendar.ui.common
 * SOFTWARE.
 */
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -62,5 +67,3 @@ internal fun KalendarWeekDay(
         Text(text = text, modifier = Modifier.alpha(0.5F), style = MaterialTheme.typography.body1)
     }
 }
-
-

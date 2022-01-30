@@ -48,13 +48,15 @@ sealed class KalendarSelector(
         override val todayColor: Color = KalendarTheme.colors.todayColor,
         override val selectedTextColor: Color = KalendarTheme.colors.white,
         override val defaultTextColor: Color = KalendarTheme.colors.black,
-    ) : KalendarSelector(CircleShape,
+    ) : KalendarSelector(
+        CircleShape,
         selectedColor,
         defaultColor,
         todayColor,
         selectedTextColor,
         defaultTextColor,
-        eventTextColor)
+        eventTextColor
+    )
 
     data class Dot(
         override val selectedColor: Color = KalendarTheme.colors.selectedColor,
@@ -63,13 +65,15 @@ sealed class KalendarSelector(
         override val todayColor: Color = KalendarTheme.colors.todayColor,
         override val selectedTextColor: Color = KalendarTheme.colors.selectedColor,
         override val defaultTextColor: Color = KalendarTheme.colors.black,
-    ) : KalendarSelector(CircleShape,
+    ) : KalendarSelector(
+        CircleShape,
         selectedColor,
         defaultColor,
         todayColor,
         selectedTextColor,
         defaultTextColor,
-        eventTextColor)
+        eventTextColor
+    )
 
     data class Square(
         override val selectedColor: Color = KalendarTheme.colors.selectedColor,
@@ -78,13 +82,15 @@ sealed class KalendarSelector(
         override val eventTextColor: Color = KalendarTheme.colors.eventTextColor,
         override val selectedTextColor: Color = KalendarTheme.colors.white,
         override val defaultTextColor: Color = KalendarTheme.colors.black,
-    ) : KalendarSelector(RectangleShape,
+    ) : KalendarSelector(
+        RectangleShape,
         selectedColor,
         defaultColor,
         todayColor,
         selectedTextColor,
         defaultTextColor,
-        eventTextColor)
+        eventTextColor
+    )
 
     data class Rounded(
         override val selectedColor: Color = KalendarTheme.colors.selectedColor,
@@ -93,11 +99,13 @@ sealed class KalendarSelector(
         override val eventTextColor: Color = KalendarTheme.colors.eventTextColor,
         override val selectedTextColor: Color = KalendarTheme.colors.white,
         override val defaultTextColor: Color = KalendarTheme.colors.black,
-    ) : KalendarSelector(RoundedCornerShape(Grid.OneHalf),
+    ) : KalendarSelector(
+        RoundedCornerShape(Grid.OneHalf),
         selectedColor,
         defaultColor,
         todayColor,
         selectedTextColor,
         defaultTextColor,
-        eventTextColor)
+        eventTextColor
+    )
 }

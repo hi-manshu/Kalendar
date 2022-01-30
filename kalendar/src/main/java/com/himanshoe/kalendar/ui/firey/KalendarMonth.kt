@@ -1,6 +1,12 @@
 package com.himanshoe.kalendar.ui.firey
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -82,8 +88,8 @@ internal fun KalendarMonth(
                         val isFromCurrentMonth = YearMonth.from(localDate) == monthState.value
                         if (isFromCurrentMonth) {
                             val isSelected = monthState.value.month == clickedDay.value.month &&
-                                    monthState.value.year == clickedDay.value.year &&
-                                    localDate == clickedDay.value
+                                monthState.value.year == clickedDay.value.year &&
+                                localDate == clickedDay.value
 
                             KalendarDay(
                                 size = size,

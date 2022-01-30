@@ -37,7 +37,6 @@ fun ProvideKalendarTheme(
     CompositionLocalProvider(
         content = content
     )
-
 }
 
 @Composable

@@ -132,7 +132,6 @@ internal fun KalendarOceanButton(
     }
 }
 
-
 internal fun LocalDate.getNext7Dates(): List<LocalDate> {
     val dates = mutableListOf<LocalDate>()
     repeat(7) { day ->
