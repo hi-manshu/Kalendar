@@ -29,8 +29,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.himanshoe.kalendar.common.KalendarSelector
 import com.himanshoe.kalendar.endlos.common.KalendarKonfig
+import com.himanshoe.kalendar.endlos.common.KalendarSelector
 import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
 import com.himanshoe.kalendar.endlos.common.theme.Grid
 import com.himanshoe.kalendar.endlos.util.CalendarMonthSource.getInitialMonths

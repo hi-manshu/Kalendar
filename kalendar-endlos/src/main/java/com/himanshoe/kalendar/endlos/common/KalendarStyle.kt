@@ -26,7 +26,6 @@ package com.himanshoe.kalendar.endlos.common
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
-import com.himanshoe.kalendar.common.KalendarSelector
 import com.himanshoe.kalendar.endlos.common.theme.Grid
 import com.himanshoe.kalendar.endlos.common.theme.KalendarShape
 

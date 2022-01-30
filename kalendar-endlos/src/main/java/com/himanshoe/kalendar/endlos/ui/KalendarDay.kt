@@ -38,7 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.himanshoe.kalendar.common.KalendarSelector
+import com.himanshoe.kalendar.endlos.common.KalendarSelector
 import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
 import com.himanshoe.kalendar.endlos.common.theme.KalendarShape
 import com.himanshoe.kalendar.endlos.common.ui.KalendarDot
@@ -109,7 +109,7 @@ private fun getTextColor(
         isEvent -> kalendarSelector.eventTextColor
         else -> when {
             isSelected -> kalendarSelector.selectedTextColor
-            else -> kalendarSelector.textColor
+            else -> kalendarSelector.defaultTextColor
         }
     }
 }
