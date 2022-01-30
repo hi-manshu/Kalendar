@@ -70,7 +70,7 @@ internal fun KalendarOceanic(
             ) {
                 KalendarOceanWeek(
                     kalendarSelector = kalendarStyle.kalendarSelector,
-                    yearRange = kalendarKonfig.yearRange,
+                    kalendarKonfig = kalendarKonfig,
                     startDate = startDate,
                     selectedDay = selectedDay,
                     kalendarEvents = kalendarEvents,

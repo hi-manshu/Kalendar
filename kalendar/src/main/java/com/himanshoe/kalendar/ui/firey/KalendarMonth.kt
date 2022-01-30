@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
+import com.himanshoe.kalendar.common.KalendarKonfig
 import com.himanshoe.kalendar.common.KalendarSelector
-import com.himanshoe.kalendar.common.YearRange
 import com.himanshoe.kalendar.common.data.KalendarEvent
 import com.himanshoe.kalendar.ui.common.KalendarWeekDayNames
 import com.himanshoe.kalendar.util.getMonthNameFormatter
@@ -31,7 +31,7 @@ private const val DAYS_IN_WEEK = 7
 internal fun KalendarMonth(
     selectedDay: LocalDate,
     yearMonth: YearMonth = YearMonth.now(),
-    yearRange: YearRange,
+    kalendarKonfig: KalendarKonfig,
     onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
     errorMessageLogged: (String) -> Unit,
     kalendarSelector: KalendarSelector,
@@ -58,7 +58,7 @@ internal fun KalendarMonth(
             onPreviousMonthClick = {
                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 val year = monthState.value.year
-                val isLimitAttached = year.validateMinDate(yearRange.min)
+                val isLimitAttached = year.validateMinDate(kalendarKonfig.yearRange.min)
                 if (isLimitAttached) {
                     monthState.value = monthState.value.minusMonths(1)
                 } else {
@@ -68,7 +68,7 @@ internal fun KalendarMonth(
             onNextMonthClick = {
                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 val year = monthState.value.year
-                val isLimitAttached = year.validateMaxDate(yearRange.max)
+                val isLimitAttached = year.validateMaxDate(kalendarKonfig.yearRange.max)
                 if (isLimitAttached) {
                     monthState.value = monthState.value.plusMonths(1)
                 } else {
@@ -76,7 +76,7 @@ internal fun KalendarMonth(
                 }
             },
         )
-        KalendarWeekDayNames()
+        KalendarWeekDayNames(kalendarKonfig = kalendarKonfig)
 
         val days: List<LocalDate> = getDays(monthState)
 

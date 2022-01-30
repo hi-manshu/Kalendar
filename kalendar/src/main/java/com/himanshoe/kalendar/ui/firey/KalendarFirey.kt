@@ -59,7 +59,7 @@ internal fun KalendarFirey(
         ) {
             KalendarView(
                 kalendarSelector = kalendarStyle.kalendarSelector,
-                yearRange = kalendarKonfig.yearRange,
+                kalendarKonfig = kalendarKonfig,
                 errorMessageLogged = errorMessageLogged,
                 selectedDay = selectedDay,
                 kalendarEvents = kalendarEvents,
