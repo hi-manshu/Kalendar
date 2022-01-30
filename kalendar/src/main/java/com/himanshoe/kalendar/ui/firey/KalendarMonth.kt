@@ -54,7 +54,7 @@ internal fun KalendarMonth(
 
         KalendarHeader(
             kalendarSelector = kalendarSelector,
-            text = monthState.value.format(getMonthNameFormatter()),
+            text = monthState.value.format(getMonthNameFormatter(kalendarKonfig.locale)),
             onPreviousMonthClick = {
                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 val year = monthState.value.year

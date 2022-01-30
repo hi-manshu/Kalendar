@@ -12,7 +12,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Kalendar(
-                kalendarType = KalendarType.Firey(),
+                kalendarType = KalendarType.Oceanic(),
                 kalendarKonfig = KalendarKonfig(weekCharacters = 2),
                 onCurrentDayClick = { date, event ->
                 },

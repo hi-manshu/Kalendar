@@ -46,7 +46,7 @@ internal fun KalendarMonth(
 
         KalendarHeader(
             kalendarSelector = kalendarSelector,
-            text = monthState.value.format(getMonthNameFormatter()),
+            text = monthState.value.format(getMonthNameFormatter(kalendarKonfig.locale)),
         )
         KalendarWeekDayNames(kalendarKonfig = kalendarKonfig)
 

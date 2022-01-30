@@ -25,14 +25,7 @@ package com.himanshoe.kalendar.ui.oceanic
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -52,6 +45,7 @@ import com.himanshoe.kalendar.common.data.KalendarEvent
 import com.himanshoe.kalendar.common.theme.KalendarShape
 import com.himanshoe.kalendar.common.ui.KalendarDot
 import java.time.LocalDate
+import java.time.format.TextStyle
 
 @Composable
 internal fun KalendarOceanWeek(
@@ -77,9 +71,16 @@ internal fun KalendarOceanWeek(
             .fillMaxWidth()
     ) {
         val size = (maxWidth / 7)
-        val monthName = "${displayWeek.value.last().month.name} ${displayWeek.value.last().year}"
+        val monthName = "${
+            displayWeek.value.last().month.getDisplayName(TextStyle.FULL,
+                kalendarKonfig.locale)
+        } ${displayWeek.value.last().year}"
         Column(Modifier.fillMaxWidth()) {
-            KalendarOceanHeader(monthName, displayWeek, haptic, kalendarKonfig.yearRange, errorMessageLogged)
+            KalendarOceanHeader(monthName,
+                displayWeek,
+                haptic,
+                kalendarKonfig.yearRange,
+                errorMessageLogged)
 
             Row(
                 modifier = Modifier
@@ -95,7 +96,9 @@ internal fun KalendarOceanWeek(
                     ) {
                         val event: KalendarEvent? = kalendarEvents.find { it.date == date }
                         Text(
-                            text = date.dayOfWeek.toString().subSequence(0, kalendarKonfig.weekCharacters).toString(),
+                            text = date.dayOfWeek
+                                .getDisplayName(TextStyle.FULL, kalendarKonfig.locale).toString()
+                                .subSequence(0, kalendarKonfig.weekCharacters).toString(),
                             style = MaterialTheme.typography.body1,
                             modifier = Modifier
                                 .width(size)
