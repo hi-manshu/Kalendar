@@ -3,7 +3,7 @@ package com.himanshoe.kalendar.util
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Locale
 
 /*
 * MIT License
