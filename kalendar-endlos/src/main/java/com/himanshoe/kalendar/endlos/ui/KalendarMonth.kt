@@ -18,6 +18,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.common.KalendarSelector
+import com.himanshoe.kalendar.endlos.common.KalendarKonfig
 import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
 import com.himanshoe.kalendar.endlos.util.getMonthNameFormatter
 import java.time.LocalDate
@@ -32,6 +33,7 @@ internal fun KalendarMonth(
     onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
+    kalendarKonfig: KalendarKonfig,
 ) {
     Column(
         modifier = Modifier
@@ -50,9 +52,9 @@ internal fun KalendarMonth(
 
         KalendarHeader(
             kalendarSelector = kalendarSelector,
-            text = monthState.value.format(getMonthNameFormatter()),
+            text = monthState.value.format(getMonthNameFormatter(kalendarKonfig.locale)),
         )
-        KalendarWeekDayNames()
+        KalendarWeekDayNames(kalendarKonfig = kalendarKonfig)
 
         val days: List<LocalDate> = getDays(monthState)
 
