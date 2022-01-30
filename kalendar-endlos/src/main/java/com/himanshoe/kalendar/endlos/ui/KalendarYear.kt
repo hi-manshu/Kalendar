@@ -82,7 +82,8 @@ internal fun KalendarView(
             yearMonth.plusMonths(month.toLong()),
             onCurrentDayClick,
             kalendarSelector,
-            kalendarEvents
+            kalendarEvents,
+            kalendarKonfig
         )
     }
 }

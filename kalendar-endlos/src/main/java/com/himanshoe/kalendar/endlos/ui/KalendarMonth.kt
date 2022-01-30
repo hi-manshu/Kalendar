@@ -1,12 +1,6 @@
 package com.himanshoe.kalendar.endlos.ui
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -18,6 +12,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.common.KalendarSelector
+import com.himanshoe.kalendar.endlos.common.KalendarKonfig
 import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
 import com.himanshoe.kalendar.endlos.util.getMonthNameFormatter
 import java.time.LocalDate
@@ -32,6 +27,7 @@ internal fun KalendarMonth(
     onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
+    kalendarKonfig: KalendarKonfig,
 ) {
     Column(
         modifier = Modifier
@@ -52,7 +48,7 @@ internal fun KalendarMonth(
             kalendarSelector = kalendarSelector,
             text = monthState.value.format(getMonthNameFormatter()),
         )
-        KalendarWeekDayNames()
+        KalendarWeekDayNames(kalendarKonfig = kalendarKonfig)
 
         val days: List<LocalDate> = getDays(monthState)
 
@@ -64,8 +60,8 @@ internal fun KalendarMonth(
                         val isFromCurrentMonth = YearMonth.from(localDate) == monthState.value
                         if (isFromCurrentMonth) {
                             val isSelected = monthState.value.month == clickedDay.value.month &&
-                                monthState.value.year == clickedDay.value.year &&
-                                localDate == clickedDay.value
+                                    monthState.value.year == clickedDay.value.year &&
+                                    localDate == clickedDay.value
 
                             KalendarDay(
                                 size = size,

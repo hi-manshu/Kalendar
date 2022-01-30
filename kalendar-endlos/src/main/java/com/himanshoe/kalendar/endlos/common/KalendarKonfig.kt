@@ -1,4 +1,7 @@
 package com.himanshoe.kalendar.endlos.common
+
+import androidx.annotation.IntRange
+
 /*
 * MIT License
 *
@@ -28,4 +31,6 @@ package com.himanshoe.kalendar.endlos.common
  */
 data class KalendarKonfig(
     val maxYear: Int = 0,
+    @IntRange(from = 1, to = 4)
+    val weekCharacters: Int = 3,
 )
