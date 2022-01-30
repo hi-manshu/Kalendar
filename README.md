@@ -7,7 +7,6 @@ also add list of events for your days.
 _Made with ❤️ for Android Developers by Himanshu_
 
 [![Kalendar](https://img.shields.io/maven-central/v/com.himanshoe/kalendar)](https://search.maven.org/artifact/com.himanshoe/kalendar)
-[![Kalenda-Endlos](https://img.shields.io/maven-central/v/com.himanshoe/kalendar)](https://search.maven.org/artifact/com.himanshoe/kalendar-endlos)
 [![Github Followers](https://img.shields.io/github/followers/hi-manshu?label=Follow&style=social)](https://github.com/hi-manshu)
 [![Twitter Follow](https://img.shields.io/twitter/follow/hi_man_shoe?label=Follow&style=social)](https://twitter.com/hi_man_shoe)
 
