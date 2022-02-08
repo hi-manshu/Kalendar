@@ -34,6 +34,7 @@ internal fun KalendarMonth(
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
     kalendarKonfig: KalendarKonfig,
+    clickedDay: MutableState<LocalDate>,
 ) {
     Column(
         modifier = Modifier
@@ -42,13 +43,11 @@ internal fun KalendarMonth(
         verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         val haptic = LocalHapticFeedback.current
-
+        clickedDay.value = selectedDay
         val monthState = remember {
             mutableStateOf(yearMonth)
         }
-        val clickedDay = remember {
-            mutableStateOf(selectedDay)
-        }
+
 
         KalendarHeader(
             kalendarSelector = kalendarSelector,
@@ -66,8 +65,8 @@ internal fun KalendarMonth(
                         val isFromCurrentMonth = YearMonth.from(localDate) == monthState.value
                         if (isFromCurrentMonth) {
                             val isSelected = monthState.value.month == clickedDay.value.month &&
-                                monthState.value.year == clickedDay.value.year &&
-                                localDate == clickedDay.value
+                                    monthState.value.year == clickedDay.value.year &&
+                                    localDate == clickedDay.value
 
                             KalendarDay(
                                 size = size,

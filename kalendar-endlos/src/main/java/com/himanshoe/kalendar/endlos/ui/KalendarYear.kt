@@ -26,6 +26,7 @@ package com.himanshoe.kalendar.endlos.ui
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -52,7 +53,9 @@ internal fun KalendarView(
     val monthsList: MutableList<Int> = getInitialMonths() as MutableList<Int>
 
     val monthsState = remember { mutableStateOf(monthsList) }
-
+    val clickedDay: MutableState<LocalDate> = remember {
+        mutableStateOf(selectedDay)
+    }
     InfiniteLoadingList(
         modifier = Modifier
             .fillMaxWidth()
@@ -83,7 +86,8 @@ internal fun KalendarView(
             onCurrentDayClick,
             kalendarSelector,
             kalendarEvents,
-            kalendarKonfig
+            kalendarKonfig,
+            clickedDay
         )
     }
 }
