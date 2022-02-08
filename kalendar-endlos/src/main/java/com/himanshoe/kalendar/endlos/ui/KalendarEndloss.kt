@@ -57,9 +57,7 @@ internal fun KalendarEndlos(
                 errorMessageLogged = errorMessageLogged,
                 selectedDay = selectedDay,
                 kalendarEvents = kalendarEvents,
-                onCurrentDayClick = { date, event ->
-                    onCurrentDayClick(date, event)
-                }
+                onCurrentDayClick = onCurrentDayClick
             )
         }
     }
