@@ -1,6 +1,11 @@
 package com.himanshoe.kalendar.endlos.ui
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -17,7 +22,6 @@ import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
 import com.himanshoe.kalendar.endlos.util.getMonthNameFormatter
 import java.time.LocalDate
 import java.time.YearMonth
-import java.util.*
 
 private const val DAYS_IN_WEEK = 7
 
@@ -56,7 +60,6 @@ internal fun KalendarMonth(
             BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
                 val size = (maxWidth / DAYS_IN_WEEK)
                 Row(horizontalArrangement = Arrangement.spacedBy(0.dp)) {
-                    Collections.rotate(weekDays,7 - kalendarKonfig.firstDayOfWeek.value)
                     weekDays.forEach { localDate ->
                         val isFromCurrentMonth = YearMonth.from(localDate) == monthState.value
                         if (isFromCurrentMonth) {
