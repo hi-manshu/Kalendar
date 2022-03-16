@@ -1,6 +1,7 @@
 package com.himanshoe.sample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.himanshoe.kalendar.endlos.common.KalendarKonfig
@@ -13,9 +14,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Kalendar(
-                kalendarEvents = listOf(KalendarEvent(LocalDate.now().plusDays(3), "", "")),
+                kalendarEvents = listOf(
+                    KalendarEvent(LocalDate.now().plusDays(3), "Test event one", "Test one description"),
+                    KalendarEvent(LocalDate.now().plusDays(3), "Test event two", "Test two description")
+                ),
                 kalendarKonfig = KalendarKonfig(weekCharacters = 2),
-                onCurrentDayClick = { date, event ->
+                onCurrentDayClick = { date, eventsList ->
                 },
                 errorMessage = {}
             )
