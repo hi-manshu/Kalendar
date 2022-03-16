@@ -7,7 +7,6 @@ import com.himanshoe.kalendar.endlos.common.KalendarKonfig
 import com.himanshoe.kalendar.endlos.common.data.EventType
 import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
 import com.himanshoe.kalendar.endlos.ui.Kalendar
-import java.time.DayOfWeek
 import java.time.LocalDate
 
 class MainActivity : ComponentActivity() {
@@ -16,7 +15,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Kalendar(
                 kalendarEvents = listOf(KalendarEvent(LocalDate.now().plusDays(3), "", "",EventType.GOAL)),
-                kalendarKonfig = KalendarKonfig(weekCharacters = 2, firstDayOfWeek = DayOfWeek.MONDAY),
+                kalendarKonfig = KalendarKonfig(weekCharacters = 2),
                 onCurrentDayClick = { date, event ->
                 },
                 errorMessage = {}
