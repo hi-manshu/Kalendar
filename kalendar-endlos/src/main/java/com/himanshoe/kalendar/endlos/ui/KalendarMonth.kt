@@ -30,7 +30,7 @@ private const val DAYS_IN_WEEK = 7
 internal fun KalendarMonth(
     selectedDay: LocalDate,
     yearMonth: YearMonth = YearMonth.now(),
-    onCurrentDayClick: (LocalDate, List<KalendarEvent?>) -> Unit,
+    onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
     kalendarKonfig: KalendarKonfig,

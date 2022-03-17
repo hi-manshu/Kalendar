@@ -53,7 +53,7 @@ internal fun KalendarDay(
     isToday: Boolean,
     kalendarEvents: List<KalendarEvent>,
     kalendarSelector: KalendarSelector,
-    onDayClick: (LocalDate, List<KalendarEvent?>) -> Unit,
+    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
 ) {
     val isDot = kalendarSelector is KalendarSelector.Dot
     val events = kalendarEvents.filter{ it.date == date }
