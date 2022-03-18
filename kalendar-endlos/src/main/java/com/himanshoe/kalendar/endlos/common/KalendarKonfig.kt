@@ -1,7 +1,7 @@
 package com.himanshoe.kalendar.endlos.common
 
 import androidx.annotation.IntRange
-import java.util.*
+import java.util.Locale
 
 /*
 * MIT License
