@@ -48,7 +48,6 @@ internal fun KalendarMonth(
             mutableStateOf(yearMonth)
         }
 
-
         KalendarHeader(
             kalendarSelector = kalendarSelector,
             text = monthState.value.format(getMonthNameFormatter(kalendarKonfig.locale)),
@@ -64,9 +63,7 @@ internal fun KalendarMonth(
                     weekDays.forEach { localDate ->
                         val isFromCurrentMonth = YearMonth.from(localDate) == monthState.value
                         if (isFromCurrentMonth) {
-                            val isSelected = monthState.value.month == clickedDay.value.month &&
-                                    monthState.value.year == clickedDay.value.year &&
-                                    localDate == clickedDay.value
+                            val isSelected = monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year && localDate == clickedDay.value
 
                             KalendarDay(
                                 size = size,

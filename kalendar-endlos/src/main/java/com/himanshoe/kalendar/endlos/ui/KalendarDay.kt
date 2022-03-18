@@ -56,7 +56,7 @@ internal fun KalendarDay(
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
 ) {
     val isDot = kalendarSelector is KalendarSelector.Dot
-    val events = kalendarEvents.filter{ it.date == date }
+    val events = kalendarEvents.filter { it.date == date }
 
     Surface(
         color = if (isSelected && !isDot) kalendarSelector.selectedColor else kalendarSelector.defaultColor,
