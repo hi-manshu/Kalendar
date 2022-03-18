@@ -16,9 +16,9 @@ data class KalendarEvent(
     val eventType: EventType = EventType.EVENT,
 )
 
-enum class EventType {
-    GOAL,
-    REMINDER,
-    TASK,
-    EVENT
+sealed class EventType(val type: String) {
+    object GOAL : EventType(type = "GOAL")
+    object REMINDER : EventType(type = "REMINDER")
+    object TASK : EventType(type = "TASK")
+    object EVENT : EventType(type = "EVENT")
 }
