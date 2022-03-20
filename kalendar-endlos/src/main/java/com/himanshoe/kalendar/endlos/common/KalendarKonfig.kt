@@ -29,7 +29,7 @@ import java.util.Locale
 
 /**
  * [KalendarKonfig] represents the config needed for rendering calendar
- * @param[yearRange] gives the min/max year range
+ * @param[maxYear] gives the min/max year range
  * @param[weekCharacters] helps you set the number of character in Week name, default is 3
  * @param[locale] helps you set the locale where default is [Locale.ENGLISH]
  */
