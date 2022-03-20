@@ -7,18 +7,18 @@ import java.time.LocalDate
  * @param[date] with specific
  * @param[eventName] and its
  * @param[eventDescription] along with it's
- * @param[eventType]
+ * @param[eventType] type
  */
 data class KalendarEvent(
     val date: LocalDate,
     val eventName: String,
     val eventDescription: String? = null,
-    val eventType: EventType = EventType.EVENT,
+    val eventType: EventType = EventType.Event,
 )
 
-sealed class EventType(val type: String) {
-    object GOAL : EventType(type = "GOAL")
-    object REMINDER : EventType(type = "REMINDER")
-    object TASK : EventType(type = "TASK")
-    object EVENT : EventType(type = "EVENT")
+sealed class EventType {
+    object Goal : EventType()
+    object Reminder : EventType()
+    object Task : EventType()
+    object Event : EventType()
 }
