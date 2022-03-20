@@ -32,7 +32,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,10 +53,10 @@ internal fun KalendarDay(
     isToday: Boolean,
     kalendarEvents: List<KalendarEvent>,
     kalendarSelector: KalendarSelector,
-    onDayClick: (LocalDate, KalendarEvent?) -> Unit,
+    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
 ) {
     val isDot = kalendarSelector is KalendarSelector.Dot
-    val event = kalendarEvents.find { it.date == date }
+    val events = kalendarEvents.filter { it.date == date }
 
     Surface(
         color = if (isSelected && !isDot) kalendarSelector.selectedColor else kalendarSelector.defaultColor,
@@ -65,7 +64,7 @@ internal fun KalendarDay(
     ) {
         var localModifier = modifier
             .size(size)
-            .clickable { onDayClick(date, event) }
+            .clickable { onDayClick(date, events) }
 
         if (isToday && !isDot) {
             localModifier = localModifier.border(
@@ -87,7 +86,7 @@ internal fun KalendarDay(
                 color = getTextColor(
                     isSelected,
                     kalendarSelector,
-                    event != null
+                    !events.isNullOrEmpty()
                 )
             )
             if (isDot) {
