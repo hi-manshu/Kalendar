@@ -147,7 +147,7 @@ data class KalendarEvent(
     val date: LocalDate,
     val eventName: String,
     val eventDescription: String? = null,
-    val eventType: EventType = EventType.EVENT,
+    val eventType: EventType = EventType.Event,
 )
 ```
 
@@ -156,7 +156,7 @@ Here,
 - date: The Localdate on which the event is recorded
 - eventName: Pass a name for the event.
 - eventDescription: Pass a description for the event.
-- eventType : Pass the type of event, possible values under enum `EventType` { GOAL, REMINDER, TASK, EVENT }
+- eventType : Pass the type of event, possible values under enum `EventType` { Goal, Reminder, Task, Event }
 
 If the event is marked it looks like,
 
