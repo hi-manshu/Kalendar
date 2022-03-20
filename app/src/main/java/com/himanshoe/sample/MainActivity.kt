@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
             Kalendar(
                 kalendarEvents = listOf(KalendarEvent(LocalDate.now().plusDays(3), "", "", EventType.GOAL)),
                 kalendarKonfig = KalendarKonfig(weekCharacters = 2),
-                onCurrentDayClick = { date, event ->
+                onCurrentDayClick = { date, events ->
                 },
                 errorMessage = {}
             )

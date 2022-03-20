@@ -39,7 +39,7 @@ internal fun KalendarEndlos(
     kalendarStyle: KalendarStyle = KalendarStyle(),
     selectedDay: LocalDate = LocalDate.now(),
     kalendarEvents: List<KalendarEvent>,
-    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
+    onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessageLogged: (String) -> Unit,
 ) {
 
