@@ -8,7 +8,8 @@ _Made with ❤️ for Android Developers by Himanshu_
 
 [![Kalendar](https://img.shields.io/maven-central/v/com.himanshoe/kalendar)](https://search.maven.org/artifact/com.himanshoe/kalendar)
 [![Github Followers](https://img.shields.io/github/followers/hi-manshu?label=Follow&style=social)](https://github.com/hi-manshu)
-[![Twitter Follow](https://img.shields.io/twitter/follow/hi_man_shoe?label=Follow&style=social)](https://twitter.com/hi_man_shoe)
+[![Twitter Follow](https://img.shields.io/twitter/follow/hi_man_shoe?label=Follow&style=social)](https://twitter.com/hi_man_shoe)  
+[![Sample App](https://img.shields.io/github/v/release/hi-manshu/Kalendar?color=7885FF&label=Sample%20App&logo=android&style=for-the-badge)](https://github.com/hi-manshu/Kalendar/releases/latest/download/kalendar-sample.apk)
 
 ## Introduction
 
