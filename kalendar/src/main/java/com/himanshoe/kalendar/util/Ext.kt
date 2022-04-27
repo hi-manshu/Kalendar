@@ -38,3 +38,10 @@ internal fun Int.validateMinDate(year: Int): Boolean {
         year < this
     }
 }
+
+fun <T> MutableList<T>.move(item: T, newIndex: Int)  {
+    val currentIndex = indexOf(item)
+    if (currentIndex < 0) return
+    removeAt(currentIndex)
+    add(newIndex, item)
+}

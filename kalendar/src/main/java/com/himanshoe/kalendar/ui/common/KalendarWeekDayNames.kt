@@ -36,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import com.himanshoe.kalendar.common.KalendarKonfig
+import com.himanshoe.kalendar.util.move
 import java.text.DateFormatSymbols
 
 private const val DAYS_IN_WEEK = 7
@@ -43,7 +44,9 @@ private const val ZERO = 0
 
 @Composable
 internal fun KalendarWeekDayNames(kalendarKonfig: KalendarKonfig) {
-    val weekdays = DateFormatSymbols(kalendarKonfig.locale).weekdays.takeLast(DAYS_IN_WEEK)
+
+    val weekdays = DateFormatSymbols(kalendarKonfig.locale).weekdays.takeLast(DAYS_IN_WEEK).toMutableList()
+    if (kalendarKonfig.isMondayInitialDay) weekdays.move(weekdays.first(), 6)
 
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
         val width = (maxWidth / DAYS_IN_WEEK)
