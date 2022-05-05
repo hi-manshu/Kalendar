@@ -1,6 +1,5 @@
 package com.himanshoe.kalendar.endlos.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -24,7 +23,7 @@ import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
 import com.himanshoe.kalendar.endlos.util.getMonthNameFormatter
 import java.time.LocalDate
 import java.time.YearMonth
-import java.util.*
+import java.util.Collections
 
 private const val DAYS_IN_WEEK = 7
 
@@ -56,7 +55,7 @@ internal fun KalendarMonth(
         )
         KalendarWeekDayNames(kalendarKonfig = kalendarKonfig)
 
-        val days: List<LocalDate> = getDays(monthState,kalendarKonfig)
+        val days: List<LocalDate> = getDays(monthState, kalendarKonfig)
 
         days.chunked(DAYS_IN_WEEK).forEach { weekDays ->
             BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
@@ -102,7 +101,7 @@ private fun getDays(monthState: MutableState<YearMonth>, kalendarKonfig: Kalenda
         val firstDayOfWeek = if (firstDay.dayOfWeek == kalendarKonfig.firstDayOfWeek) {
             firstDay
         } else {
-            firstDay.minusDays(firstDay.dayOfWeek.value-kalendarKonfig.firstDayOfWeek.value.toLong())
+            firstDay.minusDays(firstDay.dayOfWeek.value - kalendarKonfig.firstDayOfWeek.value.toLong())
         }
         val weekList = listOf(7,1,2,3,4,5,6)
         when {
@@ -117,8 +116,7 @@ private fun getDays(monthState: MutableState<YearMonth>, kalendarKonfig: Kalenda
         }
         repeat(6) { weekIndex ->
             (0..6).forEach { dayIndex ->
-                val day  = firstDayOfWeek.plusDays((7 * weekIndex + dayIndex).toLong())
-                add(day)
+                add(firstDayOfWeek.plusDays((7 * weekIndex + dayIndex).toLong()))
             }
         }
     }
