@@ -103,14 +103,14 @@ private fun getDays(monthState: MutableState<YearMonth>, kalendarKonfig: Kalenda
         } else {
             firstDay.minusDays(firstDay.dayOfWeek.value - kalendarKonfig.firstDayOfWeek.value.toLong())
         }
-        val weekList = listOf(7,1,2,3,4,5,6)
+        val weekList = listOf(7, 1, 2, 3, 4, 5, 6)
         when {
             firstDay.dayOfWeek.value > kalendarKonfig.firstDayOfWeek.value -> {
                 val moves = firstDay.dayOfWeek.value - kalendarKonfig.firstDayOfWeek.value
                 Collections.rotate(weekList, moves)
             }
             firstDay.dayOfWeek.value > kalendarKonfig.firstDayOfWeek.value -> {
-                val moves  = kalendarKonfig.firstDayOfWeek.value - firstDay.dayOfWeek.value
+                val moves = kalendarKonfig.firstDayOfWeek.value - firstDay.dayOfWeek.value
                 Collections.rotate(weekList, moves)
             }
         }

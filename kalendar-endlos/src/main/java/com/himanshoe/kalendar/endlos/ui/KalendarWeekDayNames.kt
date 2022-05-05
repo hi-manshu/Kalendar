@@ -37,7 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import com.himanshoe.kalendar.endlos.common.KalendarKonfig
 import java.text.DateFormatSymbols
-import java.util.*
+import java.util.Collections
 
 private const val DAYS_IN_WEEK = 7
 private const val ZERO = 0
