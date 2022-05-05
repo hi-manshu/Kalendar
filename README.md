@@ -88,6 +88,7 @@ By default it takes the initial values added to it.
 ```kotlin
 data class KalendarKonfig(
     val yearRange: YearRange = YearRange(),
+    val firstDayOfWeek: DayOfWeek = DayOfWeek.SUNDAY
 )
 ```
 
@@ -95,6 +96,7 @@ where,
 
 ```md
 YearRange takes value min to max for years in Int
+firstDayOfWeek takes the value for setting custom First day of week with default set to SUNDAY
 ```
 
 ### 4. KalendarStyle
