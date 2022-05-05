@@ -1,5 +1,6 @@
 package com.himanshoe.kalendar.endlos.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
 import com.himanshoe.kalendar.endlos.util.getMonthNameFormatter
 import java.time.LocalDate
 import java.time.YearMonth
+import java.util.*
 
 private const val DAYS_IN_WEEK = 7
 
@@ -54,7 +56,7 @@ internal fun KalendarMonth(
         )
         KalendarWeekDayNames(kalendarKonfig = kalendarKonfig)
 
-        val days: List<LocalDate> = getDays(monthState)
+        val days: List<LocalDate> = getDays(monthState,kalendarKonfig)
 
         days.chunked(DAYS_IN_WEEK).forEach { weekDays ->
             BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
@@ -94,17 +96,29 @@ internal fun KalendarMonth(
     }
 }
 
-private fun getDays(monthState: MutableState<YearMonth>): List<LocalDate> {
+private fun getDays(monthState: MutableState<YearMonth>, kalendarKonfig: KalendarKonfig): List<LocalDate> {
     return mutableListOf<LocalDate>().apply {
         val firstDay = monthState.value.atDay(1)
-        val firstSunday = if (firstDay.dayOfWeek == java.time.DayOfWeek.SUNDAY) {
+        val firstDayOfWeek = if (firstDay.dayOfWeek == kalendarKonfig.firstDayOfWeek) {
             firstDay
         } else {
-            firstDay.minusDays(firstDay.dayOfWeek.value.toLong())
+            firstDay.minusDays(firstDay.dayOfWeek.value-kalendarKonfig.firstDayOfWeek.value.toLong())
+        }
+        val weekList = listOf(7,1,2,3,4,5,6)
+        when {
+            firstDay.dayOfWeek.value > kalendarKonfig.firstDayOfWeek.value -> {
+                val moves = firstDay.dayOfWeek.value - kalendarKonfig.firstDayOfWeek.value
+                Collections.rotate(weekList, moves)
+            }
+            firstDay.dayOfWeek.value > kalendarKonfig.firstDayOfWeek.value -> {
+                val moves  = kalendarKonfig.firstDayOfWeek.value - firstDay.dayOfWeek.value
+                Collections.rotate(weekList, moves)
+            }
         }
         repeat(6) { weekIndex ->
             (0..6).forEach { dayIndex ->
-                add(firstSunday.plusDays((7 * weekIndex + dayIndex).toLong()))
+                val day  = firstDayOfWeek.plusDays((7 * weekIndex + dayIndex).toLong())
+                add(day)
             }
         }
     }
