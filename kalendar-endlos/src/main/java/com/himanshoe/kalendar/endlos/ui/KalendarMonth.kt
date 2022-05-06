@@ -26,8 +26,8 @@ import java.time.YearMonth
 import java.util.Collections
 import kotlin.math.abs
 
-private const val DAYS_IN_WEEK = 7
-private val weekList = listOf(7, 1, 2, 3, 4, 5, 6)
+private const val DaysInWeek = 7
+private val WeekList = listOf(7, 1, 2, 3, 4, 5, 6)
 
 @Composable
 internal fun KalendarMonth(
@@ -59,9 +59,9 @@ internal fun KalendarMonth(
 
         val days: List<LocalDate> = getDays(monthState, kalendarKonfig)
 
-        days.chunked(DAYS_IN_WEEK).forEach { weekDays ->
+        days.chunked(DaysInWeek).forEach { weekDays ->
             BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-                val size = (maxWidth / DAYS_IN_WEEK)
+                val size = (maxWidth / DaysInWeek)
                 Row(horizontalArrangement = Arrangement.spacedBy(0.dp)) {
                     weekDays.forEach { localDate ->
                         val isFromCurrentMonth = YearMonth.from(localDate) == monthState.value
@@ -108,10 +108,10 @@ private fun getDays(monthState: MutableState<YearMonth>, kalendarKonfig: Kalenda
         }
         when {
             firstDay.dayOfWeek.value > kalendarKonfig.firstDayOfWeek.value -> {
-                Collections.rotate(weekList, moves)
+                Collections.rotate(WeekList, moves)
             }
             firstDay.dayOfWeek.value > kalendarKonfig.firstDayOfWeek.value -> {
-                Collections.rotate(weekList, abs(moves))
+                Collections.rotate(WeekList, abs(moves))
             }
         }
         repeat(6) { weekIndex ->
