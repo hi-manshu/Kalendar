@@ -45,7 +45,7 @@ private const val ZERO = 0
 @Composable
 internal fun KalendarWeekDayNames(kalendarKonfig: KalendarKonfig) {
     val weekdays = DateFormatSymbols(kalendarKonfig.locale).weekdays.takeLast(DAYS_IN_WEEK)
-    Collections.rotate(weekdays, 7 - kalendarKonfig.firstDayOfWeek.value)
+    Collections.rotate(weekdays, 7.minus(kalendarKonfig.firstDayOfWeek.value))
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
         val width = (maxWidth / DAYS_IN_WEEK)
         Row(modifier = Modifier.fillMaxWidth()) {

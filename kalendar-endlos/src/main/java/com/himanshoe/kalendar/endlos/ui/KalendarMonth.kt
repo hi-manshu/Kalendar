@@ -24,8 +24,10 @@ import com.himanshoe.kalendar.endlos.util.getMonthNameFormatter
 import java.time.LocalDate
 import java.time.YearMonth
 import java.util.Collections
+import kotlin.math.abs
 
 private const val DAYS_IN_WEEK = 7
+private val weekList = listOf(7, 1, 2, 3, 4, 5, 6)
 
 @Composable
 internal fun KalendarMonth(
@@ -98,25 +100,23 @@ internal fun KalendarMonth(
 private fun getDays(monthState: MutableState<YearMonth>, kalendarKonfig: KalendarKonfig): List<LocalDate> {
     return mutableListOf<LocalDate>().apply {
         val firstDay = monthState.value.atDay(1)
+        val moves = firstDay.dayOfWeek.value - kalendarKonfig.firstDayOfWeek.value
         val firstDayOfWeek = if (firstDay.dayOfWeek == kalendarKonfig.firstDayOfWeek) {
             firstDay
         } else {
             firstDay.minusDays(firstDay.dayOfWeek.value - kalendarKonfig.firstDayOfWeek.value.toLong())
         }
-        val weekList = listOf(7, 1, 2, 3, 4, 5, 6)
         when {
             firstDay.dayOfWeek.value > kalendarKonfig.firstDayOfWeek.value -> {
-                val moves = firstDay.dayOfWeek.value - kalendarKonfig.firstDayOfWeek.value
                 Collections.rotate(weekList, moves)
             }
             firstDay.dayOfWeek.value > kalendarKonfig.firstDayOfWeek.value -> {
-                val moves = kalendarKonfig.firstDayOfWeek.value - firstDay.dayOfWeek.value
-                Collections.rotate(weekList, moves)
+                Collections.rotate(weekList, abs(moves))
             }
         }
         repeat(6) { weekIndex ->
             (0..6).forEach { dayIndex ->
-                add(firstDayOfWeek.plusDays((7 * weekIndex + dayIndex).toLong()))
+                add(firstDayOfWeek.plusDays((7.times(weekIndex).plus(dayIndex)).toLong()))
             }
         }
     }
