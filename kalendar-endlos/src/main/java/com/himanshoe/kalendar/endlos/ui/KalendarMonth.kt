@@ -23,8 +23,11 @@ import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
 import com.himanshoe.kalendar.endlos.util.getMonthNameFormatter
 import java.time.LocalDate
 import java.time.YearMonth
+import java.util.Collections
+import kotlin.math.abs
 
-private const val DAYS_IN_WEEK = 7
+private const val DaysInWeek = 7
+private val WeekList = listOf(7, 1, 2, 3, 4, 5, 6)
 
 @Composable
 internal fun KalendarMonth(
@@ -54,11 +57,11 @@ internal fun KalendarMonth(
         )
         KalendarWeekDayNames(kalendarKonfig = kalendarKonfig)
 
-        val days: List<LocalDate> = getDays(monthState)
+        val days: List<LocalDate> = getDays(monthState, kalendarKonfig)
 
-        days.chunked(DAYS_IN_WEEK).forEach { weekDays ->
+        days.chunked(DaysInWeek).forEach { weekDays ->
             BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-                val size = (maxWidth / DAYS_IN_WEEK)
+                val size = (maxWidth / DaysInWeek)
                 Row(horizontalArrangement = Arrangement.spacedBy(0.dp)) {
                     weekDays.forEach { localDate ->
                         val isFromCurrentMonth = YearMonth.from(localDate) == monthState.value
@@ -94,17 +97,26 @@ internal fun KalendarMonth(
     }
 }
 
-private fun getDays(monthState: MutableState<YearMonth>): List<LocalDate> {
+private fun getDays(monthState: MutableState<YearMonth>, kalendarKonfig: KalendarKonfig): List<LocalDate> {
     return mutableListOf<LocalDate>().apply {
         val firstDay = monthState.value.atDay(1)
-        val firstSunday = if (firstDay.dayOfWeek == java.time.DayOfWeek.SUNDAY) {
+        val moves = firstDay.dayOfWeek.value - kalendarKonfig.firstDayOfWeek.value
+        val firstDayOfWeek = if (firstDay.dayOfWeek == kalendarKonfig.firstDayOfWeek) {
             firstDay
         } else {
-            firstDay.minusDays(firstDay.dayOfWeek.value.toLong())
+            firstDay.minusDays(firstDay.dayOfWeek.value - kalendarKonfig.firstDayOfWeek.value.toLong())
+        }
+        when {
+            firstDay.dayOfWeek.value > kalendarKonfig.firstDayOfWeek.value -> {
+                Collections.rotate(WeekList, moves)
+            }
+            firstDay.dayOfWeek.value > kalendarKonfig.firstDayOfWeek.value -> {
+                Collections.rotate(WeekList, abs(moves))
+            }
         }
         repeat(6) { weekIndex ->
             (0..6).forEach { dayIndex ->
-                add(firstSunday.plusDays((7 * weekIndex + dayIndex).toLong()))
+                add(firstDayOfWeek.plusDays((7.times(weekIndex).plus(dayIndex)).toLong()))
             }
         }
     }
