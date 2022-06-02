@@ -41,7 +41,7 @@ internal fun KalendarFirey(
     kalendarStyle: KalendarStyle = KalendarStyle(),
     selectedDay: LocalDate = LocalDate.now(),
     kalendarEvents: List<KalendarEvent>,
-    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
+    onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessageLogged: (String) -> Unit,
 ) {
 
@@ -63,8 +63,8 @@ internal fun KalendarFirey(
                 errorMessageLogged = errorMessageLogged,
                 selectedDay = selectedDay,
                 kalendarEvents = kalendarEvents,
-                onCurrentDayClick = { date, event ->
-                    onCurrentDayClick(date, event)
+                onCurrentDayClick = { date, events ->
+                    onCurrentDayClick(date, events)
                 }
             )
         }

@@ -59,7 +59,7 @@ internal fun KalendarOceanWeek(
     startDate: LocalDate = LocalDate.now(),
     selectedDay: LocalDate = startDate,
     kalendarKonfig: KalendarKonfig,
-    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
+    onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessageLogged: (String) -> Unit,
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
@@ -105,7 +105,7 @@ internal fun KalendarOceanWeek(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        val event: KalendarEvent? = kalendarEvents.find { it.date == date }
+                        val events: List<KalendarEvent> = kalendarEvents.filter { it.date == date }
                         Text(
                             text = date.dayOfWeek
                                 .getDisplayName(TextStyle.FULL, kalendarKonfig.locale).toString()
@@ -120,7 +120,7 @@ internal fun KalendarOceanWeek(
                             text = date.dayOfMonth.toString(),
                             style = MaterialTheme.typography.body1,
                             fontWeight = FontWeight.SemiBold,
-                            color = getTextColor(isSelected, kalendarSelector, event != null),
+                            color = getTextColor(isSelected, kalendarSelector, events.isNotEmpty()),
                             modifier = Modifier
                                 .size(size)
                                 .clip(if (isDot) KalendarShape.DefaultRectangle else kalendarSelector.shape)
@@ -136,7 +136,7 @@ internal fun KalendarOceanWeek(
                                 .clickable {
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                     clickedDate.value = date
-                                    onCurrentDayClick(date, event)
+                                    onCurrentDayClick(date, events)
                                 }
                                 .wrapContentHeight(),
                             textAlign = TextAlign.Center
