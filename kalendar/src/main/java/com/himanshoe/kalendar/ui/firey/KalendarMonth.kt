@@ -32,7 +32,7 @@ internal fun KalendarMonth(
     selectedDay: LocalDate,
     yearMonth: YearMonth = YearMonth.now(),
     kalendarKonfig: KalendarKonfig,
-    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
+    onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessageLogged: (String) -> Unit,
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
@@ -98,10 +98,10 @@ internal fun KalendarMonth(
                                 isToday = localDate == LocalDate.now(),
                                 kalendarSelector = kalendarSelector,
                                 kalendarEvents = kalendarEvents,
-                                onDayClick = { date, event ->
+                                onDayClick = { date, events ->
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                     clickedDay.value = date
-                                    onCurrentDayClick(date, event)
+                                    onCurrentDayClick(date, events)
                                 }
                             )
                         } else {

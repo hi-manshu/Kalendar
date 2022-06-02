@@ -42,7 +42,7 @@ internal fun KalendarView(
     kalendarKonfig: KalendarKonfig,
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
-    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
+    onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessageLogged: (String) -> Unit,
 ) {
     Column(

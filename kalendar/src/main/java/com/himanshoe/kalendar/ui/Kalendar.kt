@@ -63,7 +63,7 @@ fun Kalendar(
     kalendarStyle: KalendarStyle = KalendarStyle(),
     selectedDay: LocalDate = LocalDate.now(),
     kalendarEvents: List<KalendarEvent> = emptyList(),
-    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
+    onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessage: (String) -> Unit = {},
 ) {
     val shape =
