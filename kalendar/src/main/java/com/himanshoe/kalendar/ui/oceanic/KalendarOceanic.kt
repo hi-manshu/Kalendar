@@ -46,7 +46,7 @@ internal fun KalendarOceanic(
     startDate: LocalDate = LocalDate.now(),
     selectedDay: LocalDate = startDate,
     kalendarEvents: List<KalendarEvent>,
-    onCurrentDayClick: (LocalDate, KalendarEvent?) -> Unit,
+    onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessageLogged: (String) -> Unit,
 ) {
     KalendarTheme {
