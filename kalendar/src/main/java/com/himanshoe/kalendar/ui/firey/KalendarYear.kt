@@ -44,6 +44,7 @@ internal fun KalendarView(
     kalendarEvents: List<KalendarEvent>,
     onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessageLogged: (String) -> Unit,
+    dateRangeEnabled: Boolean = false
 ) {
     Column(
         modifier = Modifier
@@ -57,7 +58,8 @@ internal fun KalendarView(
             onCurrentDayClick,
             errorMessageLogged,
             kalendarSelector,
-            kalendarEvents
+            kalendarEvents,
+            dateRangeEnabled
         )
     }
 }

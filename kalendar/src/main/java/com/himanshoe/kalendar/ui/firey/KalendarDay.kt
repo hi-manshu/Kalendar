@@ -51,6 +51,8 @@ internal fun KalendarDay(
     date: LocalDate,
     isSelected: Boolean,
     isToday: Boolean,
+    isPreviousDay: Boolean,
+    isBetweenDay: Boolean,
     kalendarEvents: List<KalendarEvent>,
     kalendarSelector: KalendarSelector,
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
@@ -70,6 +72,20 @@ internal fun KalendarDay(
             localModifier = localModifier.border(
                 width = 2.dp,
                 color = kalendarSelector.todayColor,
+                shape = kalendarSelector.shape
+            )
+        }
+        if(isPreviousDay){
+            localModifier = localModifier.border(
+                width = 2.dp,
+                color = kalendarSelector.previousColor,
+                shape = kalendarSelector.shape
+            )
+        }
+        if(isBetweenDay){
+            localModifier = localModifier.border(
+                width = 2.dp,
+                color = kalendarSelector.betweenDayColor,
                 shape = kalendarSelector.shape
             )
         }
