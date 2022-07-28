@@ -49,6 +49,7 @@ internal fun KalendarView(
     kalendarKonfig: KalendarKonfig,
     onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessageLogged: (String) -> Unit,
+    dateRangeEnabled: Boolean = false
 ) {
     val monthsList: MutableList<Int> = getInitialMonths() as MutableList<Int>
 
@@ -87,7 +88,8 @@ internal fun KalendarView(
             kalendarSelector,
             kalendarEvents,
             kalendarKonfig,
-            clickedDay
+            clickedDay,
+            dateRangeEnabled
         )
     }
 }

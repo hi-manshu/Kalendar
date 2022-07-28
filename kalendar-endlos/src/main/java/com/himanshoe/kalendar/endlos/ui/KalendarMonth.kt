@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Divider
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -38,7 +35,9 @@ internal fun KalendarMonth(
     kalendarEvents: List<KalendarEvent>,
     kalendarKonfig: KalendarKonfig,
     clickedDay: MutableState<LocalDate>,
+    dateRangeEnabled: Boolean = false
 ) {
+    val previousClickedDay = remember { mutableStateOf(LocalDate.now())}
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -67,16 +66,22 @@ internal fun KalendarMonth(
                         val isFromCurrentMonth = YearMonth.from(localDate) == monthState.value
                         if (isFromCurrentMonth) {
                             val isSelected = monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year && localDate == clickedDay.value
+                            val isPreviousDay = monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year && localDate == previousClickedDay.value
+                            val isBetweenDay = monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year &&
+                                        (localDate > previousClickedDay.value && localDate < clickedDay.value || localDate < previousClickedDay.value && localDate > clickedDay.value)
 
                             KalendarDay(
                                 size = size,
                                 date = localDate,
                                 isSelected = isSelected,
                                 isToday = localDate == LocalDate.now(),
+                                isPreviousDay = if(dateRangeEnabled) isPreviousDay else false,
+                                isBetweenDay = if(dateRangeEnabled) isBetweenDay else false,
                                 kalendarSelector = kalendarSelector,
                                 kalendarEvents = kalendarEvents,
                                 onDayClick = { date, event ->
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    previousClickedDay.value = clickedDay.value
                                     clickedDay.value = date
                                     onCurrentDayClick(date, event)
                                 }

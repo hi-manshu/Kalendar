@@ -33,6 +33,8 @@ data class KalendarColor(
     val background: Color,
     val transparent: Color,
     val white: Color,
+    val gray: Color,
+    val lightGray: Color,
     val black: Color,
 )
 
@@ -43,6 +45,8 @@ internal fun colorPalette() = KalendarColor(
     background = Color.White,
     transparent = Color.Transparent,
     white = Color.White,
+    gray = Color.Gray,
+    lightGray = LightGray,
     black = Color.Black
 )
 

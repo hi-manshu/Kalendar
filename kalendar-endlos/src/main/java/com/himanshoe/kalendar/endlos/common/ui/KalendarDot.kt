@@ -35,11 +35,12 @@ import com.himanshoe.kalendar.endlos.common.theme.Grid
 internal fun KalendarDot(
     isSelected: Boolean,
     isToday: Boolean,
+    isBetweenDay: Boolean,
     kalendarSelector: KalendarSelector,
 ) {
     Surface(
         shape = kalendarSelector.shape,
-        color = getColor(isSelected, isToday, kalendarSelector),
+        color = getColor(isSelected, isToday, isBetweenDay, kalendarSelector),
         modifier = Modifier
             .size(Grid.One),
         content = {}
@@ -49,11 +50,13 @@ internal fun KalendarDot(
 private fun getColor(
     isSelected: Boolean,
     isToday: Boolean,
+    isBetweenDay: Boolean,
     kalendarSelector: KalendarSelector,
 ): Color {
     return when {
         isToday -> kalendarSelector.todayColor
         isSelected -> kalendarSelector.selectedColor
+        isBetweenDay -> kalendarSelector.betweenDayColor
         else -> kalendarSelector.defaultColor
     }
 }
