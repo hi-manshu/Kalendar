@@ -36,7 +36,9 @@ internal fun KalendarMonth(
     errorMessageLogged: (String) -> Unit,
     kalendarSelector: KalendarSelector,
     kalendarEvents: List<KalendarEvent>,
+    dateRangeEnabled: Boolean = false
 ) {
+    val previousClickedDay = remember { mutableStateOf(LocalDate.now())}
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -90,16 +92,22 @@ internal fun KalendarMonth(
                             val isSelected = monthState.value.month == clickedDay.value.month &&
                                 monthState.value.year == clickedDay.value.year &&
                                 localDate == clickedDay.value
+                            val isPreviousDay = monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year && localDate == previousClickedDay.value
+                            val isBetweenDay = monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year &&
+                                    (localDate > previousClickedDay.value && localDate < clickedDay.value || localDate < previousClickedDay.value && localDate > clickedDay.value)
 
                             KalendarDay(
                                 size = size,
                                 date = localDate,
                                 isSelected = isSelected,
                                 isToday = localDate == LocalDate.now(),
+                                isPreviousDay = if(dateRangeEnabled) isPreviousDay else false,
+                                isBetweenDay = if(dateRangeEnabled) isBetweenDay else false,
                                 kalendarSelector = kalendarSelector,
                                 kalendarEvents = kalendarEvents,
                                 onDayClick = { date, events ->
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    previousClickedDay.value = clickedDay.value
                                     clickedDay.value = date
                                     onCurrentDayClick(date, events)
                                 }
