@@ -15,8 +15,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Kalendar(
-                kalendarEvents = listOf(KalendarEvent(LocalDate.now().plusDays(3), "", "", EventType.Goal)),
-                kalendarKonfig = KalendarKonfig(weekCharacters = 2, firstDayOfWeek = DayOfWeek.MONDAY),
+                kalendarEvents = listOf(
+                    KalendarEvent(
+                        LocalDate.now().plusDays(3),
+                        "",
+                        "",
+                        EventType.Goal
+                    )
+                ),
+                kalendarKonfig = KalendarKonfig(
+                    weekCharacters = 2,
+                    firstDayOfWeek = DayOfWeek.MONDAY
+                ),
                 onCurrentDayClick = { date, events ->
                 },
                 errorMessage = {}
