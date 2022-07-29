@@ -66,8 +66,8 @@ internal fun KalendarMonth(
                     weekDays.forEach { localDate ->
                         val isFromCurrentMonth = YearMonth.from(localDate) == monthState.value
                         if (isFromCurrentMonth) {
-                            val isSelected = monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year && localDate == clickedDay.value
-
+                            val isSelected =
+                                monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year && localDate == clickedDay.value
                             KalendarDay(
                                 size = size,
                                 date = localDate,
@@ -97,14 +97,17 @@ internal fun KalendarMonth(
     }
 }
 
-private fun getDays(monthState: MutableState<YearMonth>, kalendarKonfig: KalendarKonfig): List<LocalDate> {
+private fun getDays(
+    monthState: MutableState<YearMonth>,
+    kalendarKonfig: KalendarKonfig
+): List<LocalDate> {
     return mutableListOf<LocalDate>().apply {
         val firstDay = monthState.value.atDay(1)
         val moves = firstDay.dayOfWeek.value - kalendarKonfig.firstDayOfWeek.value
         val firstDayOfWeek = if (firstDay.dayOfWeek == kalendarKonfig.firstDayOfWeek) {
             firstDay
         } else {
-            firstDay.minusDays(firstDay.dayOfWeek.value - kalendarKonfig.firstDayOfWeek.value.toLong())
+            firstDay.minusDays(firstDay.dayOfWeek.value.toLong())
         }
         when {
             firstDay.dayOfWeek.value > kalendarKonfig.firstDayOfWeek.value -> {
