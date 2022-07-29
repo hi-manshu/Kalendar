@@ -75,14 +75,14 @@ internal fun KalendarDay(
                 shape = kalendarSelector.shape
             )
         }
-        if(isPreviousDay){
+        if (isPreviousDay) {
             localModifier = localModifier.border(
                 width = 2.dp,
                 color = kalendarSelector.previousColor,
                 shape = kalendarSelector.shape
             )
         }
-        if(isBetweenDay){
+        if (isBetweenDay) {
             localModifier = localModifier.border(
                 width = 2.dp,
                 color = kalendarSelector.betweenDayColor,
