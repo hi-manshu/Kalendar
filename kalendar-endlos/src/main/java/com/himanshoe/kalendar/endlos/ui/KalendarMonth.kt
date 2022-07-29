@@ -66,8 +66,7 @@ internal fun KalendarMonth(
                     weekDays.forEach { localDate ->
                         val isFromCurrentMonth = YearMonth.from(localDate) == monthState.value
                         if (isFromCurrentMonth) {
-                            val isSelected =
-                                monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year && localDate == clickedDay.value
+                            val isSelected = monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year && localDate == clickedDay.value
                             KalendarDay(
                                 size = size,
                                 date = localDate,

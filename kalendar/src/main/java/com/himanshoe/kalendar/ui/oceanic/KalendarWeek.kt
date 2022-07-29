@@ -23,16 +23,11 @@ package com.himanshoe.kalendar.ui.oceanic
 * SOFTWARE.
 */
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -79,10 +74,10 @@ internal fun KalendarOceanWeek(
     ) {
         val size = (maxWidth / 7)
         val monthName = "${
-        displayWeek.value.last().month.getDisplayName(
-            TextStyle.FULL,
-            kalendarKonfig.locale
-        )
+            displayWeek.value.last().month.getDisplayName(
+                TextStyle.FULL,
+                kalendarKonfig.locale
+            )
         } ${displayWeek.value.last().year}"
         Column(Modifier.fillMaxWidth()) {
             KalendarOceanHeader(
@@ -99,7 +94,17 @@ internal fun KalendarOceanWeek(
             ) {
                 displayWeek.value.forEach { date ->
                     val isSelected = date == clickedDate.value
-
+                    val animatedColor = animateColorAsState(
+                        if (!isDot) {
+                            getBackgroundColor(
+                                kalendarSelector = kalendarSelector,
+                                selectedDate = clickedDate.value,
+                                providedDate = date
+                            )
+                        } else {
+                            Color.Transparent
+                        }, TweenSpec(600)
+                    )
                     Column(
                         modifier = Modifier,
                         verticalArrangement = Arrangement.Center,
@@ -125,13 +130,7 @@ internal fun KalendarOceanWeek(
                                 .size(size)
                                 .clip(if (isDot) KalendarShape.DefaultRectangle else kalendarSelector.shape)
                                 .background(
-                                    if (!isDot) {
-                                        getBackgroundColor(
-                                            kalendarSelector = kalendarSelector,
-                                            selectedDate = clickedDate.value,
-                                            providedDate = date
-                                        )
-                                    } else Color.Transparent
+                                    animatedColor.value
                                 )
                                 .clickable {
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
