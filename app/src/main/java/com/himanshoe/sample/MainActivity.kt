@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
                         LocalDate.now().plusDays(3),
                         "",
                         "",
+
                     )
                 ),
                 kalendarKonfig = KalendarKonfig(
