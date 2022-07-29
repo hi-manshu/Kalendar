@@ -3,10 +3,11 @@ package com.himanshoe.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.himanshoe.kalendar.endlos.common.KalendarKonfig
+import com.himanshoe.kalendar.common.KalendarKonfig
+import com.himanshoe.kalendar.common.data.KalendarEvent
 import com.himanshoe.kalendar.endlos.common.data.EventType
-import com.himanshoe.kalendar.endlos.common.data.KalendarEvent
-import com.himanshoe.kalendar.endlos.ui.Kalendar
+import com.himanshoe.kalendar.ui.Kalendar
+import com.himanshoe.kalendar.ui.KalendarType
 import java.time.DayOfWeek
 import java.time.LocalDate
 
@@ -20,16 +21,15 @@ class MainActivity : ComponentActivity() {
                         LocalDate.now().plusDays(3),
                         "",
                         "",
-                        EventType.Goal
                     )
                 ),
                 kalendarKonfig = KalendarKonfig(
                     weekCharacters = 2,
-                    firstDayOfWeek = DayOfWeek.MONDAY
                 ),
                 onCurrentDayClick = { date, events ->
                 },
-                errorMessage = {}
+                errorMessage = {},
+                kalendarType = KalendarType.Oceanic()
             )
         }
     }
