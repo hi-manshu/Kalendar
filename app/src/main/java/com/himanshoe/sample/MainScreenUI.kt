@@ -14,7 +14,7 @@ import java.time.LocalDate
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun MainScreenUI(){
+fun MainScreenUI() {
 
     val pagerState = rememberPagerState()
 
@@ -22,8 +22,8 @@ fun MainScreenUI(){
         count = 3,
         state = pagerState,
         modifier = Modifier.fillMaxWidth()
-    ){
-        when(it){
+    ) {
+        when (it) {
 
             /**
              * Demonstrate the use of [Kalendar] calendar
@@ -47,7 +47,6 @@ fun MainScreenUI(){
                 )
             }
 
-
             /**
              * Demonstrate the use of [KalendarType.Firey] calendar
              */
@@ -55,10 +54,10 @@ fun MainScreenUI(){
                 Kalendar(
                     kalendarType = KalendarType.Firey(),
                     onCurrentDayClick = { day, event ->
-                        //handle the day click listener
+                        // handle the day click listener
                     },
                     errorMessage = {
-                        //Handle the error if any
+                        // Handle the error if any
                     }
                 )
             }
@@ -70,10 +69,10 @@ fun MainScreenUI(){
                 Kalendar(
                     kalendarType = KalendarType.Oceanic(),
                     onCurrentDayClick = { day, event ->
-                        //handle the day click listener
+                        // handle the day click listener
                     },
                     errorMessage = {
-                        //Handle the error if any
+                        // Handle the error if any
                     }
                 )
             }
