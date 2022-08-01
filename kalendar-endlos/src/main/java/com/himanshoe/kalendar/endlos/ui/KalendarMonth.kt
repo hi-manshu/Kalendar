@@ -38,7 +38,8 @@ internal fun KalendarMonth(
     kalendarEvents: List<KalendarEvent>,
     kalendarKonfig: KalendarKonfig,
     clickedDay: MutableState<LocalDate>,
-    dateRangeEnabled: Boolean = false
+    dateRangeEnabled: Boolean = false,
+    onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit = {}
 ) {
     val previousClickedDay = remember { mutableStateOf(LocalDate.now()) }
     Column(
@@ -86,6 +87,7 @@ internal fun KalendarMonth(
                                     previousClickedDay.value = clickedDay.value
                                     clickedDay.value = date
                                     onCurrentDayClick(date, event)
+                                    onDateRangeSelected(previousClickedDay.value to date)
                                 }
                             )
                         } else {

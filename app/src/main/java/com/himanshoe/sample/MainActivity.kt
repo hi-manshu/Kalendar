@@ -20,7 +20,10 @@ class MainActivity : ComponentActivity() {
                 onCurrentDayClick = { date, events ->
                 },
                 errorMessage = {},
-                dateRangeEnabled = true
+                dateRangeEnabled = true,
+                onDateRangeSelected = {
+                    println(it)
+                }
             )
         }
     }

@@ -65,7 +65,8 @@ fun Kalendar(
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessage: (String) -> Unit = {},
-    dateRangeEnabled: Boolean = false
+    dateRangeEnabled: Boolean = false,
+    onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit = {}
 ) {
     val shape =
         if (kalendarStyle.hasRadius) KalendarShape.SelectedShape else KalendarShape.DefaultRectangle
@@ -78,7 +79,8 @@ fun Kalendar(
             kalendarEvents,
             onCurrentDayClick,
             errorMessage,
-            dateRangeEnabled
+            dateRangeEnabled,
+            onDateRangeSelected
         )
         is Oceanic -> KalendarOceanic(
             kalendarKonfig,

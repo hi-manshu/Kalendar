@@ -43,7 +43,8 @@ internal fun KalendarFirey(
     kalendarEvents: List<KalendarEvent>,
     onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessageLogged: (String) -> Unit,
-    dateRangeEnabled: Boolean = false
+    dateRangeEnabled: Boolean = false,
+    onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit = {}
 ) {
 
     KalendarTheme {
@@ -67,7 +68,8 @@ internal fun KalendarFirey(
                 onCurrentDayClick = { date, events ->
                     onCurrentDayClick(date, events)
                 },
-                dateRangeEnabled = dateRangeEnabled
+                dateRangeEnabled = dateRangeEnabled,
+                onDateRangeSelected = onDateRangeSelected
             )
         }
     }

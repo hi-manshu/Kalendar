@@ -41,7 +41,8 @@ internal fun KalendarEndlos(
     kalendarEvents: List<KalendarEvent>,
     onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     errorMessageLogged: (String) -> Unit,
-    dateRangeEnabled: Boolean = false
+    dateRangeEnabled: Boolean = false,
+    onDateRangeSelected: (Pair<LocalDate, LocalDate>) -> Unit = {}
 ) {
 
     KalendarTheme {
@@ -59,7 +60,8 @@ internal fun KalendarEndlos(
                 selectedDay = selectedDay,
                 kalendarEvents = kalendarEvents,
                 onCurrentDayClick = onCurrentDayClick,
-                dateRangeEnabled = dateRangeEnabled
+                dateRangeEnabled = dateRangeEnabled,
+                onDateRangeSelected = onDateRangeSelected
             )
         }
     }
