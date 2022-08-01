@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                 errorMessage = {},
                 dateRangeEnabled = true,
                 onDateRangeSelected = {
-                    println(it)
+
                 }
             )
         }
