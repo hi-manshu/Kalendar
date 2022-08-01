@@ -52,7 +52,6 @@ android {
 dependencies {
     implementation(project(":kalendar"))
 //    implementation("com.himanshoe:kalendar:endlos:1.0.0-alpha1")
-//    implementation("com.himanshoe:kalendar-endlos:1.0.0-alpha1")
     implementation(project(mapOf("path" to ":kalendar-endlos")))
     // jetpack compose
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5") // <- this dependency is required
@@ -64,4 +63,5 @@ dependencies {
     testImplementation(Deps.Test.jUnit)
     androidTestImplementation(Deps.AndroidTest.jUnitExtensions)
     androidTestImplementation(Deps.AndroidTest.espressoCore)
+    implementation(Deps.Accompanist.pager)
 }

@@ -18,6 +18,10 @@ object Deps {
         val activity by lazy { "androidx.activity:activity-compose:${Versions.activity}" }
     }
 
+    object Accompanist {
+        val pager by lazy { "com.google.accompanist:accompanist-pager:0.23.1" }
+    }
+
     object Android {
         val materialDesign by lazy { "com.google.android.material:material:${Versions.material}" }
     }
