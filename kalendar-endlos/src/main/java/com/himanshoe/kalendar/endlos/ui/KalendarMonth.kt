@@ -73,7 +73,6 @@ internal fun KalendarMonth(
                                 monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year && localDate == clickedDay.value
                             val isPreviousDay = monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year && localDate == previousClickedDay.value
                             val isBetweenDay = monthState.value.month == clickedDay.value.month && monthState.value.year == clickedDay.value.year && (localDate > previousClickedDay.value && localDate < clickedDay.value || localDate < previousClickedDay.value && localDate > clickedDay.value)
-
                             KalendarDay(
                                 size = size,
                                 date = localDate,
