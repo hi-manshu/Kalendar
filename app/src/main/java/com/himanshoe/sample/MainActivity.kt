@@ -19,11 +19,7 @@ class MainActivity : ComponentActivity() {
                 kalendarKonfig = KalendarKonfig(weekCharacters = 2, firstDayOfWeek = DayOfWeek.MONDAY),
                 onCurrentDayClick = { date, events ->
                 },
-                errorMessage = {},
-                dateRangeEnabled = true,
-                onDateRangeSelected = {
-
-                }
+                errorMessage = {}
             )
         }
     }
