@@ -24,7 +24,7 @@ In `build.gradle` of app module, include this dependency
 
 ```gradle
 dependencies {
-  implementation("com.himanshoe:kalendar:1.0.0-RC5")
+  implementation("com.himanshoe:kalendar:1.0.0")
 }
 ```
 
@@ -33,7 +33,7 @@ app module, include this dependency
 
 ```gradle
 dependencies {
-    implementation("com.himanshoe:kalendar-endlos:1.0.0-RC5")
+    implementation("com.himanshoe:kalendar-endlos:1.0.0-RC6")
 }
 ```
 
