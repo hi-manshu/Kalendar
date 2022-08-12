@@ -10,3 +10,4 @@ rootProject.name = "sample-app"
 include ':app'
 include ':kalendar'
 include ':kalendar-endlos'
+include ':kalendar-uiKit'

@@ -32,6 +32,10 @@ object Deps {
         val uiTestJunit by lazy { "androidx.compose.ui:ui-test-junit4:${Versions.compose}" }
     }
 
+    object DateTime {
+        val date by lazy { "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0" }
+    }
+
     object Jetpack {
         object Core {
             val ktx by lazy { "androidx.core:core-ktx:${Versions.core}" }
