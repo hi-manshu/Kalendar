@@ -25,8 +25,9 @@ fun KalendarOceanic(
     modifier: Modifier = Modifier,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
+    takeMeToDate: LocalDate?,
 ) {
-    val currentDay = Clock.System.todayIn(TimeZone.currentSystemDefault())
+    val currentDay = takeMeToDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
 
     val weekValue = remember { mutableStateOf(currentDay.getNext7Dates()) }
     val monthName = weekValue.value.first().month.name
@@ -71,4 +72,3 @@ fun KalendarOceanic(
         }
     }
 }
-

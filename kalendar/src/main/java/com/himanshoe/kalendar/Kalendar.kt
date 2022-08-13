@@ -13,10 +13,12 @@ import com.himanshoe.kalendar.model.KalendarEvent
 import com.himanshoe.kalendar.model.KalendarType
 import com.himanshoe.kalendar.ui.firey.KalendarFirey
 import com.himanshoe.kalendar.ui.oceanic.KalendarOceanic
+import kotlinx.datetime.LocalDate
 
 @Composable
 fun Kalendar(
     modifier: Modifier = Modifier,
+    takeMeToDate: LocalDate? = null,
     kalendarType: KalendarType = KalendarType.Firey,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
@@ -30,7 +32,8 @@ fun Kalendar(
             kalendarEvents = kalendarEvents,
             onCurrentDayClick = onCurrentDayClick,
             kalendarDayConfig = kalendarDayConfig,
-            kalendarConfigs = kalendarConfigs
+            kalendarConfigs = kalendarConfigs,
+            takeMeToDate = takeMeToDate
         )
         KalendarType.Firey -> {
             KalendarFirey(
@@ -38,7 +41,9 @@ fun Kalendar(
                 kalendarEvents = kalendarEvents,
                 onCurrentDayClick = onCurrentDayClick,
                 kalendarDayConfig = kalendarDayConfig,
-                kalendarConfigs = kalendarConfigs
+                kalendarConfigs = kalendarConfigs,
+                takeMeToDate = takeMeToDate
+
             )
         }
     }

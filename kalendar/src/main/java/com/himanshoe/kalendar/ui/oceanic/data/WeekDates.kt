@@ -5,7 +5,6 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 
-
 internal fun LocalDate.getNext7Dates(): List<LocalDate> {
     val dates = mutableListOf<LocalDate>()
     repeat(7) { day ->

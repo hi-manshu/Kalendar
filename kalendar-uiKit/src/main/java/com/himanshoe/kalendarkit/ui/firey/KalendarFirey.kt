@@ -1,13 +1,8 @@
 package com.himanshoe.kalendarkit.ui.firey
 
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import com.himanshoe.kalendarkit.component.day.config.KalendarDayConfig
 import com.himanshoe.kalendarkit.config.KalendarConfigs
 import com.himanshoe.kalendarkit.model.KalendarDay
@@ -34,6 +29,5 @@ private fun getGeneratedDay(day: Int, currentMonth: Month, currentYear: Int): Lo
     val monthValue =
         if (currentMonth.value.toString().length == 1) "0${currentMonth.value}" else currentMonth.value.toString()
     val newDay = if (day.toString().length == 1) "0$day" else day
-    return "${currentYear}-${monthValue}-${newDay}".toLocalDate()
-
+    return "$currentYear-$monthValue-$newDay".toLocalDate()
 }

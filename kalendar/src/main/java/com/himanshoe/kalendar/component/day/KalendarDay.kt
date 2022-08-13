@@ -78,7 +78,6 @@ private fun getBorder(isCurrentDay: Boolean, kalendarDayConfig: KalendarDayConfi
         color = if (isCurrentDay) kalendarDayConfig.kalendarDayColors.currentDayBorderColor else Color.Transparent,
     )
 
-
 private fun getTextWeight(kalendarDayState: KalendarDayState) =
     if (kalendarDayState is KalendarDayState.KalendarDaySelected) {
         FontWeight.Bold

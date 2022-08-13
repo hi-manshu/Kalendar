@@ -9,5 +9,3 @@ internal object KalendarDayDefaults {
     fun kalendarDayConfig() =
         KalendarDayConfig(kalendarDayColors = KalendarDayColorsDefaults.kalendarDayColors())
 }
-
-

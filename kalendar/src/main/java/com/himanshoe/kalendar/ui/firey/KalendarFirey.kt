@@ -32,17 +32,17 @@ fun KalendarFirey(
     modifier: Modifier = Modifier,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
+    takeMeToDate: LocalDate?,
 ) {
-    val currentDay = Clock.System.todayIn(TimeZone.currentSystemDefault())
+    val currentDay = takeMeToDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
     val displayedMonth = remember {
         mutableStateOf(currentDay.month)
     }
     val (currentMonth, currentYear) = displayedMonth.value to currentDay.year
     val daysInMonth = currentMonth.minLength()
-    val monthValue =
-        if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
+    val monthValue = if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
 
-    val startDayOfMonth = "${currentDay.year}-${monthValue}-01".toLocalDate()
+    val startDayOfMonth = "${currentDay.year}-$monthValue-01".toLocalDate()
     val firstDayOfMonth = startDayOfMonth.dayOfWeek
     val selectedKalendarDate = remember { mutableStateOf(currentDay) }
 
@@ -104,6 +104,5 @@ private fun getGeneratedDay(day: Int, currentMonth: Month, currentYear: Int): Lo
     val monthValue =
         if (currentMonth.value.toString().length == 1) "0${currentMonth.value}" else currentMonth.value.toString()
     val newDay = if (day.toString().length == 1) "0$day" else day
-    return "${currentYear}-${monthValue}-${newDay}".toLocalDate()
-
+    return "$currentYear-$monthValue-$newDay".toLocalDate()
 }

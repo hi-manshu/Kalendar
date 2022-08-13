@@ -30,7 +30,5 @@ internal object KalendarDayColorsDefaults {
         selectedTextColor = Color.White,
         currentDayBorderColor = CurrentDayBorderColor,
 
-        )
+    )
 }
-
-
