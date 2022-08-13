@@ -3,33 +3,21 @@ package com.himanshoe.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.himanshoe.kalendar.common.KalendarKonfig
-import com.himanshoe.kalendar.common.data.KalendarEvent
-import com.himanshoe.kalendar.ui.Kalendar
-import com.himanshoe.kalendar.ui.KalendarType
-import java.time.LocalDate
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
+import com.himanshoe.kalendar.Kalendar
+import com.himanshoe.kalendar.model.KalendarType
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Kalendar(
-                kalendarEvents = listOf(
-                    KalendarEvent(
-                        LocalDate.now().plusDays(3),
-                        "",
-                        "",
+            Column(Modifier.fillMaxSize()) {
+                Kalendar(kalendarType = KalendarType.Firey)
+                Kalendar(kalendarType = KalendarType.Oceanic)
 
-                    )
-                ),
-                kalendarKonfig = KalendarKonfig(
-                    weekCharacters = 2,
-                ),
-                onCurrentDayClick = { date, events ->
-                },
-                errorMessage = {},
-                kalendarType = KalendarType.Oceanic()
-            )
+            }
         }
     }
 }

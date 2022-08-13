@@ -1,72 +1,109 @@
 package com.himanshoe.kalendar.ui.firey
-/*
-* MIT License
-*
-* Copyright (c) 2022 Himanshu Singh
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANT1IES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*/
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.himanshoe.kalendar.common.KalendarKonfig
-import com.himanshoe.kalendar.common.KalendarStyle
-import com.himanshoe.kalendar.common.data.KalendarEvent
-import com.himanshoe.kalendar.common.theme.Grid
-import com.himanshoe.kalendar.common.theme.KalendarTheme
-import java.time.LocalDate
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.himanshoe.kalendar.component.KalendarHeader
+import com.himanshoe.kalendar.component.day.KalendarDay
+import com.himanshoe.kalendar.component.day.config.KalendarDayConfig
+import com.himanshoe.kalendar.component.text.KalendarNormalText
+import com.himanshoe.kalendar.config.KalendarConfigs
+import com.himanshoe.kalendar.model.KalendarDay
+import com.himanshoe.kalendar.model.KalendarEvent
+import kotlinx.datetime.*
+
+private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
 @Composable
-internal fun KalendarFirey(
-    kalendarKonfig: KalendarKonfig = KalendarKonfig(),
-    kalendarStyle: KalendarStyle = KalendarStyle(),
-    selectedDay: LocalDate = LocalDate.now(),
-    kalendarEvents: List<KalendarEvent>,
-    onCurrentDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
-    errorMessageLogged: (String) -> Unit,
+fun KalendarFirey(
+    kalendarConfigs: KalendarConfigs,
+    kalendarDayConfig: KalendarDayConfig,
+    modifier: Modifier = Modifier,
+    kalendarEvents: List<KalendarEvent> = emptyList(),
+    onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
 ) {
-
-    KalendarTheme {
-        val color = kalendarStyle.kalendarBackgroundColor ?: KalendarTheme.colors.selectedColor
-        val calendarBackgroundColor =
-            kalendarStyle.kalendarColor ?: KalendarTheme.colors.background
-        Card(
-            modifier = Modifier
-                .background(color)
-                .padding(Grid.OneHalf),
-            shape = kalendarStyle.shape,
-            elevation = kalendarStyle.elevation,
-            backgroundColor = calendarBackgroundColor,
-        ) {
-            KalendarView(
-                kalendarSelector = kalendarStyle.kalendarSelector,
-                kalendarKonfig = kalendarKonfig,
-                errorMessageLogged = errorMessageLogged,
-                selectedDay = selectedDay,
-                kalendarEvents = kalendarEvents,
-                onCurrentDayClick = { date, events ->
-                    onCurrentDayClick(date, events)
-                }
-            )
-        }
+    val currentDay = Clock.System.todayIn(TimeZone.currentSystemDefault())
+    val displayedMonth = remember {
+        mutableStateOf(currentDay.month)
     }
+    val (currentMonth, currentYear) = displayedMonth.value to currentDay.year
+    val daysInMonth = currentMonth.minLength()
+    val monthValue =
+        if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
+
+    val startDayOfMonth = "${currentDay.year}-${monthValue}-01".toLocalDate()
+    val firstDayOfMonth = startDayOfMonth.dayOfWeek
+    val selectedKalendarDate = remember { mutableStateOf(currentDay) }
+
+    Column(
+        modifier = modifier
+            .background(color = kalendarConfigs.background)
+            .wrapContentHeight()
+            .fillMaxWidth()
+            .padding(all = 8.dp)
+    ) {
+        KalendarHeader(
+            modifier = Modifier.padding(bottom = 8.dp),
+            monthName = displayedMonth.value.name,
+            onPreviousClick = {
+                displayedMonth.value = displayedMonth.value.minus(1)
+            },
+            onNextClick = {
+                displayedMonth.value = displayedMonth.value.plus(1)
+            }
+        )
+        LazyVerticalGrid(
+            modifier = Modifier.fillMaxWidth(),
+            columns = GridCells.Fixed(7),
+            content = {
+                items(WeekDays) {
+                    KalendarNormalText(
+                        text = it,
+                        fontWeight = FontWeight.Normal,
+                        color = kalendarDayConfig.kalendarDayColors.textColor
+                    )
+                }
+                items((getInitialDayOfMonth(firstDayOfMonth)..daysInMonth).toList()) {
+                    if (it > 0) {
+                        val day = getGeneratedDay(it, currentMonth, currentYear)
+                        val isCurrentDay = day == currentDay
+
+                        KalendarDay(
+                            modifier = Modifier,
+                            isCurrentDay = isCurrentDay,
+                            kalendarDay = KalendarDay(day),
+                            kalendarEvents = kalendarEvents,
+                            onCurrentDayClick = { kalendarDay, events ->
+                                selectedKalendarDate.value = kalendarDay.localDate
+                                onCurrentDayClick(kalendarDay, events)
+                            },
+                            kalendarDayConfig = kalendarDayConfig,
+                            selectedKalendarDay = selectedKalendarDate.value
+                        )
+                    }
+                }
+            }
+        )
+    }
+}
+
+private fun getInitialDayOfMonth(firstDayOfMonth: DayOfWeek) = -(firstDayOfMonth.value).minus(2)
+
+private fun getGeneratedDay(day: Int, currentMonth: Month, currentYear: Int): LocalDate {
+    val monthValue =
+        if (currentMonth.value.toString().length == 1) "0${currentMonth.value}" else currentMonth.value.toString()
+    val newDay = if (day.toString().length == 1) "0$day" else day
+    return "${currentYear}-${monthValue}-${newDay}".toLocalDate()
+
 }
