@@ -17,8 +17,7 @@ import com.himanshoe.kalendar.ui.oceanic.KalendarOceanic
 @Composable
 fun Kalendar(
     modifier: Modifier = Modifier,
-    kalendarType: KalendarType = KalendarType.Firey
-    ,
+    kalendarType: KalendarType = KalendarType.Firey,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
     kalendarDayConfig: KalendarDayConfig = KalendarDayDefaults.kalendarDayConfig(),

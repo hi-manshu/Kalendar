@@ -1,102 +1,32 @@
 package com.himanshoe.kalendarkit.ui.firey
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import com.himanshoe.kalendarkit.component.KalendarHeader
-import com.himanshoe.kalendarkit.component.day.KalendarDay
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.himanshoe.kalendarkit.component.day.config.KalendarDayConfig
-import com.himanshoe.kalendarkit.component.text.KalendarNormalText
 import com.himanshoe.kalendarkit.config.KalendarConfigs
 import com.himanshoe.kalendarkit.model.KalendarDay
 import com.himanshoe.kalendarkit.model.KalendarEvent
+import com.himanshoe.kalendarkit.ui.KalendarViewModel
 import kotlinx.datetime.*
 
 private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
 @Composable
-fun KalendarFirey(
+internal fun KalendarFirey(
+    modifier: Modifier = Modifier,
+    kalendarViewModel: KalendarViewModel = viewModel(),
     kalendarConfigs: KalendarConfigs,
     kalendarDayConfig: KalendarDayConfig,
-    modifier: Modifier = Modifier,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
-) {
-    val currentDay = Clock.System.todayIn(TimeZone.currentSystemDefault())
-    val displayedMonth = remember {
-        mutableStateOf(currentDay.month)
-    }
-    val (currentMonth, currentYear) = displayedMonth.value to currentDay.year
-    val daysInMonth = currentMonth.minLength()
-    val monthValue =
-        if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
-
-    val startDayOfMonth = "${currentDay.year}-${monthValue}-01".toLocalDate()
-    val firstDayOfMonth = startDayOfMonth.dayOfWeek
-    val selectedKalendarDate = remember { mutableStateOf(currentDay) }
-
-    Column(
-        modifier = modifier
-            .background(color = kalendarConfigs.background)
-            .wrapContentHeight()
-            .fillMaxWidth()
-            .padding(all = 8.dp)
-    ) {
-        KalendarHeader(
-            modifier = Modifier.padding(bottom = 8.dp),
-            monthName = displayedMonth.value.name,
-            onPreviousClick = {
-                displayedMonth.value = displayedMonth.value.minus(1)
-            },
-            onNextClick = {
-                displayedMonth.value = displayedMonth.value.plus(1)
-            }
-        )
-        LazyVerticalGrid(
-            modifier = Modifier.fillMaxWidth(),
-            columns = GridCells.Fixed(7),
-            content = {
-                items(WeekDays) {
-                    KalendarNormalText(
-                        text = it,
-                        fontWeight = FontWeight.Normal,
-                        color = kalendarDayConfig.kalendarDayColors.textColor
-                    )
-                }
-                items((getInitialDayOfMonth(firstDayOfMonth)..daysInMonth).toList()) {
-                    if (it > 0) {
-                        val day = getGeneratedDay(it, currentMonth, currentYear)
-                        val isCurrentDay = day == currentDay
-
-                        KalendarDay(
-                            modifier = Modifier,
-                            isCurrentDay = isCurrentDay,
-                            kalendarDay = KalendarDay(day),
-                            kalendarEvents = kalendarEvents,
-                            onCurrentDayClick = { kalendarDay, events ->
-                                selectedKalendarDate.value = kalendarDay.localDate
-                                onCurrentDayClick(kalendarDay, events)
-                            },
-                            kalendarDayConfig = kalendarDayConfig,
-                            selectedKalendarDay = selectedKalendarDate.value
-                        )
-                    }
-                }
-            }
-        )
-    }
-}
+) {}
+private fun getDaysInMonth(month: Month?) = month?.minLength()
 
 private fun getInitialDayOfMonth(firstDayOfMonth: DayOfWeek) = -(firstDayOfMonth.value).minus(2)
 
