@@ -42,11 +42,11 @@ fun KalendarOceanic(
         KalendarHeader(
             modifier = Modifier.fillMaxWidth(),
             monthName = monthName,
-            onPreviousWeekClick = {
+            onPreviousClick = {
                 val firstDayOfDisplayedWeek = weekValue.value.first()
                 weekValue.value = firstDayOfDisplayedWeek.getPrevious7Dates()
             },
-            onNextWeekClick = {
+            onNextClick = {
                 val lastDayOfDisplayedWeek = weekValue.value.last().plus(1, DateTimeUnit.DAY)
                 weekValue.value = lastDayOfDisplayedWeek.getNext7Dates()
             }

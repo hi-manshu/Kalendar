@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,14 +34,17 @@ fun KalendarFirey(
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
 ) {
     val currentDay = Clock.System.todayIn(TimeZone.currentSystemDefault())
-    val (currentMonth, currentYear) = currentDay.month to currentDay.year
+    val displayedMonth = remember {
+        mutableStateOf(currentDay.month)
+    }
+    val (currentMonth, currentYear) = displayedMonth.value to currentDay.year
     val daysInMonth = currentMonth.minLength()
     val monthValue =
         if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
 
-//    val startDayOfMonth = "${currentDay.year}-${monthValue}-01".toLocalDate()
-//    val endDayOfMonth =
-//        "${currentDay.year}-${monthValue}-${currentDay.month.maxLength()}".toLocalDate()
+    val startDayOfMonth = "${currentDay.year}-${monthValue}-01".toLocalDate()
+    val firstDayOfMonth = startDayOfMonth.dayOfWeek
+    val selectedKalendarDate = remember { mutableStateOf(currentDay) }
 
     Column(
         modifier = modifier
@@ -50,11 +55,16 @@ fun KalendarFirey(
     ) {
         KalendarHeader(
             modifier = Modifier.padding(bottom = 8.dp),
-            monthName = currentDay.month.name
+            monthName = displayedMonth.value.name,
+            onPreviousClick = {
+                displayedMonth.value = displayedMonth.value.minus(1)
+            },
+            onNextClick = {
+                displayedMonth.value = displayedMonth.value.plus(1)
+            }
         )
         LazyVerticalGrid(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             columns = GridCells.Fixed(7),
             content = {
                 items(WeekDays) {
@@ -64,17 +74,31 @@ fun KalendarFirey(
                         color = kalendarDayConfig.kalendarDayColors.textColor
                     )
                 }
-                items((1..daysInMonth).toList()) {
-                    val day = getGeneratedDay(it, currentMonth, currentYear)
-                    KalendarDay(
-                        kalendarDay = KalendarDay(day),
-                        selectedKalendarDay = currentDay
-                    )
+                items((getInitialDayOfMonth(firstDayOfMonth)..daysInMonth).toList()) {
+                    if (it > 0) {
+                        val day = getGeneratedDay(it, currentMonth, currentYear)
+                        val isCurrentDay = day == currentDay
+
+                        KalendarDay(
+                            modifier = Modifier,
+                            isCurrentDay = isCurrentDay,
+                            kalendarDay = KalendarDay(day),
+                            kalendarEvents = kalendarEvents,
+                            onCurrentDayClick = { kalendarDay, events ->
+                                selectedKalendarDate.value = kalendarDay.localDate
+                                onCurrentDayClick(kalendarDay, events)
+                            },
+                            kalendarDayConfig = kalendarDayConfig,
+                            selectedKalendarDay = selectedKalendarDate.value
+                        )
+                    }
                 }
             }
         )
     }
 }
+
+private fun getInitialDayOfMonth(firstDayOfMonth: DayOfWeek) = -(firstDayOfMonth.value).minus(2)
 
 private fun getGeneratedDay(day: Int, currentMonth: Month, currentYear: Int): LocalDate {
     val monthValue =

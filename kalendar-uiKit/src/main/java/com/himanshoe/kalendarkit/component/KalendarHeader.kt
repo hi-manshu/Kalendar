@@ -19,8 +19,8 @@ import java.util.*
 internal fun KalendarHeader(
     modifier: Modifier,
     monthName: String,
-    onPreviousWeekClick: () -> Unit = {},
-    onNextWeekClick: () -> Unit = {}
+    onPreviousClick: () -> Unit = {},
+    onNextClick: () -> Unit = {}
 ) {
 
     Row(
@@ -58,14 +58,14 @@ internal fun KalendarHeader(
                 modifier = Modifier.wrapContentSize(),
                 imageVector = Icons.Default.KeyboardArrowLeft,
                 contentDescription = "Previous Week",
-                onClick = { onPreviousWeekClick() }
+                onClick = { onPreviousClick() }
 
             )
             KalendarIconButton(
                 modifier = Modifier.wrapContentSize(),
                 imageVector = Icons.Default.KeyboardArrowRight,
                 contentDescription = "Next Month",
-                onClick = { onNextWeekClick() }
+                onClick = { onNextClick() }
             )
         }
     }
