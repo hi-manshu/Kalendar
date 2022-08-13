@@ -1,4 +1,4 @@
-package com.himanshoe.kalendarkit.ui.oceanic
+package com.himanshoe.kalendarkit.component
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
@@ -16,7 +16,7 @@ import java.util.*
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-internal fun OceanicHeader(
+internal fun KalendarHeader(
     modifier: Modifier,
     monthName: String,
     onPreviousWeekClick: () -> Unit = {},
@@ -72,7 +72,7 @@ internal fun OceanicHeader(
 }
 
 @OptIn(ExperimentalAnimationApi::class)
-private fun addAnimation(duration: Int = 500): ContentTransform {
+internal fun addAnimation(duration: Int = 500): ContentTransform {
     return slideInVertically(animationSpec = tween(durationMillis = duration)) { height -> height } + fadeIn(
         animationSpec = tween(durationMillis = duration)
     ) with slideOutVertically(animationSpec = tween(durationMillis = duration)) { height -> -height } + fadeOut(
@@ -80,7 +80,7 @@ private fun addAnimation(duration: Int = 500): ContentTransform {
     )
 }
 
-private fun getTitleText(monthName: String): String {
+internal fun getTitleText(monthName: String): String {
     return monthName.lowercase().replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(
             Locale.getDefault()

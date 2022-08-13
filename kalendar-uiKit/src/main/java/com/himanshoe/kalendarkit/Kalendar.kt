@@ -9,12 +9,14 @@ import com.himanshoe.kalendarkit.config.KalendarConfigs
 import com.himanshoe.kalendarkit.model.KalendarDay
 import com.himanshoe.kalendarkit.model.KalendarEvent
 import com.himanshoe.kalendarkit.model.KalendarType
+import com.himanshoe.kalendarkit.ui.firey.KalendarFirey
 import com.himanshoe.kalendarkit.ui.oceanic.KalendarOceanic
 
 @Composable
 fun Kalendar(
     modifier: Modifier = Modifier,
-    kalendarType: KalendarType = KalendarType.Oceanic,
+    kalendarType: KalendarType = KalendarType.Firey
+    ,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
     kalendarDayConfig: KalendarDayConfig = KalendarDayDefaults.kalendarDayConfig(),
@@ -30,7 +32,13 @@ fun Kalendar(
             kalendarConfigs = kalendarConfigs
         )
         KalendarType.Firey -> {
-
+            KalendarFirey(
+                modifier = modifier.wrapContentHeight(),
+                kalendarEvents = kalendarEvents,
+                onCurrentDayClick = onCurrentDayClick,
+                kalendarDayConfig = kalendarDayConfig,
+                kalendarConfigs = kalendarConfigs
+            )
         }
     }
 }

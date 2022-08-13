@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.himanshoe.kalendarkit.component.KalendarHeader
 import com.himanshoe.kalendarkit.component.day.KalendarDay
 import com.himanshoe.kalendarkit.component.day.config.KalendarDayConfig
 import com.himanshoe.kalendarkit.config.KalendarConfigs
@@ -38,7 +39,7 @@ fun KalendarOceanic(
             .fillMaxWidth()
             .padding(all = 8.dp)
     ) {
-        OceanicHeader(
+        KalendarHeader(
             modifier = Modifier.fillMaxWidth(),
             monthName = monthName,
             onPreviousWeekClick = {
