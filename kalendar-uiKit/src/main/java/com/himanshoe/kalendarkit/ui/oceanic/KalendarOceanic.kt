@@ -1,7 +1,6 @@
 package com.himanshoe.kalendarkit.ui.oceanic
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,7 +15,6 @@ import com.himanshoe.kalendarkit.model.KalendarEvent
 import com.himanshoe.kalendarkit.model.toKalendarDay
 import com.himanshoe.kalendarkit.ui.oceanic.data.getNext7Dates
 import com.himanshoe.kalendarkit.ui.oceanic.data.getPrevious7Dates
-import kotlinx.datetime.*
 
 @Composable
 fun KalendarOceanic(
