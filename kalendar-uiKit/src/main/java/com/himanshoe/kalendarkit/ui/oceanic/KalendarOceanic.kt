@@ -1,6 +1,12 @@
 package com.himanshoe.kalendarkit.ui.oceanic
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,6 +21,11 @@ import com.himanshoe.kalendarkit.model.KalendarEvent
 import com.himanshoe.kalendarkit.model.toKalendarDay
 import com.himanshoe.kalendarkit.ui.oceanic.data.getNext7Dates
 import com.himanshoe.kalendarkit.ui.oceanic.data.getPrevious7Dates
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.plus
+import kotlinx.datetime.todayIn
+import kotlinx.datetime.TimeZone
 
 @Composable
 fun KalendarOceanic(
