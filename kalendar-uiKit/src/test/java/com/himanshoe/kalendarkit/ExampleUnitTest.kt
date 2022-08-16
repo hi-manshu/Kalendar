@@ -1,6 +1,5 @@
 package com.himanshoe.kalendarkit
 
-import org.junit.Assert.*
 import org.junit.Test
 
 /**

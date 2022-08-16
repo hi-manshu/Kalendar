@@ -8,7 +8,10 @@ import com.himanshoe.kalendarkit.config.KalendarConfigs
 import com.himanshoe.kalendarkit.model.KalendarDay
 import com.himanshoe.kalendarkit.model.KalendarEvent
 import com.himanshoe.kalendarkit.ui.KalendarViewModel
-import kotlinx.datetime.*
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.Month
+import kotlinx.datetime.toLocalDate
 
 private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
