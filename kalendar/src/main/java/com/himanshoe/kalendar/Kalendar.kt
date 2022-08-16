@@ -19,12 +19,11 @@ import kotlinx.datetime.LocalDate
 fun Kalendar(
     modifier: Modifier = Modifier,
     takeMeToDate: LocalDate? = null,
-    kalendarType: KalendarType = KalendarType.Firey,
+    kalendarType: KalendarType = KalendarType.Oceanic,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
     kalendarDayConfig: KalendarDayConfig = KalendarDayDefaults.kalendarDayConfig(),
     kalendarConfigs: KalendarConfigs = KalendarConfigDefaults.kalendarConfigDefaults()
-
 ) {
     when (kalendarType) {
         KalendarType.Oceanic -> KalendarOceanic(

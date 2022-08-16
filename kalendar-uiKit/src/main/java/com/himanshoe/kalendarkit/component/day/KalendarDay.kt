@@ -16,13 +16,13 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.himanshoe.kalendarkit.component.day.config.KalendarDayConfig
 import com.himanshoe.kalendarkit.component.day.config.KalendarDayDefaults
 import com.himanshoe.kalendarkit.component.day.config.KalendarDayState
 import com.himanshoe.kalendarkit.component.text.KalendarNormalText
+import com.himanshoe.kalendarkit.component.text.config.KalendarTextConfig
+import com.himanshoe.kalendarkit.component.text.config.KalendarTextDefaults
 import com.himanshoe.kalendarkit.model.KalendarDay
 import com.himanshoe.kalendarkit.model.KalendarEvent
 import kotlinx.datetime.LocalDate
@@ -32,12 +32,12 @@ fun KalendarDay(
     kalendarDay: KalendarDay,
     modifier: Modifier = Modifier,
     size: Dp = 56.dp,
-    textSize: TextUnit = 16.sp,
+    selectedKalendarDay: LocalDate,
     kalendarDayConfig: KalendarDayConfig = KalendarDayDefaults.kalendarDayConfig(),
     kalendarEvents: List<KalendarEvent> = emptyList(),
     isCurrentDay: Boolean = false,
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
-    selectedKalendarDay: LocalDate,
+    kalendarTextConfig: KalendarTextConfig = KalendarTextDefaults.kalendarNormalTextConfig(),
 ) {
     val kalendarDayState = getKalendarDayState(selectedKalendarDay, kalendarDay.localDate)
     val backgroundColor = getBackgroundColor(kalendarDayState, kalendarDayConfig)
@@ -62,6 +62,7 @@ fun KalendarDay(
             modifier = Modifier,
             fontWeight = weight,
             color = textColor,
+            kalendarTextConfig = kalendarTextConfig,
         )
     }
 }
@@ -80,9 +81,9 @@ private fun getBorder(isCurrentDay: Boolean, kalendarDayConfig: KalendarDayConfi
 
 private fun getTextWeight(kalendarDayState: KalendarDayState) =
     if (kalendarDayState is KalendarDayState.KalendarDaySelected) {
-        FontWeight.Bold
-    } else {
         FontWeight.SemiBold
+    } else {
+        FontWeight.Normal
     }
 
 private fun getBackgroundColor(

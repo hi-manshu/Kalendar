@@ -19,8 +19,9 @@ import java.util.*
 internal fun KalendarHeader(
     modifier: Modifier,
     monthName: String,
+    year: Int,
     onPreviousClick: () -> Unit = {},
-    onNextClick: () -> Unit = {}
+    onNextClick: () -> Unit = {},
 ) {
 
     Row(
@@ -35,7 +36,7 @@ internal fun KalendarHeader(
                 .wrapContentHeight()
                 .wrapContentWidth()
                 .align(Alignment.CenterVertically),
-            targetState = getTitleText(monthName),
+            targetState = getTitleText(monthName, year),
             transitionSpec = {
                 addAnimation().using(
                     SizeTransform(clip = false)
@@ -80,10 +81,10 @@ internal fun addAnimation(duration: Int = 500): ContentTransform {
     )
 }
 
-internal fun getTitleText(monthName: String): String {
+internal fun getTitleText(monthName: String, year: Int): String {
     return monthName.lowercase().replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(
             Locale.getDefault()
         ) else it.toString()
-    }
+    } + " " + year
 }

@@ -16,7 +16,7 @@ fun KalendarNormalText(
     modifier: Modifier = Modifier,
     fontWeight: FontWeight,
     color: Color,
-    kalendarTextConfig: KalendarTextConfig = KalendarTextDefaults.kalendarNormalTextConfig()
+    kalendarTextConfig: KalendarTextConfig = KalendarTextDefaults.kalendarNormalTextConfig(),
 
 ) {
     Text(
@@ -36,6 +36,6 @@ private fun KalendarNormalTextPreview() {
         text = "Hye Himanshu",
         modifier = Modifier,
         fontWeight = FontWeight.SemiBold,
-        color = Color.Black
+        color = Color.Black,
     )
 }
