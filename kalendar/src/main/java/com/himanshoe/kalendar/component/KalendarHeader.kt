@@ -35,8 +35,9 @@ import java.util.Locale
 internal fun KalendarHeader(
     modifier: Modifier,
     monthName: String,
+    year: Int,
     onPreviousClick: () -> Unit = {},
-    onNextClick: () -> Unit = {}
+    onNextClick: () -> Unit = {},
 ) {
     val isNext = remember { mutableStateOf(true) }
     Row(
@@ -51,7 +52,7 @@ internal fun KalendarHeader(
                 .wrapContentHeight()
                 .wrapContentWidth()
                 .align(Alignment.CenterVertically),
-            targetState = getTitleText(monthName),
+            targetState = getTitleText(monthName, year),
             transitionSpec = {
                 addAnimation(isNext = isNext.value).using(
                     SizeTransform(clip = false)
@@ -102,10 +103,10 @@ internal fun addAnimation(duration: Int = 500, isNext: Boolean): ContentTransfor
     )
 }
 
-internal fun getTitleText(monthName: String): String {
+internal fun getTitleText(monthName: String, year: Int): String {
     return monthName.lowercase().replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(
             Locale.getDefault()
         ) else it.toString()
-    }
+    } + " " + year
 }

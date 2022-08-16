@@ -38,9 +38,9 @@ fun KalendarOceanic(
     takeMeToDate: LocalDate?,
 ) {
     val currentDay = takeMeToDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
-
     val weekValue = remember { mutableStateOf(currentDay.getNext7Dates()) }
     val monthName = weekValue.value.first().month.name
+    val year = weekValue.value.first().year
     val selectedKalendarDate = remember { mutableStateOf(currentDay) }
 
     Column(
@@ -53,6 +53,7 @@ fun KalendarOceanic(
         KalendarHeader(
             modifier = Modifier.fillMaxWidth(),
             monthName = monthName,
+            year = year,
             onPreviousClick = {
                 val firstDayOfDisplayedWeek = weekValue.value.first()
                 weekValue.value = firstDayOfDisplayedWeek.getPrevious7Dates()

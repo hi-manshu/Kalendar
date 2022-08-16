@@ -46,8 +46,9 @@ fun KalendarFirey(
     }
     val (currentMonth, currentYear) = displayedMonth.value to currentDay.year
     val daysInMonth = currentMonth.minLength()
-    val monthValue = if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
-
+    val year = currentDay.year
+    val monthValue =
+        if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
     val startDayOfMonth = "${currentDay.year}-$monthValue-01".toLocalDate()
     val firstDayOfMonth = startDayOfMonth.dayOfWeek
     val selectedKalendarDate = remember { mutableStateOf(currentDay) }
@@ -67,7 +68,8 @@ fun KalendarFirey(
             },
             onNextClick = {
                 displayedMonth.value = displayedMonth.value.plus(1)
-            }
+            },
+            year = year
         )
         LazyVerticalGrid(
             modifier = Modifier.fillMaxWidth(),
