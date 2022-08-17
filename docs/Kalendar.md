@@ -36,7 +36,7 @@ where `Oceanic` gives the WeekView of the current week or you can use,
 ```  
 that will give you the Month view of the current month
 Preview:
-![Oceainc](art/kalendar-firey.png)
+![Firey](art/kalendar-firey.png)
 
 ### Step: 03 (Customisation)
 With Kalendar at your disposal you have customization at your tip to make it suited based on your need.
