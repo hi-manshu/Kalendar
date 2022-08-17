@@ -7,7 +7,6 @@ import androidx.navigation.compose.composable
 import com.himanshoe.sample.demo.KalendarDemo
 import com.himanshoe.sample.demo.KalendarEndlossDemo
 
-
 @Composable
 fun RegisterNavigation(
     navigator: NavHostController,
@@ -25,4 +24,3 @@ fun RegisterNavigation(
         composable("kalendar") { KalendarDemo() }
     }
 }
-

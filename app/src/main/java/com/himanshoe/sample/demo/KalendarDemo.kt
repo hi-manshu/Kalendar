@@ -13,7 +13,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.Kalendar
-import com.himanshoe.kalendar.config.KalendarConfigs
 import com.himanshoe.kalendar.model.KalendarType
 
 @Composable
@@ -26,9 +25,6 @@ fun KalendarDemo() {
     ) {
         Kalendar(
             kalendarType = KalendarType.Oceanic,
-            kalendarConfigs = KalendarConfigs(
-                background = Color.Gray
-            ),
         )
         Text(
             text = "Kalendar Oceanic Type",

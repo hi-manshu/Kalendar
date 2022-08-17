@@ -7,8 +7,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import com.himanshoe.kalendar.component.text.config.KalendarTextConfig
-import com.himanshoe.kalendar.component.text.config.KalendarTextDefaults
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.sp
+import com.himanshoe.kalendar.component.text.config.KalendarTextSize
 
 @Composable
 fun KalendarNormalText(
@@ -16,13 +17,13 @@ fun KalendarNormalText(
     modifier: Modifier = Modifier,
     fontWeight: FontWeight,
     color: Color,
-    kalendarTextConfig: KalendarTextConfig = KalendarTextDefaults.kalendarNormalTextConfig()
+    textSize: TextUnit = KalendarTextSize.Normal.size
 
 ) {
     Text(
         modifier = modifier,
         color = color,
-        fontSize = kalendarTextConfig.kalendarTextSize.size,
+        fontSize = textSize,
         text = text,
         fontWeight = fontWeight,
         textAlign = TextAlign.Center
@@ -36,6 +37,7 @@ private fun KalendarNormalTextPreview() {
         text = "Hye Himanshu",
         modifier = Modifier,
         fontWeight = FontWeight.SemiBold,
-        color = Color.Black
+        color = Color.Black,
+        textSize = 26.sp
     )
 }

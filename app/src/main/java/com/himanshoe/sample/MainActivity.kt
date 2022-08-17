@@ -22,12 +22,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navigator = rememberNavController()
-            RegisterNavigation(navigator = navigator,
+            RegisterNavigation(
+                navigator = navigator,
                 onEndlossClicked = {
                     navigator.navigate("endloss")
                 }, onKalendarClicked = {
-                    navigator.navigate("kalendar")
-                }
+                navigator.navigate("kalendar")
+            }
             )
         }
     }

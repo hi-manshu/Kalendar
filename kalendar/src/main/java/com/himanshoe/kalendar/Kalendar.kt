@@ -4,10 +4,10 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.himanshoe.kalendar.component.day.config.KalendarDayConfig
-import com.himanshoe.kalendar.component.day.config.KalendarDayDefaults
-import com.himanshoe.kalendar.config.KalendarConfigDefaults
-import com.himanshoe.kalendar.config.KalendarConfigs
+import com.himanshoe.kalendar.color.KalendarColors
+import com.himanshoe.kalendar.color.KalendarThemeColor
+import com.himanshoe.kalendar.component.day.config.KalendarDayColors
+import com.himanshoe.kalendar.component.day.config.KalendarDayDefaultColors
 import com.himanshoe.kalendar.model.KalendarDay
 import com.himanshoe.kalendar.model.KalendarEvent
 import com.himanshoe.kalendar.model.KalendarType
@@ -18,20 +18,22 @@ import kotlinx.datetime.LocalDate
 @Composable
 fun Kalendar(
     modifier: Modifier = Modifier,
-    takeMeToDate: LocalDate? = null,
     kalendarType: KalendarType = KalendarType.Oceanic,
     kalendarEvents: List<KalendarEvent> = emptyList(),
+    kalendarThemeColors: List<KalendarThemeColor> = KalendarColors.defaultColors(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
-    kalendarDayConfig: KalendarDayConfig = KalendarDayDefaults.kalendarDayConfig(),
-    kalendarConfigs: KalendarConfigs = KalendarConfigDefaults.kalendarConfigDefaults()
+    kalendarDayColors: KalendarDayColors = KalendarDayDefaultColors.defaultColors(),
+    takeMeToDate: LocalDate? = null,
 ) {
+    if (kalendarThemeColors.isEmpty() || kalendarThemeColors.count() < 12) throw Exception("KalendarThemeColor cannot be null or less than 12, If you want to use same color accors months pass kalendarThemeColor = KalendarThemeColor(values)")
+
     when (kalendarType) {
         KalendarType.Oceanic -> KalendarOceanic(
             modifier = modifier.wrapContentHeight(),
             kalendarEvents = kalendarEvents,
             onCurrentDayClick = onCurrentDayClick,
-            kalendarDayConfig = kalendarDayConfig,
-            kalendarConfigs = kalendarConfigs,
+            kalendarDayColors = kalendarDayColors,
+            kalendarThemeColors = kalendarThemeColors,
             takeMeToDate = takeMeToDate
         )
         KalendarType.Firey -> {
@@ -39,8 +41,40 @@ fun Kalendar(
                 modifier = modifier.wrapContentHeight(),
                 kalendarEvents = kalendarEvents,
                 onCurrentDayClick = onCurrentDayClick,
-                kalendarDayConfig = kalendarDayConfig,
-                kalendarConfigs = kalendarConfigs,
+                kalendarDayColors = kalendarDayColors,
+                kalendarThemeColors = kalendarThemeColors,
+                takeMeToDate = takeMeToDate
+            )
+        }
+    }
+}
+
+@Composable
+fun Kalendar(
+    modifier: Modifier = Modifier,
+    kalendarThemeColor: KalendarThemeColor,
+    kalendarType: KalendarType = KalendarType.Oceanic,
+    kalendarEvents: List<KalendarEvent> = emptyList(),
+    onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
+    kalendarDayColors: KalendarDayColors = KalendarDayDefaultColors.defaultColors(),
+    takeMeToDate: LocalDate? = null,
+) {
+    when (kalendarType) {
+        KalendarType.Oceanic -> KalendarOceanic(
+            modifier = modifier.wrapContentHeight(),
+            kalendarEvents = kalendarEvents,
+            onCurrentDayClick = onCurrentDayClick,
+            kalendarDayColors = kalendarDayColors,
+            kalendarThemeColor = kalendarThemeColor,
+            takeMeToDate = takeMeToDate
+        )
+        KalendarType.Firey -> {
+            KalendarFirey(
+                modifier = modifier.wrapContentHeight(),
+                kalendarEvents = kalendarEvents,
+                onCurrentDayClick = onCurrentDayClick,
+                kalendarDayColors = kalendarDayColors,
+                kalendarThemeColor = kalendarThemeColor,
                 takeMeToDate = takeMeToDate
             )
         }
@@ -50,5 +84,4 @@ fun Kalendar(
 @Composable
 @Preview
 private fun KalendarPreview() {
-    Kalendar()
 }

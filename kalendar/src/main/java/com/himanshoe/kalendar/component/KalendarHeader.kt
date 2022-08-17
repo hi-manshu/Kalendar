@@ -1,22 +1,8 @@
 package com.himanshoe.kalendar.component
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.with
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
@@ -25,24 +11,27 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.himanshoe.kalendar.color.KalendarColors
 import com.himanshoe.kalendar.component.button.KalendarIconButton
 import com.himanshoe.kalendar.component.text.KalendarSubTitle
 import com.himanshoe.kalendar.component.text.config.KalendarTextColor
 import com.himanshoe.kalendar.component.text.config.KalendarTextConfig
+import com.himanshoe.kalendar.component.text.config.KalendarTextSize
 import kotlinx.datetime.Month
-import java.util.Locale
+import java.util.*
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun KalendarHeader(
     modifier: Modifier,
-    month: kotlinx.datetime.Month,
+    month: Month,
     year: Int,
     onPreviousClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
     arrowShown: Boolean = true,
+    textColor: Color,
+    textSize: KalendarTextSize = KalendarTextSize.SubTitle
 ) {
     val isNext = remember { mutableStateOf(true) }
     Row(
@@ -67,7 +56,9 @@ fun KalendarHeader(
             KalendarSubTitle(
                 text = it,
                 modifier = Modifier,
-                kalendarTextConfig = KalendarTextConfig(kalendarTextColor = getTextColor(month = month))
+                kalendarTextConfig = KalendarTextConfig(
+                    kalendarTextColor = KalendarTextColor(textColor), kalendarTextSize = textSize
+                )
             )
         }
         if (arrowShown) {
@@ -117,4 +108,3 @@ internal fun getTitleText(monthName: String, year: Int): String {
         ) else it.toString()
     } + " " + year
 }
-fun getTextColor(month: Month) = KalendarTextColor(KalendarColors.headerColors[month.value.minus(1)])

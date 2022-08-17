@@ -4,13 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,8 +18,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.himanshoe.kalendar.component.day.config.KalendarDayConfig
-import com.himanshoe.kalendar.component.day.config.KalendarDayDefaults
+import com.himanshoe.kalendar.component.day.config.KalendarDayColors
 import com.himanshoe.kalendar.component.day.config.KalendarDayState
 import com.himanshoe.kalendar.component.text.KalendarNormalText
 import com.himanshoe.kalendar.model.KalendarDay
@@ -38,25 +31,27 @@ fun KalendarDay(
     modifier: Modifier = Modifier,
     size: Dp = 56.dp,
     textSize: TextUnit = 16.sp,
-    kalendarDayConfig: KalendarDayConfig = KalendarDayDefaults.kalendarDayConfig(),
     kalendarEvents: List<KalendarEvent> = emptyList(),
     isCurrentDay: Boolean = false,
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
     selectedKalendarDay: LocalDate,
+    kalendarDayColors: KalendarDayColors,
+    dotColor: Color,
+    dayBackgroundColor: Color,
 ) {
     val kalendarDayState = getKalendarDayState(selectedKalendarDay, kalendarDay.localDate)
-    val backgroundColor = getBackgroundColor(kalendarDayState, kalendarDayConfig, kalendarDay.localDate)
-    val textColor = getTextColor(kalendarDayState, kalendarDayConfig)
+    val bgColor = getBackgroundColor(kalendarDayState, dayBackgroundColor)
+    val textColor = getTextColor(kalendarDayState, kalendarDayColors)
     val shape = getTextSelectionShape(kalendarDayState)
     val weight = getTextWeight(kalendarDayState)
-    val border = getBorder(isCurrentDay, kalendarDayConfig)
+    val border = getBorder(isCurrentDay)
 
     Column(
         modifier = modifier
             .border(border = border, shape = CircleShape)
             .clip(shape = shape)
             .size(size = size)
-            .background(color = backgroundColor)
+            .background(color = bgColor)
             .clickable { onCurrentDayClick(kalendarDay, kalendarEvents) },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,6 +61,7 @@ fun KalendarDay(
             modifier = Modifier,
             fontWeight = weight,
             color = textColor,
+            textSize = textSize,
         )
         Row(
             modifier = Modifier
@@ -79,9 +75,8 @@ fun KalendarDay(
                     KalendarDots(
                         modifier = Modifier,
                         index = index,
-                        kalendarDay = kalendarDay,
                         size = size,
-                        kalendarDayConfig = kalendarDayConfig
+                        color = dotColor
                     )
                 }
             }
@@ -92,20 +87,16 @@ fun KalendarDay(
 @Composable
 fun KalendarDots(
     modifier: Modifier = Modifier,
-    kalendarDayConfig: KalendarDayConfig,
     index: Int,
-    kalendarDay: KalendarDay,
-    size: Dp
+    size: Dp,
+    color: Color
 ) {
     Box(
         modifier = modifier
             .padding(horizontal = 1.dp)
             .clip(shape = CircleShape)
             .background(
-                color = kalendarDayConfig.kalendarDayColors
-                    .getEventColor(
-                        kalendarDay.localDate.month.value
-                    )
+                color = color
                     .copy(alpha = index.plus(1) * 0.3F)
             )
             .size(size = size.div(12))
@@ -118,10 +109,10 @@ private fun getKalendarDayState(selectedDate: LocalDate, currentDay: LocalDate) 
         else -> KalendarDayState.KalendarDayDefault
     }
 
-private fun getBorder(isCurrentDay: Boolean, kalendarDayConfig: KalendarDayConfig) =
+private fun getBorder(isCurrentDay: Boolean) =
     BorderStroke(
         width = if (isCurrentDay) 1.dp else 0.dp,
-        color = if (isCurrentDay) kalendarDayConfig.kalendarDayColors.currentDayBorderColor else Color.Transparent,
+        color = if (isCurrentDay) Color.Black else Color.Transparent,
     )
 
 private fun getTextWeight(kalendarDayState: KalendarDayState) =
@@ -133,10 +124,9 @@ private fun getTextWeight(kalendarDayState: KalendarDayState) =
 
 private fun getBackgroundColor(
     kalendarDayState: KalendarDayState,
-    kalendarDayConfig: KalendarDayConfig,
-    localDate: LocalDate
+    backgroundColor: Color,
 ) = if (kalendarDayState is KalendarDayState.KalendarDaySelected) {
-    kalendarDayConfig.kalendarDayColors.getBackgroundColor(localDate.monthNumber)
+    backgroundColor
 } else {
     Color.Transparent
 }
@@ -151,11 +141,11 @@ private fun getTextSelectionShape(
 
 private fun getTextColor(
     kalendarDayState: KalendarDayState,
-    kalendarDayConfig: KalendarDayConfig
+    kalendarDayColors: KalendarDayColors,
 ): Color = if (kalendarDayState is KalendarDayState.KalendarDaySelected) {
-    kalendarDayConfig.kalendarDayColors.selectedTextColor
+    kalendarDayColors.selectedTextColor
 } else {
-    kalendarDayConfig.kalendarDayColors.textColor
+    kalendarDayColors.textColor
 }
 
 @Preview
