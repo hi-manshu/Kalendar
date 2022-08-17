@@ -3,10 +3,22 @@ package com.himanshoe.kalendar.endlos.color
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 
-object KalendarColors {
+internal object KalendarColors {
+
+    fun defaultColors(): List<KalendarThemeColor> = buildList {
+        repeat(12) { index ->
+            add(
+                KalendarThemeColor(
+                    kalendarBackgroundColor[index],
+                    backgroundColor[index],
+                    headerColors[index]
+                )
+            )
+        }
+    }
 
     @Stable
-    internal val backgroundColor = listOf(
+    private val backgroundColor = listOf(
         Color(0xffF7CFD3),
         Color(0xffEFBDCF),
         Color(0xffDBBFE4),
@@ -22,7 +34,7 @@ object KalendarColors {
     )
 
     @Stable
-    internal val kalendarBackgroundColor = listOf(
+    private val kalendarBackgroundColor = listOf(
         Color.White,
         Color(0xFFFCEFFE),
         Color(0xFFFDF2FE),
@@ -38,7 +50,7 @@ object KalendarColors {
     )
 
     @Stable
-    internal val headerColors = listOf(
+    private val headerColors = listOf(
         Color(0xFFC39EA1),
         Color(0xFFBB8D9E),
         Color(0xFFAA8FB1),
@@ -53,3 +65,9 @@ object KalendarColors {
         Color(0xFFBEC196),
     )
 }
+
+data class KalendarThemeColor(
+    val backgroundColor: Color,
+    val dayBackgroundColor: Color,
+    val headerTextColor: Color,
+)

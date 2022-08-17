@@ -8,8 +8,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
-import com.himanshoe.kalendar.endlos.component.text.config.KalendarTextConfig
-import com.himanshoe.kalendar.endlos.component.text.config.KalendarTextDefaults
+import androidx.compose.ui.unit.sp
+import com.himanshoe.kalendar.endlos.component.text.config.KalendarTextSize
 
 @Composable
 fun KalendarNormalText(
@@ -17,14 +17,13 @@ fun KalendarNormalText(
     modifier: Modifier = Modifier,
     fontWeight: FontWeight,
     color: Color,
-    kalendarTextConfig: KalendarTextConfig = KalendarTextDefaults.kalendarNormalTextConfig(),
-    textSize: TextUnit? = null
+    textSize: TextUnit = KalendarTextSize.Normal.size
+
 ) {
-    val fontSize = textSize ?: kalendarTextConfig.kalendarTextSize.size
     Text(
         modifier = modifier,
         color = color,
-        fontSize = fontSize,
+        fontSize = textSize,
         text = text,
         fontWeight = fontWeight,
         textAlign = TextAlign.Center
@@ -39,6 +38,6 @@ private fun KalendarNormalTextPreview() {
         modifier = Modifier,
         fontWeight = FontWeight.SemiBold,
         color = Color.Black,
-        textSize = null
+        textSize = 26.sp
     )
 }

@@ -13,6 +13,12 @@ internal object KalendarTextDefaults {
             kalendarTextSize = KalendarTextSize.Title
         )
 
+    fun kalendarSubTitleTextConfig() =
+        KalendarTextConfig(
+            kalendarTextColor = KalendarTextColorDefaults.kalendarTitleTextColor(),
+            kalendarTextSize = KalendarTextSize.SubTitle
+        )
+
     fun kalendarNormalTextConfig() =
         KalendarTextConfig(
             kalendarTextColor = KalendarTextColorDefaults.kalendarNormalTextColor(),

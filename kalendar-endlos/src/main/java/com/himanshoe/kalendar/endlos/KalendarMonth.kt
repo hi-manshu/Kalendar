@@ -11,10 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.himanshoe.kalendar.endlos.color.KalendarThemeColor
 import com.himanshoe.kalendar.endlos.component.KalendarHeader
 import com.himanshoe.kalendar.endlos.component.day.EmptyKalendarDay
 import com.himanshoe.kalendar.endlos.component.day.KalendarDay
-import com.himanshoe.kalendar.endlos.component.day.config.KalendarDayConfig
+import com.himanshoe.kalendar.endlos.component.day.config.KalendarDayColors
 import com.himanshoe.kalendar.endlos.component.text.KalendarNormalText
 import com.himanshoe.kalendar.endlos.model.KalendarDay
 import com.himanshoe.kalendar.endlos.model.KalendarEvent
@@ -33,8 +34,9 @@ internal fun KalendarMonth(
     modifier: Modifier = Modifier,
     kalendarEvents: List<KalendarEvent>,
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit,
-    kalendarDayConfig: KalendarDayConfig,
     selectedDay: LocalDate,
+    kalendarDayColors: KalendarDayColors,
+    kalendarThemeColors: KalendarThemeColor,
 ) {
 
     Column(
@@ -45,9 +47,11 @@ internal fun KalendarMonth(
     ) {
         KalendarHeader(
             modifier = Modifier.padding(vertical = 28.dp, horizontal = 16.dp),
-            date = date,
+            month = date.month,
+            year = date.year,
+            textColor = kalendarDayColors.textColor
         )
-        val start = getStartDay(date.dayOfWeek)
+        val start = getKalendarStartDay(date.dayOfWeek)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
@@ -56,7 +60,7 @@ internal fun KalendarMonth(
                 KalendarNormalText(
                     text = it,
                     fontWeight = FontWeight.Normal,
-                    color = kalendarDayConfig.kalendarDayColors.textColor
+                    color = kalendarDayColors.textColor
                 )
             }
         }
@@ -71,22 +75,21 @@ internal fun KalendarMonth(
                 Row(horizontalArrangement = Arrangement.spacedBy(0.dp)) {
                     weekDays.forEach { localDate ->
                         if (localDate is LocalDate) {
-                            val isSelected =
-                                localDate.month.value == selectedDay.month.value && localDate.year == selectedDay.year && localDate == selectedDay
-
                             KalendarDay(
+                                modifier = Modifier,
                                 size = size,
                                 kalendarDay = localDate.toKalendarDay(),
-                                selectedKalendarDay = selectedDay,
-                                kalendarDayConfig = kalendarDayConfig,
                                 kalendarEvents = kalendarEvents,
                                 onCurrentDayClick = onCurrentDayClick,
-                                isSelected = isSelected
+                                kalendarDayColors = kalendarDayColors,
+                                selectedKalendarDay = selectedDay,
+                                dotColor = kalendarThemeColors.headerTextColor,
+                                dayBackgroundColor = kalendarThemeColors.dayBackgroundColor
                             )
                         } else {
                             EmptyKalendarDay(
-                                size = size,
-                                background = Color.Transparent
+                                background = Color.Transparent,
+                                modifier = Modifier
                             )
                         }
                     }
@@ -96,7 +99,7 @@ internal fun KalendarMonth(
     }
 }
 
-fun getStartDay(dayOfWeek: DayOfWeek): Int {
+private fun getKalendarStartDay(dayOfWeek: DayOfWeek): Int {
     return 1.minus(dayOfWeek.value)
 }
 
