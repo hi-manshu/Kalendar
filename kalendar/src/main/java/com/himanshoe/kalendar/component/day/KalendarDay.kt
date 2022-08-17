@@ -66,6 +66,26 @@ fun KalendarDay(
     }
 }
 
+@Composable
+fun EmptyKalendarDay(
+    modifier: Modifier = Modifier,
+    kalendarDayConfig: KalendarDayConfig = KalendarDayDefaults.kalendarDayConfig(),
+    size: Dp = 56.dp,
+) {
+
+    Box(
+        modifier = modifier
+            .clip(shape = RectangleShape)
+            .size(size = size)
+            .background(
+                color = kalendarDayConfig.kalendarDayColors.backgroundColor
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+
+    }
+}
+
 private fun getKalendarDayState(selectedDate: LocalDate, currentDay: LocalDate) =
     when (selectedDate) {
         currentDay -> KalendarDayState.KalendarDaySelected

@@ -29,10 +29,10 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDate
 import kotlinx.datetime.todayIn
 
-private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
+ val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
 @Composable
-fun KalendarFirey(
+internal fun KalendarFirey(
     kalendarConfigs: KalendarConfigs,
     kalendarDayConfig: KalendarDayConfig,
     modifier: Modifier = Modifier,
@@ -47,8 +47,7 @@ fun KalendarFirey(
     val (currentMonth, currentYear) = displayedMonth.value to currentDay.year
     val daysInMonth = currentMonth.minLength()
     val year = currentDay.year
-    val monthValue =
-        if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
+    val monthValue = if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
     val startDayOfMonth = "${currentDay.year}-$monthValue-01".toLocalDate()
     val firstDayOfMonth = startDayOfMonth.dayOfWeek
     val selectedKalendarDate = remember { mutableStateOf(currentDay) }
@@ -64,8 +63,7 @@ fun KalendarFirey(
             modifier = Modifier.padding(bottom = 8.dp),
             monthName = displayedMonth.value.name,
             onPreviousClick = {
-                displayedMonth.value = displayedMonth.value.minus(1)
-            },
+                displayedMonth.value = displayedMonth.value.minus(1) },
             onNextClick = {
                 displayedMonth.value = displayedMonth.value.plus(1)
             },
@@ -106,9 +104,9 @@ fun KalendarFirey(
     }
 }
 
-private fun getInitialDayOfMonth(firstDayOfMonth: DayOfWeek) = -(firstDayOfMonth.value).minus(2)
+ fun getInitialDayOfMonth(firstDayOfMonth: DayOfWeek) = -(firstDayOfMonth.value).minus(2)
 
-private fun getGeneratedDay(day: Int, currentMonth: Month, currentYear: Int): LocalDate {
+ fun getGeneratedDay(day: Int, currentMonth: Month, currentYear: Int): LocalDate {
     val monthValue =
         if (currentMonth.value.toString().length == 1) "0${currentMonth.value}" else currentMonth.value.toString()
     val newDay = if (day.toString().length == 1) "0$day" else day

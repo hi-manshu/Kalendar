@@ -13,7 +13,6 @@ data class KalendarDayColors(
     val primaryColor: Color,
     val secondaryColor: Color,
     val selectedBackgroundColor: Color,
-    val backgroundColor: Color,
     val textColor: Color,
     val selectedTextColor: Color,
     val currentDayBorderColor: Color
@@ -26,9 +25,8 @@ internal object KalendarDayColorsDefaults {
         secondaryColor = SecondaryColor,
         textColor = TextColor,
         selectedBackgroundColor = SelectedColor,
-        backgroundColor = BackgroundColor,
         selectedTextColor = Color.White,
         currentDayBorderColor = CurrentDayBorderColor,
 
-    )
+        )
 }

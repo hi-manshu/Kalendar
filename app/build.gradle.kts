@@ -50,8 +50,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":kalendar"))
-//    implementation(project(":kalendar-uiKit"))
+//    implementation(project(":kalendar"))
+    implementation(project(":kalendar-uiKit"))
+    implementation(Deps.DateTime.date)
+
 //    implementation("com.himanshoe:kalendar:endlos:1.0.0-alpha1")
 //    implementation("com.himanshoe:kalendar-endlos:1.0.0-alpha1")
 //    implementation(project(mapOf("path" to ":kalendar-endlos")))

@@ -45,7 +45,7 @@ dependencies {
     implementation(Deps.Compose.uiToolingPreview)
     implementation(Deps.Compose.activity)
     implementation(Deps.Compose.viewmodel)
-    implementation(Deps.DateTime.date)
+    api(Deps.DateTime.date)
     implementation("androidx.paging:paging-compose:1.0.0-alpha14")
 
     debugApi(Deps.Compose.uiTooling)

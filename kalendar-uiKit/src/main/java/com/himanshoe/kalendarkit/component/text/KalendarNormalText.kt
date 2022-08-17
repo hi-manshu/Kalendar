@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import com.himanshoe.kalendarkit.component.text.config.KalendarTextConfig
 import com.himanshoe.kalendarkit.component.text.config.KalendarTextDefaults
 
@@ -17,12 +18,13 @@ fun KalendarNormalText(
     fontWeight: FontWeight,
     color: Color,
     kalendarTextConfig: KalendarTextConfig = KalendarTextDefaults.kalendarNormalTextConfig(),
-
+    textSize: TextUnit? = null
 ) {
+    val fontSize = textSize ?: kalendarTextConfig.kalendarTextSize.size
     Text(
         modifier = modifier,
         color = color,
-        fontSize = kalendarTextConfig.kalendarTextSize.size,
+        fontSize = fontSize,
         text = text,
         fontWeight = fontWeight,
         textAlign = TextAlign.Center
@@ -37,5 +39,6 @@ private fun KalendarNormalTextPreview() {
         modifier = Modifier,
         fontWeight = FontWeight.SemiBold,
         color = Color.Black,
+        textSize = null
     )
 }

@@ -42,7 +42,6 @@ fun Kalendar(
                 kalendarDayConfig = kalendarDayConfig,
                 kalendarConfigs = kalendarConfigs,
                 takeMeToDate = takeMeToDate
-
             )
         }
     }

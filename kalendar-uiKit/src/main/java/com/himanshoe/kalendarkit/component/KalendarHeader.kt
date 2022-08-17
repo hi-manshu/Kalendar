@@ -1,103 +1,55 @@
 package com.himanshoe.kalendarkit.component
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.SizeTransform
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.with
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.himanshoe.kalendarkit.component.button.KalendarIconButton
-import com.himanshoe.kalendarkit.component.text.KalendarSubTitle
-import java.util.Locale
+import androidx.compose.ui.graphics.Color
+import com.himanshoe.kalendarkit.component.text.KalendarTitle
+import com.himanshoe.kalendarkit.component.text.config.KalendarTextColor
+import com.himanshoe.kalendarkit.component.text.config.KalendarTextConfig
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.Month
+import java.util.*
 
-@OptIn(ExperimentalAnimationApi::class)
+private val headerColors = listOf(
+    Color(0xFFC39EA1),
+    Color(0xFFBB8D9E),
+    Color(0xFFAA8FB1),
+    Color(0xFF9E94B4),
+    Color(0xFF9599B4),
+    Color(0xFF91ABC5),
+    Color(0xFF8CB2C6),
+    Color(0xFF8CB7BE),
+    Color(0xFF8BACA9),
+    Color(0xFF9DB39A),
+    Color(0xFFADBA9A),
+    Color(0xFFBEC196),
+)
+
 @Composable
 internal fun KalendarHeader(
     modifier: Modifier,
-    monthName: String,
-    onPreviousClick: () -> Unit = {},
-    onNextClick: () -> Unit = {}
+    date: LocalDate,
+    kalendarTextConfig: KalendarTextConfig = KalendarTextConfig(
+        kalendarTextColor = getTextColor(
+            date.month
+        )
+    )
+
 ) {
-
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(start = 8.dp, bottom = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        AnimatedContent(
-            modifier = Modifier
-                .wrapContentHeight()
-                .wrapContentWidth()
-                .align(Alignment.CenterVertically),
-            targetState = getTitleText(monthName),
-            transitionSpec = {
-                addAnimation().using(
-                    SizeTransform(clip = false)
-                )
-            }
-        ) {
-            KalendarSubTitle(
-                text = it,
-                modifier = Modifier
-            )
-        }
-
-        Row(
-            modifier = Modifier
-                .wrapContentWidth()
-                .align(Alignment.CenterVertically),
-            horizontalArrangement = Arrangement.End,
-        ) {
-            KalendarIconButton(
-                modifier = Modifier.wrapContentSize(),
-                imageVector = Icons.Default.KeyboardArrowLeft,
-                contentDescription = "Previous Week",
-                onClick = { onPreviousClick() }
-
-            )
-            KalendarIconButton(
-                modifier = Modifier.wrapContentSize(),
-                imageVector = Icons.Default.KeyboardArrowRight,
-                contentDescription = "Next Month",
-                onClick = { onNextClick() }
-            )
-        }
-    }
-}
-
-@OptIn(ExperimentalAnimationApi::class)
-internal fun addAnimation(duration: Int = 500): ContentTransform {
-    return slideInVertically(animationSpec = tween(durationMillis = duration)) { height -> height } + fadeIn(
-        animationSpec = tween(durationMillis = duration)
-    ) with slideOutVertically(animationSpec = tween(durationMillis = duration)) { height -> -height } + fadeOut(
-        animationSpec = tween(durationMillis = duration)
+    KalendarTitle(
+        modifier = modifier.fillMaxWidth(),
+        text = getTitleText(date.month.name, date.year),
+        kalendarTextConfig = kalendarTextConfig
     )
 }
 
-internal fun getTitleText(monthName: String): String {
+fun getTextColor(month: Month) = KalendarTextColor(headerColors[month.value.minus(1)])
+
+internal fun getTitleText(monthName: String, year: Int): String {
     return monthName.lowercase().replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(
             Locale.getDefault()
         ) else it.toString()
-    }
+    } + " " + year
 }

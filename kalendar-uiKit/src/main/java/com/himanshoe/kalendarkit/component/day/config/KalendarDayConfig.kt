@@ -1,5 +1,6 @@
 package com.himanshoe.kalendarkit.component.day.config
 
+
 data class KalendarDayConfig(
     val kalendarDayColors: KalendarDayColors
 )

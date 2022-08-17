@@ -1,22 +1,8 @@
 package com.himanshoe.kalendar.component
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ContentTransform
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.with
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
@@ -28,16 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.component.button.KalendarIconButton
 import com.himanshoe.kalendar.component.text.KalendarSubTitle
-import java.util.Locale
+import java.util.*
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-internal fun KalendarHeader(
+fun KalendarHeader(
     modifier: Modifier,
     monthName: String,
     year: Int,
     onPreviousClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
+    arrowShown: Boolean = true,
 ) {
     val isNext = remember { mutableStateOf(true) }
     Row(
@@ -64,32 +51,33 @@ internal fun KalendarHeader(
                 modifier = Modifier
             )
         }
+        if (arrowShown) {
+            Row(
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .align(Alignment.CenterVertically),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                KalendarIconButton(
+                    modifier = Modifier.wrapContentSize(),
+                    imageVector = Icons.Default.KeyboardArrowLeft,
+                    contentDescription = "Previous Week",
+                    onClick = {
+                        isNext.value = false
+                        onPreviousClick()
+                    }
 
-        Row(
-            modifier = Modifier
-                .wrapContentWidth()
-                .align(Alignment.CenterVertically),
-            horizontalArrangement = Arrangement.End,
-        ) {
-            KalendarIconButton(
-                modifier = Modifier.wrapContentSize(),
-                imageVector = Icons.Default.KeyboardArrowLeft,
-                contentDescription = "Previous Week",
-                onClick = {
-                    isNext.value = false
-                    onPreviousClick()
-                }
-
-            )
-            KalendarIconButton(
-                modifier = Modifier.wrapContentSize(),
-                imageVector = Icons.Default.KeyboardArrowRight,
-                contentDescription = "Next Month",
-                onClick = {
-                    isNext.value = true
-                    onNextClick()
-                }
-            )
+                )
+                KalendarIconButton(
+                    modifier = Modifier.wrapContentSize(),
+                    imageVector = Icons.Default.KeyboardArrowRight,
+                    contentDescription = "Next Month",
+                    onClick = {
+                        isNext.value = true
+                        onNextClick()
+                    }
+                )
+            }
         }
     }
 }

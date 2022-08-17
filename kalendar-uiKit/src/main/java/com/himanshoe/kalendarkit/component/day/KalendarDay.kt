@@ -16,13 +16,13 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.himanshoe.kalendarkit.component.day.config.KalendarDayConfig
 import com.himanshoe.kalendarkit.component.day.config.KalendarDayDefaults
 import com.himanshoe.kalendarkit.component.day.config.KalendarDayState
 import com.himanshoe.kalendarkit.component.text.KalendarNormalText
-import com.himanshoe.kalendarkit.component.text.config.KalendarTextConfig
-import com.himanshoe.kalendarkit.component.text.config.KalendarTextDefaults
 import com.himanshoe.kalendarkit.model.KalendarDay
 import com.himanshoe.kalendarkit.model.KalendarEvent
 import kotlinx.datetime.LocalDate
@@ -32,12 +32,12 @@ fun KalendarDay(
     kalendarDay: KalendarDay,
     modifier: Modifier = Modifier,
     size: Dp = 56.dp,
-    selectedKalendarDay: LocalDate,
+    textSize: TextUnit = 16.sp,
     kalendarDayConfig: KalendarDayConfig = KalendarDayDefaults.kalendarDayConfig(),
     kalendarEvents: List<KalendarEvent> = emptyList(),
     isCurrentDay: Boolean = false,
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
-    kalendarTextConfig: KalendarTextConfig = KalendarTextDefaults.kalendarNormalTextConfig(),
+    selectedKalendarDay: LocalDate,
 ) {
     val kalendarDayState = getKalendarDayState(selectedKalendarDay, kalendarDay.localDate)
     val backgroundColor = getBackgroundColor(kalendarDayState, kalendarDayConfig)
@@ -61,10 +61,27 @@ fun KalendarDay(
             text = kalendarDay.localDate.dayOfMonth.toString(),
             modifier = Modifier,
             fontWeight = weight,
+            textSize = textSize,
             color = textColor,
-            kalendarTextConfig = kalendarTextConfig,
         )
     }
+}
+
+@Composable
+fun EmptyKalendarDay(
+    modifier: Modifier = Modifier,
+    size: Dp = 56.dp,
+    background: Color,
+) {
+
+    Box(
+        modifier = modifier
+            .clip(shape = RectangleShape)
+            .size(size = size)
+            .background(
+                color = background
+            ),
+    )
 }
 
 private fun getKalendarDayState(selectedDate: LocalDate, currentDay: LocalDate) =
@@ -92,7 +109,7 @@ private fun getBackgroundColor(
 ) = if (kalendarDayState is KalendarDayState.KalendarDaySelected) {
     kalendarDayConfig.kalendarDayColors.selectedBackgroundColor
 } else {
-    kalendarDayConfig.kalendarDayColors.backgroundColor
+    Color.Transparent
 }
 
 private fun getTextSelectionShape(

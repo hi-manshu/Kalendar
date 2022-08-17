@@ -1,6 +1,6 @@
 package com.himanshoe.kalendarkit.model
 
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 data class KalendarEvent(
     val date: LocalDate,

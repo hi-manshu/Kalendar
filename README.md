@@ -1,6 +1,6 @@
 ### Kalendar - An Elementary Compose Calendar.
 
-![Kalendar](art/kalendar-pic.png)
+![Kalendar](art/banner.png)
 
 This is a calendar to integrate Calendar with Custom design in your jetpack compose project.You can
 also add list of events for your days.
