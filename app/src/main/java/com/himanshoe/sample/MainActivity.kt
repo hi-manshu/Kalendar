@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.himanshoe.kalendarkit.Kalendar
+import com.himanshoe.kalendar.endlos.Kalendar
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +19,11 @@ class MainActivity : ComponentActivity() {
                     .fillMaxSize()
                     .background(Color.White)
             ) {
-                Kalendar(modifier = Modifier.fillMaxSize())
+                Kalendar(
+                    modifier = Modifier.fillMaxSize(),
+                    onCurrentDayClick = { kalendarDay, event ->
+                    }
+                )
             }
         }
     }

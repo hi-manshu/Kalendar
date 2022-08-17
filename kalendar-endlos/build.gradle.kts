@@ -46,13 +46,15 @@ dependencies {
     implementation(Deps.Compose.activity)
 
     debugApi(Deps.Compose.uiTooling)
+    implementation(Deps.Compose.viewmodel)
+    implementation(Deps.Compose.pagination)
 
     testImplementation(Deps.Test.jUnit)
     androidTestImplementation(Deps.AndroidTest.jUnitExtensions)
     androidTestImplementation(Deps.AndroidTest.espressoCore)
     androidTestApi(Deps.AndroidTest.uiTestJunit)
 
-    coreLibraryDesugaring(Deps.Desugar.jdk)
+    api(Deps.DateTime.date)
 }
 
 plugins.apply(Plugins.vanniktechPublish)

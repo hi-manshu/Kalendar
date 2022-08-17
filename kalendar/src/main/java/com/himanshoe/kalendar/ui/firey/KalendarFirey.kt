@@ -29,7 +29,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDate
 import kotlinx.datetime.todayIn
 
- val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
+val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
 @Composable
 internal fun KalendarFirey(
@@ -63,7 +63,8 @@ internal fun KalendarFirey(
             modifier = Modifier.padding(bottom = 8.dp),
             monthName = displayedMonth.value.name,
             onPreviousClick = {
-                displayedMonth.value = displayedMonth.value.minus(1) },
+                displayedMonth.value = displayedMonth.value.minus(1)
+            },
             onNextClick = {
                 displayedMonth.value = displayedMonth.value.plus(1)
             },
@@ -104,9 +105,9 @@ internal fun KalendarFirey(
     }
 }
 
- fun getInitialDayOfMonth(firstDayOfMonth: DayOfWeek) = -(firstDayOfMonth.value).minus(2)
+fun getInitialDayOfMonth(firstDayOfMonth: DayOfWeek) = -(firstDayOfMonth.value).minus(2)
 
- fun getGeneratedDay(day: Int, currentMonth: Month, currentYear: Int): LocalDate {
+fun getGeneratedDay(day: Int, currentMonth: Month, currentYear: Int): LocalDate {
     val monthValue =
         if (currentMonth.value.toString().length == 1) "0${currentMonth.value}" else currentMonth.value.toString()
     val newDay = if (day.toString().length == 1) "0$day" else day
