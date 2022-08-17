@@ -32,6 +32,7 @@ import kotlinx.datetime.todayIn
 fun KalendarOceanic(
     kalendarConfigs: KalendarConfigs,
     kalendarDayConfig: KalendarDayConfig,
+//    kalendarHeaderConfig: KalendarDayConfig,
     modifier: Modifier = Modifier,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
@@ -45,7 +46,7 @@ fun KalendarOceanic(
 
     Column(
         modifier = modifier
-            .background(color = kalendarConfigs.getBackground(month.value))
+            .background(color = kalendarConfigs.background ?: kalendarConfigs.getBackground(month.value))
             .wrapContentHeight()
             .fillMaxWidth()
             .padding(all = 8.dp)

@@ -21,13 +21,7 @@ import com.himanshoe.kalendar.component.text.KalendarNormalText
 import com.himanshoe.kalendar.config.KalendarConfigs
 import com.himanshoe.kalendar.model.KalendarDay
 import com.himanshoe.kalendar.model.KalendarEvent
-import kotlinx.datetime.Clock
-import kotlinx.datetime.DayOfWeek
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.Month
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDate
-import kotlinx.datetime.todayIn
+import kotlinx.datetime.*
 
 val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
@@ -47,14 +41,19 @@ internal fun KalendarFirey(
     val (currentMonth, currentYear) = displayedMonth.value to currentDay.year
     val daysInMonth = currentMonth.minLength()
     val year = currentDay.year
-    val monthValue = if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
+    val monthValue =
+        if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
     val startDayOfMonth = "${currentDay.year}-$monthValue-01".toLocalDate()
     val firstDayOfMonth = startDayOfMonth.dayOfWeek
     val selectedKalendarDate = remember { mutableStateOf(currentDay) }
 
     Column(
         modifier = modifier
-            .background(color = kalendarConfigs.getBackground(displayedMonth.value.value))
+            .background(
+                color = kalendarConfigs.background ?: kalendarConfigs.getBackground(
+                    displayedMonth.value.value
+                )
+            )
             .wrapContentHeight()
             .fillMaxWidth()
             .padding(vertical = 16.dp, horizontal = 8.dp)

@@ -4,13 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,8 +39,10 @@ fun KalendarDay(
     selectedKalendarDay: LocalDate,
     isSelected: Boolean,
 ) {
-    val kalendarDayState = getKalendarDayState(selectedKalendarDay, kalendarDay.localDate, isSelected)
-    val backgroundColor = getBackgroundColor(kalendarDayState, kalendarDayConfig, kalendarDay.localDate.month.value)
+    val kalendarDayState =
+        getKalendarDayState(selectedKalendarDay, kalendarDay.localDate, isSelected)
+    val backgroundColor =
+        getBackgroundColor(kalendarDayState, kalendarDayConfig, kalendarDay.localDate.month.value)
     val textColor = getTextColor(kalendarDayState, kalendarDayConfig)
     val shape = getTextSelectionShape(kalendarDayState)
     val weight = getTextWeight(kalendarDayState)
@@ -125,7 +121,7 @@ private fun getKalendarDayState(
 private fun getBorder(isCurrentDay: Boolean, kalendarDayConfig: KalendarDayConfig) =
     BorderStroke(
         width = if (isCurrentDay) 1.dp else 0.dp,
-        color = if (isCurrentDay) kalendarDayConfig.kalendarDayColors.currentDayBorderColor else Color.Transparent,
+        color = (if (isCurrentDay) kalendarDayConfig.kalendarDayColors.currentDayBorderColor else Color.Transparent),
     )
 
 private fun getTextWeight(kalendarDayState: KalendarDayState) =
