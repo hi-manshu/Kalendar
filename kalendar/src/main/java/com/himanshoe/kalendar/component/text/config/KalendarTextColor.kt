@@ -16,7 +16,4 @@ internal object KalendarTextColorDefaults {
     fun kalendarNormalTextColor() = KalendarTextColor(
         textColor = TitleTextColor
     )
-    fun kalendarSubTitleTextColor() = KalendarTextColor(
-        textColor = TitleTextColor
-    )
 }

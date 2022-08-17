@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.endloss.color
+package com.himanshoe.kalendar.color
 
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color

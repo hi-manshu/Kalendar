@@ -26,15 +26,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.himanshoe.kalendar.color.KalendarColors
 import com.himanshoe.kalendar.component.button.KalendarIconButton
 import com.himanshoe.kalendar.component.text.KalendarSubTitle
+import com.himanshoe.kalendar.component.text.config.KalendarTextColor
+import com.himanshoe.kalendar.component.text.config.KalendarTextConfig
+import kotlinx.datetime.Month
 import java.util.Locale
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun KalendarHeader(
     modifier: Modifier,
-    monthName: String,
+    month: kotlinx.datetime.Month,
     year: Int,
     onPreviousClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
@@ -53,7 +57,7 @@ fun KalendarHeader(
                 .wrapContentHeight()
                 .wrapContentWidth()
                 .align(Alignment.CenterVertically),
-            targetState = getTitleText(monthName, year),
+            targetState = getTitleText(month.name, year),
             transitionSpec = {
                 addAnimation(isNext = isNext.value).using(
                     SizeTransform(clip = false)
@@ -62,7 +66,8 @@ fun KalendarHeader(
         ) {
             KalendarSubTitle(
                 text = it,
-                modifier = Modifier
+                modifier = Modifier,
+                kalendarTextConfig = KalendarTextConfig(kalendarTextColor = getTextColor(month = month))
             )
         }
         if (arrowShown) {
@@ -112,3 +117,4 @@ internal fun getTitleText(monthName: String, year: Int): String {
         ) else it.toString()
     } + " " + year
 }
+fun getTextColor(month: Month) = KalendarTextColor(KalendarColors.headerColors[month.value.minus(1)])

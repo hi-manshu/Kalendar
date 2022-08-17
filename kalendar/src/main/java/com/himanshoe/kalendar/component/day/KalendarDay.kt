@@ -45,7 +45,7 @@ fun KalendarDay(
     selectedKalendarDay: LocalDate,
 ) {
     val kalendarDayState = getKalendarDayState(selectedKalendarDay, kalendarDay.localDate)
-    val backgroundColor = getBackgroundColor(kalendarDayState, kalendarDayConfig)
+    val backgroundColor = getBackgroundColor(kalendarDayState, kalendarDayConfig, kalendarDay.localDate)
     val textColor = getTextColor(kalendarDayState, kalendarDayConfig)
     val shape = getTextSelectionShape(kalendarDayState)
     val weight = getTextWeight(kalendarDayState)
@@ -112,25 +112,6 @@ fun KalendarDots(
     )
 }
 
-@Composable
-fun EmptyKalendarDay(
-    modifier: Modifier = Modifier,
-    kalendarDayConfig: KalendarDayConfig = KalendarDayDefaults.kalendarDayConfig(),
-    size: Dp = 56.dp,
-) {
-
-    Box(
-        modifier = modifier
-            .clip(shape = RectangleShape)
-            .size(size = size)
-            .background(
-                color = kalendarDayConfig.kalendarDayColors.backgroundColor
-            ),
-        contentAlignment = Alignment.Center
-    ) {
-    }
-}
-
 private fun getKalendarDayState(selectedDate: LocalDate, currentDay: LocalDate) =
     when (selectedDate) {
         currentDay -> KalendarDayState.KalendarDaySelected
@@ -152,11 +133,12 @@ private fun getTextWeight(kalendarDayState: KalendarDayState) =
 
 private fun getBackgroundColor(
     kalendarDayState: KalendarDayState,
-    kalendarDayConfig: KalendarDayConfig
+    kalendarDayConfig: KalendarDayConfig,
+    localDate: LocalDate
 ) = if (kalendarDayState is KalendarDayState.KalendarDaySelected) {
-    kalendarDayConfig.kalendarDayColors.selectedBackgroundColor
+    kalendarDayConfig.kalendarDayColors.getBackgroundColor(localDate.monthNumber)
 } else {
-    kalendarDayConfig.kalendarDayColors.backgroundColor
+    Color.Transparent
 }
 
 private fun getTextSelectionShape(

@@ -1,8 +1,8 @@
 package com.himanshoe.kalendar.component.text.config
 
 data class KalendarTextConfig(
-    val kalendarTextColor: KalendarTextColor,
-    val kalendarTextSize: KalendarTextSize
+    val kalendarTextColor: KalendarTextColor = KalendarTextColorDefaults.kalendarTitleTextColor(),
+    val kalendarTextSize: KalendarTextSize = KalendarTextSize.Title
 )
 
 internal object KalendarTextDefaults {

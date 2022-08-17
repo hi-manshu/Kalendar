@@ -1,14 +1,19 @@
 package com.himanshoe.kalendar.config
 
 import androidx.compose.ui.graphics.Color
-
-private val KalendarBackground = Color(0xFFFEF9F7)
+import com.himanshoe.kalendar.color.KalendarColors
 
 data class KalendarConfigs(
     val background: Color
-)
+) {
+    fun getBackground(month: Int) = KalendarColors.kalendarBackgroundColor[month.minus(1)]
+}
 
 object KalendarConfigDefaults {
 
-    fun kalendarConfigDefaults() = KalendarConfigs(background = KalendarBackground)
+    fun kalendarConfigDefaults(month: Int = 1) =
+        KalendarConfigs(
+            background =
+            KalendarColors.kalendarBackgroundColor[month.minus(1)]
+        )
 }

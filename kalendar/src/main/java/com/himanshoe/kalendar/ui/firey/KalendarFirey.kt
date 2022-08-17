@@ -54,14 +54,14 @@ internal fun KalendarFirey(
 
     Column(
         modifier = modifier
-            .background(color = kalendarConfigs.background)
+            .background(color = kalendarConfigs.getBackground(displayedMonth.value.value))
             .wrapContentHeight()
             .fillMaxWidth()
-            .padding(all = 8.dp)
+            .padding(vertical = 16.dp, horizontal = 8.dp)
     ) {
         KalendarHeader(
-            modifier = Modifier.padding(bottom = 8.dp),
-            monthName = displayedMonth.value.name,
+            modifier = Modifier.padding(vertical = 12.dp),
+            month = displayedMonth.value,
             onPreviousClick = {
                 displayedMonth.value = displayedMonth.value.minus(1)
             },
