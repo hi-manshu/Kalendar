@@ -13,7 +13,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.Kalendar
+import com.himanshoe.kalendar.model.KalendarEvent
 import com.himanshoe.kalendar.model.KalendarType
+import kotlinx.datetime.LocalDate
 
 @Composable
 fun KalendarDemo() {
@@ -25,6 +27,14 @@ fun KalendarDemo() {
     ) {
         Kalendar(
             kalendarType = KalendarType.Oceanic,
+            kalendarEvents = listOf(
+                KalendarEvent(LocalDate(2022, 8, 25), "Birthday"),
+                KalendarEvent(LocalDate(2022, 8, 25), "Birthday"),
+                KalendarEvent(LocalDate(2022, 8, 25), "Birthday"),
+                KalendarEvent(LocalDate(2022, 8, 28), "Anniversary"),
+                KalendarEvent(LocalDate(2022, 8, 28), "Party"),
+                KalendarEvent(LocalDate(2022, 8, 29), "Club"),
+            )
         )
         Text(
             text = "Kalendar Oceanic Type",

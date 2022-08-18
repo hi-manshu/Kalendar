@@ -72,7 +72,7 @@ fun KalendarOceanic(
                     modifier = Modifier,
                     isCurrentDay = isCurrentDay,
                     kalendarDay = localDate.toKalendarDay(),
-                    kalendarEvents = kalendarEvents,
+                    kalendarEvents = kalendarEvents.filter { it.date.dayOfMonth == localDate.dayOfMonth },
                     onCurrentDayClick = { kalendarDay, events ->
                         selectedKalendarDate.value = kalendarDay.localDate
                         onCurrentDayClick(kalendarDay, events)

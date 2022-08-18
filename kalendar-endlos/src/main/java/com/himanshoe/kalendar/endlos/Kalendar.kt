@@ -86,7 +86,7 @@ private fun KalendarEndloss(
                     modifier = modifier
                         .padding(horizontal = 12.dp, vertical = 6.dp)
                         .background(kalendarThemeColor.backgroundColor),
-                    kalendarEvents = kalendarEvents,
+                    kalendarEvents = kalendarEvents.filter { it.date.monthNumber == date.monthNumber },
                     onCurrentDayClick = { day, events ->
                         clickedDay.value = day.localDate
                         onCurrentDayClick(day, events)
