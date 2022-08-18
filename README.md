@@ -44,4 +44,4 @@ dependencies {
 - [Kalendar](docs/Kalendar.md)
 - [KalendarEndlos](docs/KalendarEndlos.md)
 
-Please drop a star if you like it <3 
+Please drop a star if you like it ❤️
