@@ -79,7 +79,7 @@ internal fun KalendarMonth(
                                 modifier = Modifier,
                                 size = size,
                                 kalendarDay = localDate.toKalendarDay(),
-                                kalendarEvents = kalendarEvents,
+                                kalendarEvents = kalendarEvents.filter { it.date.dayOfMonth == localDate.dayOfMonth },
                                 onCurrentDayClick = onCurrentDayClick,
                                 kalendarDayColors = kalendarDayColors,
                                 selectedKalendarDay = selectedDay,
