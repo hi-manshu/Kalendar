@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,12 +13,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -48,17 +50,19 @@ fun KalendarDay(
     val kalendarDayState = getKalendarDayState(selectedKalendarDay, kalendarDay.localDate)
     val bgColor = getBackgroundColor(kalendarDayState, dayBackgroundColor)
     val textColor = getTextColor(kalendarDayState, kalendarDayColors)
-    val shape = getTextSelectionShape(kalendarDayState)
     val weight = getTextWeight(kalendarDayState)
     val border = getBorder(isCurrentDay)
 
     Column(
         modifier = modifier
             .border(border = border, shape = CircleShape)
-            .clip(shape = shape)
+            .clip(shape = CircleShape)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(bounded = true)
+            ) { onCurrentDayClick(kalendarDay, kalendarEvents) }
             .size(size = size)
-            .background(color = bgColor)
-            .clickable { onCurrentDayClick(kalendarDay, kalendarEvents) },
+            .background(color = bgColor),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -142,7 +146,7 @@ private fun getTextSelectionShape(
 ) = if (kalendarDayState is KalendarDayState.KalendarDaySelected) {
     CircleShape
 } else {
-    RectangleShape
+    CircleShape
 }
 
 private fun getTextColor(
