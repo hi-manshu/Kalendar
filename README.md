@@ -35,11 +35,14 @@ dependencies {
   .....  
   implementation("com.himanshoe:kalendar-endlos:1.0.0")
  } 
- ```  
+ ```
+
+## Kalender gif
+![Kalender gif](art/kalender.gif)
 
 ## To See More Detail Readme
 
 - [Kalendar](docs/Kalendar.md)
 - [KalendarEndlos](docs/KalendarEndlos.md)
 
-Please drop a star if you like it <3 
+Please drop a star if you like it ❤️
