@@ -158,7 +158,6 @@ private fun getBackgroundColor(
     Color.Transparent
 }
 
-
 private fun getTextColor(
     kalendarDayState: KalendarDayState,
     kalendarDayColors: KalendarDayColors,
