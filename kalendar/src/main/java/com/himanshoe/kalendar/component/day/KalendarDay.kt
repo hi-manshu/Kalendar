@@ -51,14 +51,13 @@ fun KalendarDay(
     val kalendarDayState = getKalendarDayState(selectedKalendarDay, kalendarDay.localDate)
     val bgColor = getBackgroundColor(kalendarDayState, dayBackgroundColor)
     val textColor = getTextColor(kalendarDayState, kalendarDayColors)
-    val shape = getTextSelectionShape(kalendarDayState)
     val weight = getTextWeight(kalendarDayState)
     val border = getBorder(isCurrentDay)
 
     Column(
         modifier = modifier
             .border(border = border, shape = CircleShape)
-            .clip(shape = shape)
+            .clip(shape = CircleShape)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = rememberRipple(bounded = true)
