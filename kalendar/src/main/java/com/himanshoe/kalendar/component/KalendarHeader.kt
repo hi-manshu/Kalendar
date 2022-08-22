@@ -32,8 +32,8 @@ import com.himanshoe.kalendar.component.text.KalendarSubTitle
 import com.himanshoe.kalendar.component.text.config.KalendarTextColor
 import com.himanshoe.kalendar.component.text.config.KalendarTextConfig
 import com.himanshoe.kalendar.component.text.config.KalendarTextSize
-import com.himanshoe.kalendar.utils.getMonthNameInDeviceLocale
 import kotlinx.datetime.Month
+import java.time.format.TextStyle
 import java.util.Locale
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -117,7 +117,7 @@ internal fun addAnimation(duration: Int = 500, isNext: Boolean): ContentTransfor
 }
 
 internal fun getTitleText(month: Month, year: Int): String {
-    return getMonthNameInDeviceLocale(monthIndex = month.value - 1).lowercase().replaceFirstChar {
+    return month.getDisplayName(TextStyle.FULL, Locale.getDefault()).lowercase().replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(
             Locale.getDefault()
         ) else it.toString()
