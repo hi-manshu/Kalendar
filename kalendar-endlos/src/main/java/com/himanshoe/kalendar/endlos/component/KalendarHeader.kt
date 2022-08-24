@@ -9,6 +9,7 @@ import com.himanshoe.kalendar.endlos.component.text.config.KalendarTextColor
 import com.himanshoe.kalendar.endlos.component.text.config.KalendarTextConfig
 import com.himanshoe.kalendar.endlos.component.text.config.KalendarTextSize
 import kotlinx.datetime.Month
+import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
@@ -22,13 +23,13 @@ internal fun KalendarHeader(
 ) {
     KalendarTitle(
         modifier = modifier.fillMaxWidth(),
-        text = getTitleText(month.name, year),
+        text = getTitleText(month, year),
         kalendarTextConfig = KalendarTextConfig(KalendarTextColor(textColor), textSize)
     )
 }
 
-internal fun getTitleText(monthName: String, year: Int): String {
-    return monthName.lowercase().replaceFirstChar {
+internal fun getTitleText(month: Month, year: Int): String {
+    return month.getDisplayName(TextStyle.FULL, Locale.getDefault()).lowercase().replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(
             Locale.getDefault()
         ) else it.toString()
