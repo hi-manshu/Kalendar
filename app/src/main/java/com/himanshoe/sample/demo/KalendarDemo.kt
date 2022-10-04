@@ -28,12 +28,12 @@ fun KalendarDemo() {
         Kalendar(
             kalendarType = KalendarType.Oceanic,
             kalendarEvents = listOf(
-                KalendarEvent(LocalDate(2022, 8, 25), "Birthday"),
-                KalendarEvent(LocalDate(2022, 8, 25), "Birthday"),
-                KalendarEvent(LocalDate(2022, 8, 25), "Birthday"),
-                KalendarEvent(LocalDate(2022, 8, 28), "Anniversary"),
-                KalendarEvent(LocalDate(2022, 8, 28), "Party"),
-                KalendarEvent(LocalDate(2022, 8, 29), "Club"),
+                KalendarEvent(LocalDate(2022, 10, 25), "Birthday"),
+                KalendarEvent(LocalDate(2022, 10, 25), "Birthday"),
+                KalendarEvent(LocalDate(2022, 10, 25), "Birthday"),
+                KalendarEvent(LocalDate(2022, 10, 28), "Anniversary"),
+                KalendarEvent(LocalDate(2022, 10, 28), "Party"),
+                KalendarEvent(LocalDate(2022, 10, 29), "Club"),
             )
         )
         Text(
@@ -46,7 +46,15 @@ fun KalendarDemo() {
         )
         Kalendar(
             kalendarType = KalendarType.Firey,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
+            kalendarEvents = listOf(
+                KalendarEvent(LocalDate(2022, 10, 25), "Birthday"),
+                KalendarEvent(LocalDate(2022, 10, 25), "Birthday"),
+                KalendarEvent(LocalDate(2022, 10, 25), "Birthday"),
+                KalendarEvent(LocalDate(2022, 10, 25), "Birthday"),
+                KalendarEvent(LocalDate(2022, 10, 28), "Party"),
+                KalendarEvent(LocalDate(2022, 10, 29), "Club"),
+            )
         )
         Text(
             text = "Kalendar Firey Type",

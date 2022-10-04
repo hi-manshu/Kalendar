@@ -81,13 +81,12 @@ fun KalendarDay(
                 .align(Alignment.CenterHorizontally),
             horizontalArrangement = Arrangement.Center
         ) {
-            if (kalendarEvents.isNotEmpty()) {
-                kalendarEvents.take(3).forEachIndexed { index, _ ->
+            val kalendarEventForDay = kalendarEvents.filter { it.date == kalendarDay.localDate }
+            if (kalendarEventForDay.isNotEmpty()) {
+                val dayEvents = if (kalendarEventForDay.count() > 3) kalendarEventForDay.take(3) else kalendarEventForDay
+                dayEvents.forEachIndexed { index, _ ->
                     KalendarDots(
-                        modifier = Modifier,
-                        index = index,
-                        size = size,
-                        color = dotColor
+                        modifier = Modifier, index = index, size = size, color = dotColor
                     )
                 }
             }

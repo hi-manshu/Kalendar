@@ -8,6 +8,7 @@ import com.himanshoe.kalendar.endlos.Kalendar
 import com.himanshoe.kalendar.endlos.model.KalendarEvent
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.todayIn
@@ -20,9 +21,12 @@ fun KalendarEndlossDemo() {
     Kalendar(
         Modifier.background(Color.White),
         kalendarEvents = listOf(
-            KalendarEvent(oneWeekFromNow, "Himanshu"),
-            KalendarEvent(oneWeekFromNow, "Himanshu"),
-            KalendarEvent(oneWeekFromNow, "Himanshu")
+            KalendarEvent(LocalDate(2022, 10, 25), "Birthday"),
+            KalendarEvent(LocalDate(2022, 10, 25), "Birthday"),
+            KalendarEvent(LocalDate(2022, 10, 25), "Birthday"),
+            KalendarEvent(LocalDate(2022, 10, 28), "Anniversary"),
+            KalendarEvent(LocalDate(2022, 10, 28), "Party"),
+            KalendarEvent(LocalDate(2022, 10, 29), "Club"),
         )
     )
 }
