@@ -3,7 +3,6 @@ package com.himanshoe.kalendar
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.himanshoe.kalendar.color.KalendarColors
 import com.himanshoe.kalendar.color.KalendarThemeColor
 import com.himanshoe.kalendar.component.day.config.KalendarDayColors
@@ -79,9 +78,4 @@ fun Kalendar(
             )
         }
     }
-}
-
-@Composable
-@Preview
-private fun KalendarPreview() {
 }

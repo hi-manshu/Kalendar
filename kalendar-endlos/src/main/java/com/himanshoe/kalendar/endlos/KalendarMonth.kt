@@ -20,10 +20,13 @@ import com.himanshoe.kalendar.endlos.component.text.KalendarNormalText
 import com.himanshoe.kalendar.endlos.model.KalendarDay
 import com.himanshoe.kalendar.endlos.model.KalendarEvent
 import com.himanshoe.kalendar.endlos.model.toKalendarDay
+import kotlinx.datetime.Clock
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDate
+import kotlinx.datetime.todayIn
 
 private const val DaysInWeek = 7
 private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
@@ -38,6 +41,7 @@ internal fun KalendarMonth(
     kalendarDayColors: KalendarDayColors,
     kalendarThemeColors: KalendarThemeColor,
 ) {
+    val currentDay = Clock.System.todayIn(TimeZone.currentSystemDefault())
 
     Column(
         modifier = modifier
@@ -75,6 +79,7 @@ internal fun KalendarMonth(
                 Row(horizontalArrangement = Arrangement.spacedBy(0.dp)) {
                     weekDays.forEach { localDate ->
                         if (localDate is LocalDate) {
+                            val isCurrentDay = localDate == currentDay
                             KalendarDay(
                                 modifier = Modifier,
                                 size = size,
@@ -83,6 +88,7 @@ internal fun KalendarMonth(
                                 onCurrentDayClick = onCurrentDayClick,
                                 kalendarDayColors = kalendarDayColors,
                                 selectedKalendarDay = selectedDay,
+                                isCurrentDay = isCurrentDay,
                                 dotColor = kalendarThemeColors.headerTextColor,
                                 dayBackgroundColor = kalendarThemeColors.dayBackgroundColor
                             )

@@ -80,13 +80,12 @@ fun KalendarDay(
                 .align(Alignment.CenterHorizontally),
             horizontalArrangement = Arrangement.Center
         ) {
-            if (kalendarEvents.isNotEmpty()) {
-                kalendarEvents.take(3).forEachIndexed { index, _ ->
+            val kalendarEventForDay = kalendarEvents.filter { it.date == kalendarDay.localDate }
+            if (kalendarEventForDay.isNotEmpty()) {
+                val dayEvents = if (kalendarEventForDay.count() > 3) kalendarEventForDay.take(3) else kalendarEventForDay
+                dayEvents.forEachIndexed { index, _ ->
                     KalendarDots(
-                        modifier = Modifier,
-                        index = index,
-                        size = size,
-                        color = dotColor
+                        modifier = Modifier, index = index, size = size, color = dotColor
                     )
                 }
             }
@@ -106,8 +105,7 @@ fun KalendarDots(
             .padding(horizontal = 1.dp)
             .clip(shape = CircleShape)
             .background(
-                color = color
-                    .copy(alpha = index.plus(1) * 0.3F)
+                color = color.copy(alpha = index.plus(1) * 0.3F)
             )
             .size(size = size.div(12))
     )
@@ -119,11 +117,10 @@ private fun getKalendarDayState(selectedDate: LocalDate, currentDay: LocalDate) 
         else -> KalendarDayState.KalendarDayDefault
     }
 
-private fun getBorder(isCurrentDay: Boolean) =
-    BorderStroke(
-        width = if (isCurrentDay) 1.dp else 0.dp,
-        color = if (isCurrentDay) Color.Black else Color.Transparent,
-    )
+private fun getBorder(isCurrentDay: Boolean) = BorderStroke(
+    width = if (isCurrentDay) 1.dp else 0.dp,
+    color = if (isCurrentDay) Color.Black else Color.Transparent,
+)
 
 private fun getTextWeight(kalendarDayState: KalendarDayState) =
     if (kalendarDayState is KalendarDayState.KalendarDaySelected) {
@@ -139,14 +136,6 @@ private fun getBackgroundColor(
     backgroundColor
 } else {
     Color.Transparent
-}
-
-private fun getTextSelectionShape(
-    kalendarDayState: KalendarDayState,
-) = if (kalendarDayState is KalendarDayState.KalendarDaySelected) {
-    CircleShape
-} else {
-    CircleShape
 }
 
 private fun getTextColor(
