@@ -25,7 +25,7 @@ To add Kalendar, add this dependency,
 ```gradle  
 dependencies {  
   .....
-  implementation("com.himanshoe:kalendar:1.1.0")
+  implementation("com.himanshoe:kalendar:1.1.1")
 }  
 ```
 
@@ -34,7 +34,7 @@ or to use Kalendar Endlos, add this dependency,
 ```gradle 
 dependencies {    
   .....  
-  implementation("com.himanshoe:kalendar-endlos:1.0.0")
+  implementation("com.himanshoe:kalendar-endlos:1.0.1")
  } 
  ```
 
