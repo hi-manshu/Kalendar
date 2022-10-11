@@ -10,13 +10,16 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.color.KalendarThemeColor
 import com.himanshoe.kalendar.component.day.KalendarDay
 import com.himanshoe.kalendar.component.day.config.KalendarDayColors
 import com.himanshoe.kalendar.component.header.KalendarHeader
 import com.himanshoe.kalendar.component.header.config.KalendarHeaderConfig
+import com.himanshoe.kalendar.component.text.KalendarNormalText
 import com.himanshoe.kalendar.component.text.config.KalendarTextColor
 import com.himanshoe.kalendar.component.text.config.KalendarTextConfig
 import com.himanshoe.kalendar.component.text.config.KalendarTextSize
@@ -31,6 +34,8 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.todayIn
+import java.time.format.TextStyle
+import java.util.Locale
 
 @Composable
 fun KalendarOceanic(
@@ -38,6 +43,7 @@ fun KalendarOceanic(
     kalendarDayColors: KalendarDayColors,
     kalendarThemeColors: List<KalendarThemeColor>,
     modifier: Modifier = Modifier,
+    showWeekDays: Boolean = true,
     kalendarHeaderConfig: KalendarHeaderConfig? = null,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
@@ -80,24 +86,36 @@ fun KalendarOceanic(
                 )
             ),
         )
+
         Row(modifier = Modifier.wrapContentWidth()) {
             weekValue.value.forEach { localDate ->
                 val isCurrentDay = localDate == currentDay
-
-                KalendarDay(
-                    modifier = Modifier,
-                    isCurrentDay = isCurrentDay,
-                    kalendarDay = localDate.toKalendarDay(),
-                    kalendarEvents = kalendarEvents.filter { it.date.dayOfMonth == localDate.dayOfMonth },
-                    onCurrentDayClick = { kalendarDay, events ->
-                        selectedKalendarDate.value = kalendarDay.localDate
-                        onCurrentDayClick(kalendarDay, events)
-                    },
-                    kalendarDayColors = kalendarDayColors,
-                    selectedKalendarDay = selectedKalendarDate.value,
-                    dotColor = kalendarThemeColors[month.value.minus(1)].headerTextColor,
-                    dayBackgroundColor = kalendarThemeColors[month.value.minus(1)].dayBackgroundColor
-                )
+                Column {
+                    if (showWeekDays) {
+                        KalendarNormalText(
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            text = localDate.dayOfWeek.getDisplayName(
+                                TextStyle.FULL, Locale.getDefault()
+                            ).take(1),
+                            fontWeight = FontWeight.Normal,
+                            textColor = kalendarDayColors.textColor
+                        )
+                    }
+                    KalendarDay(
+                        modifier = Modifier,
+                        isCurrentDay = isCurrentDay,
+                        kalendarDay = localDate.toKalendarDay(),
+                        kalendarEvents = kalendarEvents.filter { it.date.dayOfMonth == localDate.dayOfMonth },
+                        onCurrentDayClick = { kalendarDay, events ->
+                            selectedKalendarDate.value = kalendarDay.localDate
+                            onCurrentDayClick(kalendarDay, events)
+                        },
+                        kalendarDayColors = kalendarDayColors,
+                        selectedKalendarDay = selectedKalendarDate.value,
+                        dotColor = kalendarThemeColors[month.value.minus(1)].headerTextColor,
+                        dayBackgroundColor = kalendarThemeColors[month.value.minus(1)].dayBackgroundColor
+                    )
+                }
             }
         }
     }
@@ -106,6 +124,7 @@ fun KalendarOceanic(
 @Composable
 fun KalendarOceanic(
     modifier: Modifier = Modifier,
+    showWeekDays: Boolean = true,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
     takeMeToDate: LocalDate?,
@@ -150,21 +169,32 @@ fun KalendarOceanic(
         Row(modifier = Modifier.wrapContentWidth()) {
             weekValue.value.forEach { localDate ->
                 val isCurrentDay = localDate == currentDay
-
-                KalendarDay(
-                    kalendarDay = localDate.toKalendarDay(),
-                    modifier = Modifier,
-                    kalendarEvents = kalendarEvents,
-                    isCurrentDay = isCurrentDay,
-                    onCurrentDayClick = { kalendarDay, events ->
-                        selectedKalendarDate.value = kalendarDay.localDate
-                        onCurrentDayClick(kalendarDay, events)
-                    },
-                    selectedKalendarDay = selectedKalendarDate.value,
-                    kalendarDayColors = kalendarDayColors,
-                    dotColor = kalendarThemeColor.headerTextColor,
-                    dayBackgroundColor = kalendarThemeColor.dayBackgroundColor,
-                )
+                Column {
+                    if (showWeekDays) {
+                        KalendarNormalText(
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            text = localDate.dayOfWeek.getDisplayName(
+                                TextStyle.FULL, Locale.getDefault()
+                            ).take(1),
+                            fontWeight = FontWeight.Normal,
+                            textColor = kalendarDayColors.textColor
+                        )
+                    }
+                    KalendarDay(
+                        kalendarDay = localDate.toKalendarDay(),
+                        modifier = Modifier,
+                        kalendarEvents = kalendarEvents,
+                        isCurrentDay = isCurrentDay,
+                        onCurrentDayClick = { kalendarDay, events ->
+                            selectedKalendarDate.value = kalendarDay.localDate
+                            onCurrentDayClick(kalendarDay, events)
+                        },
+                        selectedKalendarDay = selectedKalendarDate.value,
+                        kalendarDayColors = kalendarDayColors,
+                        dotColor = kalendarThemeColor.headerTextColor,
+                        dayBackgroundColor = kalendarThemeColor.dayBackgroundColor,
+                    )
+                }
             }
         }
     }

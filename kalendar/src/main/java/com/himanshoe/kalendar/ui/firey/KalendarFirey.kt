@@ -106,7 +106,7 @@ fun KalendarFirey(
                     KalendarNormalText(
                         text = it,
                         fontWeight = FontWeight.Normal,
-                        color = kalendarDayColors.textColor,
+                        textColor = kalendarDayColors.textColor,
                     )
                 }
                 items((getInitialDayOfMonth(firstDayOfMonth)..daysInMonth).toList()) {
@@ -205,7 +205,7 @@ fun KalendarFirey(
                     KalendarNormalText(
                         text = it,
                         fontWeight = FontWeight.Normal,
-                        color = kalendarDayColors.textColor,
+                        textColor = kalendarDayColors.textColor,
                     )
                 }
                 items((getInitialDayOfMonth(firstDayOfMonth)..daysInMonth).toList()) {

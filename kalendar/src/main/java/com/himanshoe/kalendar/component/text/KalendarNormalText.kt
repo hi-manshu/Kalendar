@@ -16,13 +16,13 @@ fun KalendarNormalText(
     text: String,
     modifier: Modifier = Modifier,
     fontWeight: FontWeight,
-    color: Color,
+    textColor: Color,
     textSize: TextUnit = KalendarTextSize.Normal.size
 
 ) {
     Text(
         modifier = modifier,
-        color = color,
+        color = textColor,
         fontSize = textSize,
         text = text,
         fontWeight = fontWeight,
@@ -37,7 +37,7 @@ private fun KalendarNormalTextPreview() {
         text = "Hye Himanshu",
         modifier = Modifier,
         fontWeight = FontWeight.SemiBold,
-        color = Color.Black,
+        textColor = Color.Black,
         textSize = 26.sp
     )
 }

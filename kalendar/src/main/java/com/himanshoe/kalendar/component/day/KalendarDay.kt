@@ -36,16 +36,17 @@ import kotlinx.datetime.LocalDate
 @Composable
 fun KalendarDay(
     kalendarDay: KalendarDay,
+    selectedKalendarDay: LocalDate,
+    kalendarDayColors: KalendarDayColors,
+    dotColor: Color,
+    dayBackgroundColor: Color,
     modifier: Modifier = Modifier,
     size: Dp = 56.dp,
     textSize: TextUnit = 16.sp,
     kalendarEvents: List<KalendarEvent> = emptyList(),
     isCurrentDay: Boolean = false,
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
-    selectedKalendarDay: LocalDate,
-    kalendarDayColors: KalendarDayColors,
-    dotColor: Color,
-    dayBackgroundColor: Color,
+
 ) {
     val kalendarDayState = getKalendarDayState(selectedKalendarDay, kalendarDay.localDate)
     val bgColor = getBackgroundColor(kalendarDayState, dayBackgroundColor)
@@ -70,7 +71,7 @@ fun KalendarDay(
             text = kalendarDay.localDate.dayOfMonth.toString(),
             modifier = Modifier,
             fontWeight = weight,
-            color = textColor,
+            textColor = textColor,
             textSize = textSize,
         )
         Row(
