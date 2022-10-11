@@ -16,6 +16,7 @@ import com.himanshoe.kalendar.endlos.component.KalendarHeader
 import com.himanshoe.kalendar.endlos.component.day.EmptyKalendarDay
 import com.himanshoe.kalendar.endlos.component.day.KalendarDay
 import com.himanshoe.kalendar.endlos.component.day.config.KalendarDayColors
+import com.himanshoe.kalendar.endlos.component.header.config.KalendarHeaderConfig
 import com.himanshoe.kalendar.endlos.component.text.KalendarNormalText
 import com.himanshoe.kalendar.endlos.model.KalendarDay
 import com.himanshoe.kalendar.endlos.model.KalendarEvent
@@ -40,6 +41,7 @@ internal fun KalendarMonth(
     selectedDay: LocalDate,
     kalendarDayColors: KalendarDayColors,
     kalendarThemeColors: KalendarThemeColor,
+    kalendarHeaderConfig: KalendarHeaderConfig,
 ) {
     val currentDay = Clock.System.todayIn(TimeZone.currentSystemDefault())
 
@@ -53,7 +55,7 @@ internal fun KalendarMonth(
             modifier = Modifier.padding(vertical = 28.dp, horizontal = 16.dp),
             month = date.month,
             year = date.year,
-            textColor = kalendarDayColors.textColor
+            kalendarHeaderConfig = kalendarHeaderConfig
         )
         val start = getKalendarStartDay(date.dayOfWeek)
         Row(
