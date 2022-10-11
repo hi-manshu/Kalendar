@@ -13,6 +13,10 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import com.himanshoe.kalendar.endlos.color.KalendarThemeColor
 import com.himanshoe.kalendar.endlos.component.day.config.KalendarDayColors
+import com.himanshoe.kalendar.endlos.component.header.config.KalendarHeaderConfig
+import com.himanshoe.kalendar.endlos.component.text.config.KalendarTextColor
+import com.himanshoe.kalendar.endlos.component.text.config.KalendarTextConfig
+import com.himanshoe.kalendar.endlos.component.text.config.KalendarTextSize
 import com.himanshoe.kalendar.endlos.model.KalendarDay
 import com.himanshoe.kalendar.endlos.model.KalendarEvent
 import kotlinx.datetime.Clock
@@ -22,12 +26,18 @@ import kotlinx.datetime.todayIn
 
 @Composable
 internal fun KalendarEndloss(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     kalendarItems: LazyPagingItems<LocalDate>,
     kalendarEvents: List<KalendarEvent>,
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit,
     kalendarDayColors: KalendarDayColors,
-    kalendarThemeColors: List<KalendarThemeColor>
+    kalendarThemeColors: List<KalendarThemeColor>,
+    kalendarHeaderConfig: KalendarHeaderConfig = KalendarHeaderConfig(
+        kalendarTextConfig = KalendarTextConfig(
+            kalendarTextColor = KalendarTextColor(kalendarDayColors.textColor),
+            kalendarTextSize = KalendarTextSize.SubTitle
+        )
+    ),
 ) {
     val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
     val clickedDay = remember { mutableStateOf(today) }
@@ -51,7 +61,8 @@ internal fun KalendarEndloss(
                     },
                     kalendarDayColors = kalendarDayColors,
                     selectedDay = clickedDay.value,
-                    kalendarThemeColors = kalendarThemeColor
+                    kalendarThemeColors = kalendarThemeColor,
+                    kalendarHeaderConfig = kalendarHeaderConfig
                 )
             }
         }
