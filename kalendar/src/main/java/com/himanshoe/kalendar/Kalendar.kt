@@ -7,6 +7,7 @@ import com.himanshoe.kalendar.color.KalendarColors
 import com.himanshoe.kalendar.color.KalendarThemeColor
 import com.himanshoe.kalendar.component.day.config.KalendarDayColors
 import com.himanshoe.kalendar.component.day.config.KalendarDayDefaultColors
+import com.himanshoe.kalendar.component.header.config.KalendarHeaderConfig
 import com.himanshoe.kalendar.model.KalendarDay
 import com.himanshoe.kalendar.model.KalendarEvent
 import com.himanshoe.kalendar.model.KalendarType
@@ -22,6 +23,7 @@ fun Kalendar(
     kalendarThemeColors: List<KalendarThemeColor> = KalendarColors.defaultColors(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
     kalendarDayColors: KalendarDayColors = KalendarDayDefaultColors.defaultColors(),
+    kalendarHeaderConfig: KalendarHeaderConfig? = null,
     takeMeToDate: LocalDate? = null,
 ) {
     if (kalendarThemeColors.isEmpty() || kalendarThemeColors.count() < 12) throw Exception("KalendarThemeColor cannot be null or less than 12, If you want to use same color accors months pass kalendarThemeColor = KalendarThemeColor(values)")
@@ -33,7 +35,8 @@ fun Kalendar(
             onCurrentDayClick = onCurrentDayClick,
             kalendarDayColors = kalendarDayColors,
             kalendarThemeColors = kalendarThemeColors,
-            takeMeToDate = takeMeToDate
+            takeMeToDate = takeMeToDate,
+            kalendarHeaderConfig = kalendarHeaderConfig
         )
         KalendarType.Firey -> {
             KalendarFirey(
@@ -42,7 +45,8 @@ fun Kalendar(
                 onCurrentDayClick = onCurrentDayClick,
                 kalendarDayColors = kalendarDayColors,
                 kalendarThemeColors = kalendarThemeColors,
-                takeMeToDate = takeMeToDate
+                takeMeToDate = takeMeToDate,
+                kalendarHeaderConfig = kalendarHeaderConfig
             )
         }
     }
@@ -56,6 +60,7 @@ fun Kalendar(
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
     kalendarDayColors: KalendarDayColors = KalendarDayDefaultColors.defaultColors(),
+    kalendarHeaderConfig: KalendarHeaderConfig? = null,
     takeMeToDate: LocalDate? = null,
 ) {
     when (kalendarType) {
@@ -65,7 +70,8 @@ fun Kalendar(
             onCurrentDayClick = onCurrentDayClick,
             kalendarDayColors = kalendarDayColors,
             kalendarThemeColor = kalendarThemeColor,
-            takeMeToDate = takeMeToDate
+            takeMeToDate = takeMeToDate,
+            kalendarHeaderConfig = kalendarHeaderConfig
         )
         KalendarType.Firey -> {
             KalendarFirey(
@@ -74,7 +80,8 @@ fun Kalendar(
                 onCurrentDayClick = onCurrentDayClick,
                 kalendarDayColors = kalendarDayColors,
                 kalendarThemeColor = kalendarThemeColor,
-                takeMeToDate = takeMeToDate
+                takeMeToDate = takeMeToDate,
+                kalendarHeaderConfig = kalendarHeaderConfig
             )
         }
     }

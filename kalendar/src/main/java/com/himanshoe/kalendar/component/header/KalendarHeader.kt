@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.component
+package com.himanshoe.kalendar.component.header
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ContentTransform
@@ -25,13 +25,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.component.button.KalendarIconButton
+import com.himanshoe.kalendar.component.header.config.KalendarHeaderConfig
 import com.himanshoe.kalendar.component.text.KalendarSubTitle
-import com.himanshoe.kalendar.component.text.config.KalendarTextColor
-import com.himanshoe.kalendar.component.text.config.KalendarTextConfig
-import com.himanshoe.kalendar.component.text.config.KalendarTextSize
 import kotlinx.datetime.Month
 import java.time.format.TextStyle
 import java.util.Locale
@@ -39,14 +36,13 @@ import java.util.Locale
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun KalendarHeader(
-    modifier: Modifier,
     month: Month,
     year: Int,
+    modifier: Modifier = Modifier,
     onPreviousClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
     arrowShown: Boolean = true,
-    textColor: Color,
-    textSize: KalendarTextSize = KalendarTextSize.SubTitle
+    kalendarHeaderConfig: KalendarHeaderConfig
 ) {
     val isNext = remember { mutableStateOf(true) }
     Row(
@@ -71,9 +67,7 @@ fun KalendarHeader(
             KalendarSubTitle(
                 text = it,
                 modifier = Modifier,
-                kalendarTextConfig = KalendarTextConfig(
-                    kalendarTextColor = KalendarTextColor(textColor), kalendarTextSize = textSize
-                )
+                kalendarTextConfig = kalendarHeaderConfig.kalendarTextConfig
             )
         }
         if (arrowShown) {

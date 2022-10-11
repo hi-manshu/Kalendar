@@ -10,10 +10,11 @@ data class KalendarTextColor(
 
 internal object KalendarTextColorDefaults {
 
-    fun kalendarTitleTextColor() = KalendarTextColor(
-        textColor = TitleTextColor
+    fun kalendarTitleTextColor(color: Color = TitleTextColor) = KalendarTextColor(
+        textColor = color
     )
-    fun kalendarNormalTextColor() = KalendarTextColor(
-        textColor = TitleTextColor
+
+    fun kalendarNormalTextColor(color: Color = TitleTextColor) = KalendarTextColor(
+        textColor = color
     )
 }

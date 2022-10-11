@@ -7,21 +7,18 @@ data class KalendarTextConfig(
 
 internal object KalendarTextDefaults {
 
-    fun kalendarTitleTextConfig() =
-        KalendarTextConfig(
-            kalendarTextColor = KalendarTextColorDefaults.kalendarTitleTextColor(),
-            kalendarTextSize = KalendarTextSize.Title
-        )
+    fun kalendarTitleTextConfig() = KalendarTextConfig(
+        kalendarTextColor = KalendarTextColorDefaults.kalendarTitleTextColor(),
+        kalendarTextSize = KalendarTextSize.Title
+    )
 
-    fun kalendarSubTitleTextConfig() =
-        KalendarTextConfig(
-            kalendarTextColor = KalendarTextColorDefaults.kalendarTitleTextColor(),
-            kalendarTextSize = KalendarTextSize.SubTitle
-        )
+    fun kalendarSubTitleTextConfig() = KalendarTextConfig(
+        kalendarTextColor = KalendarTextColorDefaults.kalendarTitleTextColor(),
+        kalendarTextSize = KalendarTextSize.SubTitle
+    )
 
-    fun kalendarNormalTextConfig() =
-        KalendarTextConfig(
-            kalendarTextColor = KalendarTextColorDefaults.kalendarNormalTextColor(),
-            kalendarTextSize = KalendarTextSize.Normal
-        )
+    fun kalendarNormalTextConfig() = KalendarTextConfig(
+        kalendarTextColor = KalendarTextColorDefaults.kalendarNormalTextColor(),
+        kalendarTextSize = KalendarTextSize.Normal
+    )
 }

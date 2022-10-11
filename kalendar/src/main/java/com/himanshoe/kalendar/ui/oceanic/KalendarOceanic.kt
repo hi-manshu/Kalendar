@@ -13,9 +13,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.color.KalendarThemeColor
-import com.himanshoe.kalendar.component.KalendarHeader
 import com.himanshoe.kalendar.component.day.KalendarDay
 import com.himanshoe.kalendar.component.day.config.KalendarDayColors
+import com.himanshoe.kalendar.component.header.KalendarHeader
+import com.himanshoe.kalendar.component.header.config.KalendarHeaderConfig
+import com.himanshoe.kalendar.component.text.config.KalendarTextColor
+import com.himanshoe.kalendar.component.text.config.KalendarTextConfig
+import com.himanshoe.kalendar.component.text.config.KalendarTextSize
 import com.himanshoe.kalendar.model.KalendarDay
 import com.himanshoe.kalendar.model.KalendarEvent
 import com.himanshoe.kalendar.model.toKalendarDay
@@ -30,12 +34,13 @@ import kotlinx.datetime.todayIn
 
 @Composable
 fun KalendarOceanic(
-    modifier: Modifier = Modifier,
-    kalendarEvents: List<KalendarEvent> = emptyList(),
-    onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
     takeMeToDate: LocalDate?,
     kalendarDayColors: KalendarDayColors,
     kalendarThemeColors: List<KalendarThemeColor>,
+    modifier: Modifier = Modifier,
+    kalendarHeaderConfig: KalendarHeaderConfig? = null,
+    kalendarEvents: List<KalendarEvent> = emptyList(),
+    onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
 ) {
     val currentDay = takeMeToDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
     val weekValue = remember { mutableStateOf(currentDay.getNext7Dates()) }
@@ -62,7 +67,18 @@ fun KalendarOceanic(
                 val lastDayOfDisplayedWeek = weekValue.value.last().plus(1, DateTimeUnit.DAY)
                 weekValue.value = lastDayOfDisplayedWeek.getNext7Dates()
             },
-            textColor = kalendarThemeColors[month.value.minus(1)].headerTextColor,
+            kalendarHeaderConfig = kalendarHeaderConfig ?: KalendarHeaderConfig(
+                kalendarTextConfig = KalendarTextConfig(
+                    kalendarTextColor = KalendarTextColor(
+                        kalendarThemeColors[
+                            month.value.minus(
+                                1
+                            )
+                        ].headerTextColor
+                    ),
+                    kalendarTextSize = KalendarTextSize.SubTitle
+                )
+            ),
         )
         Row(modifier = Modifier.wrapContentWidth()) {
             weekValue.value.forEach { localDate ->
@@ -95,6 +111,7 @@ fun KalendarOceanic(
     takeMeToDate: LocalDate?,
     kalendarDayColors: KalendarDayColors,
     kalendarThemeColor: KalendarThemeColor,
+    kalendarHeaderConfig: KalendarHeaderConfig? = null
 ) {
     val currentDay = takeMeToDate ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
     val weekValue = remember { mutableStateOf(currentDay.getNext7Dates()) }
@@ -121,7 +138,14 @@ fun KalendarOceanic(
                 val lastDayOfDisplayedWeek = weekValue.value.last().plus(1, DateTimeUnit.DAY)
                 weekValue.value = lastDayOfDisplayedWeek.getNext7Dates()
             },
-            textColor = kalendarThemeColor.headerTextColor,
+            kalendarHeaderConfig = kalendarHeaderConfig ?: KalendarHeaderConfig(
+                KalendarTextConfig(
+                    kalendarTextColor = KalendarTextColor(
+                        kalendarThemeColor.headerTextColor
+                    ),
+                    kalendarTextSize = KalendarTextSize.SubTitle
+                )
+            )
         )
         Row(modifier = Modifier.wrapContentWidth()) {
             weekValue.value.forEach { localDate ->
