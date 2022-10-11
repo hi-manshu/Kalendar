@@ -43,6 +43,13 @@ Preview:
 
 ### 3: Customization
 
+> KalendarHeader
+
+If you want to configure the KalendarHeader, use:
+```kotlin
+kalendarHeaderConfig : KalendarHeaderConfig
+```
+
 It is simple to customize Kalendar to suit your needs. There are many optional parameters you can use.
 
 > Setting up Events
