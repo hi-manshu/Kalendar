@@ -34,6 +34,14 @@ Preview:
 With Kalendar at your disposal you have customization at your tip to make it suited based on your need.
 
 `Kalendar` composable has lot of optional parameters that you can use. Like,
+
+> KalendarHeader
+
+If you want to configure the KalendarHeader, use:
+```kotlin
+kalendarHeaderConfig : KalendarHeaderConfig
+```
+
 > Setting up Events
 ```kotlin  
 kalendarEvents: List<KalendarEvent> = emptyList(),  
