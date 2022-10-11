@@ -18,7 +18,7 @@ import kotlinx.datetime.LocalDate
 @Composable
 fun Kalendar(
     modifier: Modifier = Modifier,
-    kalendarType: KalendarType = KalendarType.Oceanic,
+    kalendarType: KalendarType = KalendarType.Oceanic(true),
     kalendarEvents: List<KalendarEvent> = emptyList(),
     kalendarThemeColors: List<KalendarThemeColor> = KalendarColors.defaultColors(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
@@ -29,14 +29,16 @@ fun Kalendar(
     if (kalendarThemeColors.isEmpty() || kalendarThemeColors.count() < 12) throw Exception("KalendarThemeColor cannot be null or less than 12, If you want to use same color accors months pass kalendarThemeColor = KalendarThemeColor(values)")
 
     when (kalendarType) {
-        KalendarType.Oceanic -> KalendarOceanic(
+        is KalendarType.Oceanic -> KalendarOceanic(
             modifier = modifier.wrapContentHeight(),
             kalendarEvents = kalendarEvents,
             onCurrentDayClick = onCurrentDayClick,
             kalendarDayColors = kalendarDayColors,
             kalendarThemeColors = kalendarThemeColors,
             takeMeToDate = takeMeToDate,
-            kalendarHeaderConfig = kalendarHeaderConfig
+            kalendarHeaderConfig = kalendarHeaderConfig,
+            showWeekDays = kalendarType.showWeekDays
+
         )
         KalendarType.Firey -> {
             KalendarFirey(
@@ -56,7 +58,7 @@ fun Kalendar(
 fun Kalendar(
     modifier: Modifier = Modifier,
     kalendarThemeColor: KalendarThemeColor,
-    kalendarType: KalendarType = KalendarType.Oceanic,
+    kalendarType: KalendarType = KalendarType.Oceanic(true),
     kalendarEvents: List<KalendarEvent> = emptyList(),
     onCurrentDayClick: (KalendarDay, List<KalendarEvent>) -> Unit = { _, _ -> },
     kalendarDayColors: KalendarDayColors = KalendarDayDefaultColors.defaultColors(),
@@ -64,14 +66,15 @@ fun Kalendar(
     takeMeToDate: LocalDate? = null,
 ) {
     when (kalendarType) {
-        KalendarType.Oceanic -> KalendarOceanic(
+        is KalendarType.Oceanic -> KalendarOceanic(
             modifier = modifier.wrapContentHeight(),
             kalendarEvents = kalendarEvents,
             onCurrentDayClick = onCurrentDayClick,
             kalendarDayColors = kalendarDayColors,
             kalendarThemeColor = kalendarThemeColor,
             takeMeToDate = takeMeToDate,
-            kalendarHeaderConfig = kalendarHeaderConfig
+            kalendarHeaderConfig = kalendarHeaderConfig,
+            showWeekDays = kalendarType.showWeekDays
         )
         KalendarType.Firey -> {
             KalendarFirey(
