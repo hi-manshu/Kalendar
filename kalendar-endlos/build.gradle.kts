@@ -46,7 +46,6 @@ dependencies {
     implementation(Deps.Compose.activity)
 
     debugApi(Deps.Compose.uiTooling)
-    implementation(Deps.Compose.viewmodel)
     implementation(Deps.Compose.pagination)
 
     testImplementation(Deps.Test.jUnit)

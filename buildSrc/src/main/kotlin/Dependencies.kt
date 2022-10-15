@@ -16,7 +16,6 @@ object Deps {
         val uiToolingPreview by lazy { "androidx.compose.ui:ui-tooling-preview:${Versions.compose}" }
         val material by lazy { "androidx.compose.material:material:${Versions.compose}" }
         val activity by lazy { "androidx.activity:activity-compose:${Versions.activity}" }
-        val viewmodel by lazy { "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1" }
         val pagination by lazy { "androidx.paging:paging-compose:1.0.0-alpha14"}
     }
 
@@ -44,10 +43,6 @@ object Deps {
         }
     }
 
-    object Desugar {
-        val jdk by lazy { "com.android.tools:desugar_jdk_libs:1.1.5" }
-    }
-
     object Gradle {
         val kotlinGradlePlugin by lazy { "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}" }
         val androidGradlePlugin by lazy { "com.android.tools.build:gradle:${Versions.androidGradlePlugin}" }
@@ -55,8 +50,4 @@ object Deps {
         val ktlintGradlePlugin by lazy { "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktlint}" }
         val detektGradlePlugin by lazy { "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.detekt}" }
     }
-}
-
-object ProjectPath {
-    const val kalendar = ":kalendar"
 }
