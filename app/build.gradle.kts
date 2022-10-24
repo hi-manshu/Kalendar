@@ -53,7 +53,7 @@ dependencies {
     implementation(Deps.DateTime.date)
     implementation(project(mapOf("path" to ":kalendar-endlos")))
     implementation("androidx.compose.material3:material3:1.0.0-alpha15")
-    implementation("androidx.navigation:navigation-compose:2.5.1")
+    implementation("androidx.navigation:navigation-compose:2.5.3")
     // jetpack compose
     implementation(Deps.Compose.ui)
     implementation(Deps.Compose.material)
