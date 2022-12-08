@@ -70,8 +70,8 @@ fun KalendarFirey(
     }
     val currentMonth = displayedMonth.value
     val currentYear = displayedYear.value
-
-    val daysInMonth = currentMonth.minLength()
+    
+    val daysInMonth = currentMonth.length(isLeapYear(currentYear))
     val monthValue =
         if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
     val startDayOfMonth = "$currentYear-$monthValue-01".toLocalDate()
@@ -169,7 +169,7 @@ fun KalendarFirey(
     val currentMonth = displayedMonth.value
     val currentYear = displayedYear.value
 
-    val daysInMonth = currentMonth.minLength()
+    val daysInMonth = currentMonth.length(isLeapYear(currentYear))
     val monthValue =
         if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
     val startDayOfMonth = "$currentYear-$monthValue-01".toLocalDate()
@@ -245,6 +245,18 @@ fun KalendarFirey(
                 }
             }
         )
+    }
+}
+
+private fun isLeapYear(year: Int): Boolean {
+    return if (year % 4 == 0) {
+        if (year % 100 == 0) {
+            year % 400 == 0
+        } else {
+            true
+        }
+    } else {
+        false
     }
 }
 
