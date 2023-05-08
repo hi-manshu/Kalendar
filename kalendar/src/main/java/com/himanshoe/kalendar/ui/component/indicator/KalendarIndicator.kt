@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun KalendarIndicator(
-    modifier: Modifier = Modifier,
     index: Int,
     size: Dp,
-    color: Color
+    color: Color,
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier

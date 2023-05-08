@@ -17,7 +17,7 @@ internal fun LocalDate.getPrevious7Dates() = buildList {
     }
 }.reversed()
 
-private fun Int.isLeapYear(): Boolean {
+fun Int.isLeapYear(): Boolean {
     val year = this
     return when {
         ((year % 400 == 0) || (((year % 4) == 0) && ((year % 100) != 0))) -> true

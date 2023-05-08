@@ -42,7 +42,7 @@ import java.util.Locale
 fun KalendarHeader(
     month: Month,
     year: Int,
-    kalendarTextConfig: KalendarTextConfig,
+    kalendarTextKonfig: KalendarTextKonfig,
     modifier: Modifier = Modifier,
     onPreviousClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
@@ -71,8 +71,8 @@ fun KalendarHeader(
         ) {
             Text(
                 modifier = Modifier,
-                color = kalendarTextConfig.kalendarTextColor,
-                fontSize = kalendarTextConfig.kalendarTextSize,
+                color = kalendarTextKonfig.kalendarTextColor,
+                fontSize = kalendarTextKonfig.kalendarTextSize,
                 text = getTitleText(month, year),
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Start
@@ -133,6 +133,6 @@ fun KalendarHeaderPreview() {
     KalendarHeader(
         month = java.time.Month.APRIL,
         year = 2023,
-        kalendarTextConfig = KalendarTextConfig.previewDefault()
+        kalendarTextKonfig = KalendarTextKonfig.previewDefault()
     )
 }

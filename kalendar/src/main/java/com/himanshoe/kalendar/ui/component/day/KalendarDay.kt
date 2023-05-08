@@ -44,16 +44,19 @@ fun KalendarDay(
     selectedDate: LocalDate = date,
     kalendarEvents: KalendarEvents = KalendarEvents(),
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
-    kalendarDayColors: KalendarDayColors = KalendarDayColors.default(),
 ) {
     val selected = selectedDate == date
     Column(
         modifier = modifier
-            .border(border = getBorder(date), shape = CircleShape)
+            .border(
+                border = getBorder(date),
+                shape = CircleShape
+            )
             .clip(shape = CircleShape)
             .clickable { onDayClick(date, kalendarEvents.events) }
             .dayBackgroundColor(
-                selected = selected, selectedColor = kalendarColors.dayBackgroundColor
+                selected = selected,
+                selectedColor = kalendarColors.dayBackgroundColor
             )
             .circleLayout()
             .wrapContentSize()
@@ -66,7 +69,7 @@ fun KalendarDay(
             modifier = Modifier.wrapContentSize(),
             textAlign = TextAlign.Center,
             fontSize = kalendarDayKonfig.textSize,
-            color = getTextColor(selected = selected, kalendarDayColors = kalendarDayColors),
+            color = getTextColor(selected = selected, kalendarDayKonfig = kalendarDayKonfig),
             fontWeight = getTextWeight(selected = selected)
         )
         Row(
@@ -102,10 +105,10 @@ private fun getBorder(day: LocalDate): BorderStroke {
 
 private fun getTextColor(
     selected: Boolean,
-    kalendarDayColors: KalendarDayColors,
+    kalendarDayKonfig: KalendarDayKonfig,
 ) = when {
-    selected -> kalendarDayColors.selectedTextColor
-    else -> kalendarDayColors.textColor
+    selected -> kalendarDayKonfig.selectedTextColor
+    else -> kalendarDayKonfig.textColor
 }
 
 private fun getTextWeight(selected: Boolean) = when {

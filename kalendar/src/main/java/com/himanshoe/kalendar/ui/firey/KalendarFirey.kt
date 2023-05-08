@@ -23,39 +23,33 @@ import com.himanshoe.kalendar.KalendarEvent
 import com.himanshoe.kalendar.KalendarEvents
 import com.himanshoe.kalendar.color.KalendarColors
 import com.himanshoe.kalendar.ui.component.day.KalendarDay
-import com.himanshoe.kalendar.ui.component.day.KalendarDayColors
 import com.himanshoe.kalendar.ui.component.day.KalendarDayKonfig
 import com.himanshoe.kalendar.ui.component.header.KalendarHeader
-import com.himanshoe.kalendar.ui.component.header.KalendarTextConfig
-import com.himanshoe.kalendar.ui.oceanic.util.getNext7Dates
-import com.himanshoe.kalendar.ui.oceanic.util.getPrevious7Dates
+import com.himanshoe.kalendar.ui.component.header.KalendarTextKonfig
+import com.himanshoe.kalendar.ui.oceanic.util.isLeapYear
 import com.himanshoe.kalendar.util.MultiplePreview
 import kotlinx.datetime.Clock
-import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDate
 import kotlinx.datetime.todayIn
 import java.time.Month
 
-val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
+private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
 @Composable
 fun KalendarFirey(
     currentDay: LocalDate?,
     modifier: Modifier = Modifier,
     showLabel: Boolean = true,
-    kalendarHeaderTextConfig: KalendarTextConfig? = null,
+    kalendarHeaderTextKonfig: KalendarTextKonfig? = null,
     kalendarColors: KalendarColors = KalendarColors.default(),
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     events: KalendarEvents = KalendarEvents(),
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
-    kalendarDayColors: KalendarDayColors = KalendarDayColors.default(),
-    dayContent: (@Composable () -> Unit)? = null,
-    dayLabelContent: (@Composable (String) -> Unit)? = null,
-    headerContent: (@Composable () -> Unit)? = null,
+    dayContent: (@Composable (LocalDate) -> Unit)? = null,
+    headerContent: (@Composable (Month, Int) -> Unit)? = null,
 ) {
     val today = currentDay ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
     val selectedDate = remember { mutableStateOf(today) }
@@ -65,12 +59,12 @@ fun KalendarFirey(
     val currentYear = displayedYear.value
     val currentMonthIndex = currentMonth.value.minus(1)
 
-    val newHeaderTextKonfig = kalendarHeaderTextConfig ?: KalendarTextConfig(
+    val newHeaderTextKonfig = kalendarHeaderTextKonfig ?: KalendarTextKonfig(
         kalendarTextColor = kalendarColors.color[currentMonthIndex].headerTextColor,
         kalendarTextSize = 24.sp
     )
 
-    val daysInMonth = currentMonth.minLength()
+    val daysInMonth = currentMonth.length(currentYear.isLeapYear())
     val monthValue =
         if (currentMonth.value.toString().length == 1) "0" + currentMonth.value.toString() else currentMonth.value.toString()
     val startDayOfMonth = "$currentYear-$monthValue-01".toLocalDate()
@@ -86,20 +80,20 @@ fun KalendarFirey(
             .padding(all = 8.dp)
     ) {
         if (headerContent != null) {
-            headerContent()
+            headerContent(currentMonth, currentYear)
         } else {
             KalendarHeader(
-                month = displayedMonth.value,
-                year = displayedYear.value,
-                kalendarTextConfig = newHeaderTextKonfig,
+                month = currentMonth,
+                year = currentYear,
+                kalendarTextKonfig = newHeaderTextKonfig,
                 onPreviousClick = {
-                    if (displayedMonth.value.value == 1) {
+                    if (currentMonth.value == 1) {
                         displayedYear.value = displayedYear.value.minus(1)
                     }
                     displayedMonth.value = displayedMonth.value.minus(1)
                 },
                 onNextClick = {
-                    if (displayedMonth.value.value == 12) {
+                    if (currentMonth.value == 12) {
                         displayedYear.value = displayedYear.value.plus(1)
                     }
                     displayedMonth.value = displayedMonth.value.plus(1)
@@ -107,24 +101,19 @@ fun KalendarFirey(
             )
         }
         Spacer(modifier = Modifier.padding(vertical = 4.dp))
-        LazyVerticalGrid(
-            modifier = Modifier.fillMaxWidth(),
+        LazyVerticalGrid(modifier = Modifier.fillMaxWidth(),
             columns = GridCells.Fixed(7),
             content = {
                 if (showLabel) {
                     itemsIndexed(WeekDays) { index, item ->
-                        if (dayLabelContent != null) {
-                            dayLabelContent(item)
-                        } else {
-                            Text(
-                                modifier = Modifier,
-                                color = kalendarDayColors.textColor,
-                                fontSize = kalendarDayKonfig.textSize,
-                                text = item,
-                                fontWeight = FontWeight.SemiBold,
-                                textAlign = TextAlign.Center
-                            )
-                        }
+                        Text(
+                            modifier = Modifier,
+                            color = kalendarDayKonfig.textColor,
+                            fontSize = kalendarDayKonfig.textSize,
+                            text = item,
+                            fontWeight = FontWeight.SemiBold,
+                            textAlign = TextAlign.Center
+                        )
                     }
                 }
 
@@ -132,14 +121,12 @@ fun KalendarFirey(
                     if (it > 0) {
                         val day = calculateDay(it, currentMonth, currentYear)
                         if (dayContent != null) {
-                            dayContent()
+                            dayContent(day)
                         } else {
-                            KalendarDay(
-                                date = day,
+                            KalendarDay(date = day,
                                 selectedDate = selectedDate.value,
                                 kalendarColors = kalendarColors.color[currentMonthIndex],
                                 kalendarEvents = events,
-                                kalendarDayColors = kalendarDayColors,
                                 kalendarDayKonfig = kalendarDayKonfig,
                                 onDayClick = { date, event ->
                                     selectedDate.value = date
@@ -154,7 +141,6 @@ fun KalendarFirey(
     }
 }
 
-
 private fun getFirstDayOfMonth(firstDayOfMonth: DayOfWeek) = -(firstDayOfMonth.value).minus(2)
 
 private fun calculateDay(day: Int, currentMonth: Month, currentYear: Int): LocalDate {
@@ -164,12 +150,12 @@ private fun calculateDay(day: Int, currentMonth: Month, currentYear: Int): Local
     return "$currentYear-$monthValue-$newDay".toLocalDate()
 }
 
-@MultiplePreview
 @Composable
-fun KalendarFireyPreview() {
+@MultiplePreview
+private fun KalendarFireyPreview() {
     KalendarFirey(
         currentDay = Clock.System.todayIn(
             TimeZone.currentSystemDefault()
-        ), kalendarHeaderTextConfig = KalendarTextConfig.previewDefault()
+        ), kalendarHeaderTextKonfig = KalendarTextKonfig.previewDefault()
     )
 }

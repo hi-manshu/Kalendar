@@ -22,10 +22,9 @@ import com.himanshoe.kalendar.KalendarEvent
 import com.himanshoe.kalendar.KalendarEvents
 import com.himanshoe.kalendar.color.KalendarColors
 import com.himanshoe.kalendar.ui.component.day.KalendarDay
-import com.himanshoe.kalendar.ui.component.day.KalendarDayColors
 import com.himanshoe.kalendar.ui.component.day.KalendarDayKonfig
 import com.himanshoe.kalendar.ui.component.header.KalendarHeader
-import com.himanshoe.kalendar.ui.component.header.KalendarTextConfig
+import com.himanshoe.kalendar.ui.component.header.KalendarTextKonfig
 import com.himanshoe.kalendar.ui.oceanic.util.getNext7Dates
 import com.himanshoe.kalendar.ui.oceanic.util.getPrevious7Dates
 import com.himanshoe.kalendar.util.MultiplePreview
@@ -35,23 +34,22 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.todayIn
+import java.time.Month
 import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
 fun KalendarOceanic(
-    currentDay: LocalDate?,
     modifier: Modifier = Modifier,
+    currentDay: LocalDate? = null,
     showLabel: Boolean = true,
-    kalendarHeaderTextConfig: KalendarTextConfig? = null,
+    kalendarHeaderTextKonfig: KalendarTextKonfig? = null,
     kalendarColors: KalendarColors = KalendarColors.default(),
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     events: KalendarEvents = KalendarEvents(),
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
-    kalendarDayColors: KalendarDayColors = KalendarDayColors.default(),
-    dayContent: (@Composable () -> Unit)? = null,
-    dayLabelContent: (@Composable (LocalDate) -> Unit)? = null,
-    headerContent: (@Composable () -> Unit)? = null,
+    dayContent: (@Composable (LocalDate) -> Unit)? = null,
+    headerContent: (@Composable (Month, Int) -> Unit)? = null,
 ) {
     val today = currentDay ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
     val weekValue = remember { mutableStateOf(today.getNext7Dates()) }
@@ -70,12 +68,12 @@ fun KalendarOceanic(
             .padding(all = 8.dp)
     ) {
         if (headerContent != null) {
-            headerContent()
+            headerContent(month, year)
         } else {
             KalendarHeader(
                 month = month,
                 year = year,
-                kalendarTextConfig = kalendarHeaderTextConfig ?: KalendarTextConfig(
+                kalendarTextKonfig = kalendarHeaderTextKonfig ?: KalendarTextKonfig(
                     kalendarTextColor = kalendarColors.color[currentMonthIndex].headerTextColor,
                     kalendarTextSize = 24.sp
                 ),
@@ -96,32 +94,27 @@ fun KalendarOceanic(
                 itemsIndexed(weekValue.value) { index, item ->
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         if (showLabel) {
-                            if (dayLabelContent != null) {
-                                dayLabelContent(item)
-                            } else {
-                                Text(
-                                    modifier = Modifier,
-                                    color = kalendarDayColors.textColor,
-                                    fontSize = kalendarDayKonfig.textSize,
-                                    text = item.dayOfWeek.getDisplayName(
-                                        TextStyle.FULL, Locale.getDefault()
-                                    ).take(1),
-                                    fontWeight = FontWeight.SemiBold,
-                                    textAlign = TextAlign.Center
-                                )
-                            }
+                            Text(
+                                modifier = Modifier,
+                                color = kalendarDayKonfig.textColor,
+                                fontSize = kalendarDayKonfig.textSize,
+                                text = item.dayOfWeek.getDisplayName(
+                                    TextStyle.FULL, Locale.getDefault()
+                                ).take(1),
+                                fontWeight = FontWeight.SemiBold,
+                                textAlign = TextAlign.Center
+                            )
                         }
                         Spacer(modifier = Modifier.padding(vertical = 4.dp))
 
                         if (dayContent != null) {
-                            dayContent()
+                            dayContent(item)
                         } else {
                             KalendarDay(
                                 date = item,
                                 selectedDate = selectedDate.value,
                                 kalendarColors = kalendarColors.color[currentMonthIndex],
                                 kalendarEvents = events,
-                                kalendarDayColors = kalendarDayColors,
                                 kalendarDayKonfig = kalendarDayKonfig,
                                 onDayClick = { date, event ->
                                     selectedDate.value = date
@@ -136,36 +129,6 @@ fun KalendarOceanic(
     }
 }
 
-@Composable
-fun KalendarOceanic(
-    currentDay: LocalDate?,
-    modifier: Modifier = Modifier,
-    showLabel: Boolean = true,
-    kalendarHeaderTextConfig: KalendarTextConfig? = null,
-    kalendarColors: KalendarColors = KalendarColors.default(),
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
-    kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
-    kalendarDayColors: KalendarDayColors = KalendarDayColors.default(),
-    dayContent: (@Composable () -> Unit)? = null,
-    dayLabelContent: (@Composable (LocalDate) -> Unit)? = null,
-    headerContent: (@Composable () -> Unit)? = null,
-) {
-    KalendarOceanic(
-        currentDay = currentDay,
-        modifier = modifier,
-        showLabel = showLabel,
-        kalendarHeaderTextConfig = kalendarHeaderTextConfig,
-        kalendarColors = kalendarColors,
-        onDayClick = onDayClick,
-        events = KalendarEvents(),
-        kalendarDayKonfig = kalendarDayKonfig,
-        kalendarDayColors = kalendarDayColors,
-        dayContent = dayContent,
-        dayLabelContent = dayLabelContent,
-        headerContent = headerContent,
-    )
-}
-
 @MultiplePreview
 @Composable
 fun KalendarOceanicPreview() {
@@ -173,6 +136,6 @@ fun KalendarOceanicPreview() {
         currentDay = Clock.System.todayIn(
             TimeZone.currentSystemDefault()
         ),
-        kalendarHeaderTextConfig = KalendarTextConfig.previewDefault()
+        kalendarHeaderTextKonfig = KalendarTextKonfig.previewDefault()
     )
 }
