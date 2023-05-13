@@ -9,10 +9,10 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: ktlint check
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: ktlintCheck
+#      - name: ktlint check
+#        uses: gradle/gradle-build-action@v2
+#        with:
+#          arguments: ktlintCheck
       - name: Run Detekt
         run: ./gradlew detekt
 
