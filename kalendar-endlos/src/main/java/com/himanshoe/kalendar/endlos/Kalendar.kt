@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.himanshoe.kalendar.endlos.daterange.KalendarSelectedDayRange
 import com.himanshoe.kalendar.endlos.model.KalendarEvent
 import com.himanshoe.kalendar.endlos.model.KalendarEvents
 import com.himanshoe.kalendar.endlos.paging.KalendarPagingController
@@ -21,7 +22,6 @@ fun Kalendar(
     pagingController: KalendarPagingController = rememberKalendarPagingController(),
     kalendarHeaderTextKonfig: KalendarTextKonfig? = null,
     kalendarColors: KalendarColors = KalendarColors.default(),
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     events: KalendarEvents = KalendarEvents(),
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
     contentPadding: PaddingValues = PaddingValues(8.dp),
@@ -29,20 +29,27 @@ fun Kalendar(
     dayContent: (@Composable (LocalDate) -> Unit)? = null,
     weekValueContent: (@Composable () -> Unit)? = null,
     headerContent: (@Composable (Month, Int) -> Unit)? = null,
+    daySelectionMode: DaySelectionMode = DaySelectionMode.Single,
+    onDayClicked: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
+    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
+    onErrorRangeSelected: (RangeSelectionError) -> Unit = {}
 ) {
     KalendarEndlos(
-        modifier,
-        showLabel,
-        pagingController,
-        kalendarHeaderTextKonfig,
-        kalendarColors,
-        onDayClick,
-        events,
-        kalendarDayKonfig,
-        contentPadding,
-        monthContentPadding,
-        dayContent,
-        weekValueContent,
-        headerContent
+        modifier = modifier,
+        showLabel = showLabel,
+        pagingController = pagingController,
+        kalendarHeaderTextKonfig = kalendarHeaderTextKonfig,
+        kalendarColors = kalendarColors,
+        onDayClicked = onDayClicked,
+        events = events,
+        kalendarDayKonfig = kalendarDayKonfig,
+        contentPadding = contentPadding,
+        monthContentPadding = monthContentPadding,
+        dayContent = dayContent,
+        weekValueContent = weekValueContent,
+        daySelectionMode = daySelectionMode,
+        onRangeSelected = onRangeSelected,
+        onErrorRangeSelected = onErrorRangeSelected,
+        headerContent = headerContent
     )
 }

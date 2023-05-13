@@ -111,9 +111,13 @@ fun KalendarHeader(
 
 @OptIn(ExperimentalAnimationApi::class)
 internal fun addAnimation(duration: Int = 200, isNext: Boolean): ContentTransform {
-    return slideInVertically(animationSpec = tween(durationMillis = duration)) { height -> if (isNext) height else -height } + fadeIn(
+    return slideInVertically(
         animationSpec = tween(durationMillis = duration)
-    ) with slideOutVertically(animationSpec = tween(durationMillis = duration)) { height -> if (isNext) -height else height } + fadeOut(
+    ) { height -> if (isNext) height else -height } + fadeIn(
+        animationSpec = tween(durationMillis = duration)
+    ) with slideOutVertically(
+        animationSpec = tween(durationMillis = duration)
+    ) { height -> if (isNext) -height else height } + fadeOut(
         animationSpec = tween(durationMillis = duration)
     )
 }
