@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,9 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
-import com.himanshoe.kalendar.endlos.DaySelectionMode
 import com.himanshoe.kalendar.endlos.KalendarDates
-import com.himanshoe.kalendar.endlos.RangeSelectionError
 import com.himanshoe.kalendar.endlos.daterange.KalendarSelectedDayRange
 import com.himanshoe.kalendar.endlos.model.KalendarEvent
 import com.himanshoe.kalendar.endlos.model.KalendarEvents
@@ -49,17 +46,14 @@ internal fun KalendarMonth(
     contentPadding: PaddingValues,
     kalendarDayKonfig: KalendarDayKonfig,
     kalendarHeaderTextKonfig: KalendarTextKonfig?,
+    selectedRange :KalendarSelectedDayRange?,
     modifier: Modifier = Modifier,
-    daySelectionMode: DaySelectionMode = DaySelectionMode.Single,
     dayContent: @Composable() ((LocalDate) -> Unit)? = null,
     headerContent: @Composable() ((Month, Int) -> Unit)? = null,
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
-    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
-    onErrorRangeSelected: (RangeSelectionError) -> Unit = {}
 ) {
     val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
     val selectedDate = remember { mutableStateOf(today) }
-    val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
 
     Column(
         modifier = modifier
@@ -94,27 +88,9 @@ internal fun KalendarMonth(
                             KalendarDay(
                                 date = nonNullDate,
                                 selectedDate = selectedDate.value,
-                                selectedRange = selectedRange.value,
+                                selectedRange = selectedRange,
                                 events = events,
-                                onDayClick = { clickedDate, event ->
-                                    onDayClicked(
-                                        clickedDate,
-                                        event,
-                                        daySelectionMode,
-                                        selectedRange,
-                                        onRangeSelected = { range, events ->
-                                            if (range.end < range.start) {
-                                                onErrorRangeSelected(RangeSelectionError.EndIsBeforeStart)
-                                            } else {
-                                                onRangeSelected(range, events)
-                                            }
-                                        },
-                                        onDayClick = { newDate, clickedDateEvent ->
-                                            selectedDate.value = newDate
-                                            onDayClick(clickedDate, clickedDateEvent)
-                                        }
-                                    )
-                                },
+                                onDayClick = onDayClick,
                                 kalendarDayKonfig = kalendarDayKonfig,
                                 kalendarColor = kalendarColor,
                             )
@@ -123,39 +99,6 @@ internal fun KalendarMonth(
                         Box(modifier = Modifier.size(56.dp))
                     }
                 }
-            }
-        }
-    }
-}
-
-private fun onDayClicked(
-    date: LocalDate,
-    events: List<KalendarEvent>,
-    daySelectionMode: DaySelectionMode,
-    selectedRange: MutableState<KalendarSelectedDayRange?>,
-    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> }
-) {
-    when (daySelectionMode) {
-        DaySelectionMode.Single -> {
-            onDayClick(date, events)
-        }
-
-        DaySelectionMode.Range -> {
-            val range = selectedRange.value
-            selectedRange.value = if (range?.isEmpty() != false) {
-                KalendarSelectedDayRange(start = date, end = date)
-            } else if (range.isSingleDate()) {
-                KalendarSelectedDayRange(start = range.start, end = date)
-            } else {
-                KalendarSelectedDayRange(start = date, end = date)
-            }
-            selectedRange.value?.let { selectedRange ->
-                val selectedEvents = events
-                    .filter { it.date in (selectedRange.start..selectedRange.end) }
-                    .toList()
-
-                onRangeSelected(selectedRange, selectedEvents)
             }
         }
     }

@@ -64,9 +64,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         events = KalendarEvents(events + events)
                     )
-
                 }
-
             }
         }
     }

@@ -10,13 +10,15 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
@@ -51,11 +53,12 @@ internal fun KalendarEndlos(
     weekValueContent: (@Composable () -> Unit)? = null,
     headerContent: (@Composable (Month, Int) -> Unit)? = null,
     daySelectionMode: DaySelectionMode = DaySelectionMode.Range,
-    onDayClicked: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
+    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
     onErrorRangeSelected: (RangeSelectionError) -> Unit = {}
 ) {
     val kalendarItems = pagingController.kalendarItems.collectAsLazyPagingItems()
+    val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
 
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
@@ -84,31 +87,78 @@ internal fun KalendarEndlos(
                 val dates: List<List<LocalDate?>>? = calendarModel?.dates?.chunked(7)
                 if (dates != null) {
                     val currentMonthIndex = calendarModel.month.value.minus(1)
-                    val headerTextKonfig = kalendarHeaderTextKonfig ?: KalendarTextKonfig(
-                        kalendarTextColor = kalendarColors.color[currentMonthIndex].headerTextColor,
-                        kalendarTextSize = 24.sp
+                    val headerTextKonfig = kalendarHeaderTextKonfig ?: KalendarTextKonfig.default(
+                        kalendarColors.color[currentMonthIndex].headerTextColor
                     )
 
                     KalendarMonth(
                         kalendarDates = dates.toKalendarDates(),
                         month = calendarModel.month,
                         year = calendarModel.year,
+                        selectedRange = selectedRange.value,
                         contentPadding = monthContentPadding,
                         dayContent = dayContent,
                         kalendarDayKonfig = kalendarDayKonfig,
-                        onDayClick = onDayClicked,
+                        onDayClick = { clickedDate, event ->
+                            onDayClicked(
+                                clickedDate,
+                                event,
+                                daySelectionMode,
+                                selectedRange,
+                                onRangeSelected = { range, events ->
+                                    if (range.end < range.start) {
+                                        onErrorRangeSelected(RangeSelectionError.EndIsBeforeStart)
+                                    } else {
+                                        onRangeSelected(range, events)
+                                    }
+                                },
+                                onDayClick = { newDate, clickedDateEvent ->
+                                    onDayClick(newDate, clickedDateEvent)
+                                }
+                            )
+                        },
                         events = events,
                         kalendarHeaderTextKonfig = headerTextKonfig,
                         headerContent = headerContent,
                         kalendarColor = kalendarColors.color[currentMonthIndex],
-                        daySelectionMode = daySelectionMode,
-                        onRangeSelected = onRangeSelected,
-                        onErrorRangeSelected = onErrorRangeSelected
                     )
                 }
             }
         }
     )
+}
+
+private fun onDayClicked(
+    date: LocalDate,
+    events: List<KalendarEvent>,
+    daySelectionMode: DaySelectionMode,
+    selectedRange: MutableState<KalendarSelectedDayRange?>,
+    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
+    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> }
+) {
+    when (daySelectionMode) {
+        DaySelectionMode.Single -> {
+            onDayClick(date, events)
+        }
+
+        DaySelectionMode.Range -> {
+            val range = selectedRange.value
+            selectedRange.value = if (range?.isEmpty() != false) {
+                KalendarSelectedDayRange(start = date, end = date)
+            } else if (range.isSingleDate()) {
+                KalendarSelectedDayRange(start = range.start, end = date)
+            } else {
+                KalendarSelectedDayRange(start = date, end = date)
+            }
+            selectedRange.value?.let { selectedRange ->
+                val selectedEvents = events
+                    .filter { it.date in (selectedRange.start..selectedRange.end) }
+                    .toList()
+
+                onRangeSelected(selectedRange, selectedEvents)
+            }
+        }
+    }
 }
 
 @Composable

@@ -29,7 +29,7 @@ fun Kalendar(
     dayContent: (@Composable (LocalDate) -> Unit)? = null,
     weekValueContent: (@Composable () -> Unit)? = null,
     headerContent: (@Composable (Month, Int) -> Unit)? = null,
-    daySelectionMode: DaySelectionMode = DaySelectionMode.Single,
+    daySelectionMode: DaySelectionMode = DaySelectionMode.Range,
     onDayClicked: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
     onErrorRangeSelected: (RangeSelectionError) -> Unit = {}
@@ -40,7 +40,7 @@ fun Kalendar(
         pagingController = pagingController,
         kalendarHeaderTextKonfig = kalendarHeaderTextKonfig,
         kalendarColors = kalendarColors,
-        onDayClicked = onDayClicked,
+        onDayClick = onDayClicked,
         events = events,
         kalendarDayKonfig = kalendarDayKonfig,
         contentPadding = contentPadding,
