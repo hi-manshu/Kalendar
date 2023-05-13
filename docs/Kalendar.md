@@ -28,7 +28,6 @@ fun Kalendar(
 )
 ```
 
-
 #### Parameters
 
 - `currentDay`: The current selected day in the calendar. Pass null if no specific day is selected.
@@ -51,6 +50,34 @@ fun Kalendar(
 - `onRangeSelected`: Callback function triggered when a range of days is selected in the calendar.
 - `onErrorRangeSelected`: Callback function triggered when an invalid range of days is selected in the
   calendar.
+
+Here,
+
+### KalendarEvents
+The `KalendarEvents` data class represents a collection of KalendarEvent objects. It is used to store and manage a list of events for a specific calendar.
+
+#### Properties`
+`events` : A list of KalendarEvent objects representing the events associated with the calendar. By default, it is initialized as an empty list.
+
+### KalendarTextKonfig
+The KalendarTextKonfig data class represents the configuration options for the text appearance in the Kalendar library.
+
+#### Properties
+`kalendarTextColor`: The color of the text in the calendar. It is of type Color.
+`kalendarTextSize`: The size of the text in the calendar. It is of type TextUnit.
+
+
+### KalendarDayKonfig
+The KalendarDayKonfig data class represents the configuration options for the appearance of a day in the Kalendar library.
+
+#### Properties
+`size`: The size of the day view. It is of type Dp.
+`textSize`: The size of the text representing the day. It is of type TextUnit.
+`textColor`: The color of the text representing the day. It is of type Color.
+`selectedTextColor`: The color of the text representing the selected day. It is of type Color.
+`borderColor`: The color of the border surrounding the day. It is of type Color and is set to `Color.Black` by default.
+
+
 
 ### Usage
 
