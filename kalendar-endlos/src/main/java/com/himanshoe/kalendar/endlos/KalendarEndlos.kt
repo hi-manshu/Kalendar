@@ -51,7 +51,7 @@ private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
-fun KalendarEndlos(
+internal fun KalendarEndlos(
     modifier: Modifier = Modifier,
     showLabel: Boolean = true,
     pagingController: KalendarPagingController = rememberKalendarPagingController(),
@@ -63,6 +63,7 @@ fun KalendarEndlos(
     contentPadding: PaddingValues = PaddingValues(8.dp),
     monthContentPadding: PaddingValues = PaddingValues(4.dp),
     dayContent: (@Composable (LocalDate) -> Unit)? = null,
+    weekValueContent: (@Composable () -> Unit)? = null,
     headerContent: (@Composable (Month, Int) -> Unit)? = null,
 ) {
     val kalendarItems = pagingController.kalendarItems.collectAsLazyPagingItems()
@@ -70,12 +71,18 @@ fun KalendarEndlos(
         modifier = modifier.fillMaxWidth(),
         contentPadding = contentPadding,
         content = {
-            if (showLabel) {
+            if (weekValueContent != null) {
                 stickyHeader {
-                    KalendarStickerHeader(
-                        kalendarDayKonfig.textColor,
-                        kalendarDayKonfig.textSize
-                    )
+                    weekValueContent()
+                }
+            } else {
+                if (showLabel) {
+                    stickyHeader {
+                        KalendarStickerHeader(
+                            kalendarDayKonfig.textColor,
+                            kalendarDayKonfig.textSize
+                        )
+                    }
                 }
             }
             items(
@@ -215,8 +222,6 @@ private fun getTitleText(month: Month, year: Int): String {
     return "$monthDisplayName '$shortYear"
 }
 
-
 internal data class KalendarDates(val dates: List<List<LocalDate?>>)
 
 internal fun List<List<LocalDate?>>.toKalendarDates() = KalendarDates(this)
-

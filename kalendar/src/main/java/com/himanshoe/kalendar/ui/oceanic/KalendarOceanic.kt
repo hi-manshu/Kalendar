@@ -42,7 +42,7 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun KalendarOceanic(
+internal fun KalendarOceanic(
     modifier: Modifier = Modifier,
     currentDay: LocalDate? = null,
     showLabel: Boolean = true,

@@ -38,7 +38,7 @@ import kotlinx.datetime.todayIn
 private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
 @Composable
-fun KalendarFirey(
+internal fun KalendarFirey(
     currentDay: LocalDate?,
     modifier: Modifier = Modifier,
     showLabel: Boolean = true,

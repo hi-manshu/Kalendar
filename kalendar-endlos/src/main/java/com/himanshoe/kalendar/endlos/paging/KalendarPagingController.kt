@@ -13,7 +13,6 @@ class KalendarPagingController {
         Pager(PagingConfig(pageSize = 12)) {
             KalendarPagingSource(repository)
         }.flow
-
 }
 
 @Composable

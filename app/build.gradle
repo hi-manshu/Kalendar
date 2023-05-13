@@ -57,7 +57,7 @@ dependencies {
     //time
     implementation 'org.jetbrains.kotlinx:kotlinx-datetime:0.4.0'
 
-//    implementation(project(":kalendar"))
+    implementation(project(":kalendar"))
     implementation(project(":kalendar-endlos"))
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
