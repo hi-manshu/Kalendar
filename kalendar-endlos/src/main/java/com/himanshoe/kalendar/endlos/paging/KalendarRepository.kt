@@ -1,9 +1,10 @@
 package com.himanshoe.kalendar.endlos.paging
 
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 import kotlinx.datetime.DayOfWeek
-import kotlinx.datetime.toKotlinLocalDate
+import kotlinx.datetime.plus
 import java.time.YearMonth
 
 data class KalendarModelEntity(
@@ -15,33 +16,40 @@ data class KalendarModelEntity(
 
 class KalendarRepository {
 
-    fun generateDatesGroupedByMonth(year: Int = 2023): List<KalendarModelEntity> {
-        return Month.values().map { month ->
-            val yearMonth = YearMonth.of(year, month)
-            val startDate = yearMonth.atDay(1)
-            val endDate = yearMonth.atEndOfMonth()
-
-            val datesInMonth = generateSequence(startDate) { date ->
-                if (date == endDate) null else date.plusDays(1)
-            }.toList().map { it.toKotlinLocalDate() }
-
-            KalendarModelEntity(month.name, datesInMonth, yearMonth.month, yearMonth.year)
-        }
-    }
-
     fun generateDates(year: Int = 2023) = Month.values().map { month ->
         val yearMonth = YearMonth.of(year, month)
         val startDate = yearMonth.atDay(1)
         val startDayOfWeek = startDate.dayOfWeek
         val start = getKalendarStartDay(startDayOfWeek)
         val dateRange = (start..yearMonth.lengthOfMonth())
-        val dates = dateRange.map {
-            if (it > 0) {
-                LocalDate(yearMonth.year, yearMonth.month, it)
+        val dates = dateRange.map { date ->
+            if (date > 0) {
+                LocalDate(yearMonth.year, yearMonth.month, date)
             } else null
         }
 
         KalendarModelEntity(month.name, dates, yearMonth.month, yearMonth.year)
+    }
+
+    fun generateDateList(
+        startDate: LocalDate,
+        endDate: LocalDate,
+        initialDates: List<LocalDate>
+    ): List<LocalDate> {
+        val dates = mutableListOf<LocalDate>()
+        var currentDate = startDate
+
+        // Add initial dates that fall before the start date
+        val initialDatesBeforeStart = initialDates.filter { it < startDate }
+        dates.addAll(initialDatesBeforeStart)
+
+        // Add dates within the range
+        while (currentDate <= endDate) {
+            dates.add(currentDate)
+            currentDate = currentDate.plus(1, DateTimeUnit.DAY)
+        }
+
+        return dates
     }
 }
 

@@ -16,14 +16,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.fastForEach
@@ -50,8 +49,8 @@ import java.util.Locale
 
 private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
+@OptIn(ExperimentalFoundationApi::class)
 fun KalendarEndlos(
     modifier: Modifier = Modifier,
     showLabel: Boolean = true,
@@ -66,28 +65,35 @@ fun KalendarEndlos(
     dayContent: (@Composable (LocalDate) -> Unit)? = null,
     headerContent: (@Composable (Month, Int) -> Unit)? = null,
 ) {
-    val state = pagingController.kalendarItems.collectAsLazyPagingItems()
+    val kalendarItems = pagingController.kalendarItems.collectAsLazyPagingItems()
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
         contentPadding = contentPadding,
         content = {
             if (showLabel) {
                 stickyHeader {
-                    KalendarStickerHeader(kalendarDayKonfig)
+                    KalendarStickerHeader(
+                        kalendarDayKonfig.textColor,
+                        kalendarDayKonfig.textSize
+                    )
                 }
             }
             items(
-                count = state.itemCount,
-                key = state.itemKey(),
-                contentType = state.itemContentType()
+                count = kalendarItems.itemCount,
+                key = kalendarItems.itemKey(),
+                contentType = kalendarItems.itemContentType()
             ) { index ->
-                val calendarModel: KalendarModelEntity? = state[index]
+                val calendarModel: KalendarModelEntity? = kalendarItems[index]
                 val dates: List<List<LocalDate?>>? = calendarModel?.dates?.chunked(7)
                 if (dates != null) {
                     val currentMonthIndex = calendarModel.month.value.minus(1)
+                    val headerTextKonfig = kalendarHeaderTextKonfig ?: KalendarTextKonfig(
+                        kalendarTextColor = kalendarColors.color[currentMonthIndex].headerTextColor,
+                        kalendarTextSize = 24.sp
+                    )
 
                     KalendarMonth(
-                        dates = dates,
+                        kalendarDates = dates.toKalendarDates(),
                         month = calendarModel.month,
                         year = calendarModel.year,
                         contentPadding = monthContentPadding,
@@ -95,10 +101,7 @@ fun KalendarEndlos(
                         kalendarDayKonfig = kalendarDayKonfig,
                         onDayClick = onDayClick,
                         events = events,
-                        kalendarHeaderTextKonfig = kalendarHeaderTextKonfig ?: KalendarTextKonfig(
-                            kalendarTextColor = kalendarColors.color[currentMonthIndex].headerTextColor,
-                            kalendarTextSize = 24.sp
-                        ),
+                        kalendarHeaderTextKonfig = headerTextKonfig,
                         headerContent = headerContent,
                         kalendarColor = kalendarColors.color[currentMonthIndex],
                     )
@@ -109,7 +112,7 @@ fun KalendarEndlos(
 }
 
 @Composable
-private fun KalendarStickerHeader(kalendarDayKonfig: KalendarDayKonfig) {
+private fun KalendarStickerHeader(color: Color, textSize: TextUnit) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         modifier = Modifier.padding(start = 4.dp, top = 4.dp, bottom = 4.dp),
@@ -124,8 +127,8 @@ private fun KalendarStickerHeader(kalendarDayKonfig: KalendarDayKonfig) {
                 Text(
                     modifier = Modifier
                         .weight(1F),
-                    color = kalendarDayKonfig.textColor,
-                    fontSize = kalendarDayKonfig.textSize,
+                    color = color,
+                    fontSize = textSize,
                     text = WeekDays[it],
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
@@ -136,8 +139,8 @@ private fun KalendarStickerHeader(kalendarDayKonfig: KalendarDayKonfig) {
 }
 
 @Composable
-fun KalendarMonth(
-    dates: List<List<LocalDate?>>,
+internal fun KalendarMonth(
+    kalendarDates: KalendarDates,
     month: Month,
     year: Int,
     events: KalendarEvents,
@@ -176,7 +179,7 @@ fun KalendarMonth(
             }
         }
 
-        dates.fastForEach { week ->
+        kalendarDates.dates.fastForEach { week ->
             Row(modifier = Modifier.fillMaxWidth()) {
                 week.fastForEach { date ->
                     date?.let { nonNullDate ->
@@ -211,3 +214,9 @@ private fun getTitleText(month: Month, year: Int): String {
     val shortYear = year.toString().takeLast(2)
     return "$monthDisplayName '$shortYear"
 }
+
+
+internal data class KalendarDates(val dates: List<List<LocalDate?>>)
+
+internal fun List<List<LocalDate?>>.toKalendarDates() = KalendarDates(this)
+

@@ -7,10 +7,13 @@ import androidx.paging.PagingConfig
 
 class KalendarPagingController {
 
+    val repository = KalendarRepository()
+
     val kalendarItems =
         Pager(PagingConfig(pageSize = 12)) {
-            KalendarPagingSource(KalendarRepository())
+            KalendarPagingSource(repository)
         }.flow
+
 }
 
 @Composable
