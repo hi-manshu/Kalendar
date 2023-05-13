@@ -75,21 +75,23 @@ fun KalendarDay(
             color = if (selected) kalendarDayKonfig.selectedTextColor else kalendarDayKonfig.textColor,
             fontWeight = if (selected) FontWeight.Bold else FontWeight.SemiBold
         )
-        events.events
-            .filter { it.date == date }
-            .take(3)
-            .fastForEachIndexed { index, _ ->
-                KalendarIndicator(
-                    modifier = Modifier,
-                    index = index,
-                    size = kalendarDayKonfig.size,
-                    color = kalendarColor.headerTextColor
-                )
-            }
+        Row {
+            events.events
+                .filter { it.date == date }
+                .take(3)
+                .fastForEachIndexed { index, _ ->
+                    KalendarIndicator(
+                        modifier = Modifier,
+                        index = index,
+                        size = kalendarDayKonfig.size,
+                        color = kalendarColor.headerTextColor
+                    )
+                }
+        }
     }
 }
 
-fun getBorder(currentDay: Boolean, color: Color, selected: Boolean): BorderStroke {
+private fun getBorder(currentDay: Boolean, color: Color, selected: Boolean): BorderStroke {
     val emptyBorder = BorderStroke(0.dp, Color.Transparent)
     return if (currentDay && selected.not()) {
         BorderStroke(1.dp, color)
