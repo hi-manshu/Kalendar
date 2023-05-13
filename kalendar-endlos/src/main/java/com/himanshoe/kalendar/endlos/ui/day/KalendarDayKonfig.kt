@@ -13,6 +13,7 @@ data class KalendarDayKonfig(
     val textSize: TextUnit,
     val textColor: Color,
     val selectedTextColor: Color,
+    val borderColor: Color = Color.Black
 ) {
     companion object {
 

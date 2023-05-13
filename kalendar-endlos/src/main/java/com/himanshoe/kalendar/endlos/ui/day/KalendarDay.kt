@@ -52,7 +52,7 @@ fun KalendarDay(
     Column(
         modifier = modifier
             .border(
-                border = getBorder(currentDay),
+                border = getBorder(currentDay, kalendarDayKonfig.borderColor),
                 shape = CircleShape
             )
             .clip(shape = CircleShape)
@@ -89,8 +89,8 @@ fun KalendarDay(
     }
 }
 
-fun getBorder(currentDay: Boolean) = if (currentDay) {
-    BorderStroke(1.dp, Color.Black)
+fun getBorder(currentDay: Boolean, color: Color) = if (currentDay) {
+    BorderStroke(1.dp, color)
 } else {
     BorderStroke(
         0.dp,

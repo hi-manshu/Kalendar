@@ -52,7 +52,7 @@ fun KalendarDay(
     Column(
         modifier = modifier
             .border(
-                border = getBorder(currentDay),
+                 border = getBorder(currentDay, kalendarDayKonfig.borderColor),
                 shape = CircleShape
             )
             .clip(shape = CircleShape)
@@ -79,18 +79,20 @@ fun KalendarDay(
             .filter { it.date == date }
             .take(3)
             .fastForEachIndexed { index, _ ->
-                KalendarIndicator(
-                    modifier = Modifier,
-                    index = index,
-                    size = kalendarDayKonfig.size,
-                    color = kalendarColors.headerTextColor
-                )
+                Row {
+                    KalendarIndicator(
+                        modifier = Modifier,
+                        index = index,
+                        size = kalendarDayKonfig.size,
+                        color = kalendarColors.headerTextColor
+                    )
+                }
             }
     }
 }
 
-fun getBorder(currentDay: Boolean) = if (currentDay) {
-    BorderStroke(1.dp, Color.Black)
+fun getBorder(currentDay: Boolean, color: Color) = if (currentDay) {
+    BorderStroke(1.dp, color)
 } else {
     BorderStroke(
         0.dp,
@@ -102,7 +104,8 @@ fun getBorder(currentDay: Boolean) = if (currentDay) {
 @Composable
 private fun KalendarDayPreview() {
     val date = Clock.System.todayIn(TimeZone.currentSystemDefault())
-    val previous = Clock.System.todayIn(TimeZone.currentSystemDefault()).minus(1, DateTimeUnit.DAY)
+    val previous =
+        Clock.System.todayIn(TimeZone.currentSystemDefault()).minus(1, DateTimeUnit.DAY)
     val events = (0..5).map {
         KalendarEvent(
             date = date,
