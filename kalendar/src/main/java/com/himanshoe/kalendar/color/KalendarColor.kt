@@ -73,7 +73,7 @@ data class KalendarColors(
     val color: List<KalendarColor> = emptyList()
 ) {
     companion object {
-        fun default(): KalendarColors {
+        internal fun default(): KalendarColors {
             val colors = List(TOTAL_MONTH) { index ->
                 KalendarColor(
                     kalendarBackgroundColor[index],

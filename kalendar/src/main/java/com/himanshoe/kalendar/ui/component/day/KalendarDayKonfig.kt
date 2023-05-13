@@ -15,7 +15,7 @@ data class KalendarDayKonfig(
     companion object {
 
         @SuppressWarnings("MagicNumber")
-        fun default() = KalendarDayKonfig(
+        internal fun default() = KalendarDayKonfig(
             size = 56.dp,
             textSize = 16.sp,
             textColor = Color(0xFF413D4B),
