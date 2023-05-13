@@ -1,21 +1,19 @@
-name: Pull Request Workflow
+name: Scan code with detekt
 
 on: push
+
 jobs:
-  code-style-check:
+  scan:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
-          java-version: 17
-          #      - name: ktlint check
-          #        uses: gradle/gradle-build-action@v2
-          #        with:
-          #          arguments: ktlintCheck
-      - name: Run Detekt
-        run: ./gradlew detekt
-
+          distribution: 'temurin'
+          java-version: '17'
+      - run: ./gradlew detekt
+      - uses: github/codeql-action/upload-sarif@v1
+        if: always()
+        with:
+          sarif_file: build/reports/detekt/merge.sarif
