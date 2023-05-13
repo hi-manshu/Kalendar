@@ -17,7 +17,7 @@ jobs:
           distribution: 'zulu'
 
       - name: detekt
-        run: ./gradlew detektCheck
+        run: ./gradlew detekt
 
       - uses: actions/upload-artifact@v3
         with:
