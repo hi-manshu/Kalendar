@@ -1,6 +1,13 @@
 ## Kalendar - An Elementary Compose Calendar.
 
 ![Kalendar](img/banner.png)
+[![Maven Central: Kalendar](https://maven-badges.herokuapp.com/maven-central/cz.jirutka.rsql/rsql-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.himanshoe/kalendar)
+[![Maven Central: KalendarEndlos](https://maven-badges.herokuapp.com/maven-central/cz.jirutka.rsql/rsql-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.himanshoe/kalendar-endlos)
+[!Github Action: Detekt](https://github.com/github/docs/actions/workflows/run-detekt.yml/badge.svg)
+[![Kalendar](https://img.shields.io/badge/Kotlin%20Weekly-%23286-orange)](https://mailchi.mp/kotlinweekly/kotlin-weekly-286)
+[![Kalendar](https://img.shields.io/badge/Android%20Weekly-%23533-Pink)](https://androidweekly.net/issues/issue-533)
+[![Github Followers](https://img.shields.io/github/followers/hi-manshu?label=Follow&style=social)](https://github.com/hi-manshu)
+[![Twitter Follow](https://img.shields.io/twitter/follow/hi_man_shoe?label=Follow&style=social)](https://twitter.com/hi_man_shoe)  
 
 The Kalendar library is a powerful tool for creating calendar components in Android apps using
 Jetpack Compose. It provides customizable calendar views with various features and functionalities.

@@ -1,7 +1,11 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'com.vanniktech.maven.publish' version "0.25.2"
 }
+
 apply from: '../quality/static-check.gradle'
 
 android {
@@ -36,6 +40,11 @@ android {
         compose true
     }
 
+}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.S01)
+    signAllPublications()
 }
 
 dependencies {
