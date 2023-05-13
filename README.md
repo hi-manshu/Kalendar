@@ -18,7 +18,7 @@ Kalendar supports three types of calendar:
 - **Endlos**: Represents a scrolling calendar that starts from the current month.
 
 <p align="center">
-  <img src="img/oceanic.png" alt="Oceanic" width="33%">
-  <img src="img/kalendar-firey.png" alt="Firey" width="33%">
-  <img src="img/endlos.png" alt="Endlos" width="33%">
+  <img src="img/oceanic.png" alt="Oceanic" width="30%">
+  <img src="img/kalendar-firey.png" alt="Firey" width="30%">
+  <img src="img/endlos.png" alt="Endlos" width="30%">
 </p>
