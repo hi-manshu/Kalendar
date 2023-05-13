@@ -9,6 +9,17 @@ import kotlinx.datetime.LocalDate
 private const val FULL_ALPHA = 1f
 private const val TOWNED_DOWN_ALPHA = 0.4F
 
+/**
+ * A modifier that applies the background color to a composable based on the day's selection state,
+ * selected range, and specified color.
+ *
+ * @param selected Whether the day is selected.
+ * @param color The color to be applied as the background.
+ * @param date The date corresponding to the day.
+ * @param selectedRange The selected date range.
+ *
+ * @return The modified modifier.
+ */
 fun Modifier.dayBackgroundColor(
     selected: Boolean,
     color: Color,

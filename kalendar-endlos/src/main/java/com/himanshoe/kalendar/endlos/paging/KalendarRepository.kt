@@ -1,5 +1,6 @@
 package com.himanshoe.kalendar.endlos.paging
 
+import androidx.compose.runtime.Stable
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
@@ -7,6 +8,15 @@ import kotlinx.datetime.Month
 import kotlinx.datetime.plus
 import java.time.YearMonth
 
+/**
+ * Represents a Kalendar model entity.
+ *
+ * @param name The name of the entity.
+ * @param dates The list of dates associated with the entity.
+ * @param month The month of the entity.
+ * @param year The year of the entity.
+ */
+@Stable
 data class KalendarModelEntity(
     val name: String,
     val dates: List<LocalDate?>,
@@ -14,8 +24,17 @@ data class KalendarModelEntity(
     val year: Int
 )
 
+/**
+ * Repository for generating KalendarModelEntity objects and managing date lists.
+ */
 class KalendarRepository {
 
+    /**
+     * Generates a list of [KalendarModelEntity] objects for the specified year.
+     *
+     * @param year The year for which to generate the [KalendarModelEntity] objects.
+     * @return The list of generated [KalendarModelEntity] objects.
+     */
     fun generateDates(year: Int = 2023) = Month.values().map { month ->
         val yearMonth = YearMonth.of(year, month)
         val startDate = yearMonth.atDay(1)
@@ -31,6 +50,14 @@ class KalendarRepository {
         KalendarModelEntity(month.name, dates, yearMonth.month, yearMonth.year)
     }
 
+    /**
+     * Generates a list of dates within the specified date range, including initial dates.
+     *
+     * @param startDate The start date of the range.
+     * @param endDate The end date of the range.
+     * @param initialDates The initial dates to include in the list.
+     * @return The list of generated dates.
+     */
     fun generateDateList(
         startDate: LocalDate,
         endDate: LocalDate,
@@ -53,6 +80,12 @@ class KalendarRepository {
     }
 }
 
+/**
+ * Calculates the start day for the Kalendar based on the specified day of the week.
+ *
+ * @param dayOfWeek The day of the week.
+ * @return The start day for the Kalendar.
+ */
 private fun getKalendarStartDay(dayOfWeek: DayOfWeek): Int {
     return 1.minus(dayOfWeek.value)
 }

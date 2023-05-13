@@ -37,6 +37,17 @@ import kotlinx.datetime.Month
 import java.time.format.TextStyle
 import java.util.Locale
 
+/**
+ * Composable function for displaying the header of the Kalendar, which includes the month and year.
+ *
+ * @param month The current month to display.
+ * @param year The current year to display.
+ * @param kalendarTextKonfig The configuration for styling the header text.
+ * @param modifier The modifier for styling the header.
+ * @param onPreviousClick The callback for when the previous arrow button is clicked.
+ * @param onNextClick The callback for when the next arrow button is clicked.
+ * @param arrowShown Determines whether the arrow buttons should be shown.
+ */
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun KalendarHeader(
@@ -109,8 +120,15 @@ fun KalendarHeader(
     }
 }
 
+/**
+ * Adds the animation to the content based on the given duration and direction.
+ *
+ * @param duration The duration of the animation in milliseconds.
+ * @param isNext Determines the direction of the animation.
+ * @return The content transformation with the specified animation.
+ */
 @OptIn(ExperimentalAnimationApi::class)
-internal fun addAnimation(duration: Int = 200, isNext: Boolean): ContentTransform {
+private fun addAnimation(duration: Int = 200, isNext: Boolean): ContentTransform {
     return slideInVertically(
         animationSpec = tween(durationMillis = duration)
     ) { height -> if (isNext) height else -height } + fadeIn(
@@ -122,6 +140,13 @@ internal fun addAnimation(duration: Int = 200, isNext: Boolean): ContentTransfor
     )
 }
 
+/**
+ * Returns the formatted title text for the Kalendar header.
+ *
+ * @param month The current month.
+ * @param year The current year.
+ * @return The formatted title text.
+ */
 private fun getTitleText(month: Month, year: Int): String {
     val monthDisplayName = month.getDisplayName(TextStyle.FULL, Locale.getDefault())
         .lowercase()

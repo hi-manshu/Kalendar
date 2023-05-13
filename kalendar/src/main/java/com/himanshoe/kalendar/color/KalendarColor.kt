@@ -3,6 +3,15 @@ package com.himanshoe.kalendar.color
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 
+/**
+ * The `color` package provides color-related classes and utilities for the Kalendar library.
+ *
+ * It includes predefined color schemes for backgrounds, day backgrounds, and header text colors.
+ *
+ * @see KalendarColor
+ * @see KalendarColors
+ */
+
 @Stable
 @SuppressWarnings("MagicNumber")
 private val backgroundColor = listOf(
@@ -54,6 +63,13 @@ private val headerColors = listOf(
     Color(0xFFBEC196),
 )
 
+/**
+ * A stable representation of a specific color scheme for Kalendar.
+ *
+ * @property backgroundColor The background color.
+ * @property dayBackgroundColor The color for day backgrounds.
+ * @property headerTextColor The color for header text.
+ */
 data class KalendarColor(
     val backgroundColor: Color,
     val dayBackgroundColor: Color,
@@ -69,10 +85,20 @@ data class KalendarColor(
 
 private const val TOTAL_MONTH = 12
 
+/**
+ * A collection of predefined color schemes for Kalendar.
+ *
+ * @property color A list of [KalendarColor] instances.
+ */
 data class KalendarColors(
     val color: List<KalendarColor> = emptyList()
 ) {
     companion object {
+        /**
+         * Returns the default set of colors.
+         *
+         * @return The default [KalendarColors] instance.
+         */
         internal fun default(): KalendarColors {
             val colors = List(TOTAL_MONTH) { index ->
                 KalendarColor(

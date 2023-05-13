@@ -15,6 +15,26 @@ import com.himanshoe.kalendar.endlos.ui.header.KalendarTextKonfig
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 
+/**
+ * Displays a Kalendar widget that allows selecting and displaying dates.
+ *
+ * @param modifier The modifier to be applied to the Kalendar.
+ * @param showLabel Determines whether to show labels for days of the week.
+ * @param pagingController The paging controller for the Kalendar.
+ * @param kalendarHeaderTextKonfig The configuration for the Kalendar header text.
+ * @param kalendarColors The colors to be used for styling the Kalendar.
+ * @param events The events to be displayed in the Kalendar.
+ * @param kalendarDayKonfig The configuration for individual days in the Kalendar.
+ * @param contentPadding The padding to be applied to the entire Kalendar.
+ * @param monthContentPadding The padding to be applied to each month in the Kalendar.
+ * @param dayContent The content composable for customizing the display of each day.
+ * @param weekValueContent The content composable for customizing the display of the week values.
+ * @param headerContent The content composable for customizing the header of each month.
+ * @param daySelectionMode The mode for selecting days in the Kalendar.
+ * @param onDayClicked The callback function to be invoked when a day is clicked.
+ * @param onRangeSelected The callback function to be invoked when a range of days is selected.
+ * @param onErrorRangeSelected The callback function to handle errors during range selection.
+ */
 @Composable
 fun Kalendar(
     modifier: Modifier = Modifier,

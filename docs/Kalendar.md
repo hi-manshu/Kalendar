@@ -1,8 +1,8 @@
 ## Kalendar Documentation
 
 <div align="start">
-  <img src="img/kalendar-firey.png" alt="firey" width="30%" />
-  <img src="img/oceanic.png" alt="oceanic" width="30%" />
+  <img src="../img/kalendar-firey.png" alt="firey" width="30%" />
+  <img src="../img/oceanic.png" alt="oceanic" width="30%" />
 </div>
 
 The Kalendar function is a composable function in the Kalendar library that allows you to create a

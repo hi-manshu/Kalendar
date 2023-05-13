@@ -37,6 +37,23 @@ import kotlinx.datetime.todayIn
 
 private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
+/**
+ * Internal composable function representing the Kalendar component.
+ *
+ * @param currentDay The current selected day in the Kalendar.
+ * @param daySelectionMode The day selection mode in the Kalendar.
+ * @param modifier The modifier for styling or positioning the Kalendar.
+ * @param showLabel Determines whether to show labels in the Kalendar.
+ * @param kalendarHeaderTextKonfig The configuration for the Kalendar header text.
+ * @param kalendarColors The colors configuration for the Kalendar.
+ * @param events The events associated with the Kalendar.
+ * @param kalendarDayKonfig The configuration for each day in the Kalendar.
+ * @param dayContent Custom content for rendering each day in the Kalendar.
+ * @param headerContent Custom content for rendering the header of the Kalendar.
+ * @param onDayClick Callback invoked when a day is clicked.
+ * @param onRangeSelected Callback invoked when a range of days is selected.
+ * @param onErrorRangeSelected Callback invoked when an error occurs during range selection.
+ */
 @Composable
 internal fun KalendarFirey(
     currentDay: LocalDate?,
@@ -157,14 +174,38 @@ internal fun KalendarFirey(
     }
 }
 
+/**
+ * Calculates the offset to determine the first day of the month based on the provided first day of the month.
+ *
+ * @param firstDayOfMonth The first day of the month.
+ * @return The offset value representing the first day of the month.
+ */
 private fun getFirstDayOfMonth(firstDayOfMonth: DayOfWeek) = -(firstDayOfMonth.value).minus(2)
 
+/**
+ * Calculates a LocalDate object based on the provided day, current month, and current year.
+ *
+ * @param day The day of the month.
+ * @param currentMonth The current month.
+ * @param currentYear The current year.
+ * @return The LocalDate object representing the specified day, month, and year.
+ */
 private fun calculateDay(day: Int, currentMonth: Month, currentYear: Int): LocalDate {
     val monthValue = currentMonth.value.toString().padStart(2, '0')
     val dayValue = day.toString().padStart(2, '0')
     return "$currentYear-$monthValue-$dayValue".toLocalDate()
 }
 
+/**
+ * Internal function invoked when a day is clicked.
+ *
+ * @param date The clicked date.
+ * @param events The events associated with the clicked date.
+ * @param daySelectionMode The day selection mode.
+ * @param selectedRange The state holding the selected day range.
+ * @param onRangeSelected Callback invoked when a range of days is selected.
+ * @param onDayClick Callback invoked when a day is clicked.
+ */
 internal fun onDayClicked(
     date: LocalDate,
     events: List<KalendarEvent>,

@@ -37,6 +37,19 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.todayIn
 
+
+/**
+ * A composable representing a single day in the Kalendar.
+ *
+ * @param date The date corresponding to the day.
+ * @param kalendarColors The colors used for styling the Kalendar.
+ * @param onDayClick The callback function invoked when the day is clicked.
+ * @param selectedRange The selected date range in the Kalendar.
+ * @param modifier The modifier to be applied to the composable.
+ * @param selectedDate The currently selected date.
+ * @param kalendarEvents The events associated with the Kalendar.
+ * @param kalendarDayKonfig The configuration for the Kalendar day.
+ */
 @Composable
 fun KalendarDay(
     date: LocalDate,
@@ -97,6 +110,15 @@ fun KalendarDay(
     }
 }
 
+/**
+ * Returns the border stroke based on the current day, color, and selected state.
+ *
+ * @param currentDay Whether the day is the current day.
+ * @param color The color of the border.
+ * @param selected Whether the day is selected.
+ *
+ * @return The border stroke to be applied.
+ */
 private fun getBorder(currentDay: Boolean, color: Color, selected: Boolean): BorderStroke {
     val emptyBorder = BorderStroke(0.dp, Color.Transparent)
     return if (currentDay && selected.not()) {

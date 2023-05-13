@@ -27,15 +27,31 @@ import com.himanshoe.kalendar.endlos.ui.color.KalendarColor
 import com.himanshoe.kalendar.endlos.ui.day.KalendarDay
 import com.himanshoe.kalendar.endlos.ui.day.KalendarDayKonfig
 import com.himanshoe.kalendar.endlos.ui.header.KalendarTextKonfig
+import com.himanshoe.kalendar.endlos.ui.header.getTitleText
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
-import java.time.format.TextStyle
-import java.util.Locale
 
-
+/**
+ * Renders a single month view of the Kalendar.
+ *
+ * @param kalendarDates The KalendarDates object containing the dates for the month.
+ * @param month The month to be rendered.
+ * @param year The year of the month.
+ * @param events The KalendarEvents object containing the events for the month.
+ * @param kalendarColor The KalendarColor object defining the colors for the Kalendar.
+ * @param contentPadding The padding to be applied to the month view content.
+ * @param kalendarDayKonfig The KalendarDayKonfig object defining the configuration for the day cells.
+ * @param kalendarHeaderTextKonfig The KalendarTextKonfig object defining the configuration for the header text.
+ * @param selectedRange The selected day range in the Kalendar.
+ * @param modifier The modifier to be applied to the month view.
+ * @param selectedDate The currently selected date in the Kalendar.
+ * @param dayContent The composable function to render the content of each day cell.
+ * @param headerContent The composable function to render the header content of the month view.
+ * @param onDayClick The callback function when a day cell is clicked.
+ */
 @Composable
 internal fun KalendarMonth(
     kalendarDates: KalendarDates,
@@ -105,12 +121,4 @@ internal fun KalendarMonth(
             }
         }
     }
-}
-
-private fun getTitleText(month: Month, year: Int): String {
-    val monthDisplayName = month.getDisplayName(TextStyle.FULL, Locale.getDefault())
-        .lowercase()
-        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-    val shortYear = year.toString().takeLast(2)
-    return "$monthDisplayName '$shortYear"
 }

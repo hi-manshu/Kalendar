@@ -45,6 +45,24 @@ import java.time.Month
 import java.time.format.TextStyle
 import java.util.Locale
 
+
+/**
+ * Creates a composable function for the KalendarOceanic component.
+ * @param modifier The modifier for styling or positioning the component.
+ * @param daySelectionMode The mode for selecting days in the calendar.
+ * @param currentDay The current day to highlight in the calendar.
+ * @param showLabel Flag indicating whether to show labels for days of the week.
+ * @param kalendarHeaderTextKonfig The configuration for styling the calendar header text.
+ * @param kalendarColors The colors to be used in the calendar.
+ * @param events The events to be displayed in the calendar.
+ * @param labelFormat The format function for generating labels for days of the week.
+ * @param kalendarDayKonfig The configuration for styling individual days in the calendar.
+ * @param dayContent The content to be displayed for each day in the calendar.
+ * @param headerContent The content to be displayed in the calendar header.
+ * @param onDayClick The callback function when a day is clicked.
+ * @param onRangeSelected The callback function when a range of days is selected.
+ * @param onErrorRangeSelected The callback function when there is an error in selecting a range of days.
+ */
 @Composable
 internal fun KalendarOceanic(
     modifier: Modifier = Modifier,
@@ -159,6 +177,11 @@ internal fun KalendarOceanic(
     }
 }
 
+/**
+ * Calculates the current month and year based on a list of dates representing a week.
+ * @param weekValue The list of dates representing a week.
+ * @return A pair containing the current month and year.
+ */
 private fun getCurrentMonthAndYear(weekValue: List<LocalDate>): Pair<Month, Int> {
     val month = weekValue.first().month
     val year = weekValue.first().year

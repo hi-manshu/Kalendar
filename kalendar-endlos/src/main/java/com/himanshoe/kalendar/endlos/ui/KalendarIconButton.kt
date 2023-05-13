@@ -10,6 +10,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 
+/**
+ * An internal composable function that renders an icon button for the Kalendar library.
+ *
+ * @param imageVector The vector icon to display.
+ * @param modifier The modifier for the icon button.
+ * @param contentDescription The content description for accessibility.
+ * @param onClick The callback function to invoke when the button is clicked.
+ */
 @Composable
 fun KalendarIconButton(
     imageVector: ImageVector,

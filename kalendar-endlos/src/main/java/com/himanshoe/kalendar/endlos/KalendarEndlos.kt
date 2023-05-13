@@ -11,6 +11,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -37,6 +38,26 @@ import kotlinx.datetime.Month
 
 private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
+/**
+ * Displays an endless Kalendar widget that allows selecting and displaying dates.
+ *
+ * @param modifier The modifier to be applied to the Kalendar.
+ * @param showLabel Determines whether to show labels for days of the week.
+ * @param pagingController The paging controller for the Kalendar.
+ * @param kalendarHeaderTextKonfig The configuration for the Kalendar header text.
+ * @param kalendarColors The colors to be used for styling the Kalendar.
+ * @param events The events to be displayed in the Kalendar.
+ * @param kalendarDayKonfig The configuration for individual days in the Kalendar.
+ * @param contentPadding The padding to be applied to the entire Kalendar.
+ * @param monthContentPadding The padding to be applied to each month in the Kalendar.
+ * @param dayContent The content composable for customizing the display of each day.
+ * @param weekValueContent The content composable for customizing the display of the week values.
+ * @param headerContent The content composable for customizing the header of each month.
+ * @param daySelectionMode The mode for selecting days in the Kalendar.
+ * @param onDayClick The callback function to be invoked when a day is clicked.
+ * @param onRangeSelected The callback function to be invoked when a range of days is selected.
+ * @param onErrorRangeSelected The callback function to handle errors during range selection.
+ */
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
 internal fun KalendarEndlos(
@@ -128,6 +149,16 @@ internal fun KalendarEndlos(
     )
 }
 
+/**
+ * Internal function invoked when a day is clicked.
+ *
+ * @param date The clicked date.
+ * @param events The events associated with the clicked date.
+ * @param daySelectionMode The day selection mode.
+ * @param selectedRange The state holding the selected day range.
+ * @param onRangeSelected Callback invoked when a range of days is selected.
+ * @param onDayClick Callback invoked when a day is clicked.
+ */
 private fun onDayClicked(
     date: LocalDate,
     events: List<KalendarEvent>,
@@ -161,6 +192,12 @@ private fun onDayClicked(
     }
 }
 
+/**
+ * Displays the sticker header for the Kalendar with the specified color and text size.
+ *
+ * @param color The color to be used for the sticker header.
+ * @param textSize The text size to be used for the sticker header.
+ */
 @Composable
 private fun KalendarStickerHeader(color: Color, textSize: TextUnit) {
     Card(
@@ -188,6 +225,19 @@ private fun KalendarStickerHeader(color: Color, textSize: TextUnit) {
     }
 }
 
+/**
+ * Represents a collection of dates for each day in a Kalendar month.
+ *
+ * @property dates The list of lists containing the dates for each day in a month. Each inner list represents a week
+ * and contains nullable LocalDate values for each day of the week.
+ */
+@Stable
 internal data class KalendarDates(val dates: List<List<LocalDate?>>)
 
+/**
+ * Converts a list of lists containing nullable LocalDate values to a [KalendarDates] object.
+ *
+ * @receiver The source list of lists.
+ * @return The converted [KalendarDates] object.
+ */
 internal fun List<List<LocalDate?>>.toKalendarDates() = KalendarDates(this)

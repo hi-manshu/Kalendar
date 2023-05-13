@@ -5,19 +5,30 @@ import androidx.compose.runtime.remember
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 
+/**
+ * Controller for managing the paging functionality of Kalendar items.
+ */
 class KalendarPagingController {
 
-    val repository = KalendarRepository()
+    private val repository = KalendarRepository()
 
-    val kalendarItems =
-        Pager(PagingConfig(pageSize = 12)) {
-            KalendarPagingSource(repository)
-        }.flow
+    /**
+     * Flow of Kalendar items loaded from the repository using the Paging library.
+     */
+    val kalendarItems = Pager(PagingConfig(pageSize = 12)) {
+        KalendarPagingSource(repository)
+    }.flow
 }
 
+/**
+ * Remembers an instance of [KalendarPagingController].
+ *
+ * @return The remembered [KalendarPagingController] instance.
+ */
 @Composable
 fun rememberKalendarPagingController(): KalendarPagingController {
     return remember {
         KalendarPagingController()
     }
 }
+

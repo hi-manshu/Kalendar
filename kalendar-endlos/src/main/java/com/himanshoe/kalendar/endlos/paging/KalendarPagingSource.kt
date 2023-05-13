@@ -7,13 +7,25 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 import java.io.IOException
 
+/**
+ * Paging source for loading KalendarModelEntity items from the KalendarRepository.
+ *
+ * @param kalendarRepository The repository for retrieving KalendarModelEntity items.
+ */
 class KalendarPagingSource(
     private val kalendarRepository: KalendarRepository
 ) : PagingSource<Int, KalendarModelEntity>() {
 
     private val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+
+    /**
+     * Returns the refresh key for the paging state.
+     */
     override fun getRefreshKey(state: PagingState<Int, KalendarModelEntity>) = null
 
+    /**
+     * Loads the [KalendarModelEntity] items based on the provided load parameters.
+     */
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, KalendarModelEntity> {
         return try {
             val page = params.key ?: today.year

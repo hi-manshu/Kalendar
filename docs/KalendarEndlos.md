@@ -1,7 +1,7 @@
 ## Kalendar Endlos Documentation
 
 <div align="start">
-  <img src="img/endlos.png" alt="endlos" width="30%" />
+  <img src="../img/endlos.png" alt="endlos" width="30%" />
 </div>
 
 

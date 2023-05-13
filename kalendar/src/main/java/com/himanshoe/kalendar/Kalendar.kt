@@ -13,6 +13,24 @@ import com.himanshoe.kalendar.ui.oceanic.KalendarOceanic
 import kotlinx.datetime.LocalDate
 import java.time.Month
 
+
+/**
+ * Composable function that represents a calendar component.
+ *
+ * @param currentDay The current selected day in the calendar.
+ * @param kalendarType The type of calendar to be displayed.
+ * @param modifier The modifier for styling or positioning the calendar.
+ * @param showLabel Determines whether to show the labels for days of the week.
+ * @param kalendarHeaderTextKonfig The configuration for the header text in the calendar.
+ * @param kalendarColors The colors used for styling the calendar.
+ * @param kalendarDayKonfig The configuration for each day cell in the calendar.
+ * @param dayContent The content to be displayed inside each day cell of the calendar.
+ * @param daySelectionMode The mode for selecting days in the calendar.
+ * @param headerContent The content to be displayed in the header of the calendar.
+ * @param onDayClick Callback function triggered when a day cell is clicked.
+ * @param onRangeSelected Callback function triggered when a range of days is selected.
+ * @param onErrorRangeSelected Callback function triggered when an error occurs during range selection.
+ */
 @Composable
 fun Kalendar(
     currentDay: LocalDate?,
@@ -47,6 +65,24 @@ fun Kalendar(
     )
 }
 
+/**
+ * Composable function that represents a calendar component.
+ *
+ * @param currentDay The current selected day in the calendar.
+ * @param kalendarType The type of calendar to be displayed.
+ * @param modifier The modifier for styling or positioning the calendar.
+ * @param showLabel Determines whether to show the labels for days of the week.
+ * @param events The events to be displayed in the calendar.
+ * @param kalendarHeaderTextKonfig The configuration for the header text in the calendar.
+ * @param kalendarColors The colors used for styling the calendar.
+ * @param kalendarDayKonfig The configuration for each day cell in the calendar.
+ * @param daySelectionMode The mode for selecting days in the calendar.
+ * @param dayContent The content to be displayed inside each day cell of the calendar.
+ * @param headerContent The content to be displayed in the header of the calendar.
+ * @param onDayClick Callback function triggered when a day cell is clicked.
+ * @param onRangeSelected Callback function triggered when a range of days is selected.
+ * @param onErrorRangeSelected Callback function triggered when an error occurs during range selection.
+ */
 @Composable
 fun Kalendar(
     currentDay: LocalDate?,

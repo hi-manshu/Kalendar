@@ -12,6 +12,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+/**
+ * Composable function that renders a Kalendar indicator.
+ *
+ * @param index The index of the indicator.
+ * @param size The size of the indicator.
+ * @param color The color of the indicator.
+ * @param modifier The modifier for the indicator.
+ */
 @Composable
 fun KalendarIndicator(
     index: Int,
