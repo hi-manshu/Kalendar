@@ -1,6 +1,6 @@
-name: run detekt
+name: Check Code - Detekt
 
-on: push
+on: pull-request
 
 jobs:
   run:
