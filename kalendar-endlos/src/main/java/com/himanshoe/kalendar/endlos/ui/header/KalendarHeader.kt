@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui.component.header
+package com.himanshoe.kalendar.endlos.ui.header
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ContentTransform
@@ -31,8 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.himanshoe.kalendar.ui.component.button.KalendarIconButton
-import com.himanshoe.kalendar.util.MultiplePreviews
+import com.himanshoe.kalendar.endlos.ui.KalendarIconButton
+import com.himanshoe.kalendar.endlos.util.MultiplePreviews
 import kotlinx.datetime.Month
 import java.time.format.TextStyle
 import java.util.Locale

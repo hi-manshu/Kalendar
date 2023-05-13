@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui.component.day
+package com.himanshoe.kalendar.endlos.ui.day
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -22,12 +22,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
-import com.himanshoe.kalendar.KalendarEvent
-import com.himanshoe.kalendar.KalendarEvents
-import com.himanshoe.kalendar.color.KalendarColor
-import com.himanshoe.kalendar.ui.component.day.modifier.circleLayout
-import com.himanshoe.kalendar.ui.component.indicator.KalendarIndicator
-import com.himanshoe.kalendar.util.MultiplePreviews
+import com.himanshoe.kalendar.endlos.model.KalendarEvent
+import com.himanshoe.kalendar.endlos.model.KalendarEvents
+import com.himanshoe.kalendar.endlos.ui.KalendarIndicator
+import com.himanshoe.kalendar.endlos.ui.color.KalendarColor
+import com.himanshoe.kalendar.endlos.ui.modifier.circleLayout
+import com.himanshoe.kalendar.endlos.util.MultiplePreviews
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
@@ -39,11 +39,11 @@ import kotlinx.datetime.todayIn
 @Composable
 fun KalendarDay(
     date: LocalDate,
-    kalendarColors: KalendarColor,
+    kalendarColor: KalendarColor,
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
     modifier: Modifier = Modifier,
     selectedDate: LocalDate = date,
-    kalendarEvents: KalendarEvents = KalendarEvents(),
+    events: KalendarEvents = KalendarEvents(),
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
 ) {
     val selected = selectedDate == date
@@ -56,9 +56,9 @@ fun KalendarDay(
                 shape = CircleShape
             )
             .clip(shape = CircleShape)
-            .clickable { onDayClick(date, kalendarEvents.events) }
+            .clickable { onDayClick(date, events.events) }
             .background(
-                color = if (selected) kalendarColors.dayBackgroundColor else Color.Transparent,
+                color = if (selected) kalendarColor.dayBackgroundColor else Color.Transparent,
                 shape = CircleShape
             )
             .circleLayout()
@@ -75,7 +75,7 @@ fun KalendarDay(
             color = if (selected) kalendarDayKonfig.selectedTextColor else kalendarDayKonfig.textColor,
             fontWeight = if (selected) FontWeight.Bold else FontWeight.SemiBold
         )
-        kalendarEvents.events
+        events.events
             .filter { it.date == date }
             .take(3)
             .fastForEachIndexed { index, _ ->
@@ -83,7 +83,7 @@ fun KalendarDay(
                     modifier = Modifier,
                     index = index,
                     size = kalendarDayKonfig.size,
-                    color = kalendarColors.headerTextColor
+                    color = kalendarColor.headerTextColor
                 )
             }
     }
@@ -98,8 +98,8 @@ fun getBorder(currentDay: Boolean) = if (currentDay) {
     )
 }
 
-@MultiplePreviews
 @Composable
+@MultiplePreviews
 private fun KalendarDayPreview() {
     val date = Clock.System.todayIn(TimeZone.currentSystemDefault())
     val previous = Clock.System.todayIn(TimeZone.currentSystemDefault()).minus(1, DateTimeUnit.DAY)
@@ -113,24 +113,24 @@ private fun KalendarDayPreview() {
         KalendarDay(
             date = date,
             selectedDate = previous,
-            kalendarColors = KalendarColor.previewDefault(),
-            kalendarEvents = KalendarEvents(events),
+            kalendarColor = KalendarColor.previewDefault(),
+            events = KalendarEvents(events),
             onDayClick = { _, _ -> }
         )
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         KalendarDay(
             date = date.plus(1, DateTimeUnit.DAY),
             selectedDate = previous,
-            kalendarColors = KalendarColor.previewDefault(),
-            kalendarEvents = KalendarEvents(events),
+            kalendarColor = KalendarColor.previewDefault(),
+            events = KalendarEvents(events),
             onDayClick = { _, _ -> }
         )
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         KalendarDay(
             date = date,
             selectedDate = previous,
-            kalendarColors = KalendarColor.previewDefault(),
-            kalendarEvents = KalendarEvents(events),
+            kalendarColor = KalendarColor.previewDefault(),
+            events = KalendarEvents(events),
             onDayClick = { _, _ -> }
         )
     }

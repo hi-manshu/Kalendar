@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-
 @Composable
 fun KalendarIndicator(
     index: Int,
@@ -24,9 +23,7 @@ fun KalendarIndicator(
         modifier = modifier
             .padding(horizontal = 1.dp)
             .clip(shape = CircleShape)
-            .background(
-                color = color.copy(alpha = index.plus(1) * 0.3F)
-            )
+            .background(color = color.copy(alpha = (index + 1) * 0.3f))
             .size(size = size.div(12))
     )
 }

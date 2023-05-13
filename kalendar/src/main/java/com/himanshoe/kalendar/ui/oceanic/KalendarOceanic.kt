@@ -10,8 +10,10 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -27,9 +29,10 @@ import com.himanshoe.kalendar.ui.component.header.KalendarHeader
 import com.himanshoe.kalendar.ui.component.header.KalendarTextKonfig
 import com.himanshoe.kalendar.ui.oceanic.util.getNext7Dates
 import com.himanshoe.kalendar.ui.oceanic.util.getPrevious7Dates
-import com.himanshoe.kalendar.util.MultiplePreview
+import com.himanshoe.kalendar.util.MultiplePreviews
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
@@ -47,16 +50,21 @@ fun KalendarOceanic(
     kalendarColors: KalendarColors = KalendarColors.default(),
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     events: KalendarEvents = KalendarEvents(),
+    labelFormat: (DayOfWeek) -> String = {
+        it.getDisplayName(
+            TextStyle.SHORT,
+            Locale.getDefault()
+        )
+    },
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
     dayContent: (@Composable (LocalDate) -> Unit)? = null,
     headerContent: (@Composable (Month, Int) -> Unit)? = null,
 ) {
     val today = currentDay ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
     val weekValue = remember { mutableStateOf(today.getNext7Dates()) }
-    val month = weekValue.value.first().month
-    val year = weekValue.value.first().year
-    val selectedDate = remember { mutableStateOf(today) }
-    val currentMonthIndex = month.value.minus(1)
+    val yearAndMonth = getCurrentMonthAndYear(weekValue.value)
+    var selectedDate by remember { mutableStateOf(today) }
+    val currentMonthIndex = yearAndMonth.first.value.minus(1)
 
     Column(
         modifier = modifier
@@ -68,11 +76,11 @@ fun KalendarOceanic(
             .padding(all = 8.dp)
     ) {
         if (headerContent != null) {
-            headerContent(month, year)
+            headerContent(yearAndMonth.first, yearAndMonth.second)
         } else {
             KalendarHeader(
-                month = month,
-                year = year,
+                month = yearAndMonth.first,
+                year = yearAndMonth.second,
                 kalendarTextKonfig = kalendarHeaderTextKonfig ?: KalendarTextKonfig(
                     kalendarTextColor = kalendarColors.color[currentMonthIndex].headerTextColor,
                     kalendarTextSize = 24.sp
@@ -98,9 +106,7 @@ fun KalendarOceanic(
                                 modifier = Modifier,
                                 color = kalendarDayKonfig.textColor,
                                 fontSize = kalendarDayKonfig.textSize,
-                                text = item.dayOfWeek.getDisplayName(
-                                    TextStyle.FULL, Locale.getDefault()
-                                ).take(1),
+                                text = labelFormat(item.dayOfWeek),
                                 fontWeight = FontWeight.SemiBold,
                                 textAlign = TextAlign.Center
                             )
@@ -112,12 +118,12 @@ fun KalendarOceanic(
                         } else {
                             KalendarDay(
                                 date = item,
-                                selectedDate = selectedDate.value,
+                                selectedDate = selectedDate,
                                 kalendarColors = kalendarColors.color[currentMonthIndex],
                                 kalendarEvents = events,
                                 kalendarDayKonfig = kalendarDayKonfig,
                                 onDayClick = { date, event ->
-                                    selectedDate.value = date
+                                    selectedDate = date
                                     onDayClick(date, event)
                                 }
                             )
@@ -129,7 +135,13 @@ fun KalendarOceanic(
     }
 }
 
-@MultiplePreview
+private fun getCurrentMonthAndYear(weekValue: List<LocalDate>): Pair<Month, Int> {
+    val month = weekValue.first().month
+    val year = weekValue.first().year
+    return Pair(month, year)
+}
+
+@MultiplePreviews
 @Composable
 fun KalendarOceanicPreview() {
     KalendarOceanic(

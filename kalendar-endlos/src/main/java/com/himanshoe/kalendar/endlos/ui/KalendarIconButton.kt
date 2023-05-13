@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui.component.button
+package com.himanshoe.kalendar.endlos.ui
 
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape

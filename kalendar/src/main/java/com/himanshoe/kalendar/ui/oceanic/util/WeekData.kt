@@ -5,33 +5,14 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 
-internal fun LocalDate.getNext7Dates() = buildList {
-    repeat(7) { day ->
-        add(this@getNext7Dates.plus(day, DateTimeUnit.DAY))
-    }
-}
+private const val TOTAL_DAYS_IN_WEEK = 7
+internal fun LocalDate.getNext7Dates() =
+    List(TOTAL_DAYS_IN_WEEK) { day -> this.plus(day.toLong(), DateTimeUnit.DAY) }
 
-internal fun LocalDate.getPrevious7Dates() = buildList {
-    repeat(7) { day ->
-        add(this@getPrevious7Dates.minus(day.plus(1), DateTimeUnit.DAY))
-    }
-}.reversed()
+internal fun LocalDate.getPrevious7Dates() =
+    List(TOTAL_DAYS_IN_WEEK) { day -> this.minus((day + 1), DateTimeUnit.DAY) }.reversed()
 
+@SuppressWarnings("MagicNumber")
 fun Int.isLeapYear(): Boolean {
-    val year = this
-    return when {
-        ((year % 400 == 0) || (((year % 4) == 0) && ((year % 100) != 0))) -> true
-        else -> false
-    }
-}
-
-fun getDatesBetween(start: LocalDate, end: LocalDate): MutableList<LocalDate> {
-    var date = start
-    val dates = mutableListOf<LocalDate>()
-    while (date < (end)) {
-        dates.add(date)
-        date = date.plus(1, DateTimeUnit.DAY)
-    }
-    dates.add(end)
-    return dates
+    return (this % 400 == 0) || (this % 4 == 0 && this % 100 != 0)
 }

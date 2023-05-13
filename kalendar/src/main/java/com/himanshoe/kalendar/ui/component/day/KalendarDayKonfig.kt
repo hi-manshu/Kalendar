@@ -13,6 +13,8 @@ data class KalendarDayKonfig(
     val selectedTextColor: Color,
 ) {
     companion object {
+
+        @SuppressWarnings("MagicNumber")
         fun default() = KalendarDayKonfig(
             size = 56.dp,
             textSize = 16.sp,
@@ -21,4 +23,3 @@ data class KalendarDayKonfig(
         )
     }
 }
-

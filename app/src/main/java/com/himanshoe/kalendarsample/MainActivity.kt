@@ -17,25 +17,24 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             KalendarTheme {
-                Column {
-//                    KalendarOceanic(
-//                        currentDay = Clock.System.todayIn(
-//                            TimeZone.currentSystemDefault()
-//                        ),
-//                    )
-//                    Spacer(modifier = Modifier.padding(vertical = 16.dp))
-//                    KalendarFirey(
-//                        currentDay = Clock.System.todayIn(
-//                            TimeZone.currentSystemDefault()
-//                        ),
-//                    )
-                    KalendarEndlos(
-                        modifier = Modifier.fillMaxSize(),
-                        currentDay = Clock.System.todayIn(
-                            TimeZone.currentSystemDefault()
-                        ),
-                    )
-                }
+//                Column {
+//////                    KalendarOceanic(
+//////                        currentDay = Clock.System.todayIn(
+//////                            TimeZone.currentSystemDefault()
+//////                        ),
+//////                    )
+//////                    Spacer(modifier = Modifier.padding(vertical = 16.dp))
+////                    KalendarFirey(
+////                        currentDay = Clock.System.todayIn(
+////                            TimeZone.currentSystemDefault()
+////                        ),
+////                    )
+//
+//
+//                }
+                KalendarEndlos(
+                    modifier = Modifier.fillMaxSize(),
+                )
             }
         }
     }

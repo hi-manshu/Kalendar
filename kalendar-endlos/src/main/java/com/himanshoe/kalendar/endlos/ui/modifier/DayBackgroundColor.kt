@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.ui.component.day.modifier
+package com.himanshoe.kalendar.endlos.ui.modifier
 
 import androidx.compose.foundation.background
 import androidx.compose.ui.Modifier

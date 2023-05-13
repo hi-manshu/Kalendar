@@ -1,8 +1,7 @@
-package com.himanshoe.kalendar.color
+package com.himanshoe.kalendar.endlos.ui.color
 
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
-
 
 @Stable
 private val backgroundColor = listOf(
@@ -65,18 +64,21 @@ data class KalendarColor(
     }
 }
 
+private const val TOTAL_MONTH = 12
+
 data class KalendarColors(
     val color: List<KalendarColor> = emptyList()
 ) {
     companion object {
-        fun default() = KalendarColors(buildList {
-            repeat(12) { index ->
-                add(
-                    KalendarColor(
-                        kalendarBackgroundColor[index], backgroundColor[index], headerColors[index]
-                    )
+        fun default(): KalendarColors {
+            val colors = List(TOTAL_MONTH) { index ->
+                KalendarColor(
+                    kalendarBackgroundColor[index],
+                    backgroundColor[index],
+                    headerColors[index]
                 )
             }
-        })
+            return KalendarColors(colors)
+        }
     }
 }

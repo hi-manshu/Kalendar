@@ -3,8 +3,8 @@ package com.himanshoe.kalendar.color
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 
-
 @Stable
+@SuppressWarnings("MagicNumber")
 private val backgroundColor = listOf(
     Color(0xffF7CFD3),
     Color(0xffEFBDCF),
@@ -21,6 +21,7 @@ private val backgroundColor = listOf(
 )
 
 @Stable
+@SuppressWarnings("MagicNumber")
 private val kalendarBackgroundColor = listOf(
     Color.White,
     Color(0xFFFCEFFE),
@@ -37,6 +38,7 @@ private val kalendarBackgroundColor = listOf(
 )
 
 @Stable
+@SuppressWarnings("MagicNumber")
 private val headerColors = listOf(
     Color(0xFFC39EA1),
     Color(0xFFBB8D9E),
@@ -65,18 +67,21 @@ data class KalendarColor(
     }
 }
 
+private const val TOTAL_MONTH = 12
+
 data class KalendarColors(
     val color: List<KalendarColor> = emptyList()
 ) {
     companion object {
-        fun default() = KalendarColors(buildList {
-            repeat(12) { index ->
-                add(
-                    KalendarColor(
-                        kalendarBackgroundColor[index], backgroundColor[index], headerColors[index]
-                    )
+        fun default(): KalendarColors {
+            val colors = List(TOTAL_MONTH) { index ->
+                KalendarColor(
+                    kalendarBackgroundColor[index],
+                    backgroundColor[index],
+                    headerColors[index]
                 )
             }
-        })
+            return KalendarColors(colors)
+        }
     }
 }
