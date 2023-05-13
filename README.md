@@ -1,8 +1,9 @@
 ## Kalendar - An Elementary Compose Calendar.
 
 ![Kalendar](img/banner.png)
-[![Maven Central: Kalendar](https://maven-badges.herokuapp.com/maven-central/cz.jirutka.rsql/rsql-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.himanshoe/kalendar)
-[![Maven Central: KalendarEndlos](https://maven-badges.herokuapp.com/maven-central/cz.jirutka.rsql/rsql-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.himanshoe/kalendar-endlos)
+![Maven Central: Kalendar](https://img.shields.io/maven-central/v/com.himanshoe/kalendar?color=7e8efb&label=Maven%20Central%20%3A%20Kalendar)
+![Maven Central: Kalendar Endlos](https://img.shields.io/maven-central/v/com.himanshoe/kalendar-endlos?color=f4c430&label=Maven%20Central%20%3A%20Kalendar)
+![Github: Open Issues](https://img.shields.io/github/issues-raw/hi-manshu/kalendar?color=7E8EFB&label=Kalendar%3A%20Open%20Issues)
 [![Kalendar](https://img.shields.io/badge/Kotlin%20Weekly-%23286-orange)](https://mailchi.mp/kotlinweekly/kotlin-weekly-286)
 [![Kalendar](https://img.shields.io/badge/Android%20Weekly-%23533-Pink)](https://androidweekly.net/issues/issue-533)
 [![Github Followers](https://img.shields.io/github/followers/hi-manshu?label=Follow&style=social)](https://github.com/hi-manshu)
