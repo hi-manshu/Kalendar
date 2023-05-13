@@ -94,6 +94,7 @@ internal fun KalendarMonth(
                             KalendarDay(
                                 date = nonNullDate,
                                 selectedDate = selectedDate.value,
+                                selectedRange = selectedRange.value,
                                 events = events,
                                 onDayClick = { clickedDate, event ->
                                     onDayClicked(
@@ -111,8 +112,8 @@ internal fun KalendarMonth(
                                         onDayClick = { newDate, clickedDateEvent ->
                                             selectedDate.value = newDate
                                             onDayClick(clickedDate, clickedDateEvent)
-                                        })
-
+                                        }
+                                    )
                                 },
                                 kalendarDayKonfig = kalendarDayKonfig,
                                 kalendarColor = kalendarColor,
