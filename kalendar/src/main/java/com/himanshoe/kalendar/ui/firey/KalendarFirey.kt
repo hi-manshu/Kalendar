@@ -11,13 +11,13 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.himanshoe.kalendar.KalendarEvent
 import com.himanshoe.kalendar.KalendarEvents
 import com.himanshoe.kalendar.color.KalendarColors
@@ -40,17 +40,21 @@ private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 @Composable
 internal fun KalendarFirey(
     currentDay: LocalDate?,
+    daySelectionMode: DaySelectionMode,
     modifier: Modifier = Modifier,
     showLabel: Boolean = true,
     kalendarHeaderTextKonfig: KalendarTextKonfig? = null,
     kalendarColors: KalendarColors = KalendarColors.default(),
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     events: KalendarEvents = KalendarEvents(),
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
     dayContent: (@Composable (LocalDate) -> Unit)? = null,
     headerContent: (@Composable (Month, Int) -> Unit)? = null,
+    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
+    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
+    onErrorRangeSelected: (RangeSelectionError) -> Unit = {}
 ) {
     val today = currentDay ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
+    val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
     val selectedDate = remember { mutableStateOf(today) }
     val displayedMonth = remember { mutableStateOf(today.month) }
     val displayedYear = remember { mutableStateOf(today.year) }
@@ -58,10 +62,10 @@ internal fun KalendarFirey(
     val currentYear = displayedYear.value
     val currentMonthIndex = currentMonth.value.minus(1)
 
-    val newHeaderTextKonfig = kalendarHeaderTextKonfig ?: KalendarTextKonfig(
-        kalendarTextColor = kalendarColors.color[currentMonthIndex].headerTextColor,
-        kalendarTextSize = 24.sp
+    val defaultHeaderColor = KalendarTextKonfig.default(
+        color = kalendarColors.color[currentMonthIndex].headerTextColor,
     )
+    val newHeaderTextKonfig = kalendarHeaderTextKonfig ?: defaultHeaderColor
 
     val daysInMonth = currentMonth.length(currentYear.isLeapYear())
     val monthValue = currentMonth.value.toString().padStart(2, '0')
@@ -124,9 +128,25 @@ internal fun KalendarFirey(
                                 kalendarColors = kalendarColors.color[currentMonthIndex],
                                 kalendarEvents = events,
                                 kalendarDayKonfig = kalendarDayKonfig,
-                                onDayClick = { date, event ->
-                                    selectedDate.value = date
-                                    onDayClick(date, event)
+                                selectedRange = selectedRange.value,
+                                onDayClick = { clickedDate, event ->
+                                    onDayClicked(
+                                        clickedDate,
+                                        event,
+                                        daySelectionMode,
+                                        selectedRange,
+                                        onRangeSelected = { range, events ->
+                                            if (range.end < range.start) {
+                                                onErrorRangeSelected(RangeSelectionError.EndIsBeforeStart)
+                                            } else {
+                                                onRangeSelected(range, events)
+                                            }
+                                        },
+                                        onDayClick = { newDate, clickedDateEvent ->
+                                            selectedDate.value = newDate
+                                            onDayClick(newDate, clickedDateEvent)
+                                        }
+                                    )
                                 }
                             )
                         }
@@ -145,6 +165,39 @@ private fun calculateDay(day: Int, currentMonth: Month, currentYear: Int): Local
     return "$currentYear-$monthValue-$dayValue".toLocalDate()
 }
 
+internal fun onDayClicked(
+    date: LocalDate,
+    events: List<KalendarEvent>,
+    daySelectionMode: DaySelectionMode,
+    selectedRange: MutableState<KalendarSelectedDayRange?>,
+    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
+    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> }
+) {
+    when (daySelectionMode) {
+        DaySelectionMode.Single -> {
+            onDayClick(date, events)
+        }
+
+        DaySelectionMode.Range -> {
+            val range = selectedRange.value
+            selectedRange.value = if (range?.isEmpty() != false) {
+                KalendarSelectedDayRange(start = date, end = date)
+            } else if (range.isSingleDate()) {
+                KalendarSelectedDayRange(start = range.start, end = date)
+            } else {
+                KalendarSelectedDayRange(start = date, end = date)
+            }
+            selectedRange.value?.let { rangeDates ->
+                val selectedEvents = events
+                    .filter { it.date in (rangeDates.start..rangeDates.end) }
+                    .toList()
+
+                onRangeSelected(rangeDates, selectedEvents)
+            }
+        }
+    }
+}
+
 @Composable
 @MultiplePreviews
 private fun KalendarFireyPreview() {
@@ -152,6 +205,7 @@ private fun KalendarFireyPreview() {
         currentDay = Clock.System.todayIn(
             TimeZone.currentSystemDefault()
         ),
-        kalendarHeaderTextKonfig = KalendarTextKonfig.previewDefault()
+        kalendarHeaderTextKonfig = KalendarTextKonfig.previewDefault(),
+        daySelectionMode = DaySelectionMode.Range
     )
 }

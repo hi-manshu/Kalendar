@@ -11,6 +11,10 @@ data class KalendarTextKonfig(
     val kalendarTextSize: TextUnit
 ) {
     companion object {
+        internal fun default(color: Color) = KalendarTextKonfig(
+            kalendarTextColor = color,
+            kalendarTextSize = 24.sp
+        )
         internal fun previewDefault() = KalendarTextKonfig(
             kalendarTextSize = 24.sp,
             kalendarTextColor = Color(0xFFD2827A)

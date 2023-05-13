@@ -87,10 +87,10 @@ internal fun KalendarEndlos(
                 val dates: List<List<LocalDate?>>? = calendarModel?.dates?.chunked(7)
                 if (dates != null) {
                     val currentMonthIndex = calendarModel.month.value.minus(1)
-                    val headerTextKonfig = kalendarHeaderTextKonfig ?: KalendarTextKonfig.default(
-                        kalendarColors.color[currentMonthIndex].headerTextColor
+                    val defaultHeaderColor = KalendarTextKonfig.default(
+                        color = kalendarColors.color[currentMonthIndex].headerTextColor
                     )
-
+                    val headerTextKonfig = kalendarHeaderTextKonfig ?: defaultHeaderColor
                     KalendarMonth(
                         kalendarDates = dates.toKalendarDates(),
                         month = calendarModel.month,

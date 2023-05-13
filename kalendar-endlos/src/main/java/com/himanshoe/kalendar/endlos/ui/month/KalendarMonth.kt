@@ -46,14 +46,14 @@ internal fun KalendarMonth(
     contentPadding: PaddingValues,
     kalendarDayKonfig: KalendarDayKonfig,
     kalendarHeaderTextKonfig: KalendarTextKonfig?,
-    selectedRange :KalendarSelectedDayRange?,
+    selectedRange: KalendarSelectedDayRange?,
     modifier: Modifier = Modifier,
+    selectedDate: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
     dayContent: @Composable() ((LocalDate) -> Unit)? = null,
     headerContent: @Composable() ((Month, Int) -> Unit)? = null,
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
 ) {
-    val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
-    val selectedDate = remember { mutableStateOf(today) }
+    val selectedDate = remember { mutableStateOf(selectedDate) }
 
     Column(
         modifier = modifier
@@ -90,7 +90,10 @@ internal fun KalendarMonth(
                                 selectedDate = selectedDate.value,
                                 selectedRange = selectedRange,
                                 events = events,
-                                onDayClick = onDayClick,
+                                onDayClick = { date, events ->
+                                    selectedDate.value = date
+                                    onDayClick(date, events)
+                                },
                                 kalendarDayKonfig = kalendarDayKonfig,
                                 kalendarColor = kalendarColor,
                             )

@@ -29,7 +29,7 @@ fun Kalendar(
     dayContent: (@Composable (LocalDate) -> Unit)? = null,
     weekValueContent: (@Composable () -> Unit)? = null,
     headerContent: (@Composable (Month, Int) -> Unit)? = null,
-    daySelectionMode: DaySelectionMode = DaySelectionMode.Range,
+    daySelectionMode: DaySelectionMode = DaySelectionMode.Single,
     onDayClicked: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
     onErrorRangeSelected: (RangeSelectionError) -> Unit = {}

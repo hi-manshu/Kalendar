@@ -1,7 +1,6 @@
 package com.himanshoe.kalendar.ui.component.day
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +25,9 @@ import com.himanshoe.kalendar.KalendarEvent
 import com.himanshoe.kalendar.KalendarEvents
 import com.himanshoe.kalendar.color.KalendarColor
 import com.himanshoe.kalendar.ui.component.day.modifier.circleLayout
+import com.himanshoe.kalendar.ui.component.day.modifier.dayBackgroundColor
 import com.himanshoe.kalendar.ui.component.indicator.KalendarIndicator
+import com.himanshoe.kalendar.ui.firey.KalendarSelectedDayRange
 import com.himanshoe.kalendar.util.MultiplePreviews
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
@@ -41,6 +42,7 @@ fun KalendarDay(
     date: LocalDate,
     kalendarColors: KalendarColor,
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
+    selectedRange: KalendarSelectedDayRange?,
     modifier: Modifier = Modifier,
     selectedDate: LocalDate = date,
     kalendarEvents: KalendarEvents = KalendarEvents(),
@@ -57,9 +59,11 @@ fun KalendarDay(
             )
             .clip(shape = CircleShape)
             .clickable { onDayClick(date, kalendarEvents.events) }
-            .background(
-                color = if (selected) kalendarColors.dayBackgroundColor else Color.Transparent,
-                shape = CircleShape
+            .dayBackgroundColor(
+                selected,
+                kalendarColors.dayBackgroundColor,
+                date,
+                selectedRange
             )
             .circleLayout()
             .wrapContentSize()
@@ -117,26 +121,29 @@ private fun KalendarDayPreview() {
     Row {
         KalendarDay(
             date = date,
-            selectedDate = previous,
             kalendarColors = KalendarColor.previewDefault(),
+            onDayClick = { _, _ -> },
+            selectedDate = previous,
             kalendarEvents = KalendarEvents(events),
-            onDayClick = { _, _ -> }
+            selectedRange = null
         )
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         KalendarDay(
             date = date.plus(1, DateTimeUnit.DAY),
-            selectedDate = previous,
             kalendarColors = KalendarColor.previewDefault(),
+            onDayClick = { _, _ -> },
+            selectedDate = previous,
             kalendarEvents = KalendarEvents(events),
-            onDayClick = { _, _ -> }
+            selectedRange = null
         )
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         KalendarDay(
             date = date,
-            selectedDate = previous,
             kalendarColors = KalendarColor.previewDefault(),
+            onDayClick = { _, _ -> },
+            selectedDate = previous,
             kalendarEvents = KalendarEvents(events),
-            onDayClick = { _, _ -> }
+            selectedRange = null
         )
     }
 }

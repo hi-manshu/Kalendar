@@ -27,6 +27,10 @@ import com.himanshoe.kalendar.ui.component.day.KalendarDay
 import com.himanshoe.kalendar.ui.component.day.KalendarDayKonfig
 import com.himanshoe.kalendar.ui.component.header.KalendarHeader
 import com.himanshoe.kalendar.ui.component.header.KalendarTextKonfig
+import com.himanshoe.kalendar.ui.firey.DaySelectionMode
+import com.himanshoe.kalendar.ui.firey.KalendarSelectedDayRange
+import com.himanshoe.kalendar.ui.firey.RangeSelectionError
+import com.himanshoe.kalendar.ui.firey.onDayClicked
 import com.himanshoe.kalendar.ui.oceanic.util.getNext7Dates
 import com.himanshoe.kalendar.ui.oceanic.util.getPrevious7Dates
 import com.himanshoe.kalendar.util.MultiplePreviews
@@ -44,11 +48,11 @@ import java.util.Locale
 @Composable
 internal fun KalendarOceanic(
     modifier: Modifier = Modifier,
+    daySelectionMode: DaySelectionMode = DaySelectionMode.Single,
     currentDay: LocalDate? = null,
     showLabel: Boolean = true,
     kalendarHeaderTextKonfig: KalendarTextKonfig? = null,
     kalendarColors: KalendarColors = KalendarColors.default(),
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     events: KalendarEvents = KalendarEvents(),
     labelFormat: (DayOfWeek) -> String = {
         it.getDisplayName(
@@ -57,14 +61,18 @@ internal fun KalendarOceanic(
         )
     },
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
-    dayContent: (@Composable (LocalDate) -> Unit)? = null,
-    headerContent: (@Composable (Month, Int) -> Unit)? = null,
+    dayContent: @Composable() ((LocalDate) -> Unit)? = null,
+    headerContent: @Composable() ((Month, Int) -> Unit)? = null,
+    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
+    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
+    onErrorRangeSelected: (RangeSelectionError) -> Unit = {}
 ) {
     val today = currentDay ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
     val weekValue = remember { mutableStateOf(today.getNext7Dates()) }
     val yearAndMonth = getCurrentMonthAndYear(weekValue.value)
     var selectedDate by remember { mutableStateOf(today) }
     val currentMonthIndex = yearAndMonth.first.value.minus(1)
+    val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
 
     Column(
         modifier = modifier
@@ -118,14 +126,30 @@ internal fun KalendarOceanic(
                         } else {
                             KalendarDay(
                                 date = item,
-                                selectedDate = selectedDate,
                                 kalendarColors = kalendarColors.color[currentMonthIndex],
+                                onDayClick = { clickedDate, event ->
+                                    onDayClicked(
+                                        clickedDate,
+                                        event,
+                                        daySelectionMode,
+                                        selectedRange,
+                                        onRangeSelected = { range, events ->
+                                            if (range.end < range.start) {
+                                                onErrorRangeSelected(RangeSelectionError.EndIsBeforeStart)
+                                            } else {
+                                                onRangeSelected(range, events)
+                                            }
+                                        },
+                                        onDayClick = { newDate, clickedDateEvent ->
+                                            selectedDate = newDate
+                                            onDayClick(newDate, clickedDateEvent)
+                                        }
+                                    )
+                                },
+                                selectedDate = selectedDate,
                                 kalendarEvents = events,
                                 kalendarDayKonfig = kalendarDayKonfig,
-                                onDayClick = { date, event ->
-                                    selectedDate = date
-                                    onDayClick(date, event)
-                                }
+                                selectedRange = selectedRange.value,
                             )
                         }
                     }
@@ -148,6 +172,7 @@ fun KalendarOceanicPreview() {
         currentDay = Clock.System.todayIn(
             TimeZone.currentSystemDefault()
         ),
-        kalendarHeaderTextKonfig = KalendarTextKonfig.previewDefault()
+        kalendarHeaderTextKonfig = KalendarTextKonfig.previewDefault(),
+        daySelectionMode = DaySelectionMode.Single
     )
 }
