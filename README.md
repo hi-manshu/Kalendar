@@ -32,7 +32,7 @@ For adding the Scrolling calendar, Endlos, add the following dependency:
 implementation 'com.himanshoe:kalendar-endlos:<latest-version>'
 ```
 
-For detailed documentation and examples on how to use the Kalendar library, please refer to the [Kalendar Documentation](docs/Kalendar.md).
+For detailed documentation and examples on how to use the Kalendar library, please refer to the [Kalendar Documentation](docs/Kalendar.md) for Oceanic/Firey and [Kalendar Endlos Documentation](docs/KalendarEndlos.md) for scrolling calendar.
 
 Contributions, bug reports, and feature requests are welcome! Feel free to submit issues or pull requests in the [Kalendar GitHub repository](https://github.com/hi-manshu/Kalendar/pulls).
 

@@ -1,5 +1,10 @@
 ## Kalendar Endlos Documentation
 
+<div align="start">
+  <img src="img/endlos.png" alt="endlos" width="30%" />
+</div>
+
+
 The Kalendar function is a composable function in the Kalendar library that allows you to create a
 customizable calendar component in your Android app using Jetpack Compose. 
 
