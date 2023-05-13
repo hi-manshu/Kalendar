@@ -1,4 +1,4 @@
-### Kalendar - An Elementary Compose Calendar.
+## Kalendar - An Elementary Compose Calendar.
 
 ![Kalendar](img/banner.png)
 
@@ -17,8 +17,26 @@ Kalendar supports three types of calendar:
 - **Firey**: Represents the MonthView.
 - **Endlos**: Represents a scrolling calendar that starts from the current month.
 
-<p align="center">
-  <img src="img/oceanic.png" alt="Oceanic" width="30%">
-  <img src="img/kalendar-firey.png" alt="Firey" width="30%">
-  <img src="img/endlos.png" alt="Endlos" width="30%">
-</p>
+### Getting Started
+To integrate the Kalendar library into your Android app, follow these steps:
+
+Add the Kalendar library as a dependency in your app-level build.gradle file:
+
+```gradle
+Copy code
+implementation 'com.himanshoe:kalendar:<latest-version>'
+```
+
+For adding the Scrolling calendar, Endlos, add the following dependency:
+
+```gradle
+Copy code
+implementation 'com.himanshoe:kalendar-endlos:<latest-version>'
+```
+
+For detailed documentation and examples on how to use the Kalendar library, please refer to the [Kalendar Documentation](docs/Kalendar.md).
+
+Contributions, bug reports, and feature requests are welcome! Feel free to submit issues or pull requests in the [Kalendar GitHub repository](https://github.com/hi-manshu/Kalendar/pulls).
+
+The Kalendar library is released under the MIT License.
+
