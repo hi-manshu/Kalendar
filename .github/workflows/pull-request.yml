@@ -1,10 +1,6 @@
 name: run detekt
 
-on:
-  push:
-    branches: [ main ] # Just in case main was not up to date while merging PR
-  pull_request:
-    types: [ opened, synchronize ]
+on: push
 
 jobs:
   run:
