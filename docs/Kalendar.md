@@ -25,25 +25,25 @@ fun Kalendar(
 
 #### Parameters
 
-- currentDay: The current selected day in the calendar. Pass null if no specific day is selected.
-- kalendarType: The type of calendar to display. It can be one of KalendarType.Oceanic or
+- `currentDay`: The current selected day in the calendar. Pass null if no specific day is selected.
+- `kalendarType`: The type of calendar to display. It can be one of KalendarType.Oceanic or
   KalendarType.Firey.
-- modifier: Optional modifier for styling or positioning the calendar component.
-- showLabel: Determines whether to show the labels for days and months in the calendar.
-- events: The collection of calendar events to be displayed in the calendar.
-- kalendarHeaderTextKonfig: Configuration for styling the header text in the calendar.
-- kalendarColors: Configuration for customizing the colors of the calendar components.
-- kalendarDayKonfig: Configuration for customizing the appearance of individual day cells in the
+- `modifier`: Optional modifier for styling or positioning the calendar component.
+- `showLabel`: Determines whether to show the labels for days and months in the calendar.
+- `events`: The collection of calendar events to be displayed in the calendar.
+- `kalendarHeaderTextKonfig`: Configuration for styling the header text in the calendar.
+- `kalendarColors`: Configuration for customizing the colors of the calendar components.
+- `kalendarDayKonfig`: Configuration for customizing the appearance of individual day cells in the
   calendar.
-- daySelectionMode: The mode for selecting days in the calendar. It can be DaySelectionMode.Single
+- `daySelectionMode`: The mode for selecting days in the calendar. It can be DaySelectionMode.Single
   or DaySelectionMode.Range.
-- dayContent: Optional composable function for customizing the content of individual day cells in
+- `dayContent`: Optional composable function for customizing the content of individual day cells in
   the calendar.
-- headerContent: Optional composable function for customizing the content of the header in the
+- `headerContent`: Optional composable function for customizing the content of the header in the
   calendar.
-- onDayClick: Callback function triggered when a day is clicked in the calendar.
-- onRangeSelected: Callback function triggered when a range of days is selected in the calendar.
-- onErrorRangeSelected: Callback function triggered when an invalid range of days is selected in the
+- `onDayClick`: Callback function triggered when a day is clicked in the calendar.
+- `onRangeSelected`: Callback function triggered when a range of days is selected in the calendar.
+- `onErrorRangeSelected`: Callback function triggered when an invalid range of days is selected in the
   calendar.
 
 ### Usage
@@ -56,7 +56,7 @@ Here's an example usage of the Kalendar function:
 
 ```kotlin
 Kalendar(
-    currentDay = LocalDate.now(),
+  currentDay = today,
     kalendarType = KalendarType.Firey,
     modifier = Modifier,
     showLabel = true,
