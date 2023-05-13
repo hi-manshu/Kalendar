@@ -52,7 +52,7 @@ fun KalendarDay(
     Column(
         modifier = modifier
             .border(
-                 border = getBorder(currentDay, kalendarDayKonfig.borderColor),
+                border = getBorder(currentDay, kalendarDayKonfig.borderColor, selected),
                 shape = CircleShape
             )
             .clip(shape = CircleShape)
@@ -91,13 +91,13 @@ fun KalendarDay(
     }
 }
 
-fun getBorder(currentDay: Boolean, color: Color) = if (currentDay) {
-    BorderStroke(1.dp, color)
-} else {
-    BorderStroke(
-        0.dp,
-        Color.Transparent
-    )
+fun getBorder(currentDay: Boolean, color: Color, selected: Boolean): BorderStroke {
+    val emptyBorder = BorderStroke(0.dp, Color.Transparent)
+    return if (currentDay && selected.not()) {
+        BorderStroke(1.dp, color)
+    } else {
+        emptyBorder
+    }
 }
 
 @MultiplePreviews
