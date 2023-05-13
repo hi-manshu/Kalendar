@@ -150,12 +150,12 @@ private fun onDayClicked(
             } else {
                 KalendarSelectedDayRange(start = date, end = date)
             }
-            selectedRange.value?.let { selectedRange ->
+            selectedRange.value?.let { rangeDates ->
                 val selectedEvents = events
-                    .filter { it.date in (selectedRange.start..selectedRange.end) }
+                    .filter { it.date in (rangeDates.start..rangeDates.end) }
                     .toList()
 
-                onRangeSelected(selectedRange, selectedEvents)
+                onRangeSelected(rangeDates, selectedEvents)
             }
         }
     }
