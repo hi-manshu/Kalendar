@@ -50,4 +50,3 @@ data class KalendarTextKonfig(
         )
     }
 }
-

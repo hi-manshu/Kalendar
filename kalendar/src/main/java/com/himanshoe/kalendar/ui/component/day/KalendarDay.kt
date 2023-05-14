@@ -51,7 +51,6 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.todayIn
 
-
 /**
  * A composable representing a single day in the Kalendar.
  *

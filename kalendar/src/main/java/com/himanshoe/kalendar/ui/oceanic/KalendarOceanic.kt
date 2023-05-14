@@ -59,7 +59,6 @@ import java.time.Month
 import java.time.format.TextStyle
 import java.util.Locale
 
-
 /**
  * Creates a composable function for the KalendarOceanic component.
  * @param modifier The modifier for styling or positioning the component.
@@ -93,8 +92,8 @@ internal fun KalendarOceanic(
         )
     },
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
-    dayContent: @Composable() ((LocalDate) -> Unit)? = null,
-    headerContent: @Composable() ((Month, Int) -> Unit)? = null,
+    dayContent: @Composable ((LocalDate) -> Unit)? = null,
+    headerContent: @Composable ((Month, Int) -> Unit)? = null,
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
     onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
     onErrorRangeSelected: (RangeSelectionError) -> Unit = {}

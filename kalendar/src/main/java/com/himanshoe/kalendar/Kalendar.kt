@@ -27,7 +27,6 @@ import com.himanshoe.kalendar.ui.oceanic.KalendarOceanic
 import kotlinx.datetime.LocalDate
 import java.time.Month
 
-
 /**
  * Composable function that represents a calendar component.
  *

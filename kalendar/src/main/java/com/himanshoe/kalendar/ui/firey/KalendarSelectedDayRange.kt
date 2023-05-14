@@ -39,4 +39,3 @@ data class KalendarSelectedDayRange(
      */
     fun isSingleDate() = start == end
 }
-

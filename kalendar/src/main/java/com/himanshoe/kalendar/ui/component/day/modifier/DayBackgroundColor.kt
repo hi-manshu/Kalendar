@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import com.himanshoe.kalendar.ui.firey.KalendarSelectedDayRange
 import kotlinx.datetime.LocalDate
 
-
 private const val FULL_ALPHA = 1f
 private const val TOWNED_DOWN_ALPHA = 0.4F
 
@@ -57,5 +56,3 @@ fun Modifier.dayBackgroundColor(
         background(backgroundColor)
     )
 }
-
-

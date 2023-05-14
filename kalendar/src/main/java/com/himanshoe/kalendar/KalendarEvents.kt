@@ -40,4 +40,3 @@ data class KalendarEvent(
 data class KalendarEvents(
     val events: List<KalendarEvent> = emptyList()
 )
-

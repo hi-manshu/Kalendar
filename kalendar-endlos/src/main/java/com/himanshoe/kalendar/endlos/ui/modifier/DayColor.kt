@@ -56,4 +56,3 @@ fun Modifier.dayBackgroundColor(
         background(backgroundColor)
     )
 }
-
