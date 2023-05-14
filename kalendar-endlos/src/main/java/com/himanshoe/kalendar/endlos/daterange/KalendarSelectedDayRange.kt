@@ -48,4 +48,3 @@ data class KalendarSelectedDayRange(
         return start == end
     }
 }
-

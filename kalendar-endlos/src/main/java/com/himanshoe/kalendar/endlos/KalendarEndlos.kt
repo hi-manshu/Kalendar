@@ -43,10 +43,10 @@ import com.himanshoe.kalendar.endlos.model.KalendarEvents
 import com.himanshoe.kalendar.endlos.paging.KalendarModelEntity
 import com.himanshoe.kalendar.endlos.paging.KalendarPagingController
 import com.himanshoe.kalendar.endlos.paging.rememberKalendarPagingController
-import com.himanshoe.kalendar.endlos.ui.month.KalendarMonth
 import com.himanshoe.kalendar.endlos.ui.color.KalendarColors
 import com.himanshoe.kalendar.endlos.ui.day.KalendarDayKonfig
 import com.himanshoe.kalendar.endlos.ui.header.KalendarTextKonfig
+import com.himanshoe.kalendar.endlos.ui.month.KalendarMonth
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 
