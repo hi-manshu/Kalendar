@@ -155,9 +155,12 @@ fun KalendarEarthy(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 content = {
-                    itemsIndexed(dates, key = { index, _ ->
-                        index
-                    }) { _, date: LocalDate ->
+                    itemsIndexed(
+                        dates,
+                        key = { index, _ ->
+                            index
+                        }
+                    ) { _, date: LocalDate ->
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             if (showLabel) {
                                 Text(
@@ -209,7 +212,6 @@ fun KalendarEarthy(
         }
     }
 }
-
 
 private fun generateDates(currentWeek: Int): List<LocalDate> {
     val currentDate = Clock.System.todayIn(TimeZone.currentSystemDefault())
