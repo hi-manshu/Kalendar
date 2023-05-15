@@ -25,7 +25,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -41,6 +40,7 @@ import com.himanshoe.kalendar.ui.component.header.KalendarHeader
 import com.himanshoe.kalendar.ui.component.header.KalendarTextKonfig
 import com.himanshoe.kalendar.ui.oceanic.util.isLeapYear
 import com.himanshoe.kalendar.util.MultiplePreviews
+import com.himanshoe.kalendar.util.onDayClicked
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
@@ -208,49 +208,6 @@ private fun calculateDay(day: Int, currentMonth: Month, currentYear: Int): Local
     val monthValue = currentMonth.value.toString().padStart(2, '0')
     val dayValue = day.toString().padStart(2, '0')
     return "$currentYear-$monthValue-$dayValue".toLocalDate()
-}
-
-/**
- * Internal function invoked when a day is clicked.
- *
- * @param date The clicked date.
- * @param events The events associated with the clicked date.
- * @param daySelectionMode The day selection mode.
- * @param selectedRange The state holding the selected day range.
- * @param onRangeSelected Callback invoked when a range of days is selected.
- * @param onDayClick Callback invoked when a day is clicked.
- */
-internal fun onDayClicked(
-    date: LocalDate,
-    events: List<KalendarEvent>,
-    daySelectionMode: DaySelectionMode,
-    selectedRange: MutableState<KalendarSelectedDayRange?>,
-    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> }
-) {
-    when (daySelectionMode) {
-        DaySelectionMode.Single -> {
-            onDayClick(date, events)
-        }
-
-        DaySelectionMode.Range -> {
-            val range = selectedRange.value
-            selectedRange.value = if (range?.isEmpty() != false) {
-                KalendarSelectedDayRange(start = date, end = date)
-            } else if (range.isSingleDate()) {
-                KalendarSelectedDayRange(start = range.start, end = date)
-            } else {
-                KalendarSelectedDayRange(start = date, end = date)
-            }
-            selectedRange.value?.let { rangeDates ->
-                val selectedEvents = events
-                    .filter { it.date in (rangeDates.start..rangeDates.end) }
-                    .toList()
-
-                onRangeSelected(rangeDates, selectedEvents)
-            }
-        }
-    }
 }
 
 @Composable

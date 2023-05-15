@@ -25,7 +25,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -47,6 +46,7 @@ import com.himanshoe.kalendar.endlos.ui.color.KalendarColors
 import com.himanshoe.kalendar.endlos.ui.day.KalendarDayKonfig
 import com.himanshoe.kalendar.endlos.ui.header.KalendarTextKonfig
 import com.himanshoe.kalendar.endlos.ui.month.KalendarMonth
+import com.himanshoe.kalendar.endlos.util.onDayClicked
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 
@@ -161,49 +161,6 @@ internal fun KalendarEndlos(
             }
         }
     )
-}
-
-/**
- * Internal function invoked when a day is clicked.
- *
- * @param date The clicked date.
- * @param events The events associated with the clicked date.
- * @param daySelectionMode The day selection mode.
- * @param selectedRange The state holding the selected day range.
- * @param onRangeSelected Callback invoked when a range of days is selected.
- * @param onDayClick Callback invoked when a day is clicked.
- */
-private fun onDayClicked(
-    date: LocalDate,
-    events: List<KalendarEvent>,
-    daySelectionMode: DaySelectionMode,
-    selectedRange: MutableState<KalendarSelectedDayRange?>,
-    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> }
-) {
-    when (daySelectionMode) {
-        DaySelectionMode.Single -> {
-            onDayClick(date, events)
-        }
-
-        DaySelectionMode.Range -> {
-            val range = selectedRange.value
-            selectedRange.value = if (range?.isEmpty() != false) {
-                KalendarSelectedDayRange(start = date, end = date)
-            } else if (range.isSingleDate()) {
-                KalendarSelectedDayRange(start = range.start, end = date)
-            } else {
-                KalendarSelectedDayRange(start = date, end = date)
-            }
-            selectedRange.value?.let { rangeDates ->
-                val selectedEvents = events
-                    .filter { it.date in (rangeDates.start..rangeDates.end) }
-                    .toList()
-
-                onRangeSelected(rangeDates, selectedEvents)
-            }
-        }
-    }
 }
 
 /**

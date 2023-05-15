@@ -44,10 +44,10 @@ import com.himanshoe.kalendar.ui.component.header.KalendarTextKonfig
 import com.himanshoe.kalendar.ui.firey.DaySelectionMode
 import com.himanshoe.kalendar.ui.firey.KalendarSelectedDayRange
 import com.himanshoe.kalendar.ui.firey.RangeSelectionError
-import com.himanshoe.kalendar.ui.firey.onDayClicked
 import com.himanshoe.kalendar.ui.oceanic.util.getNext7Dates
 import com.himanshoe.kalendar.ui.oceanic.util.getPrevious7Dates
 import com.himanshoe.kalendar.util.MultiplePreviews
+import com.himanshoe.kalendar.util.onDayClicked
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek

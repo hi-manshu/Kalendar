@@ -15,6 +15,7 @@
 package com.himanshoe.kalendar.endlos.paging
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -22,6 +23,7 @@ import androidx.paging.PagingConfig
 /**
  * Controller for managing the paging functionality of Kalendar items.
  */
+@Stable
 class KalendarPagingController {
 
     private val repository = KalendarRepository()
