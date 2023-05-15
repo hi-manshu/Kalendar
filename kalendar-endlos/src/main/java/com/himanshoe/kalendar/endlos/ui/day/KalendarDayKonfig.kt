@@ -15,7 +15,6 @@
 package com.himanshoe.kalendar.endlos.ui.day
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -40,7 +39,7 @@ data class KalendarDayKonfig(
     val borderColor: Color = Color.Black
 ) {
     companion object {
-
+        @SuppressWarnings("MagicNumber")
         internal fun default() = KalendarDayKonfig(
             size = 56.dp,
             textSize = 16.sp,

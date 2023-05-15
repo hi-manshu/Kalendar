@@ -15,7 +15,6 @@
 package com.himanshoe.kalendar.endlos.daterange
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
 import kotlinx.datetime.LocalDate
 
 /**

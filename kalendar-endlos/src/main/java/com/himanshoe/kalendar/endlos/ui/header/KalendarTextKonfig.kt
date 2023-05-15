@@ -15,7 +15,6 @@
 package com.himanshoe.kalendar.endlos.ui.header
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
@@ -46,6 +45,7 @@ data class KalendarTextKonfig(
          * Creates a preview default configuration for previewing purposes.
          * @return The preview default configuration.
          */
+        @SuppressWarnings("MagicNumber")
         internal fun previewDefault() = KalendarTextKonfig(
             kalendarTextSize = 24.sp,
             kalendarTextColor = Color(0xFFD2827A)
