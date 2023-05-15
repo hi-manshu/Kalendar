@@ -14,7 +14,7 @@
 
 package com.himanshoe.kalendar.endlos.daterange
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 import kotlinx.datetime.LocalDate
 
 /**
@@ -23,7 +23,7 @@ import kotlinx.datetime.LocalDate
  * @property start The start date of the selected range.
  * @property end The end date of the selected range.
  */
-@Stable
+@Immutable
 data class KalendarSelectedDayRange(
     val start: LocalDate,
     val end: LocalDate
@@ -48,4 +48,3 @@ data class KalendarSelectedDayRange(
         return start == end
     }
 }
-

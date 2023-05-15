@@ -79,8 +79,8 @@ internal fun KalendarMonth(
     selectedRange: KalendarSelectedDayRange?,
     modifier: Modifier = Modifier,
     selectedDate: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
-    dayContent: @Composable() ((LocalDate) -> Unit)? = null,
-    headerContent: @Composable() ((Month, Int) -> Unit)? = null,
+    dayContent: @Composable ((LocalDate) -> Unit)? = null,
+    headerContent: @Composable ((Month, Int) -> Unit)? = null,
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
 ) {
     val selectedDate = remember { mutableStateOf(selectedDate) }

@@ -14,7 +14,7 @@
 
 package com.himanshoe.kalendar.ui.component.header
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
  * @param kalendarTextColor The color of the header text.
  * @param kalendarTextSize The size of the header text.
  */
-@Stable
+@Immutable
 data class KalendarTextKonfig(
     val kalendarTextColor: Color,
     val kalendarTextSize: TextUnit
@@ -44,10 +44,10 @@ data class KalendarTextKonfig(
          * Creates a preview default configuration for previewing purposes.
          * @return The preview default configuration.
          */
+        @SuppressWarnings("MagicNumber")
         internal fun previewDefault() = KalendarTextKonfig(
             kalendarTextSize = 24.sp,
             kalendarTextColor = Color(0xFFD2827A)
         )
     }
 }
-

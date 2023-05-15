@@ -14,6 +14,7 @@
 
 package com.himanshoe.kalendar.endlos.model
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import kotlinx.datetime.LocalDate
 
@@ -24,7 +25,7 @@ import kotlinx.datetime.LocalDate
  * @param eventName The name or title of the event.
  * @param eventDescription The description or additional details of the event (optional).
  */
-@Stable
+@Immutable
 data class KalendarEvent(
     val date: LocalDate,
     val eventName: String,

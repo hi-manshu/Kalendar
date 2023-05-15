@@ -24,8 +24,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -43,10 +43,10 @@ import com.himanshoe.kalendar.endlos.model.KalendarEvents
 import com.himanshoe.kalendar.endlos.paging.KalendarModelEntity
 import com.himanshoe.kalendar.endlos.paging.KalendarPagingController
 import com.himanshoe.kalendar.endlos.paging.rememberKalendarPagingController
-import com.himanshoe.kalendar.endlos.ui.month.KalendarMonth
 import com.himanshoe.kalendar.endlos.ui.color.KalendarColors
 import com.himanshoe.kalendar.endlos.ui.day.KalendarDayKonfig
 import com.himanshoe.kalendar.endlos.ui.header.KalendarTextKonfig
+import com.himanshoe.kalendar.endlos.ui.month.KalendarMonth
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 
@@ -245,7 +245,7 @@ private fun KalendarStickerHeader(color: Color, textSize: TextUnit) {
  * @property dates The list of lists containing the dates for each day in a month. Each inner list represents a week
  * and contains nullable LocalDate values for each day of the week.
  */
-@Stable
+@Immutable
 internal data class KalendarDates(val dates: List<List<LocalDate?>>)
 
 /**

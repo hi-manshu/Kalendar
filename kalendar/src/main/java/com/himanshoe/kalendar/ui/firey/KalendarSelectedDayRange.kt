@@ -14,7 +14,7 @@
 
 package com.himanshoe.kalendar.ui.firey
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 import kotlinx.datetime.LocalDate
 
 /**
@@ -22,7 +22,7 @@ import kotlinx.datetime.LocalDate
  * @param start The start date of the range.
  * @param end The end date of the range.
  */
-@Stable
+@Immutable
 data class KalendarSelectedDayRange(
     val start: LocalDate,
     val end: LocalDate
@@ -39,4 +39,3 @@ data class KalendarSelectedDayRange(
      */
     fun isSingleDate() = start == end
 }
-

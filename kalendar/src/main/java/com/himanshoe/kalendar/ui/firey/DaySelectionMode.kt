@@ -38,4 +38,3 @@ sealed interface RangeSelectionError {
      */
     object EndIsBeforeStart : RangeSelectionError
 }
-
