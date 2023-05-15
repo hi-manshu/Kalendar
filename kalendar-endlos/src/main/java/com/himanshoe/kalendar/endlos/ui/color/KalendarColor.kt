@@ -14,6 +14,7 @@
 
 package com.himanshoe.kalendar.endlos.ui.color
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 
@@ -84,6 +85,7 @@ private val headerColors = listOf(
  * @property dayBackgroundColor The color for day backgrounds.
  * @property headerTextColor The color for header text.
  */
+@Immutable
 data class KalendarColor(
     val backgroundColor: Color,
     val dayBackgroundColor: Color,
@@ -104,6 +106,7 @@ private const val TOTAL_MONTH = 12
  *
  * @property color A list of [KalendarColor] instances.
  */
+@Immutable
 data class KalendarColors(
     val color: List<KalendarColor> = emptyList()
 ) {

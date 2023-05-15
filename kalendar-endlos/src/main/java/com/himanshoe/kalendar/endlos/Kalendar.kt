@@ -54,6 +54,7 @@ fun Kalendar(
     modifier: Modifier = Modifier,
     showLabel: Boolean = true,
     pagingController: KalendarPagingController = rememberKalendarPagingController(),
+    kalendarType: KalendarType = KalendarType.Horizontal,
     kalendarHeaderTextKonfig: KalendarTextKonfig? = null,
     kalendarColors: KalendarColors = KalendarColors.default(),
     events: KalendarEvents = KalendarEvents(),
@@ -68,22 +69,26 @@ fun Kalendar(
     onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
     onErrorRangeSelected: (RangeSelectionError) -> Unit = {}
 ) {
-    KalendarEndlos(
-        modifier = modifier,
-        showLabel = showLabel,
-        pagingController = pagingController,
-        kalendarHeaderTextKonfig = kalendarHeaderTextKonfig,
-        kalendarColors = kalendarColors,
-        onDayClick = onDayClicked,
-        events = events,
-        kalendarDayKonfig = kalendarDayKonfig,
-        contentPadding = contentPadding,
-        monthContentPadding = monthContentPadding,
-        dayContent = dayContent,
-        weekValueContent = weekValueContent,
-        daySelectionMode = daySelectionMode,
-        onRangeSelected = onRangeSelected,
-        onErrorRangeSelected = onErrorRangeSelected,
-        headerContent = headerContent
-    )
+    if (kalendarType == KalendarType.Vertical) {
+        KalendarEndlos(
+            modifier = modifier,
+            showLabel = showLabel,
+            pagingController = pagingController,
+            kalendarHeaderTextKonfig = kalendarHeaderTextKonfig,
+            kalendarColors = kalendarColors,
+            onDayClick = onDayClicked,
+            events = events,
+            kalendarDayKonfig = kalendarDayKonfig,
+            contentPadding = contentPadding,
+            monthContentPadding = monthContentPadding,
+            dayContent = dayContent,
+            weekValueContent = weekValueContent,
+            daySelectionMode = daySelectionMode,
+            onRangeSelected = onRangeSelected,
+            onErrorRangeSelected = onErrorRangeSelected,
+            headerContent = headerContent
+        )
+    } else {
+//        KalendarEarthy()
+    }
 }

@@ -15,7 +15,6 @@
 package com.himanshoe.kalendar.endlos.model
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
 import kotlinx.datetime.LocalDate
 
 /**
@@ -37,7 +36,7 @@ data class KalendarEvent(
  *
  * @param events The list of calendar events.
  */
-@Stable
+@Immutable
 data class KalendarEvents(
     val events: List<KalendarEvent> = emptyList()
 )
