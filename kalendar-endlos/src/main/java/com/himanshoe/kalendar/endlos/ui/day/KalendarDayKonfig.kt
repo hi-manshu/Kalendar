@@ -14,6 +14,7 @@
 
 package com.himanshoe.kalendar.endlos.ui.day
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
@@ -30,7 +31,7 @@ import androidx.compose.ui.unit.sp
  * @param selectedTextColor The text color of the selected day.
  * @param borderColor The border color of the day.
  */
-@Stable
+@Immutable
 data class KalendarDayKonfig(
     val size: Dp,
     val textSize: TextUnit,

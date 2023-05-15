@@ -14,6 +14,7 @@
 
 package com.himanshoe.kalendar.endlos.paging
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
@@ -30,7 +31,7 @@ import java.time.YearMonth
  * @param month The month of the entity.
  * @param year The year of the entity.
  */
-@Stable
+@Immutable
 data class KalendarModelEntity(
     val name: String,
     val dates: List<LocalDate?>,

@@ -24,6 +24,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
@@ -245,7 +246,7 @@ private fun KalendarStickerHeader(color: Color, textSize: TextUnit) {
  * @property dates The list of lists containing the dates for each day in a month. Each inner list represents a week
  * and contains nullable LocalDate values for each day of the week.
  */
-@Stable
+@Immutable
 internal data class KalendarDates(val dates: List<List<LocalDate?>>)
 
 /**
