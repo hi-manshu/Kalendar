@@ -5,6 +5,7 @@
 ![Github: Open Issues](https://img.shields.io/github/issues-raw/hi-manshu/kalendar?color=7E8EFB&label=Kalendar%3A%20Open%20Issues)
 [![Kalendar](https://img.shields.io/badge/Kotlin%20Weekly-%23286-orange)](https://mailchi.mp/kotlinweekly/kotlin-weekly-286)
 [![Kalendar](https://img.shields.io/badge/Android%20Weekly-%23533-Pink)](https://androidweekly.net/issues/issue-533)
+[![Kalendar](https://img.shields.io/badge/Canopas%20Engineering-%2372-blue)](https://blog.canopas.com/android-stack-weekly-issue-72-20658bea40a2)
 [![Github Followers](https://img.shields.io/github/followers/hi-manshu?label=Follow&style=social)](https://github.com/hi-manshu)
 [![Twitter Follow](https://img.shields.io/twitter/follow/hi_man_shoe?label=Follow&style=social)](https://twitter.com/hi_man_shoe)  
 
