@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir gh-pages
           mv README.md gh-pages/
-          mv docs/*.md gh-pages/
+          mv docs/*.md gh-pages/docs
 
       - name: Publish Documentation
         uses: JamesIves/github-pages-deploy-action@v4.3.3
