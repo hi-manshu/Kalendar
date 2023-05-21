@@ -25,6 +25,7 @@ jobs:
       - name: Gather API Documentation
         run: |
           mkdir gh-pages
+          mkdir gh-pages/docs
           mv README.md gh-pages/
           mv docs/*.md gh-pages/docs
 
