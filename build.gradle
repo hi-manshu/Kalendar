@@ -13,5 +13,5 @@ plugins {
 apply plugin: 'org.jetbrains.dokka'
 
 tasks.dokkaHtmlMultiModule.configure {
-    outputDirectory.set(project.mkdir("build/docs"))
+    outputDirectory.set(project.mkdir("docs"))
 }
