@@ -134,10 +134,10 @@ private fun getBorder(currentDay: Boolean, color: Color, selected: Boolean): Bor
         emptyBorder
     }
 }
+
 /**
  * Since KalendarEvent is an interface, you should implement your own KalendarEvent class and use this new one
  */
-
 /* @MultiplePreviews
 @Composable
 private fun KalendarDayPreview() {
