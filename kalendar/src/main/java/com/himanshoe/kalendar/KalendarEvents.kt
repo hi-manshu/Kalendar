@@ -20,16 +20,16 @@ import kotlinx.datetime.LocalDate
 /**
  * Represents a calendar event.
  *
- * @param date The date of the event.
+ * @param The date of the event.
  * @param eventName The name or title of the event.
  * @param eventDescription The description or additional details of the event (optional).
  */
 @Immutable
-data class KalendarEvent(
-    val date: LocalDate,
-    val eventName: String,
-    val eventDescription: String? = null
-)
+interface KalendarEvent {
+    val date: LocalDate
+    val eventName: String
+    val eventDescription: String?
+}
 
 /**
  * Represents a collection of calendar events.
