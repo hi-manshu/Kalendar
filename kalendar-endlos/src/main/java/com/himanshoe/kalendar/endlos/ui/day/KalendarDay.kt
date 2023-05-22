@@ -20,9 +20,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
@@ -42,13 +40,9 @@ import com.himanshoe.kalendar.endlos.ui.KalendarIndicator
 import com.himanshoe.kalendar.endlos.ui.color.KalendarColor
 import com.himanshoe.kalendar.endlos.ui.modifier.circleLayout
 import com.himanshoe.kalendar.endlos.ui.modifier.dayBackgroundColor
-import com.himanshoe.kalendar.endlos.util.MultiplePreviews
 import kotlinx.datetime.Clock
-import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.minus
-import kotlinx.datetime.plus
 import kotlinx.datetime.todayIn
 
 /**
@@ -137,7 +131,10 @@ private fun getBorder(currentDay: Boolean, color: Color, selected: Boolean): Bor
     }
 }
 
-@Composable
+/**
+ * Since KalendarEvent is an interface, you should implement your own KalendarEvent class and use this new one
+ */
+/* @Composable
 @MultiplePreviews
 private fun KalendarDayPreview() {
     val date = Clock.System.todayIn(TimeZone.currentSystemDefault())
@@ -176,4 +173,4 @@ private fun KalendarDayPreview() {
             selectedRange = null
         )
     }
-}
+} */
