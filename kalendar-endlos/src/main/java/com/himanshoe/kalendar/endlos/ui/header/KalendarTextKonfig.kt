@@ -36,7 +36,7 @@ data class KalendarTextKonfig(
          * @param color The color of the header text.
          * @return The default configuration.
          */
-        internal fun default(color: Color) = KalendarTextKonfig(
+        fun default(color: Color) = KalendarTextKonfig(
             kalendarTextColor = color,
             kalendarTextSize = 24.sp
         )

@@ -113,7 +113,7 @@ data class KalendarColors(
          *
          * @return The default [KalendarColors] instance.
          */
-        internal fun default(): KalendarColors {
+        fun default(): KalendarColors {
             val colors = List(TOTAL_MONTH) { index ->
                 KalendarColor(
                     kalendarBackgroundColor[index],
