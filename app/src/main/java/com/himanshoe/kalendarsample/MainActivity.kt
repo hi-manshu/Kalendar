@@ -19,18 +19,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.himanshoe.kalendar.color.KalendarColor
 import com.himanshoe.kalendar.color.KalendarColors
-import com.himanshoe.kalendar.endlos.Kalendar
-import com.himanshoe.kalendar.endlos.KalendarEarthy
-import com.himanshoe.kalendar.endlos.KalendarType
 import com.himanshoe.kalendarsample.ui.theme.KalendarTheme
-import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toKotlinLocalDate
 
 class MainActivity : ComponentActivity() {
