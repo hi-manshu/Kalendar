@@ -14,67 +14,44 @@
 
 package com.himanshoe.kalendarsample
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import com.himanshoe.kalendar.color.KalendarColor
+import com.himanshoe.kalendar.color.KalendarColors
+import com.himanshoe.kalendar.endlos.Kalendar
 import com.himanshoe.kalendar.endlos.KalendarEarthy
+import com.himanshoe.kalendar.endlos.KalendarType
 import com.himanshoe.kalendarsample.ui.theme.KalendarTheme
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.toKotlinLocalDate
 
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalFoundationApi::class)
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             KalendarTheme {
-                Column {
-//                    val events = (0..5).map {
-//                        KalendarEvent(
-//                            date = Clock.System.todayIn(
-//                                TimeZone.currentSystemDefault()
-//                            ).plus(it, DateTimeUnit.DAY),
-//                            eventName = it.toString(),
-//                        )
-//                    }
-//                    val events1 = (0..5).map {
-//                        com.himanshoe.kalendar.KalendarEvent(
-//                            date = Clock.System.todayIn(
-//                                TimeZone.currentSystemDefault()
-//                            ).plus(it, DateTimeUnit.DAY),
-//                            eventName = it.toString(),
-//                        )
-//                    }
-//                    com.himanshoe.kalendar.Kalendar(
-//                        currentDay = Clock.System.todayIn(
-//                            TimeZone.currentSystemDefault()
-//                        ),
-//                        kalendarType = KalendarType.Oceanic,
-//                        events = com.himanshoe.kalendar.KalendarEvents(events1 + events1 + events1)
-//
-//                    )
-//                    Spacer(modifier = Modifier.padding(vertical = 8.dp))
-//                    com.himanshoe.kalendar.Kalendar(
-//                        currentDay = Clock.System.todayIn(
-//                            TimeZone.currentSystemDefault()
-//                        ),
-//                        kalendarType = KalendarType.Firey,
-//                        daySelectionMode = DaySelectionMode.Range,
-//                        events = com.himanshoe.kalendar.KalendarEvents(events1 + events1 + events1),
-//                        onRangeSelected = { range, rangeEvents ->
-//                            Log.d(":SDfsdfsdfdsfsdfsdf",range.toString())
-//                            Log.d(":SDfsdfsdfdsfsdfsdf",rangeEvents.toString())
-//                        }
-//                    )
-//                    Spacer(modifier = Modifier.padding(vertical = 8.dp))
-                    KalendarEarthy(modifier = Modifier.fillMaxWidth())
-//                    Kalendar(
-//                        modifier = Modifier.fillMaxSize(),
-//                        events = KalendarEvents(events + events)
-//                    )
-                }
+                com.himanshoe.kalendar.Kalendar(
+                    currentDay = java.time.LocalDate.now().toKotlinLocalDate(),
+                    kalendarType = com.himanshoe.kalendar.KalendarType.Firey,
+                    kalendarColors = KalendarColors(
+                        color = listOf(
+                            KalendarColor(
+                                backgroundColor = Color.Black,
+                                dayBackgroundColor = Color.Blue,
+                                headerTextColor = Color.Red
+                            )
+                        )
+                    )
+                )
             }
         }
     }

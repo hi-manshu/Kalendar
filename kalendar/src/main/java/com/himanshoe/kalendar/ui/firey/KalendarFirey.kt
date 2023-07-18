@@ -28,9 +28,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.himanshoe.kalendar.KalendarEvent
 import com.himanshoe.kalendar.KalendarEvents
 import com.himanshoe.kalendar.color.KalendarColors
@@ -91,11 +94,11 @@ internal fun KalendarFirey(
     val displayedYear = remember { mutableStateOf(today.year) }
     val currentMonth = displayedMonth.value
     val currentYear = displayedYear.value
-    val currentMonthIndex = currentMonth.value.minus(1)
 
     val defaultHeaderColor = KalendarTextKonfig.default(
-        color = kalendarColors.color[currentMonthIndex].headerTextColor,
+        color = kalendarColors.color[0].headerTextColor
     )
+
     val newHeaderTextKonfig = kalendarHeaderTextKonfig ?: defaultHeaderColor
 
     val daysInMonth = currentMonth.length(currentYear.isLeapYear())
@@ -106,7 +109,7 @@ internal fun KalendarFirey(
     Column(
         modifier = modifier
             .background(
-                color = kalendarColors.color[currentMonthIndex].backgroundColor
+                color = kalendarColors.color[0].backgroundColor
             )
             .wrapContentHeight()
             .fillMaxWidth()
@@ -156,7 +159,7 @@ internal fun KalendarFirey(
                             KalendarDay(
                                 date = day,
                                 selectedDate = selectedDate.value,
-                                kalendarColors = kalendarColors.color[currentMonthIndex],
+                                kalendarColors = kalendarColors.color[0],
                                 kalendarEvents = events,
                                 kalendarDayKonfig = kalendarDayKonfig,
                                 selectedRange = selectedRange.value,
