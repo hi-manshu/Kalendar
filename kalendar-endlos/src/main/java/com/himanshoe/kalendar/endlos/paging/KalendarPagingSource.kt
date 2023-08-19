@@ -45,10 +45,14 @@ class KalendarPagingSource(
             val page = params.key ?: today.year
 
             // Filter out the months before the current month and year
-            val kalendarItems = kalendarRepository.generateDates(page)
-                .filter { date ->
-                    date.year >= today.year && date.month.value >= today.monthNumber
+            val kalendarItems = kalendarRepository.generateDates(page).filter { date ->
+                if (date.year == today.year) {
+                    date.month.value >= today.monthNumber
+                } else {
+                    date.year > today.year
                 }
+    }
+
 
             val nextPage = page.plus(1)
 
