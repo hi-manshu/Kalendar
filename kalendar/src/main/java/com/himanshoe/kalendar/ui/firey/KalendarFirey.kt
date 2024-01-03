@@ -38,6 +38,7 @@ import com.himanshoe.kalendar.ui.component.day.KalendarDay
 import com.himanshoe.kalendar.ui.component.day.KalendarDayKonfig
 import com.himanshoe.kalendar.ui.component.header.KalendarHeader
 import com.himanshoe.kalendar.ui.component.header.KalendarTextKonfig
+import com.himanshoe.kalendar.ui.oceanic.util.getNext7Dates
 import com.himanshoe.kalendar.ui.oceanic.util.isLeapYear
 import com.himanshoe.kalendar.util.MultiplePreviews
 import com.himanshoe.kalendar.util.onDayClicked
@@ -48,8 +49,9 @@ import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDate
 import kotlinx.datetime.todayIn
+import java.time.format.TextStyle
+import java.util.Locale
 
-private val WeekDays = listOf("M", "T", "W", "T", "F", "S", "S")
 
 /**
  * Internal composable function representing the Kalendar component.
@@ -77,6 +79,12 @@ internal fun KalendarFirey(
     kalendarHeaderTextKonfig: KalendarTextKonfig? = null,
     kalendarColors: KalendarColors = KalendarColors.default(),
     events: KalendarEvents = KalendarEvents(),
+    labelFormat: (DayOfWeek) -> String = {
+        it.getDisplayName(
+            TextStyle.SHORT,
+            Locale.getDefault()
+        )
+    },
     kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
     dayContent: (@Composable (LocalDate) -> Unit)? = null,
     headerContent: (@Composable (Month, Int) -> Unit)? = null,
@@ -85,6 +93,7 @@ internal fun KalendarFirey(
     onErrorRangeSelected: (RangeSelectionError) -> Unit = {}
 ) {
     val today = currentDay ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
+    val weekValue = remember { mutableStateOf(today.getNext7Dates()) }
     val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
     val selectedDate = remember { mutableStateOf(today) }
     val displayedMonth = remember { mutableStateOf(today.month) }
@@ -135,12 +144,12 @@ internal fun KalendarFirey(
             columns = GridCells.Fixed(7),
             content = {
                 if (showLabel) {
-                    items(WeekDays) { item ->
+                    items(weekValue.value) { item ->
                         Text(
                             modifier = Modifier,
                             color = kalendarDayKonfig.textColor,
                             fontSize = kalendarDayKonfig.textSize,
-                            text = item,
+                            text = labelFormat(item.dayOfWeek),
                             fontWeight = FontWeight.SemiBold,
                             textAlign = TextAlign.Center
                         )
