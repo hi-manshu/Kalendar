@@ -93,7 +93,7 @@ internal fun KalendarFirey(
     onErrorRangeSelected: (RangeSelectionError) -> Unit = {}
 ) {
     val today = currentDay ?: Clock.System.todayIn(TimeZone.currentSystemDefault())
-    val weekValue = remember { mutableStateOf(today.getNext7Dates()) }
+   // val weekValue = remember { mutableStateOf(today.getNext7Dates()) }
     val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
     val selectedDate = remember { mutableStateOf(today) }
     val displayedMonth = remember { mutableStateOf(today.month) }
@@ -144,7 +144,7 @@ internal fun KalendarFirey(
             columns = GridCells.Fixed(7),
             content = {
                 if (showLabel) {
-                    items(weekValue.value) { item ->
+                    items(DayOfWeek.values()) { item ->
                         Text(
                             modifier = Modifier,
                             color = kalendarDayKonfig.textColor,
