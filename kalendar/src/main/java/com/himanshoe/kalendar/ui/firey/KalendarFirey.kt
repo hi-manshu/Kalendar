@@ -149,7 +149,7 @@ internal fun KalendarFirey(
                             modifier = Modifier,
                             color = kalendarDayKonfig.textColor,
                             fontSize = kalendarDayKonfig.textSize,
-                            text = labelFormat(item.dayOfWeek),
+                            text = labelFormat(item),
                             fontWeight = FontWeight.SemiBold,
                             textAlign = TextAlign.Center
                         )
