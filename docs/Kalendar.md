@@ -134,5 +134,5 @@ Please note that this is just an example, and you can customize the `Kalendar` c
 
 Make sure to import the necessary dependencies and use the latest version of the Kalendar library in your project.
 
-For getting started, refer to the [Kalendar documentation](https://github.com/himanshoe/Kalendar).
+For getting started, refer to the [Kalendar documentation](https://github.com/hi-manshu/Kalendar).
 
