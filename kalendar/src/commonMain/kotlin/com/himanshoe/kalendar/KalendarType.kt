@@ -21,10 +21,10 @@ sealed interface KalendarType {
     /**
      * Firey calendar type.
      */
-    object Firey : KalendarType
+    data object Firey : KalendarType
 
     /**
      * Oceanic calendar type.
      */
-    object Oceanic : KalendarType
+    data object Oceanic : KalendarType
 }

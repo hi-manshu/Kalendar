@@ -19,7 +19,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -46,6 +46,11 @@ kotlin {
     }
 }
 
+compose.resources {
+    publicResClass = false
+    packageOfResClass = "com.himanshoe.kalendar.resources"
+    generateResClass = auto
+}
 android {
     namespace = "com.himanshoe.kalendar"
     compileSdk = 35

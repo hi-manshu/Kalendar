@@ -63,6 +63,7 @@ kotlin {
             implementation(project(":kalendar"))
             implementation(compose.material)
             implementation(compose.ui)
+            implementation(libs.kotlinx.datetime)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
         }

@@ -9,7 +9,7 @@ data class KalendarEvent(
 )
 
 data class KalendarEvents(
-    val eventList: List<KalendarEvent>
+    val eventList: List<KalendarEvent> = emptyList()
 )
 
 
