@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
+import com.himanshoe.kalendar.core.util.OnDaySelectionAction
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
@@ -24,7 +25,6 @@ import com.himanshoe.kalendar.core.component.KalendarDay
 import com.himanshoe.kalendar.core.component.KalendarHeader
 import com.himanshoe.kalendar.core.config.KalendarDayKonfig
 import com.himanshoe.kalendar.core.util.KalendarSelectedDayRange
-import com.himanshoe.kalendar.event.KalendarEvent
 import com.himanshoe.kalendar.event.KalendarEvents
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
@@ -42,8 +42,7 @@ fun KalendarOceanic(
     events: KalendarEvents,
     modifier: Modifier = Modifier,
     startDayOfWeek: DayOfWeek = DayOfWeek.SUNDAY,
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
-    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
+    onDaySelectionAction: OnDaySelectionAction = OnDaySelectionAction.Single { _, _ -> },
 ) {
     KalendarOceanicContent(
         selectedDate = selectedDate,
@@ -52,8 +51,7 @@ fun KalendarOceanic(
         arrowShown = arrowShown,
         colorScheme = colorScheme,
         showDayLabel = showDayLabel,
-        onRangeSelected = onRangeSelected,
-        onDayClick = onDayClick,
+        onDaySelectionAction = onDaySelectionAction,
         dayKonfig = dayKonfig,
         events = events
     )
@@ -66,8 +64,7 @@ private fun KalendarOceanicContent(
     arrowShown: Boolean,
     colorScheme: KalendarColorScheme,
     showDayLabel: Boolean,
-    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit,
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit,
+    onDaySelectionAction: OnDaySelectionAction,
     dayKonfig: KalendarDayKonfig,
     events: KalendarEvents,
     modifier: Modifier = Modifier,
@@ -130,25 +127,41 @@ private fun KalendarOceanicContent(
                         date = date,
                         selectedRange = selectedRange.value,
                         onDayClick = { clickedDate, events ->
-                            if (rangeStartDate == null || rangeEndDate != null) {
-                                rangeStartDate = clickedDate
-                                rangeEndDate = null
-                            } else {
-                                rangeEndDate = clickedDate
-                                if (rangeStartDate != null && rangeEndDate != null) {
-                                    if (rangeStartDate!! > rangeEndDate!!) {
-                                        // Swap the dates if start date is after end date
-                                        val temp = rangeStartDate
-                                        rangeStartDate = rangeEndDate
-                                        rangeEndDate = temp
+                            when (onDaySelectionAction) {
+                                is OnDaySelectionAction.Single -> {
+                                    clickedNewDate = clickedDate
+                                    onDaySelectionAction.onDayClick(clickedDate, events)
+                                }
+
+                                is OnDaySelectionAction.Range -> {
+                                    if (rangeStartDate == null || rangeEndDate != null) {
+                                        rangeStartDate = clickedDate
+                                        rangeEndDate = null
+                                    } else {
+                                        rangeEndDate = clickedDate
+                                        if (rangeStartDate != null && rangeEndDate != null) {
+                                            if (rangeStartDate!! > rangeEndDate!!) {
+                                                // Swap the dates if start date is after end date
+                                                val temp = rangeStartDate
+                                                rangeStartDate = rangeEndDate
+                                                rangeEndDate = temp
+                                            }
+                                            selectedRange.value =
+                                                KalendarSelectedDayRange(
+                                                    rangeStartDate!!,
+                                                    rangeEndDate!!
+                                                )
+                                            selectedRange.value?.let {
+                                                onDaySelectionAction.onRangeSelected(
+                                                    it,
+                                                    events
+                                                )
+                                            }
+                                        }
                                     }
-                                    selectedRange.value =
-                                        KalendarSelectedDayRange(rangeStartDate!!, rangeEndDate!!)
-                                    selectedRange.value?.let { onRangeSelected(it, events) }
+                                    clickedNewDate = clickedDate
                                 }
                             }
-                            clickedNewDate = clickedDate
-                            onDayClick(clickedDate, events)
                         },
                         dayKonfig = newDayKonfig,
                         colorScheme = colorScheme,

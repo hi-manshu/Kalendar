@@ -21,9 +21,8 @@ import com.himanshoe.kalendar.core.color.KalendarColorScheme
 import com.himanshoe.kalendar.core.component.KalendarDay
 import com.himanshoe.kalendar.core.component.KalendarHeader
 import com.himanshoe.kalendar.core.config.KalendarDayKonfig
-import com.himanshoe.kalendar.core.util.DaySelectionMode
 import com.himanshoe.kalendar.core.util.KalendarSelectedDayRange
-import com.himanshoe.kalendar.event.KalendarEvent
+import com.himanshoe.kalendar.core.util.OnDaySelectionAction
 import com.himanshoe.kalendar.event.KalendarEvents
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
@@ -42,35 +41,20 @@ fun KalendarFirey(
     events: KalendarEvents = KalendarEvents(),
     showDayLabel: Boolean = true,
     arrowShown: Boolean = true,
-    daySelectionMode: DaySelectionMode = DaySelectionMode.Single,
+    onDaySelectionAction: OnDaySelectionAction = OnDaySelectionAction.Single { _, _ -> },
     dayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
     colorScheme: KalendarColorScheme = KalendarColorScheme.default(),
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
-    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
 ) {
-    if (daySelectionMode == DaySelectionMode.Range) {
-        KalendarFireyContent(
-            selectedDate = selectedDate,
-            modifier = modifier,
-            arrowShown = arrowShown,
-            colorScheme = colorScheme,
-            showDayLabel = showDayLabel,
-            onRangeSelected = onRangeSelected,
-            dayKonfig = dayKonfig,
-            events = events,
-        )
-    } else {
-        KalendarFireyContent(
-            selectedDate = selectedDate,
-            modifier = modifier,
-            arrowShown = arrowShown,
-            colorScheme = colorScheme,
-            showDayLabel = showDayLabel,
-            onDayClick = onDayClick,
-            dayKonfig = dayKonfig,
-            events = events,
-        )
-    }
+    KalendarFireyContent(
+        selectedDate = selectedDate,
+        modifier = modifier,
+        arrowShown = arrowShown,
+        colorScheme = colorScheme,
+        showDayLabel = showDayLabel,
+        onDaySelectionAction = onDaySelectionAction,
+        dayKonfig = dayKonfig,
+        events = events
+    )
 }
 
 @Composable
@@ -79,11 +63,10 @@ private fun KalendarFireyContent(
     arrowShown: Boolean,
     colorScheme: KalendarColorScheme,
     showDayLabel: Boolean,
+    onDaySelectionAction: OnDaySelectionAction,
     dayKonfig: KalendarDayKonfig,
     events: KalendarEvents,
     modifier: Modifier = Modifier,
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
-    onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit = { _, _ -> },
 ) {
     var currentDay by remember { mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())) }
 
@@ -127,30 +110,37 @@ private fun KalendarFireyContent(
                         )
                     }
                 }
-                items(displayDates) { date ->
+                items(items = displayDates) { date ->
                     KalendarDay(
                         date = date,
                         selectedRange = selectedRange.value,
                         onDayClick = { clickedDate, events ->
-                            if (rangeStartDate == null || rangeEndDate != null) {
-                                rangeStartDate = clickedDate
-                                rangeEndDate = null
-                            } else {
-                                rangeEndDate = clickedDate
-                                if (rangeStartDate != null && rangeEndDate != null) {
-                                    if (rangeStartDate!! > rangeEndDate!!) {
-                                        // Swap the dates if start date is after end date
-                                        val temp = rangeStartDate
-                                        rangeStartDate = rangeEndDate
-                                        rangeEndDate = temp
+                            when (onDaySelectionAction) {
+                                is OnDaySelectionAction.Single -> {
+                                    clickedNewDate = clickedDate
+                                    onDaySelectionAction.onDayClick(clickedDate, events)
+                                }
+                                is OnDaySelectionAction.Range -> {
+                                    if (rangeStartDate == null || rangeEndDate != null) {
+                                        rangeStartDate = clickedDate
+                                        rangeEndDate = null
+                                    } else {
+                                        rangeEndDate = clickedDate
+                                        if (rangeStartDate != null && rangeEndDate != null) {
+                                            if (rangeStartDate!! > rangeEndDate!!) {
+                                                // Swap the dates if start date is after end date
+                                                val temp = rangeStartDate
+                                                rangeStartDate = rangeEndDate
+                                                rangeEndDate = temp
+                                            }
+                                            selectedRange.value =
+                                                KalendarSelectedDayRange(rangeStartDate!!, rangeEndDate!!)
+                                            selectedRange.value?.let { onDaySelectionAction.onRangeSelected(it, events) }
+                                        }
                                     }
-                                    selectedRange.value =
-                                        KalendarSelectedDayRange(rangeStartDate!!, rangeEndDate!!)
-                                    selectedRange.value?.let { onRangeSelected(it, events) }
+                                    clickedNewDate = clickedDate
                                 }
                             }
-                            clickedNewDate = clickedDate
-                            onDayClick(clickedDate, events)
                         },
                         dayKonfig = dayKonfig,
                         colorScheme = colorScheme,
