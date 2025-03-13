@@ -45,10 +45,34 @@ fun KalendarHeader(
     month: Month,
     year: Int,
     modifier: Modifier = Modifier,
+    canNavigateBack: Boolean = true,
     colorScheme: KalendarColorScheme = KalendarColorScheme.default(),
     arrowShown: Boolean = true,
     onPreviousClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
+) {
+    KalendarHeaderContent(
+        modifier = modifier,
+        colorScheme = colorScheme,
+        month = month,
+        year = year,
+        canNavigateBack = canNavigateBack,
+        arrowShown = arrowShown,
+        onPreviousClick = onPreviousClick,
+        onNextClick = onNextClick
+    )
+}
+
+@Composable
+private fun KalendarHeaderContent(
+    colorScheme: KalendarColorScheme,
+    month: Month,
+    year: Int,
+    arrowShown: Boolean,
+    onPreviousClick: () -> Unit,
+    onNextClick: () -> Unit,
+    canNavigateBack: Boolean,
+    modifier: Modifier = Modifier,
 ) {
     var isNext by rememberSaveable { mutableStateOf(true) }
 
@@ -94,19 +118,21 @@ fun KalendarHeader(
                     modifier = Modifier.wrapContentSize(),
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = "Previous Month",
+                    enabled = canNavigateBack,
                     onClick = {
                         isNext = false
                         onPreviousClick()
                     }
                 )
                 KalendarIconButton(
-                    modifier = Modifier.wrapContentSize(),
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                    modifier = Modifier.wrapContentSize(),
                     contentDescription = "Next Month",
                     onClick = {
                         isNext = true
                         onNextClick()
-                    }
+                    },
+                    enabled = true
                 )
             }
         }
@@ -118,7 +144,8 @@ private fun addAnimation(duration: Int = 200, isNext: Boolean): ContentTransform
         animationSpec = tween(durationMillis = duration)
     ) { height -> if (isNext) height else -height } + fadeIn(
         animationSpec = tween(durationMillis = duration)
-    )).togetherWith(slideOutVertically(
+    )).togetherWith(
+        slideOutVertically(
         animationSpec = tween(durationMillis = duration)
     ) { height -> if (isNext) -height else height } + fadeOut(
         animationSpec = tween(durationMillis = duration)

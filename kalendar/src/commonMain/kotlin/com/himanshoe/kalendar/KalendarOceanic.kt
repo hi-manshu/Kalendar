@@ -2,10 +2,10 @@ package com.himanshoe.kalendar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
-import com.himanshoe.kalendar.core.util.OnDaySelectionAction
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
@@ -17,14 +17,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import com.himanshoe.kalendar.core.color.KalendarColorScheme
-import com.himanshoe.kalendar.core.color.asSolidChartColor
 import com.himanshoe.kalendar.core.component.KalendarDay
 import com.himanshoe.kalendar.core.component.KalendarHeader
 import com.himanshoe.kalendar.core.config.KalendarDayKonfig
+import com.himanshoe.kalendar.core.config.KalendarKonfig
 import com.himanshoe.kalendar.core.util.KalendarSelectedDayRange
+import com.himanshoe.kalendar.core.util.OnDaySelectionAction
 import com.himanshoe.kalendar.event.KalendarEvents
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
@@ -38,7 +38,7 @@ fun KalendarOceanic(
     arrowShown: Boolean,
     colorScheme: KalendarColorScheme,
     showDayLabel: Boolean,
-    dayKonfig: KalendarDayKonfig,
+    kalendarKonfig: KalendarKonfig,
     events: KalendarEvents,
     modifier: Modifier = Modifier,
     startDayOfWeek: DayOfWeek = DayOfWeek.SUNDAY,
@@ -52,7 +52,7 @@ fun KalendarOceanic(
         colorScheme = colorScheme,
         showDayLabel = showDayLabel,
         onDaySelectionAction = onDaySelectionAction,
-        dayKonfig = dayKonfig,
+        dayKonfig = kalendarKonfig.kalendarDayKonfig,
         events = events
     )
 }
@@ -81,7 +81,7 @@ private fun KalendarOceanicContent(
     var rangeStartDate by remember { mutableStateOf<LocalDate?>(null) }
     var rangeEndDate by remember { mutableStateOf<LocalDate?>(null) }
     var clickedNewDate by remember { mutableStateOf(selectedDate) }
-    val daysOfWeek = DayOfWeek.values().rotate(startDayOfWeek.ordinal)
+    val daysOfWeek = DayOfWeek.entries.toTypedArray().rotate(startDayOfWeek.ordinal)
     val displayDates by remember(currentMonth, startDayOfWeek) {
         mutableStateOf(generateMonthDates(currentMonth, startDayOfWeek))
     }
@@ -117,57 +117,55 @@ private fun KalendarOceanicContent(
                     }
                 }
                 items(displayDates) { date ->
-                    val isPreviousMonth = date.month != currentMonth.month
-                    val newDayKonfig = if (isPreviousMonth) {
-                        dayKonfig.copy(textColor = Color.LightGray.asSolidChartColor())
-                    } else {
-                        dayKonfig
-                    }
-                    KalendarDay(
-                        date = date,
-                        selectedRange = selectedRange.value,
-                        onDayClick = { clickedDate, events ->
-                            when (onDaySelectionAction) {
-                                is OnDaySelectionAction.Single -> {
-                                    clickedNewDate = clickedDate
-                                    onDaySelectionAction.onDayClick(clickedDate, events)
-                                }
+                    if (date.month == currentMonth.month) {
+                        KalendarDay(
+                            modifier = Modifier,
+                            date = date,
+                            selectedRange = selectedRange.value,
+                            onDayClick = { clickedDate, events ->
+                                when (onDaySelectionAction) {
+                                    is OnDaySelectionAction.Single -> {
+                                        clickedNewDate = clickedDate
+                                        onDaySelectionAction.onDayClick(clickedDate, events)
+                                    }
 
-                                is OnDaySelectionAction.Range -> {
-                                    if (rangeStartDate == null || rangeEndDate != null) {
-                                        rangeStartDate = clickedDate
-                                        rangeEndDate = null
-                                    } else {
-                                        rangeEndDate = clickedDate
-                                        if (rangeStartDate != null && rangeEndDate != null) {
-                                            if (rangeStartDate!! > rangeEndDate!!) {
-                                                // Swap the dates if start date is after end date
-                                                val temp = rangeStartDate
-                                                rangeStartDate = rangeEndDate
-                                                rangeEndDate = temp
-                                            }
-                                            selectedRange.value =
-                                                KalendarSelectedDayRange(
-                                                    rangeStartDate!!,
-                                                    rangeEndDate!!
-                                                )
-                                            selectedRange.value?.let {
-                                                onDaySelectionAction.onRangeSelected(
-                                                    it,
-                                                    events
-                                                )
+                                    is OnDaySelectionAction.Range -> {
+                                        if (rangeStartDate == null || rangeEndDate != null) {
+                                            rangeStartDate = clickedDate
+                                            rangeEndDate = null
+                                        } else {
+                                            rangeEndDate = clickedDate
+                                            if (rangeStartDate != null && rangeEndDate != null) {
+                                                if (rangeStartDate!! > rangeEndDate!!) {
+                                                    val temp = rangeStartDate
+                                                    rangeStartDate = rangeEndDate
+                                                    rangeEndDate = temp
+                                                }
+                                                selectedRange.value =
+                                                    KalendarSelectedDayRange(
+                                                        rangeStartDate!!,
+                                                        rangeEndDate!!
+                                                    )
+                                                selectedRange.value?.let {
+                                                    onDaySelectionAction.onRangeSelected(
+                                                        it,
+                                                        events
+                                                    )
+                                                }
                                             }
                                         }
+                                        clickedNewDate = clickedDate
                                     }
-                                    clickedNewDate = clickedDate
                                 }
-                            }
-                        },
-                        dayKonfig = newDayKonfig,
-                        colorScheme = colorScheme,
-                        events = events,
-                        selectedDate = clickedNewDate,
-                    )
+                            },
+                            dayKonfig = dayKonfig,
+                            colorScheme = colorScheme,
+                            events = events,
+                            selectedDate = clickedNewDate,
+                        )
+                    } else {
+                        Box(modifier = Modifier.fillMaxWidth())
+                    }
                 }
             }
         )

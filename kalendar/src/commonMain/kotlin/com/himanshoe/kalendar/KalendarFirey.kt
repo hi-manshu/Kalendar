@@ -21,6 +21,7 @@ import com.himanshoe.kalendar.core.color.KalendarColorScheme
 import com.himanshoe.kalendar.core.component.KalendarDay
 import com.himanshoe.kalendar.core.component.KalendarHeader
 import com.himanshoe.kalendar.core.config.KalendarDayKonfig
+import com.himanshoe.kalendar.core.config.KalendarKonfig
 import com.himanshoe.kalendar.core.util.KalendarSelectedDayRange
 import com.himanshoe.kalendar.core.util.OnDaySelectionAction
 import com.himanshoe.kalendar.event.KalendarEvents
@@ -42,8 +43,9 @@ fun KalendarFirey(
     showDayLabel: Boolean = true,
     arrowShown: Boolean = true,
     onDaySelectionAction: OnDaySelectionAction = OnDaySelectionAction.Single { _, _ -> },
-    dayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
+    kalendarKonfig: KalendarKonfig = KalendarKonfig(),
     colorScheme: KalendarColorScheme = KalendarColorScheme.default(),
+    restrictToCurrentWeek: Boolean = false,
 ) {
     KalendarFireyContent(
         selectedDate = selectedDate,
@@ -52,7 +54,8 @@ fun KalendarFirey(
         colorScheme = colorScheme,
         showDayLabel = showDayLabel,
         onDaySelectionAction = onDaySelectionAction,
-        dayKonfig = dayKonfig,
+        dayKonfig = kalendarKonfig.kalendarDayKonfig,
+        restrictToCurrentWeek = restrictToCurrentWeek,
         events = events
     )
 }
@@ -67,8 +70,11 @@ private fun KalendarFireyContent(
     dayKonfig: KalendarDayKonfig,
     events: KalendarEvents,
     modifier: Modifier = Modifier,
+    restrictToCurrentWeek: Boolean = false,
 ) {
     var currentDay by remember { mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())) }
+    val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+    val startOfWeek = today.minus(today.dayOfWeek.ordinal, DateTimeUnit.DAY)
 
     val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
     var rangeStartDate by remember { mutableStateOf<LocalDate?>(null) }
@@ -90,7 +96,13 @@ private fun KalendarFireyContent(
             year = currentDay.year,
             arrowShown = arrowShown,
             colorScheme = colorScheme,
-            onPreviousClick = { currentDay = currentDay.minus(7, DateTimeUnit.DAY) },
+            canNavigateBack = if (restrictToCurrentWeek) !restrictToCurrentWeek || currentDay > today else true,
+            onPreviousClick = {
+                val newDay = currentDay.minus(7, DateTimeUnit.DAY)
+                if (!restrictToCurrentWeek || newDay >= startOfWeek) {
+                    currentDay = newDay
+                }
+            },
             onNextClick = { currentDay = currentDay.plus(7, DateTimeUnit.DAY) }
         )
 
@@ -120,6 +132,7 @@ private fun KalendarFireyContent(
                                     clickedNewDate = clickedDate
                                     onDaySelectionAction.onDayClick(clickedDate, events)
                                 }
+
                                 is OnDaySelectionAction.Range -> {
                                     if (rangeStartDate == null || rangeEndDate != null) {
                                         rangeStartDate = clickedDate
@@ -134,8 +147,16 @@ private fun KalendarFireyContent(
                                                 rangeEndDate = temp
                                             }
                                             selectedRange.value =
-                                                KalendarSelectedDayRange(rangeStartDate!!, rangeEndDate!!)
-                                            selectedRange.value?.let { onDaySelectionAction.onRangeSelected(it, events) }
+                                                KalendarSelectedDayRange(
+                                                    rangeStartDate!!,
+                                                    rangeEndDate!!
+                                                )
+                                            selectedRange.value?.let {
+                                                onDaySelectionAction.onRangeSelected(
+                                                    it,
+                                                    events
+                                                )
+                                            }
                                         }
                                     }
                                     clickedNewDate = clickedDate

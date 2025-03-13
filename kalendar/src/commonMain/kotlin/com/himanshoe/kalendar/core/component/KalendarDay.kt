@@ -76,7 +76,8 @@ private fun KalendarDayContent(
     }
     val currentDay = today == date
     val selected = date == selectedDate
-    val color = if (selected) dayKonfig.selectedTextColor.value else dayKonfig.textColor.value
+    val brush =
+        if (selected) Brush.linearGradient(dayKonfig.selectedTextColor.value) else dayKonfig.textStyle.brush
     val fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
     val currentDayEvents = remember(events) { events.eventList.fastFilter { it.date == date } }
 
@@ -107,10 +108,10 @@ private fun KalendarDayContent(
             text = date.dayOfMonth.toString(),
             modifier = Modifier.wrapContentSize(),
             textAlign = TextAlign.Center,
-            style = TextStyle(
-                brush = Brush.linearGradient(color),
+            style = dayKonfig.textStyle.copy(
+                brush = brush,
                 fontWeight = fontWeight
-            ),
+            )
         )
         if (currentDayEvents.isNotEmpty()) {
             EventIndicators(
@@ -124,7 +125,9 @@ private fun KalendarDayContent(
 
 @Composable
 private fun EventIndicators(
-    events: List<KalendarEvent>, dayKonfig: KalendarDayKonfig, modifier: Modifier = Modifier
+    events: List<KalendarEvent>,
+    dayKonfig: KalendarDayKonfig,
+    modifier: Modifier = Modifier
 ) {
     val itemCount = if (events.count() > 3) 3 else events.size
 
