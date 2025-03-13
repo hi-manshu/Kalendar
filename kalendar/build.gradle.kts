@@ -39,6 +39,7 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(libs.kotlinx.datetime)
+            implementation(project(":kalendar-core"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

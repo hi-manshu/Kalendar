@@ -14,7 +14,8 @@ data class KalendarDayKonfig(
     val selectedTextColor: KalendarColor,
     val borderColor: KalendarColor,
     val indicatorColor: KalendarColor,
-    val textStyle: TextStyle
+    val textStyle: TextStyle,
+    val selectedBackgroundColor: KalendarColor,
 ) {
     companion object {
 
@@ -32,6 +33,7 @@ data class KalendarDayKonfig(
             indicatorColor = Color(0xFFD8A29E).asSolidChartColor(),
             selectedTextColor = Color(0xFF413D4B).asSolidChartColor(),
             borderColor = Color(0xFFC39EA1).asSolidChartColor(),
+            selectedBackgroundColor = Color(0xFFF7CFD3).asSolidChartColor(),
         )
     }
 }

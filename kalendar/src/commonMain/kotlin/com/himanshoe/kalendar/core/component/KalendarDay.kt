@@ -1,7 +1,6 @@
 package com.himanshoe.kalendar.core.component
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,13 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastFilter
 import androidx.compose.ui.util.fastForEachIndexed
-import com.himanshoe.kalendar.core.color.KalendarColorScheme
 import com.himanshoe.kalendar.core.config.KalendarDayKonfig
 import com.himanshoe.kalendar.core.util.KalendarSelectedDayRange
 import com.himanshoe.kalendar.core.util.circleLayout
@@ -45,7 +42,6 @@ fun KalendarDay(
     selectedDate: LocalDate = date,
     events: KalendarEvents = KalendarEvents(),
     dayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
-    colorScheme: KalendarColorScheme = KalendarColorScheme.default(),
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
 ) {
     KalendarDayContent(
@@ -54,7 +50,6 @@ fun KalendarDay(
         events = events,
         selectedRange = selectedRange,
         dayKonfig = dayKonfig,
-        colorScheme = colorScheme,
         modifier = modifier,
         onDayClick = onDayClick,
     )
@@ -68,7 +63,6 @@ private fun KalendarDayContent(
     selectedDate: LocalDate = date,
     dayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
     events: KalendarEvents = KalendarEvents(),
-    colorScheme: KalendarColorScheme = KalendarColorScheme.default(),
     onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> }
 ) {
     val today = remember(TimeZone.currentSystemDefault()) {
@@ -82,7 +76,7 @@ private fun KalendarDayContent(
     val currentDayEvents = remember(events) { events.eventList.fastFilter { it.date == date } }
 
     Column(
-        modifier = modifier.background(brush = Brush.linearGradient(colorScheme.backgroundColor.value))
+        modifier = modifier
             .border(
                 border = getBorderStroke(
                     currentDay = currentDay,
@@ -96,7 +90,7 @@ private fun KalendarDayContent(
                 selected = selected,
                 date = date,
                 selectedRange = selectedRange,
-                colors = colorScheme.dayBackgroundColor.value
+                colors = dayKonfig.selectedBackgroundColor.value
             )
             .clickable { onDayClick(date, events.eventList) }
             .circleLayout()

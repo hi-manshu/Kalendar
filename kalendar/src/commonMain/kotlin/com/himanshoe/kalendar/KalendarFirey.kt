@@ -17,13 +17,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.style.TextAlign
-import com.himanshoe.kalendar.core.color.KalendarColorScheme
+import com.himanshoe.kalendar.core.color.KalendarColor
 import com.himanshoe.kalendar.core.component.KalendarDay
 import com.himanshoe.kalendar.core.component.KalendarHeader
 import com.himanshoe.kalendar.core.config.KalendarDayKonfig
+import com.himanshoe.kalendar.core.config.KalendarDayLabelKonfig
+import com.himanshoe.kalendar.core.config.KalendarHeaderKonfig
 import com.himanshoe.kalendar.core.config.KalendarKonfig
 import com.himanshoe.kalendar.core.util.KalendarSelectedDayRange
 import com.himanshoe.kalendar.core.util.OnDaySelectionAction
+import com.himanshoe.kalendar.event.KalendarEvent
 import com.himanshoe.kalendar.event.KalendarEvents
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
@@ -44,19 +47,20 @@ fun KalendarFirey(
     arrowShown: Boolean = true,
     onDaySelectionAction: OnDaySelectionAction = OnDaySelectionAction.Single { _, _ -> },
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
-    colorScheme: KalendarColorScheme = KalendarColorScheme.default(),
     restrictToCurrentWeek: Boolean = false,
 ) {
     KalendarFireyContent(
         selectedDate = selectedDate,
         modifier = modifier,
         arrowShown = arrowShown,
-        colorScheme = colorScheme,
         showDayLabel = showDayLabel,
         onDaySelectionAction = onDaySelectionAction,
         dayKonfig = kalendarKonfig.kalendarDayKonfig,
+        kalendarHeaderKonfig = kalendarKonfig.kalendarHeaderKonfig,
+        kalendarDayLabelKonfig = kalendarKonfig.kalendarDayLabelKonfig,
         restrictToCurrentWeek = restrictToCurrentWeek,
-        events = events
+        events = events,
+        backgroundColor = kalendarKonfig.backgroundColor
     )
 }
 
@@ -64,17 +68,19 @@ fun KalendarFirey(
 private fun KalendarFireyContent(
     selectedDate: LocalDate,
     arrowShown: Boolean,
-    colorScheme: KalendarColorScheme,
+    backgroundColor: KalendarColor,
     showDayLabel: Boolean,
     onDaySelectionAction: OnDaySelectionAction,
     dayKonfig: KalendarDayKonfig,
     events: KalendarEvents,
+    kalendarHeaderKonfig: KalendarHeaderKonfig,
+    kalendarDayLabelKonfig: KalendarDayLabelKonfig,
     modifier: Modifier = Modifier,
     restrictToCurrentWeek: Boolean = false,
 ) {
-    var currentDay by remember { mutableStateOf(Clock.System.todayIn(TimeZone.currentSystemDefault())) }
-    val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
-    val startOfWeek = today.minus(today.dayOfWeek.ordinal, DateTimeUnit.DAY)
+    val today = remember { Clock.System.todayIn(TimeZone.currentSystemDefault()) }
+    val startOfWeek = remember(today) { today.minus(today.dayOfWeek.ordinal, DateTimeUnit.DAY) }
+    var currentDay by remember { mutableStateOf(today) }
 
     val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
     var rangeStartDate by remember { mutableStateOf<LocalDate?>(null) }
@@ -83,11 +89,49 @@ private fun KalendarFireyContent(
     var clickedNewDate by remember { mutableStateOf(selectedDate) }
     val daysOfWeek = DayOfWeek.entries.toTypedArray()
     val displayDates by remember(currentDay) {
-        mutableStateOf((-3..3).map { currentDay.plus(it, DateTimeUnit.DAY) })
+        mutableStateOf(generateWeekDates(currentDay))
+    }
+
+    fun onDayClick(
+        clickedDate: LocalDate,
+        events: List<KalendarEvent>,
+    ) {
+        when (onDaySelectionAction) {
+            is OnDaySelectionAction.Single -> {
+                clickedNewDate = clickedDate
+                onDaySelectionAction.onDayClick(clickedDate, events)
+            }
+
+            is OnDaySelectionAction.Range -> {
+                if (rangeStartDate == null || rangeEndDate != null) {
+                    rangeStartDate = clickedDate
+                    rangeEndDate = null
+                } else {
+                    rangeEndDate = clickedDate
+                    if (rangeStartDate!! > rangeEndDate!!) {
+                        val temp = rangeStartDate
+                        rangeStartDate = rangeEndDate
+                        rangeEndDate = temp
+                    }
+                    selectedRange.value =
+                        KalendarSelectedDayRange(
+                            rangeStartDate!!,
+                            rangeEndDate!!
+                        )
+                    selectedRange.value?.let {
+                        onDaySelectionAction.onRangeSelected(
+                            it,
+                            events
+                        )
+                    }
+                }
+                clickedNewDate = clickedDate
+            }
+        }
     }
 
     Column(
-        modifier = modifier.background(brush = Brush.linearGradient(colorScheme.backgroundColor.value)),
+        modifier = modifier.background(brush = Brush.linearGradient(backgroundColor.value)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         KalendarHeader(
@@ -95,8 +139,8 @@ private fun KalendarFireyContent(
             month = currentDay.month,
             year = currentDay.year,
             arrowShown = arrowShown,
-            colorScheme = colorScheme,
-            canNavigateBack = if (restrictToCurrentWeek) !restrictToCurrentWeek || currentDay > today else true,
+            kalendarHeaderKonfig = kalendarHeaderKonfig,
+            canNavigateBack = !restrictToCurrentWeek || currentDay > today,
             onPreviousClick = {
                 val newDay = currentDay.minus(7, DateTimeUnit.DAY)
                 if (!restrictToCurrentWeek || newDay >= startOfWeek) {
@@ -114,11 +158,11 @@ private fun KalendarFireyContent(
                 if (showDayLabel) {
                     items(daysOfWeek) { dayOfWeek ->
                         Text(
-                            text = dayOfWeek.name.take(1),
+                            text = dayOfWeek.name.take(kalendarDayLabelKonfig.textCharCount),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .align(Alignment.CenterHorizontally),
-                            textAlign = TextAlign.Center
+                            style = kalendarDayLabelKonfig.textStyle
                         )
                     }
                 }
@@ -127,44 +171,12 @@ private fun KalendarFireyContent(
                         date = date,
                         selectedRange = selectedRange.value,
                         onDayClick = { clickedDate, events ->
-                            when (onDaySelectionAction) {
-                                is OnDaySelectionAction.Single -> {
-                                    clickedNewDate = clickedDate
-                                    onDaySelectionAction.onDayClick(clickedDate, events)
-                                }
-
-                                is OnDaySelectionAction.Range -> {
-                                    if (rangeStartDate == null || rangeEndDate != null) {
-                                        rangeStartDate = clickedDate
-                                        rangeEndDate = null
-                                    } else {
-                                        rangeEndDate = clickedDate
-                                        if (rangeStartDate != null && rangeEndDate != null) {
-                                            if (rangeStartDate!! > rangeEndDate!!) {
-                                                // Swap the dates if start date is after end date
-                                                val temp = rangeStartDate
-                                                rangeStartDate = rangeEndDate
-                                                rangeEndDate = temp
-                                            }
-                                            selectedRange.value =
-                                                KalendarSelectedDayRange(
-                                                    rangeStartDate!!,
-                                                    rangeEndDate!!
-                                                )
-                                            selectedRange.value?.let {
-                                                onDaySelectionAction.onRangeSelected(
-                                                    it,
-                                                    events
-                                                )
-                                            }
-                                        }
-                                    }
-                                    clickedNewDate = clickedDate
-                                }
-                            }
+                            onDayClick(
+                                clickedDate = clickedDate,
+                                events = events,
+                            )
                         },
                         dayKonfig = dayKonfig,
-                        colorScheme = colorScheme,
                         events = events,
                         selectedDate = clickedNewDate,
                     )
@@ -173,3 +185,6 @@ private fun KalendarFireyContent(
         )
     }
 }
+
+private fun generateWeekDates(currentDay: LocalDate) =
+    (-3..3).map { currentDay.plus(it, DateTimeUnit.DAY) }

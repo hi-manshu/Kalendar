@@ -13,9 +13,10 @@
 .externalNativeBuild
 .cxx
 local.properties
-/build
 /build/*
 /sample/build/*
 /sample/build
 /kalendar/build
+/kalendar-core/build
 /kalendar/build/*
+/kalendar-core/build/*

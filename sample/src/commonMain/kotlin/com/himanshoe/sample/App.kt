@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.KalendarFirey
 import com.himanshoe.kalendar.KalendarOceanic
-import com.himanshoe.kalendar.core.color.KalendarColorScheme
 import com.himanshoe.kalendar.core.config.KalendarDayKonfig
 import com.himanshoe.kalendar.core.config.KalendarKonfig
 import com.himanshoe.kalendar.core.util.OnDaySelectionAction
@@ -37,12 +36,11 @@ fun App() {
             modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
             selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
             arrowShown = true,
-            colorScheme = KalendarColorScheme.default(),
             showDayLabel = true,
             kalendarKonfig = KalendarKonfig(KalendarDayKonfig.default()), // Provide an appropriate day configuration
             events = KalendarEvents(), // Provide the events
             startDayOfWeek = DayOfWeek.SUNDAY,
-            onDaySelectionAction = OnDaySelectionAction.Single { date, events ->
+            onDaySelectionAction = OnDaySelectionAction.Range { date, events ->
                 println("Selected Date: $date with events: $events")
             },
         )

@@ -7,7 +7,7 @@
 [![Kalendar](https://img.shields.io/badge/Android%20Weekly-%23533-Pink)](https://androidweekly.net/issues/issue-533)
 [![Kalendar](https://img.shields.io/badge/Canopas%20Engineering-%2372-blue)](https://blog.canopas.com/android-stack-weekly-issue-72-20658bea40a2)
 [![Github Followers](https://img.shields.io/github/followers/hi-manshu?label=Follow&style=social)](https://github.com/hi-manshu)
-[![Twitter Follow](https://img.shields.io/twitter/follow/hi_man_shoe?label=Follow&style=social)](https://twitter.com/hi_man_shoe)  
+[![Twitter Follow](https://img.shields.io/twitter/follow/hi_man_shoe?label=Follow&style=social)](https://twitter.com/hi_man_shoe)
 
 The Kalendar library is a powerful tool for creating calendar components in Android apps using
 Jetpack Compose. It provides customizable calendar views with various features and functionalities.
@@ -25,6 +25,7 @@ Kalendar supports three types of calendar:
 - **Endlos**: Represents a scrolling calendar that starts from the current month.
 
 ### Getting Started
+
 To integrate the Kalendar library into your Android app, follow these steps:
 
 Add the Kalendar library as a dependency in your app-level build.gradle file:
@@ -39,7 +40,10 @@ For adding the Scrolling calendar, Endlos, add the following dependency:
 implementation 'com.himanshoe:kalendar-endlos:<latest-version>'
 ```
 
-For detailed documentation and examples on how to use the Kalendar library, please refer to the [Kalendar Documentation](docs/Kalendar.md) for Oceanic/Firey and [Kalendar Endlos Documentation](docs/KalendarEndlos.md) for scrolling calendar.
+For detailed documentation and examples on how to use the Kalendar library, please refer to
+the [Kalendar Documentation](docs/Kalendar.md) for Oceanic/Firey
+and [Kalendar Endlos Documentation](docs/KalendarEndlos.md) for scrolling calendar.
 
-Contributions, bug reports, and feature requests are welcome! Feel free to submit issues or pull requests in the [Kalendar GitHub repository](https://github.com/hi-manshu/Kalendar/pulls).
+Contributions, bug reports, and feature requests are welcome! Feel free to submit issues or pull
+requests in the [Kalendar GitHub repository](https://github.com/hi-manshu/Kalendar/pulls).
 

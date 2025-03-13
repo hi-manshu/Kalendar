@@ -16,4 +16,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "kalendarLib"
 include(":kalendar")
+include(":kalendar-core")
 include(":sample")

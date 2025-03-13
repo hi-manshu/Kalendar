@@ -9,7 +9,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,16 +27,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.capitalize
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.himanshoe.kalendar.core.color.KalendarColorScheme
+import com.himanshoe.kalendar.core.config.KalendarHeaderKonfig
 import kotlinx.datetime.Month
 
 @Composable
@@ -46,45 +40,63 @@ fun KalendarHeader(
     year: Int,
     modifier: Modifier = Modifier,
     canNavigateBack: Boolean = true,
-    colorScheme: KalendarColorScheme = KalendarColorScheme.default(),
     arrowShown: Boolean = true,
+    kalendarHeaderKonfig: KalendarHeaderKonfig = KalendarHeaderKonfig.default(),
     onPreviousClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
 ) {
     KalendarHeaderContent(
         modifier = modifier,
-        colorScheme = colorScheme,
+        kalendarHeaderKonfig = kalendarHeaderKonfig,
         month = month,
         year = year,
         canNavigateBack = canNavigateBack,
         arrowShown = arrowShown,
         onPreviousClick = onPreviousClick,
-        onNextClick = onNextClick
+        onNextClick = onNextClick,
+        centerAligned = kalendarHeaderKonfig.centerAligned
     )
 }
 
 @Composable
 private fun KalendarHeaderContent(
-    colorScheme: KalendarColorScheme,
     month: Month,
     year: Int,
     arrowShown: Boolean,
     onPreviousClick: () -> Unit,
     onNextClick: () -> Unit,
     canNavigateBack: Boolean,
+    centerAligned: Boolean,
     modifier: Modifier = Modifier,
+    kalendarHeaderKonfig: KalendarHeaderKonfig = KalendarHeaderKonfig.default(),
 ) {
     var isNext by rememberSaveable { mutableStateOf(true) }
-
+    val paddingModifier = if (centerAligned) {
+        Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+    } else {
+        Modifier.padding(start = 16.dp, top = 8.dp, bottom = 8.dp)
+    }
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(brush = Brush.linearGradient(colorScheme.backgroundColor.value))
             .wrapContentHeight()
-            .padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
+            .then(paddingModifier),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
+        if (arrowShown && centerAligned) {
+            KalendarIconButton(
+                modifier = Modifier.wrapContentSize(),
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                contentDescription = "Previous Month",
+                enabled = canNavigateBack,
+                onClick = {
+                    isNext = false
+                    onPreviousClick()
+                }
+            )
+        }
+
         val titleText =
             remember(month, year, Locale.current) { getTitleText(month, year, Locale.current) }
 
@@ -101,29 +113,23 @@ private fun KalendarHeaderContent(
                     .wrapContentSize()
                     .align(Alignment.CenterVertically),
                 text = month,
-                color = colorScheme.headerTextColor,
-                fontWeight = FontWeight.SemiBold,
-                style = TextStyle.Default.copy(fontSize = 20.sp),
-                textAlign = TextAlign.Start
+                style = kalendarHeaderKonfig.textStyle,
             )
         }
         if (arrowShown) {
-            Row(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .align(Alignment.CenterVertically),
-                horizontalArrangement = Arrangement.End,
-            ) {
-                KalendarIconButton(
-                    modifier = Modifier.wrapContentSize(),
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                    contentDescription = "Previous Month",
-                    enabled = canNavigateBack,
-                    onClick = {
-                        isNext = false
-                        onPreviousClick()
-                    }
-                )
+            Row {
+                if (!centerAligned) {
+                    KalendarIconButton(
+                        modifier = Modifier.wrapContentSize(),
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                        contentDescription = "Previous Month",
+                        enabled = canNavigateBack,
+                        onClick = {
+                            isNext = false
+                            onPreviousClick()
+                        }
+                    )
+                }
                 KalendarIconButton(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                     modifier = Modifier.wrapContentSize(),
@@ -146,10 +152,10 @@ private fun addAnimation(duration: Int = 200, isNext: Boolean): ContentTransform
         animationSpec = tween(durationMillis = duration)
     )).togetherWith(
         slideOutVertically(
-        animationSpec = tween(durationMillis = duration)
-    ) { height -> if (isNext) -height else height } + fadeOut(
-        animationSpec = tween(durationMillis = duration)
-    ))
+            animationSpec = tween(durationMillis = duration)
+        ) { height -> if (isNext) -height else height } + fadeOut(
+            animationSpec = tween(durationMillis = duration)
+        ))
 }
 
 private fun getTitleText(month: Month, year: Int, locale: Locale): String {

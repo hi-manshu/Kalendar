@@ -17,14 +17,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.text.style.TextAlign
-import com.himanshoe.kalendar.core.color.KalendarColorScheme
+import com.himanshoe.kalendar.core.color.KalendarColor
 import com.himanshoe.kalendar.core.component.KalendarDay
 import com.himanshoe.kalendar.core.component.KalendarHeader
 import com.himanshoe.kalendar.core.config.KalendarDayKonfig
+import com.himanshoe.kalendar.core.config.KalendarDayLabelKonfig
 import com.himanshoe.kalendar.core.config.KalendarKonfig
 import com.himanshoe.kalendar.core.util.KalendarSelectedDayRange
 import com.himanshoe.kalendar.core.util.OnDaySelectionAction
+import com.himanshoe.kalendar.event.KalendarEvent
 import com.himanshoe.kalendar.event.KalendarEvents
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
@@ -36,7 +37,6 @@ import kotlinx.datetime.plus
 fun KalendarOceanic(
     selectedDate: LocalDate,
     arrowShown: Boolean,
-    colorScheme: KalendarColorScheme,
     showDayLabel: Boolean,
     kalendarKonfig: KalendarKonfig,
     events: KalendarEvents,
@@ -49,10 +49,11 @@ fun KalendarOceanic(
         startDayOfWeek = startDayOfWeek,
         modifier = modifier,
         arrowShown = arrowShown,
-        colorScheme = colorScheme,
+        backgroundColor = kalendarKonfig.backgroundColor,
         showDayLabel = showDayLabel,
         onDaySelectionAction = onDaySelectionAction,
         dayKonfig = kalendarKonfig.kalendarDayKonfig,
+        kalendarDayLabelKonfig = kalendarKonfig.kalendarDayLabelKonfig,
         events = events
     )
 }
@@ -62,11 +63,12 @@ private fun KalendarOceanicContent(
     selectedDate: LocalDate,
     startDayOfWeek: DayOfWeek,
     arrowShown: Boolean,
-    colorScheme: KalendarColorScheme,
+    backgroundColor: KalendarColor,
     showDayLabel: Boolean,
     onDaySelectionAction: OnDaySelectionAction,
     dayKonfig: KalendarDayKonfig,
     events: KalendarEvents,
+    kalendarDayLabelKonfig: KalendarDayLabelKonfig,
     modifier: Modifier = Modifier,
 ) {
     var currentMonth by remember {
@@ -86,8 +88,48 @@ private fun KalendarOceanicContent(
         mutableStateOf(generateMonthDates(currentMonth, startDayOfWeek))
     }
 
+    fun onDayClick(
+        clickedDate: LocalDate,
+        events: List<KalendarEvent>,
+    ) {
+        when (onDaySelectionAction) {
+            is OnDaySelectionAction.Single -> {
+                clickedNewDate = clickedDate
+                onDaySelectionAction.onDayClick(clickedDate, events)
+            }
+
+            is OnDaySelectionAction.Range -> {
+                if (rangeStartDate == null || rangeEndDate != null) {
+                    rangeStartDate = clickedDate
+                    rangeEndDate = null
+                } else {
+                    rangeEndDate = clickedDate
+                    if (rangeStartDate != null && rangeEndDate != null) {
+                        if (rangeStartDate!! > rangeEndDate!!) {
+                            val temp = rangeStartDate
+                            rangeStartDate = rangeEndDate
+                            rangeEndDate = temp
+                        }
+                        selectedRange.value =
+                            KalendarSelectedDayRange(
+                                rangeStartDate!!,
+                                rangeEndDate!!
+                            )
+                        selectedRange.value?.let {
+                            onDaySelectionAction.onRangeSelected(
+                                it,
+                                events
+                            )
+                        }
+                    }
+                }
+                clickedNewDate = clickedDate
+            }
+        }
+    }
+
     Column(
-        modifier = modifier.background(brush = Brush.linearGradient(colorScheme.backgroundColor.value)),
+        modifier = modifier.background(brush = Brush.linearGradient(backgroundColor.value)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         KalendarHeader(
@@ -95,7 +137,6 @@ private fun KalendarOceanicContent(
             month = currentMonth.month,
             year = currentMonth.year,
             arrowShown = arrowShown,
-            colorScheme = colorScheme,
             onPreviousClick = { currentMonth = currentMonth.minus(1, DateTimeUnit.MONTH) },
             onNextClick = { currentMonth = currentMonth.plus(1, DateTimeUnit.MONTH) }
         )
@@ -108,11 +149,11 @@ private fun KalendarOceanicContent(
                 if (showDayLabel) {
                     items(daysOfWeek) { dayOfWeek ->
                         Text(
-                            text = dayOfWeek.name.take(1),
+                            text = dayOfWeek.name.take(kalendarDayLabelKonfig.textCharCount),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .align(Alignment.CenterHorizontally),
-                            textAlign = TextAlign.Center
+                            style = kalendarDayLabelKonfig.textStyle,
                         )
                     }
                 }
@@ -123,43 +164,12 @@ private fun KalendarOceanicContent(
                             date = date,
                             selectedRange = selectedRange.value,
                             onDayClick = { clickedDate, events ->
-                                when (onDaySelectionAction) {
-                                    is OnDaySelectionAction.Single -> {
-                                        clickedNewDate = clickedDate
-                                        onDaySelectionAction.onDayClick(clickedDate, events)
-                                    }
-
-                                    is OnDaySelectionAction.Range -> {
-                                        if (rangeStartDate == null || rangeEndDate != null) {
-                                            rangeStartDate = clickedDate
-                                            rangeEndDate = null
-                                        } else {
-                                            rangeEndDate = clickedDate
-                                            if (rangeStartDate != null && rangeEndDate != null) {
-                                                if (rangeStartDate!! > rangeEndDate!!) {
-                                                    val temp = rangeStartDate
-                                                    rangeStartDate = rangeEndDate
-                                                    rangeEndDate = temp
-                                                }
-                                                selectedRange.value =
-                                                    KalendarSelectedDayRange(
-                                                        rangeStartDate!!,
-                                                        rangeEndDate!!
-                                                    )
-                                                selectedRange.value?.let {
-                                                    onDaySelectionAction.onRangeSelected(
-                                                        it,
-                                                        events
-                                                    )
-                                                }
-                                            }
-                                        }
-                                        clickedNewDate = clickedDate
-                                    }
-                                }
+                                onDayClick(
+                                    clickedDate = clickedDate,
+                                    events = events,
+                                )
                             },
                             dayKonfig = dayKonfig,
-                            colorScheme = colorScheme,
                             events = events,
                             selectedDate = clickedNewDate,
                         )
