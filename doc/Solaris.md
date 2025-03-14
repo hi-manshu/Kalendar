@@ -2,7 +2,7 @@
 
 ### Screnshots
 
-|Desktop|Android|iOS|
+| Desktop | Android | iOS |
 | ![SolarisDesktop](../img/solaris/SolarisDesktop.png) | ![SolarisAndroid](../img/solaris/SolarisAndroid.png) | ![SolarisIOS](../img/solaris/SolarisIOS.png) |
 |----------------------------------------------------|----------------------------------------------------|----------------------------------------------|
 
