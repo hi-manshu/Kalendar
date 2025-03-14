@@ -27,5 +27,14 @@ sealed interface KalendarType {
      * Oceanic calendar type.
      */
     data object Oceanic : KalendarType
+
+    /**
+     * Aerial calendar type.
+     */
     data object Aerial : KalendarType
+
+    /**
+     * Solaris calendar type.
+     */
+    data object Solaris : KalendarType
 }

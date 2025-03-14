@@ -43,10 +43,13 @@ fun KalendarHeader(
     year: Int,
     modifier: Modifier = Modifier,
     canNavigateBack: Boolean = true,
+    showCalendarIcon: Boolean = false,
+    calendarIconEnabled: Boolean = false,
     arrowShown: Boolean = true,
     kalendarHeaderKonfig: KalendarHeaderKonfig = KalendarHeaderKonfig.default(),
     onPreviousClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
+    onNavigateToday: () -> Unit = {},
 ) {
     val titleText =
         remember(month, year, Locale.current) { getTitleText(month, year, Locale.current) }
@@ -56,13 +59,13 @@ fun KalendarHeader(
         titleText = titleText,
         onPreviousClick = onPreviousClick,
         onNextClick = onNextClick,
-        onNavigateToday = { },
-        showCalendarIcon = false,
+        onNavigateToday = onNavigateToday,
+        showCalendarIcon = showCalendarIcon,
         canNavigateBack = canNavigateBack,
         centerAligned = kalendarHeaderKonfig.centerAligned,
         modifier = modifier.defaultMinSize(minHeight = 56.dp),
         kalendarHeaderKonfig = kalendarHeaderKonfig,
-        calendarIconEnabled = false
+        calendarIconEnabled = calendarIconEnabled
     )
 }
 
@@ -192,16 +195,19 @@ private fun KalendarHeaderContent(
 }
 
 private fun addAnimation(duration: Int = 200, isNext: Boolean): ContentTransform {
-    return (slideInVertically(
-        animationSpec = tween(durationMillis = duration)
-    ) { height -> if (isNext) height else -height } + fadeIn(
-        animationSpec = tween(durationMillis = duration)
-    )).togetherWith(
-        slideOutVertically(
-            animationSpec = tween(durationMillis = duration)
-        ) { height -> if (isNext) -height else height } + fadeOut(
-            animationSpec = tween(durationMillis = duration)
-        ))
+    return (
+            slideInVertically(
+                animationSpec = tween(durationMillis = duration)
+            ) { height -> if (isNext) height else -height } + fadeIn(
+                animationSpec = tween(durationMillis = duration)
+            )
+            ).togetherWith(
+            slideOutVertically(
+                animationSpec = tween(durationMillis = duration)
+            ) { height -> if (isNext) -height else height } + fadeOut(
+                animationSpec = tween(durationMillis = duration)
+            )
+        )
 }
 
 private fun getTitleText(month: Month, year: Int, locale: Locale): String {
@@ -212,7 +218,6 @@ private fun getTitleText(month: Month, year: Int, locale: Locale): String {
     val shortYear = year.toString().takeLast(2)
     return "$monthDisplayName '$shortYear"
 }
-
 
 fun List<LocalDate>.buildHeaderText(): String {
     val months = this.map { it.month }.distinct()

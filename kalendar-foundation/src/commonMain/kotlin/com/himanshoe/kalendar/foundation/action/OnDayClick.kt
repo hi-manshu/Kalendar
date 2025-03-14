@@ -34,7 +34,8 @@ fun LocalDate.onDayClick(
                 onClickedRangeStartDate(newRangeStartDate)
                 onClickedRangeEndDate(newRangeEndDate)
                 val range = KalendarSelectedDayRange(
-                    newRangeStartDate, newRangeEndDate
+                    start = newRangeStartDate,
+                    end = newRangeEndDate
                 )
                 onUpdateSelectedRange(range)
                 onDaySelectionAction.onRangeSelected(range, events)

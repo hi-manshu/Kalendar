@@ -64,5 +64,17 @@ fun Kalendar(
                 startDayOfWeek = startDayOfWeek,
             )
         }
+
+        KalendarType.Solaris -> {
+            KalendarSolaris(
+                modifier = modifier,
+                selectedDate = selectedDate,
+                events = events,
+                startDayOfWeek = startDayOfWeek,
+                showDayLabel = showDayLabel,
+                onDaySelectionAction = onDaySelectionAction,
+                kalendarKonfig = kalendarKonfig,
+            )
+        }
     }
 }

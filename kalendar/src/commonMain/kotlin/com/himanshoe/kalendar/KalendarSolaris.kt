@@ -1,6 +1,7 @@
 package com.himanshoe.kalendar
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.HorizontalPager
@@ -22,10 +23,8 @@ import com.himanshoe.kalendar.foundation.action.onDayClick
 import com.himanshoe.kalendar.foundation.color.KalendarColor
 import com.himanshoe.kalendar.foundation.component.KalendarDay
 import com.himanshoe.kalendar.foundation.component.KalendarHeader
-import com.himanshoe.kalendar.foundation.component.buildHeaderText
 import com.himanshoe.kalendar.foundation.component.config.KalendarDayKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarDayLabelKonfig
-import com.himanshoe.kalendar.foundation.component.config.KalendarHeaderKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarKonfig
 import com.himanshoe.kalendar.foundation.event.KalendarEvents
 import kotlinx.coroutines.launch
@@ -34,105 +33,95 @@ import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.todayIn
 
 @Composable
-internal fun KalendarAerial(
+internal fun KalendarSolaris(
     selectedDate: LocalDate,
     modifier: Modifier = Modifier,
     events: KalendarEvents = KalendarEvents(),
     showDayLabel: Boolean = true,
     onDaySelectionAction: OnDaySelectionAction = OnDaySelectionAction.Single { _, _ -> },
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
-    restrictToCurrentWeek: Boolean = false,
     startDayOfWeek: DayOfWeek = DayOfWeek.SUNDAY,
 ) {
-    KalendarAerialContent(
+    KalendarSolarisContent(
         selectedDate = selectedDate,
+        startDayOfWeek = startDayOfWeek,
         modifier = modifier,
+        arrowShown = false,
+        backgroundColor = kalendarKonfig.backgroundColor,
         showDayLabel = showDayLabel,
         onDaySelectionAction = onDaySelectionAction,
         dayKonfig = kalendarKonfig.kalendarDayKonfig,
-        kalendarHeaderKonfig = kalendarKonfig.kalendarHeaderKonfig,
         kalendarDayLabelKonfig = kalendarKonfig.kalendarDayLabelKonfig,
-        restrictToCurrentWeek = restrictToCurrentWeek,
         events = events,
-        backgroundColor = kalendarKonfig.backgroundColor,
-        startDayOfWeek = startDayOfWeek
     )
 }
 
 @Composable
-private fun KalendarAerialContent(
+private fun KalendarSolarisContent(
     selectedDate: LocalDate,
-    modifier: Modifier,
+    startDayOfWeek: DayOfWeek,
+    arrowShown: Boolean,
+    backgroundColor: KalendarColor,
     showDayLabel: Boolean,
     onDaySelectionAction: OnDaySelectionAction,
     dayKonfig: KalendarDayKonfig,
-    kalendarHeaderKonfig: KalendarHeaderKonfig,
-    kalendarDayLabelKonfig: KalendarDayLabelKonfig,
-    restrictToCurrentWeek: Boolean,
     events: KalendarEvents,
-    backgroundColor: KalendarColor,
-    startDayOfWeek: DayOfWeek
+    kalendarDayLabelKonfig: KalendarDayLabelKonfig,
+    modifier: Modifier = Modifier,
 ) {
+    var currentMonth by remember {
+        mutableStateOf(
+            selectedDate.minus(
+                selectedDate.dayOfMonth - 1,
+                DateTimeUnit.DAY
+            )
+        )
+    }
     val today = remember { Clock.System.todayIn(TimeZone.currentSystemDefault()) }
-
-    var currentDay by remember { mutableStateOf(selectedDate) }
+    val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
     var rangeStartDate by remember { mutableStateOf<LocalDate?>(null) }
     var rangeEndDate by remember { mutableStateOf<LocalDate?>(null) }
-    val coroutineScope = rememberCoroutineScope()
-    val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
     var clickedNewDate by remember { mutableStateOf(selectedDate) }
-    val daysOfWeek = DayOfWeek.entries.rotate(distance = startDayOfWeek.ordinal)
+    val daysOfWeek = DayOfWeek.entries.rotate(startDayOfWeek.ordinal)
+    val displayDates by remember(currentMonth, startDayOfWeek) {
+        mutableStateOf(getMonthDates(currentMonth, startDayOfWeek))
+    }
     val pagerState = rememberPagerState(
         initialPage = Int.MAX_VALUE / 2,
         pageCount = { Int.MAX_VALUE }
     )
+    val coroutineScope = rememberCoroutineScope()
     val calendarIconEnabled = pagerState.currentPage != Int.MAX_VALUE / 2
-    val headerText = remember(currentDay) {
-        getWeekDates(
-            currentDay = currentDay,
-            startDayOfWeek = startDayOfWeek
-        ).buildHeaderText()
-    }
 
     Column(
-        modifier = modifier.background(brush = Brush.linearGradient(backgroundColor.value)),
+        modifier = modifier.background(brush = Brush.linearGradient(colors = backgroundColor.value)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         KalendarHeader(
             modifier = Modifier,
-            title = headerText,
-            arrowShown = false,
-            calendarIconEnabled = calendarIconEnabled,
+            month = currentMonth.month,
+            year = currentMonth.year,
             showCalendarIcon = true,
+            arrowShown = arrowShown,
+            calendarIconEnabled = calendarIconEnabled,
             onNavigateToday = {
                 if (calendarIconEnabled) {
                     coroutineScope.launch {
-                        currentDay = today
+                        currentMonth = today
                         pagerState.animateScrollToPage(page = Int.MAX_VALUE / 2)
                     }
                 }
-            },
-            kalendarHeaderKonfig = kalendarHeaderKonfig,
-            canNavigateBack = !restrictToCurrentWeek || currentDay > today,
+            }
         )
-
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.fillMaxWidth()
-        ) { page ->
-            val startDate = selectedDate.plus(
-                value = (page - Int.MAX_VALUE / 2) * 7,
-                unit = DateTimeUnit.DAY
-            )
-            val displayDates = getWeekDates(
-                currentDay = startDate,
-                startDayOfWeek = startDayOfWeek
-            )
-
+        ) {
             KalendarScaffold(
                 modifier = Modifier.fillMaxWidth(),
                 showDayLabel = showDayLabel,
@@ -140,42 +129,46 @@ private fun KalendarAerialContent(
                 kalendarDayLabelKonfig = kalendarDayLabelKonfig,
                 dates = { displayDates },
             ) { date ->
-                KalendarDay(
-                    date = date,
-                    selectedRange = selectedRange.value,
-                    onDayClick = { clickedDate, events ->
-                        clickedDate.onDayClick(
-                            events = events,
-                            rangeStartDate = rangeStartDate,
-                            rangeEndDate = rangeEndDate,
-                            onDaySelectionAction = onDaySelectionAction,
-                            onClickedNewDate = {
-                                clickedNewDate = it
-                            },
-                            onClickedRangeStartDate = {
-                                rangeStartDate = it
-                            },
-                            onClickedRangeEndDate = {
-                                rangeEndDate = it
-                            },
-                            onUpdateSelectedRange = {
-                                selectedRange.value = it
-                            },
-                        )
-                    },
-                    dayKonfig = dayKonfig,
-                    events = events,
-                    selectedDate = clickedNewDate,
-                )
+                if (date.month == currentMonth.month) {
+                    KalendarDay(
+                        modifier = Modifier,
+                        date = date,
+                        selectedRange = selectedRange.value,
+                        onDayClick = { clickedDate, events ->
+                            clickedDate.onDayClick(
+                                events = events,
+                                rangeStartDate = rangeStartDate,
+                                rangeEndDate = rangeEndDate,
+                                onDaySelectionAction = onDaySelectionAction,
+                                onClickedNewDate = {
+                                    clickedNewDate = it
+                                },
+                                onClickedRangeStartDate = {
+                                    rangeStartDate = it
+                                },
+                                onClickedRangeEndDate = {
+                                    rangeEndDate = it
+                                },
+                                onUpdateSelectedRange = {
+                                    selectedRange.value = it
+                                },
+                            )
+                        },
+                        dayKonfig = dayKonfig,
+                        events = events,
+                        selectedDate = clickedNewDate,
+                    )
+                } else {
+                    Box(modifier = Modifier.fillMaxWidth())
+                }
             }
         }
-
-        LaunchedEffect(pagerState.currentPage) {
-            val startDate = selectedDate.plus(
-                value = (pagerState.currentPage - Int.MAX_VALUE / 2) * 7,
-                unit = DateTimeUnit.DAY
-            )
-            currentDay = startDate
-        }
+    }
+    LaunchedEffect(pagerState.currentPage) {
+        val startDate = selectedDate.plus(
+            value = (pagerState.currentPage - Int.MAX_VALUE / 2),
+            unit = DateTimeUnit.MONTH
+        )
+        currentMonth = startDate
     }
 }

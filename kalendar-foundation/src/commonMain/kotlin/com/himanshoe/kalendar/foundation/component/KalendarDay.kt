@@ -138,7 +138,9 @@ private fun EventIndicators(
 }
 
 private fun getBorderStroke(
-    currentDay: Boolean, brush: Brush, selected: Boolean
+    currentDay: Boolean,
+    brush: Brush,
+    selected: Boolean
 ) = if (currentDay && !selected) {
     BorderStroke(1.dp, brush)
 } else {

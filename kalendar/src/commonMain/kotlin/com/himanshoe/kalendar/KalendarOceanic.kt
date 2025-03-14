@@ -152,7 +152,7 @@ private fun KalendarOceanicContent(
     }
 }
 
-private fun getMonthDates(
+internal fun getMonthDates(
     currentMonth: LocalDate,
     startDayOfWeek: DayOfWeek
 ): List<LocalDate> {

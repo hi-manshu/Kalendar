@@ -1,7 +1,6 @@
-## Kalendar - An Elementary Compose Calendar.
+### 📅 Kalendar: The Calendar Your App Deserves
 
 ![Kalendar](img/banner.png)
-![Maven Central: Kalendar](https://img.shields.io/maven-central/v/com.himanshoe/kalendar-endlos?color=f4c430&label=Maven%20Central%20%3A%20Kalendar)
 ![Github: Open Issues](https://img.shields.io/github/issues-raw/hi-manshu/kalendar?color=7E8EFB&label=Kalendar%3A%20Open%20Issues)
 [![Kalendar](https://img.shields.io/badge/Kotlin%20Weekly-%23286-orange)](https://mailchi.mp/kotlinweekly/kotlin-weekly-286)
 [![Kalendar](https://img.shields.io/badge/Android%20Weekly-%23533-Pink)](https://androidweekly.net/issues/issue-533)
@@ -9,41 +8,31 @@
 [![Github Followers](https://img.shields.io/github/followers/hi-manshu?label=Follow&style=social)](https://github.com/hi-manshu)
 [![Twitter Follow](https://img.shields.io/twitter/follow/hi_man_shoe?label=Follow&style=social)](https://twitter.com/hi_man_shoe)
 
-The Kalendar library is a powerful tool for creating calendar components in Android apps using
-Jetpack Compose. It provides customizable calendar views with various features and functionalities.
 
-The Kalendar library simplifies the process of creating interactive and visually appealing calendars
-in Android apps. With its flexible configuration options, event integration, and interactive
-callbacks, you can easily build powerful calendar components that enhance the user experience.
+Kalendar is no ordinary library — it’s the _Elder Wand_ of calendar components, crafted for
+Compose (now with KMP support) sorcerers who demand both power and elegance.
+With the flick of your wrist (or a few lines of Kotlin), you conjure a magical, interactive calendar
+that bends to your will. With Kalendar, your app becomes as organized as Hermione’s study schedule —
+but far more fun.
+
+So go on, Wield this enchanted tool and create a calendar so charming and powerful, even *
+*_Dumbledore_** would pause to admire it.
+
+### 🎉 Why Kalendar?
+
+- **🪄 Unparalleled Customization**: Shape your calendar like it’s made of Transfiguration magic. Colors, styles, themes — you control it all.
+- **📜 Event Management, Sorted**: Whether it’s the next **Quidditch match** or your weekly stand-up, display events clearly and beautifully.
+- **✨ Interactive and Responsive**:Tap, click, and swipe — and watch your calendar respond like it’s enchanted.
+- **🚀 KMP/CMP-Friendly**: No weird incantations needed — just simple, idiomatic Multiplatform Compose code.
+
+So unless you fancy scribbling your dates on a Howler, let Kalendar handle your scheduling magic.
 
 _Made with ❤️ for Android Developers by Himanshu_
 
-Kalendar supports three types of calendar:
+#### Kalendar supports three types of calendar:
 
-- **Oceanic**: Represents the WeekView.
-- **Firey**: Represents the MonthView.
-- **Endlos**: Represents a scrolling calendar that starts from the current month.
-
-### Getting Started
-
-To integrate the Kalendar library into your Android app, follow these steps:
-
-Add the Kalendar library as a dependency in your app-level build.gradle file:
-
-```gradle
-implementation 'com.himanshoe:kalendar:<latest-version>'
-```
-
-For adding the Scrolling calendar, Endlos, add the following dependency:
-
-```gradle
-implementation 'com.himanshoe:kalendar-endlos:<latest-version>'
-```
-
-For detailed documentation and examples on how to use the Kalendar library, please refer to
-the [Kalendar Documentation](docs/Kalendar.md) for Oceanic/Firey
-and [Kalendar Endlos Documentation](docs/KalendarEndlos.md) for scrolling calendar.
-
-Contributions, bug reports, and feature requests are welcome! Feel free to submit issues or pull
-requests in the [Kalendar GitHub repository](https://github.com/hi-manshu/Kalendar/pulls).
-
+- **Oceanic**: A majestic spell that conjures the MonthView..
+- **Firey**: A fiery enchantment that reveals the WeekView.
+- **Solaris**: A charm that lets you swipe through the calendar in MonthView, as if by magic.
+- **Aerial**: A spell that grants you the power to swipe through the calendar in WeekView, with the
+  flick of a wand.
