@@ -2,11 +2,10 @@
 
 ### Screnshots
 
-<p align="center" style="display: flex; justify-content: center; align-items: center; height: 200px;">
-  <img src="../img/solaris/SolarisDesktop.png" alt="SolarisDesktop" width="33%"/>
-  <img src="../img/solaris/SolarisAndroid.png" alt="SolarisAndroid" width="33%"/>
-  <img src="../img/solaris/SolarisIOS.png" alt="SolarisIOS" width="33%"/>
-</p>
+|Desktop|Android|iOS|
+| ![SolarisDesktop](../img/solaris/SolarisDesktop.png) | ![SolarisAndroid](../img/solaris/SolarisAndroid.png) | ![SolarisIOS](../img/solaris/SolarisIOS.png) |
+|----------------------------------------------------|----------------------------------------------------|----------------------------------------------|
+
 
 A magical Composable that brings your swipable monthly calendar to life with events, day labels, and more. Perfect for managing your monthly schedule!
 
