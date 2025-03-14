@@ -1,18 +1,18 @@
-## Kalendar : Solaris
+## Kalendar: Aerial
 
 ### Screnshots
 
-| Desktop | Android | iOS |
-|----------------------------------------------------|----------------------------------------------------|----------------------------------------------|
-| ![SolarisDesktop](../img/solaris/SolarisDesktop.png) | ![SolarisAndroid](../img/solaris/SolarisAndroid.png) | ![SolarisIOS](../img/solaris/SolarisIOS.png) |
-|----------------------------------------------------|----------------------------------------------------|----------------------------------------------|
+| Desktop                                              | Android | iOS                                            |
+|------------------------------------------------------|----------------------------------------------------|------------------------------------------------|
+| ![AerialDesktop](../img/aerial/AerialDesktop.png)    | ![AerialAndroid](../img/aerial/AerialAndroid.png) | ![AerialIOS](../img/aerial/AerialiOS.png)      |
+| ---------------------------------------------------- |----------------------------------------------------| ---------------------------------------------- |
 
 
 A magical Composable that brings your swipable monthly calendar to life with events, day labels, and more. Perfect for managing your monthly schedule!
 
 ```kotlin
 fun Kalendar(
-    kalendarType: KalendarType = KalendarType.Solaris,
+    kalendarType: KalendarType = KalendarType.Aerial,
     modifier: Modifier = Modifier,
     selectedDate: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
     events: KalendarEvents = KalendarEvents(),
@@ -27,7 +27,7 @@ fun Kalendar(
 
 #### Parameters:
 
-- **kalendarType**  (`KalendarType`): Specifies the type of calendar (e.g., monthly, weekly).
+- **kalendarType**  (`KalendarType`): Specifies the type of calendar (e.g., monthly, weekly). Here its Aerial
 - **modifier**  (`Modifier`): Customizes the appearance and behavior of the calendar.
 - **selectedDate**  (`LocalDate`): The selected date, defaulting to the current system date.
 - **events**  (`KalendarEvents`): A list of events to display on the calendar.
