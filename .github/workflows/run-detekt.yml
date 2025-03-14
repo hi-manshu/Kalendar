@@ -1,26 +1,26 @@
 name: Check Code - Detekt
 
-on: push
-#on: pull_request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  run:
-    continue-on-error: false
+  code-quality:
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkout
+      - name: Checkout Kalendar Repository
         uses: actions/checkout@v3
 
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: 17
           distribution: 'zulu'
+          java-version: 17
 
-      - name: detekt
+      - name: Run Detekt
         run: ./gradlew detekt
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: detekt-report
-          path: ./**/build/reports/detekt/detekt.*
