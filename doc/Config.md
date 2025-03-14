@@ -29,6 +29,7 @@ data class KalendarEvent(
 ## KalendarEvents
 
 A collection of multiple calendar [events](#kalendarEvent).
+
 ```kotlin
 
 data class KalendarEvents(
@@ -40,3 +41,89 @@ data class KalendarEvents(
 
 - **eventList** (`List<KalendarEvent>`): A list of events (default: an empty list).
 
+## KalendarKonfig
+
+Configuration options for the calendar’s behavior and style
+
+```kotlin
+data class KalendarKonfig(
+    val kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
+    val kalendarHeaderKonfig: KalendarHeaderKonfig = KalendarHeaderKonfig.default(),
+    val kalendarDayLabelKonfig: KalendarDayLabelKonfig = KalendarDayLabelKonfig.default(),
+    val backgroundColor: KalendarColor = KalendarColor.Solid(Color.White),
+)
+
+```
+
+### Properties:
+
+- **kalendarDayKonfig** (`[KalendarDayKonfig](#kalendarDayKonfig)`): A config to update day style of
+  calendar.
+- **kalendarHeaderKonfig** (`[KalendarHeaderKonfig](#kalendarHeaderKonfig)`): A config to update day
+  style of calendar.
+- **kalendarDayLabelKonfig** (`[KalendarDayLabelKonfig](#kalendarDayLabelKonfig)`): A config to
+  update day's label style of calendar.
+- **backgroundColor** (`[KalendarColor](#kalendarColor)`): A color of
+  type [KalendarColor](#kalendarColor)]
+
+## KalendarDayKonfig
+
+Configuration options for the calendar’s day behavior and style
+
+```kotlin
+data class KalendarDayKonfig(
+    val size: Dp,
+    val selectedTextColor: KalendarColor,
+    val borderColor: KalendarColor,
+    val indicatorColor: KalendarColor,
+    val textStyle: TextStyle,
+    val selectedBackgroundColor: KalendarColor,
+)
+
+```
+
+### Properties:
+
+- **size** (Dp): The size of the day element.
+- **selectedTextColor** ([KalendarColor](#kalendarColor)): The color of the text when a day is
+  selected.
+- **borderColor** ([KalendarColor](#kalendarColor)): The color of the border around the day element.
+- **indicatorColor** ([KalendarColor](#kalendarColor)): The color of the indicator for events.
+- **textStyle** (TextStyle): The style of the text for the day element.
+- **selectedBackgroundColor** ([KalendarColor](#kalendarColor)): The background color when a day is
+  selected.
+
+## KalendarHeaderKonfig
+
+Configuration options for the calendar’s Header View behavior and style that represents Month name
+
+```kotlin
+data class KalendarHeaderKonfig(
+    val textStyle: TextStyle,
+    val centerAligned: Boolean
+) 
+```
+
+### Properties:
+- **textStyle** (TextStyle): The style of the text for the day element.
+- **centerAligned** (Boolean): Aligns the header in center or no.
+
+## KalendarDayLabelKonfig
+
+Configuration options for the calendar’s day label behavior and style
+
+```kotlin
+data class KalendarDayLabelKonfig(
+    val textStyle: TextStyle,
+    val textCharCount: Int,
+    val centerAligned: Boolean
+)
+```
+### Properties:
+- **textStyle** (TextStyle): The style of the text for the day element.
+- **textCharCount** (Int): Lets you set the char count in day label.
+- **centerAligned** (Boolean): Aligns the header in center or no.
+
+## KalendarColor
+
+Representation of a color in the Kalendar library. It can be a solid color or a gradient.
