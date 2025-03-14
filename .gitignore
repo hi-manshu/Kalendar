@@ -13,3 +13,16 @@
 .externalNativeBuild
 .cxx
 local.properties
+/build/*
+/sample/build/*
+/sample/build
+/kalendar/build
+/kalendar-foundation/build
+/kalendar-foundation/build/*
+/kalendar-endloss/build
+/kalendar-endloss/build/*
+/kalendar/build/*
+.kotlin
+/.kotlin
+/.idea
+.idea

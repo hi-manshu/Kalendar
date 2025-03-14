@@ -36,21 +36,25 @@ To contribute to Kalendar, follow these steps:
   ```bash
   git checkout -b my-branch
   ```
+
 4. Make the necessary changes and additions to the codebase.
 
 5. Test your changes and open a PR with details detailed description!
 
-
 ## Documentation Guidelines
-- Improve existing documentation by fixing errors, enhancing explanations, or providing additional examples.
 
-- Add new sections or examples to the documentation to make it more comprehensive and beginner-friendly.
+- Improve existing documentation by fixing errors, enhancing explanations, or providing additional
+  examples.
+
+- Add new sections or examples to the documentation to make it more comprehensive and
+  beginner-friendly.
 
 - Ensure the documentation follows a clear structure and uses consistent formatting.
 
-
 ## Community Guidelines
-- When participating in discussions, bug reports, or pull requests, please keep the following guidelines in mind:
+
+- When participating in discussions, bug reports, or pull requests, please keep the following
+  guidelines in mind:
 
 - Be respectful and considerate of others' opinions and ideas.
 
