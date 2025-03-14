@@ -107,7 +107,6 @@ dependencies {
 compose.desktop {
     application {
         mainClass = "com.himanshoe.sample.MainKt"
-
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "com.himanshoe.sample"

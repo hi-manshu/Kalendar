@@ -15,6 +15,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "kalendarLib"
-include(":kalendar")
-include(":kalendar-foundation")
-include(":sample")
+include(":sample", ":kalendar", ":kalendar-foundation")

@@ -23,46 +23,46 @@ import kotlinx.datetime.todayIn
 @Composable
 fun App() {
     Column(modifier = Modifier.wrapContentSize().background(Color.Blue)) {
-        Kalendar(
-            selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
-            modifier = Modifier.fillMaxWidth(),
-            events = KalendarEvents(),
-            startDayOfWeek = DayOfWeek.SUNDAY,
-            kalendarType = KalendarType.Solaris,
-            onDaySelectionAction = OnDaySelectionAction.Range { date, events ->
-                println("Selected Date: $date with events: $events")
-            },
-        )
-        Spacer(Modifier.height(16.dp))
-        Kalendar(
-            selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
-            modifier = Modifier.fillMaxWidth(),
-            events = KalendarEvents(),
-            startDayOfWeek = DayOfWeek.MONDAY,
-            kalendarType = KalendarType.Firey,
-            onDaySelectionAction = OnDaySelectionAction.Range { date, events ->
-                println("Selected Date: $date with events: $events")
-            },
-        )
-        Spacer(Modifier.height(16.dp))
+//        Kalendar(
+//            selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
+//            modifier = Modifier.fillMaxWidth(),
+//            events = KalendarEvents(),
+//            startDayOfWeek = DayOfWeek.SUNDAY,
+//            kalendarType = KalendarType.Solaris,
+//            onDaySelectionAction = OnDaySelectionAction.Range { date, events ->
+//                println("Selected Date: $date with events: $events")
+//            },
+//        )
+//        Spacer(Modifier.height(16.dp))
+//        Kalendar(
+//            selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
+//            modifier = Modifier.fillMaxWidth(),
+//            events = KalendarEvents(),
+//            startDayOfWeek = DayOfWeek.MONDAY,
+//            kalendarType = KalendarType.Firey,
+//            onDaySelectionAction = OnDaySelectionAction.Range { date, events ->
+//                println("Selected Date: $date with events: $events")
+//            },
+//        )
+//        Spacer(Modifier.height(16.dp))
+//        Kalendar(
+//            selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
+//            modifier = Modifier.fillMaxWidth(),
+//            events = KalendarEvents(),
+//            startDayOfWeek = DayOfWeek.MONDAY,
+//            kalendarType = KalendarType.Aerial,
+//            onDaySelectionAction = OnDaySelectionAction.Range { date, events ->
+//                println("Selected Date: $date with events: $events")
+//            },
+//        )
+//        Spacer(Modifier.height(16.dp))
+//
         Kalendar(
             selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
             modifier = Modifier.fillMaxWidth(),
             events = KalendarEvents(),
             startDayOfWeek = DayOfWeek.MONDAY,
             kalendarType = KalendarType.Aerial,
-            onDaySelectionAction = OnDaySelectionAction.Range { date, events ->
-                println("Selected Date: $date with events: $events")
-            },
-        )
-        Spacer(Modifier.height(16.dp))
-
-        Kalendar(
-            selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
-            modifier = Modifier.fillMaxWidth(),
-            events = KalendarEvents(),
-            startDayOfWeek = DayOfWeek.MONDAY,
-            kalendarType = KalendarType.Oceanic,
             onDaySelectionAction = OnDaySelectionAction.Range { date, events ->
                 println("Selected Date: $date with events: $events")
             },

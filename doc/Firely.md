@@ -1,17 +1,17 @@
-## Kalendar: Aerial
+## Kalendar : Firey
 
 ### Screnshots
 
-| Desktop                                              | Android | iOS                                            |
-|------------------------------------------------------|----------------------------------------------------|------------------------------------------------|
-| ![AerialDesktop](../img/aerial/AerialDesktop.png)    | ![AerialAndroid](../img/aerial/AerialAndroid.png) | ![AerialIOS](../img/aerial/AerialiOS.png)      |
+| Desktop                                        | Android                                         | iOS                                    |
+|------------------------------------------------|-------------------------------------------------|----------------------------------------|
+| ![FireyDesktop](../img/firey/FireyDesktop.png) | ![FirelyAndroid](../img/firey/FireyAndroid.png) | ![FireyIOS](../img/firey/FireyIOS.png) |
 
 
-A magical Composable that brings your swipable weekly calendar to life with events, day labels, and more. Perfect for managing your weekly schedule!
+A magical Composable that brings your weekly calendar to life with events, day labels, and more. Perfect for managing your Weekly schedule!
 
 ```kotlin
 fun Kalendar(
-    kalendarType: KalendarType = KalendarType.Aerial,
+    kalendarType: KalendarType = KalendarType.Firey,
     modifier: Modifier = Modifier,
     selectedDate: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
     events: KalendarEvents = KalendarEvents(),
@@ -26,7 +26,7 @@ fun Kalendar(
 
 #### Parameters:
 
-- **kalendarType**  (`KalendarType`): Specifies the type of calendar (e.g., monthly, weekly). Here its Aerial
+- **kalendarType**  (`KalendarType`): Specifies the type of calendar (e.g., monthly, weekly). Here its Firey.
 - **modifier**  (`Modifier`): Customizes the appearance and behavior of the calendar.
 - **selectedDate**  (`LocalDate`): The selected date, defaulting to the current system date.
 - **events**  (`KalendarEvents`): A list of events to display on the calendar.

@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -9,6 +10,11 @@ plugins {
     alias(libs.plugins.dokka)
 }
 
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.S01)
+    signAllPublications()
+}
+
 kotlin {
     androidTarget {
         compilations.all {
@@ -17,6 +23,20 @@ kotlin {
                     jvmTarget.set(JvmTarget.JVM_1_8)
                 }
             }
+        }
+    }
+    jvm("desktop") {
+        compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget.set(JvmTarget.JVM_1_8)
+                }
+            }
+        }
+    }
+    wasm {
+        browser {
+            binaries.executable()
         }
     }
 

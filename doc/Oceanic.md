@@ -1,17 +1,17 @@
-## Kalendar: Aerial
+## Kalendar : Oceanic
 
 ### Screnshots
 
-| Desktop                                              | Android | iOS                                            |
-|------------------------------------------------------|----------------------------------------------------|------------------------------------------------|
-| ![AerialDesktop](../img/aerial/AerialDesktop.png)    | ![AerialAndroid](../img/aerial/AerialAndroid.png) | ![AerialIOS](../img/aerial/AerialiOS.png)      |
+| Desktop                                            | Android                                         | iOS                                      |
+|----------------------------------------------------|-------------------------------------------------|------------------------------------------|
+| ![OceanicDesktop](../img/oceanic/OceanicDesktop.png) | ![OceanicAndroid](../img/oceanic/OceanicAndroid.png) | ![OceanicIOS](../img/oceanic/OceaniciOS.png) |
 
 
-A magical Composable that brings your swipable weekly calendar to life with events, day labels, and more. Perfect for managing your weekly schedule!
+A magical Composable that brings your monthly calendar to life with events, day labels, and more. Perfect for managing your Monthly schedule!
 
 ```kotlin
 fun Kalendar(
-    kalendarType: KalendarType = KalendarType.Aerial,
+    kalendarType: KalendarType = KalendarType.Oceanic,
     modifier: Modifier = Modifier,
     selectedDate: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
     events: KalendarEvents = KalendarEvents(),
@@ -26,7 +26,7 @@ fun Kalendar(
 
 #### Parameters:
 
-- **kalendarType**  (`KalendarType`): Specifies the type of calendar (e.g., monthly, weekly). Here its Aerial
+- **kalendarType**  (`KalendarType`): Specifies the type of calendar (e.g., monthly, weekly). Here its Oceanic.
 - **modifier**  (`Modifier`): Customizes the appearance and behavior of the calendar.
 - **selectedDate**  (`LocalDate`): The selected date, defaulting to the current system date.
 - **events**  (`KalendarEvents`): A list of events to display on the calendar.
