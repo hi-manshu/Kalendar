@@ -5,7 +5,6 @@
 | Desktop                                              | Android | iOS                                            |
 |------------------------------------------------------|----------------------------------------------------|------------------------------------------------|
 | ![AerialDesktop](../img/aerial/AerialDesktop.png)    | ![AerialAndroid](../img/aerial/AerialAndroid.png) | ![AerialIOS](../img/aerial/AerialiOS.png)      |
-| ---------------------------------------------------- |----------------------------------------------------| ---------------------------------------------- |
 
 
 A magical Composable that brings your swipable monthly calendar to life with events, day labels, and more. Perfect for managing your monthly schedule!

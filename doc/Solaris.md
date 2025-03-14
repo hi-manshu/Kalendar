@@ -5,7 +5,6 @@
 | Desktop | Android | iOS |
 |----------------------------------------------------|----------------------------------------------------|----------------------------------------------|
 | ![SolarisDesktop](../img/solaris/SolarisDesktop.png) | ![SolarisAndroid](../img/solaris/SolarisAndroid.png) | ![SolarisIOS](../img/solaris/SolarisIOS.png) |
-|----------------------------------------------------|----------------------------------------------------|----------------------------------------------|
 
 
 A magical Composable that brings your swipable monthly calendar to life with events, day labels, and more. Perfect for managing your monthly schedule!
