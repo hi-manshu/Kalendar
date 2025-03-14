@@ -6,7 +6,7 @@
 - **Aerial**: A spell that grants you the power to swipe through the calendar in WeekView, with the
   flick of a wand.
 
-## KalendarEvent {#ke}
+## KalendarEvent
 
 Represents an individual event tied to a specific date.
 
@@ -28,7 +28,7 @@ data class KalendarEvent(
 
 ## KalendarEvents
 
-A collection of multiple calendar [events](#ke).
+A collection of multiple calendar [events](#kalendarEvent).
 ```kotlin
 
 data class KalendarEvents(
