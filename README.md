@@ -34,8 +34,8 @@ So unless you fancy scribbling your dates on a Howler, let Kalendar handle your 
 
 ## Kalendar supports these types of calendar, Click to have detailed information:
 
-- **Oceanic**: A majestic spell that conjures the MonthView..
-- **Firey**: A fiery enchantment that reveals the WeekView.
+- **[Oceanic](doc/Oceanic.md)**: A majestic spell that conjures the MonthView..
+- **[Firey](doc/Firey.md)**: A fiery enchantment that reveals the WeekView.
 - **[Solaris](doc/Solaris.md)**: A charm that lets you swipe through the calendar in MonthView, as if by magic.
 - **[Aerial](doc/Aerial.md)**: A spell that grants you the power to swipe through the calendar in WeekView, with the
   flick of a wand.
