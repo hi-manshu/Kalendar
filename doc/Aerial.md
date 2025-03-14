@@ -33,7 +33,7 @@ fun Kalendar(
 - **showDayLabel**  (`Boolean`): Whether to display day labels (default: true).
 - **arrowShown**  (`Boolean`): Controls visibility of navigation arrows (default: true).
 - **onDaySelectionAction**  (`OnDaySelectionAction`): Action to trigger on day selection (default: no-op).
-- **kalendarKonfig**  (`KalendarKonfig`): Configuration options for the calendar’s behavior and style.
+- **kalendarKonfig**  (`[KalendarKonfig](https://github.com/hi-manshu/Kalendar/blob/main/doc/Config.md#kalendarkonfig)`): Configuration options for the calendar’s behavior and style.
 - **restrictToCurrentWeekOrMonth**  (`Boolean`): Restricts the view to the current week or month (default: false).
 - **startDayOfWeek**  (`DayOfWeek`): The day the calendar starts with (default: Sunday).
 
