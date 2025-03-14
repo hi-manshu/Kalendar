@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.event
+package com.himanshoe.kalendar.foundation.event
 
 import kotlinx.datetime.LocalDate
 

@@ -1,7 +1,7 @@
-package com.himanshoe.kalendar.core.config
+package com.himanshoe.kalendar.foundation.component.config
 
 import androidx.compose.ui.graphics.Color
-import com.himanshoe.kalendar.core.color.KalendarColor
+import com.himanshoe.kalendar.foundation.color.KalendarColor
 
 data class KalendarKonfig(
     val kalendarDayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),

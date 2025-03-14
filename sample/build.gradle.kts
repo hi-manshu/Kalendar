@@ -61,6 +61,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(project(":kalendar"))
+            implementation(project(":kalendar-foundation"))
             implementation(compose.material)
             implementation(compose.ui)
             implementation(libs.kotlinx.datetime)

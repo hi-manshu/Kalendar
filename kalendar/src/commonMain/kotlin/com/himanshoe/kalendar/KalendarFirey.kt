@@ -16,18 +16,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.text.style.TextAlign
-import com.himanshoe.kalendar.core.color.KalendarColor
-import com.himanshoe.kalendar.core.component.KalendarDay
-import com.himanshoe.kalendar.core.component.KalendarHeader
-import com.himanshoe.kalendar.core.config.KalendarDayKonfig
-import com.himanshoe.kalendar.core.config.KalendarDayLabelKonfig
-import com.himanshoe.kalendar.core.config.KalendarHeaderKonfig
-import com.himanshoe.kalendar.core.config.KalendarKonfig
-import com.himanshoe.kalendar.core.util.KalendarSelectedDayRange
-import com.himanshoe.kalendar.core.util.OnDaySelectionAction
-import com.himanshoe.kalendar.event.KalendarEvent
-import com.himanshoe.kalendar.event.KalendarEvents
+import com.himanshoe.kalendar.foundation.KalendarScaffold
+import com.himanshoe.kalendar.foundation.action.KalendarSelectedDayRange
+import com.himanshoe.kalendar.foundation.action.OnDaySelectionAction
+import com.himanshoe.kalendar.foundation.action.onDayClick
+import com.himanshoe.kalendar.foundation.color.KalendarColor
+import com.himanshoe.kalendar.foundation.component.KalendarDay
+import com.himanshoe.kalendar.foundation.component.KalendarHeader
+import com.himanshoe.kalendar.foundation.component.buildHeaderText
+import com.himanshoe.kalendar.foundation.component.config.KalendarDayKonfig
+import com.himanshoe.kalendar.foundation.component.config.KalendarDayLabelKonfig
+import com.himanshoe.kalendar.foundation.component.config.KalendarHeaderKonfig
+import com.himanshoe.kalendar.foundation.component.config.KalendarKonfig
+import com.himanshoe.kalendar.foundation.event.KalendarEvents
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
@@ -38,16 +39,16 @@ import kotlinx.datetime.plus
 import kotlinx.datetime.todayIn
 
 @Composable
-fun KalendarFirey(
-    date: LocalDate,
+internal fun KalendarFirey(
+    selectedDate: LocalDate,
     modifier: Modifier = Modifier,
-    selectedDate: LocalDate = date,
     events: KalendarEvents = KalendarEvents(),
     showDayLabel: Boolean = true,
     arrowShown: Boolean = true,
     onDaySelectionAction: OnDaySelectionAction = OnDaySelectionAction.Single { _, _ -> },
     kalendarKonfig: KalendarKonfig = KalendarKonfig(),
     restrictToCurrentWeek: Boolean = false,
+    startDayOfWeek: DayOfWeek = DayOfWeek.SUNDAY,
 ) {
     KalendarFireyContent(
         selectedDate = selectedDate,
@@ -60,7 +61,8 @@ fun KalendarFirey(
         kalendarDayLabelKonfig = kalendarKonfig.kalendarDayLabelKonfig,
         restrictToCurrentWeek = restrictToCurrentWeek,
         events = events,
-        backgroundColor = kalendarKonfig.backgroundColor
+        backgroundColor = kalendarKonfig.backgroundColor,
+        startDayOfWeek = startDayOfWeek
     )
 }
 
@@ -77,6 +79,7 @@ private fun KalendarFireyContent(
     kalendarDayLabelKonfig: KalendarDayLabelKonfig,
     modifier: Modifier = Modifier,
     restrictToCurrentWeek: Boolean = false,
+    startDayOfWeek: DayOfWeek = DayOfWeek.SUNDAY,
 ) {
     val today = remember { Clock.System.todayIn(TimeZone.currentSystemDefault()) }
     val startOfWeek = remember(today) { today.minus(today.dayOfWeek.ordinal, DateTimeUnit.DAY) }
@@ -87,47 +90,9 @@ private fun KalendarFireyContent(
     var rangeEndDate by remember { mutableStateOf<LocalDate?>(null) }
 
     var clickedNewDate by remember { mutableStateOf(selectedDate) }
-    val daysOfWeek = DayOfWeek.entries.toTypedArray()
+    val daysOfWeek = DayOfWeek.entries.toTypedArray().rotate(startDayOfWeek.ordinal)
     val displayDates by remember(currentDay) {
-        mutableStateOf(generateWeekDates(currentDay))
-    }
-
-    fun onDayClick(
-        clickedDate: LocalDate,
-        events: List<KalendarEvent>,
-    ) {
-        when (onDaySelectionAction) {
-            is OnDaySelectionAction.Single -> {
-                clickedNewDate = clickedDate
-                onDaySelectionAction.onDayClick(clickedDate, events)
-            }
-
-            is OnDaySelectionAction.Range -> {
-                if (rangeStartDate == null || rangeEndDate != null) {
-                    rangeStartDate = clickedDate
-                    rangeEndDate = null
-                } else {
-                    rangeEndDate = clickedDate
-                    if (rangeStartDate!! > rangeEndDate!!) {
-                        val temp = rangeStartDate
-                        rangeStartDate = rangeEndDate
-                        rangeEndDate = temp
-                    }
-                    selectedRange.value =
-                        KalendarSelectedDayRange(
-                            rangeStartDate!!,
-                            rangeEndDate!!
-                        )
-                    selectedRange.value?.let {
-                        onDaySelectionAction.onRangeSelected(
-                            it,
-                            events
-                        )
-                    }
-                }
-                clickedNewDate = clickedDate
-            }
-        }
+        mutableStateOf(getWeekDates(currentDay, startDayOfWeek))
     }
 
     Column(
@@ -136,8 +101,7 @@ private fun KalendarFireyContent(
     ) {
         KalendarHeader(
             modifier = Modifier,
-            month = currentDay.month,
-            year = currentDay.year,
+            title = displayDates.buildHeaderText(),
             arrowShown = arrowShown,
             kalendarHeaderKonfig = kalendarHeaderKonfig,
             canNavigateBack = !restrictToCurrentWeek || currentDay > today,
@@ -149,42 +113,52 @@ private fun KalendarFireyContent(
             },
             onNextClick = { currentDay = currentDay.plus(7, DateTimeUnit.DAY) }
         )
-
-        LazyVerticalGrid(
+        KalendarScaffold(
             modifier = Modifier.fillMaxWidth(),
-            columns = GridCells.Fixed(7),
-            horizontalArrangement = Arrangement.Center,
-            content = {
-                if (showDayLabel) {
-                    items(daysOfWeek) { dayOfWeek ->
-                        Text(
-                            text = dayOfWeek.name.take(kalendarDayLabelKonfig.textCharCount),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .align(Alignment.CenterHorizontally),
-                            style = kalendarDayLabelKonfig.textStyle
-                        )
-                    }
-                }
-                items(items = displayDates) { date ->
-                    KalendarDay(
-                        date = date,
-                        selectedRange = selectedRange.value,
-                        onDayClick = { clickedDate, events ->
-                            onDayClick(
-                                clickedDate = clickedDate,
-                                events = events,
-                            )
-                        },
-                        dayKonfig = dayKonfig,
+            showDayLabel = showDayLabel,
+            dayOfWeek = { daysOfWeek.asList() },
+            kalendarDayLabelKonfig = kalendarDayLabelKonfig,
+            dates = { displayDates },
+        ) { date ->
+            KalendarDay(
+                date = date,
+                selectedRange = selectedRange.value,
+                onDayClick = { clickedDate, events ->
+                    clickedDate.onDayClick(
                         events = events,
-                        selectedDate = clickedNewDate,
+                        rangeStartDate = rangeStartDate,
+                        rangeEndDate = rangeEndDate,
+                        onDaySelectionAction = onDaySelectionAction,
+                        onClickedNewDate = {
+                            clickedNewDate = it
+                        },
+                        onClickedRangeStartDate = {
+                            rangeStartDate = it
+                        },
+                        onClickedRangeEndDate = {
+                            rangeEndDate = it
+                        },
+                        onUpdateSelectedRange = {
+                            selectedRange.value = it
+                        },
                     )
-                }
-            }
-        )
+                },
+                dayKonfig = dayKonfig,
+                events = events,
+                selectedDate = clickedNewDate,
+            )
+        }
     }
 }
 
-private fun generateWeekDates(currentDay: LocalDate) =
-    (-3..3).map { currentDay.plus(it, DateTimeUnit.DAY) }
+internal fun getWeekDates(currentDay: LocalDate, startDayOfWeek: DayOfWeek): List<LocalDate> {
+    val startOfWeek = currentDay.minus(
+        (currentDay.dayOfWeek.ordinal - startDayOfWeek.ordinal + 7) % 7,
+        DateTimeUnit.DAY
+    )
+    return (0..6).map { startOfWeek.plus(it, DateTimeUnit.DAY) }
+}
+
+internal fun Array<DayOfWeek>.rotate(n: Int): Array<DayOfWeek> {
+    return this.drop(n).toTypedArray() + this.take(n).toTypedArray()
+}

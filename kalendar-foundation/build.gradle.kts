@@ -26,7 +26,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "kalendar"
+            baseName = "kalendar-core"
             isStatic = true
         }
     }
@@ -39,7 +39,6 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(libs.kotlinx.datetime)
-            implementation(project(":kalendar-foundation"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -53,7 +52,7 @@ compose.resources {
     generateResClass = auto
 }
 android {
-    namespace = "com.himanshoe.kalendar"
+    namespace = "com.himanshoe.kalendar.core"
     compileSdk = 35
     defaultConfig {
         minSdk = 24

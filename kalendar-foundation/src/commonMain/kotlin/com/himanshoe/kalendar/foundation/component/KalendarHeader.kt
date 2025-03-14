@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.core.component
+package com.himanshoe.kalendar.foundation.component
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ContentTransform
@@ -11,6 +11,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -31,7 +32,8 @@ import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.dp
-import com.himanshoe.kalendar.core.config.KalendarHeaderKonfig
+import com.himanshoe.kalendar.foundation.component.config.KalendarHeaderKonfig
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 
 @Composable
@@ -45,11 +47,35 @@ fun KalendarHeader(
     onPreviousClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
 ) {
+    val titleText =
+        remember(month, year, Locale.current) { getTitleText(month, year, Locale.current) }
+
     KalendarHeaderContent(
-        modifier = modifier,
+        modifier = modifier.defaultMinSize(minHeight = 56.dp),
         kalendarHeaderKonfig = kalendarHeaderKonfig,
-        month = month,
-        year = year,
+        titleText = titleText,
+        canNavigateBack = canNavigateBack,
+        arrowShown = arrowShown,
+        onPreviousClick = onPreviousClick,
+        onNextClick = onNextClick,
+        centerAligned = kalendarHeaderKonfig.centerAligned
+    )
+}
+
+@Composable
+fun KalendarHeader(
+    title: String,
+    modifier: Modifier = Modifier,
+    canNavigateBack: Boolean = true,
+    arrowShown: Boolean = true,
+    kalendarHeaderKonfig: KalendarHeaderKonfig = KalendarHeaderKonfig.default(),
+    onPreviousClick: () -> Unit = {},
+    onNextClick: () -> Unit = {},
+) {
+    KalendarHeaderContent(
+        modifier = modifier.defaultMinSize(minHeight = 56.dp),
+        kalendarHeaderKonfig = kalendarHeaderKonfig,
+        titleText = title,
         canNavigateBack = canNavigateBack,
         arrowShown = arrowShown,
         onPreviousClick = onPreviousClick,
@@ -60,9 +86,8 @@ fun KalendarHeader(
 
 @Composable
 private fun KalendarHeaderContent(
-    month: Month,
-    year: Int,
     arrowShown: Boolean,
+    titleText: String,
     onPreviousClick: () -> Unit,
     onNextClick: () -> Unit,
     canNavigateBack: Boolean,
@@ -96,9 +121,6 @@ private fun KalendarHeaderContent(
                 }
             )
         }
-
-        val titleText =
-            remember(month, year, Locale.current) { getTitleText(month, year, Locale.current) }
 
         AnimatedContent(
             targetState = titleText,
@@ -165,4 +187,20 @@ private fun getTitleText(month: Month, year: Int, locale: Locale): String {
         }
     val shortYear = year.toString().takeLast(2)
     return "$monthDisplayName '$shortYear"
+}
+
+
+fun List<LocalDate>.buildHeaderText(): String {
+    val months = this.map { it.month }.distinct()
+    return if (months.size > 1) {
+        "${months.first().name.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }} '${
+            this.first().year.toString().takeLast(2)
+        }/${months.last().name.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }} '${
+            this.last().year.toString().takeLast(2)
+        }"
+    } else {
+        "${months.first().name.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }} '${
+            this.first().year.toString().takeLast(2)
+        }"
+    }
 }

@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.core.config
+package com.himanshoe.kalendar.foundation.component.config
 
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -6,8 +6,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.himanshoe.kalendar.core.color.KalendarColor
-import com.himanshoe.kalendar.core.color.asSolidChartColor
+import com.himanshoe.kalendar.foundation.color.KalendarColor
+import com.himanshoe.kalendar.foundation.color.asSolidChartColor
 
 data class KalendarDayKonfig(
     val size: Dp,

@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.core.component
+package com.himanshoe.kalendar.foundation.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -23,12 +23,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastFilter
 import androidx.compose.ui.util.fastForEachIndexed
-import com.himanshoe.kalendar.core.config.KalendarDayKonfig
-import com.himanshoe.kalendar.core.util.KalendarSelectedDayRange
-import com.himanshoe.kalendar.core.util.circleLayout
-import com.himanshoe.kalendar.core.util.dayBackgroundColor
-import com.himanshoe.kalendar.event.KalendarEvent
-import com.himanshoe.kalendar.event.KalendarEvents
+import com.himanshoe.kalendar.foundation.action.KalendarSelectedDayRange
+import com.himanshoe.kalendar.foundation.component.config.KalendarDayKonfig
+import com.himanshoe.kalendar.foundation.event.KalendarEvent
+import com.himanshoe.kalendar.foundation.event.KalendarEvents
+import com.himanshoe.kalendar.foundation.ext.circleLayout
+import com.himanshoe.kalendar.foundation.ext.dayBackgroundColor
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone

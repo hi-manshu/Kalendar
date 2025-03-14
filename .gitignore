@@ -17,6 +17,10 @@ local.properties
 /sample/build/*
 /sample/build
 /kalendar/build
-/kalendar-core/build
+/kalendar-foundation/build
 /kalendar/build/*
-/kalendar-core/build/*
+/kalendar-foundation/build/*
+.kotlin
+/.kotlin
+/.idea
+.idea

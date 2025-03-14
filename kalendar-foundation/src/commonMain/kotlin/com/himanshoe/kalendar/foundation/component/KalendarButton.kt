@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.core.component
+package com.himanshoe.kalendar.foundation.component
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize

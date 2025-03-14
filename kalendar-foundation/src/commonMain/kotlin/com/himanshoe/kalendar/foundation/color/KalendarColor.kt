@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.core.color
+package com.himanshoe.kalendar.foundation.color
 
 import androidx.compose.ui.graphics.Color
 

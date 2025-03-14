@@ -1,6 +1,6 @@
-package com.himanshoe.kalendar.core.util
+package com.himanshoe.kalendar.foundation.action
 
-import com.himanshoe.kalendar.event.KalendarEvent
+import com.himanshoe.kalendar.foundation.event.KalendarEvent
 import kotlinx.datetime.LocalDate
 
 sealed class OnDaySelectionAction {

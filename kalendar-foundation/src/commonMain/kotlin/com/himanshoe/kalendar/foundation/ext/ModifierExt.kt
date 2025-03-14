@@ -1,10 +1,11 @@
-package com.himanshoe.kalendar.core.util
+package com.himanshoe.kalendar.foundation.ext
 
 import androidx.compose.foundation.background
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layout
+import com.himanshoe.kalendar.foundation.action.KalendarSelectedDayRange
 import kotlinx.datetime.LocalDate
 
 private const val FULL_ALPHA = 1f

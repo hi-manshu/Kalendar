@@ -1,4 +1,4 @@
-package com.himanshoe.kalendar.core.component
+package com.himanshoe.kalendar.foundation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,7 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.himanshoe.kalendar.core.color.KalendarColor
+import com.himanshoe.kalendar.foundation.color.KalendarColor
 
 @Composable
 fun KalendarIndicator(
