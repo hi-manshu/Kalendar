@@ -32,7 +32,7 @@ So unless you fancy scribbling your dates on a Howler, let Kalendar handle your 
 
 > _Made with ❤️ for Android Developers by Himanshu_
 
-## Kalendar supports these types of calendar:
+## Kalendar supports these types of calendar, Click to have detailed information:
 
 - **Oceanic**: A majestic spell that conjures the MonthView..
 - **Firey**: A fiery enchantment that reveals the WeekView.
