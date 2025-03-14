@@ -5,6 +5,8 @@
 [![Kalendar](https://img.shields.io/badge/Kotlin%20Weekly-%23286-orange)](https://mailchi.mp/kotlinweekly/kotlin-weekly-286)
 [![Kalendar](https://img.shields.io/badge/Android%20Weekly-%23533-Pink)](https://androidweekly.net/issues/issue-533)
 [![Kalendar](https://img.shields.io/badge/Canopas%20Engineering-%2372-blue)](https://blog.canopas.com/android-stack-weekly-issue-72-20658bea40a2)
+![Kalendar](https://img.shields.io/maven-central/v/com.himanshoe/kalendar?style=flat&label=Kalendar)
+![KalendarFoundation](https://img.shields.io/maven-central/v/com.himanshoe/kalendar-foundation?style=plastic&label=Kalendar-Foundation)
 [![Github Followers](https://img.shields.io/github/followers/hi-manshu?label=Follow&style=social)](https://github.com/hi-manshu)
 [![Twitter Follow](https://img.shields.io/twitter/follow/hi_man_shoe?label=Follow&style=social)](https://twitter.com/hi_man_shoe)
 
@@ -36,8 +38,10 @@ So unless you fancy scribbling your dates on a Howler, let Kalendar handle your 
 
 - **[Oceanic](doc/Oceanic.md)**: A majestic spell that conjures the MonthView..
 - **[Firey](doc/Firey.md)**: A fiery enchantment that reveals the WeekView.
-- **[Solaris](doc/Solaris.md)**: A charm that lets you swipe through the calendar in MonthView, as if by magic.
-- **[Aerial](doc/Aerial.md)**: A spell that grants you the power to swipe through the calendar in WeekView, with the
+- **[Solaris](doc/Solaris.md)**: A charm that lets you swipe through the calendar in MonthView, as
+  if by magic.
+- **[Aerial](doc/Aerial.md)**: A spell that grants you the power to swipe through the calendar in
+  WeekView, with the
   flick of a wand.
 
 ## 🎉 Getting Started
@@ -62,7 +66,7 @@ charty = { module = "com.himanshoe:kalendar-foundation", version.ref = "kalendar
 
 ### Gradle
 
-<detais>
+<details>
 Add the dependency below to your module's `build.gradle.kts` file:
 
 ```gradle
@@ -90,5 +94,10 @@ sourceSets {
 ```
 
 </details>
+
+## 📖Documentation
+
+You can find it here: [Kalendar Documentation](doc/)
+
 
 
