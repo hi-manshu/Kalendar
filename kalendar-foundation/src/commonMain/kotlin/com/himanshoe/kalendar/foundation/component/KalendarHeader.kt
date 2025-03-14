@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -51,14 +52,17 @@ fun KalendarHeader(
         remember(month, year, Locale.current) { getTitleText(month, year, Locale.current) }
 
     KalendarHeaderContent(
-        modifier = modifier.defaultMinSize(minHeight = 56.dp),
-        kalendarHeaderKonfig = kalendarHeaderKonfig,
-        titleText = titleText,
-        canNavigateBack = canNavigateBack,
         arrowShown = arrowShown,
+        titleText = titleText,
         onPreviousClick = onPreviousClick,
         onNextClick = onNextClick,
-        centerAligned = kalendarHeaderKonfig.centerAligned
+        onNavigateToday = { },
+        showCalendarIcon = false,
+        canNavigateBack = canNavigateBack,
+        centerAligned = kalendarHeaderKonfig.centerAligned,
+        modifier = modifier.defaultMinSize(minHeight = 56.dp),
+        kalendarHeaderKonfig = kalendarHeaderKonfig,
+        calendarIconEnabled = false
     )
 }
 
@@ -66,20 +70,26 @@ fun KalendarHeader(
 fun KalendarHeader(
     title: String,
     modifier: Modifier = Modifier,
+    showCalendarIcon: Boolean = false,
+    calendarIconEnabled: Boolean = false,
     canNavigateBack: Boolean = true,
     arrowShown: Boolean = true,
     kalendarHeaderKonfig: KalendarHeaderKonfig = KalendarHeaderKonfig.default(),
     onPreviousClick: () -> Unit = {},
     onNextClick: () -> Unit = {},
+    onNavigateToday: () -> Unit = {},
 ) {
     KalendarHeaderContent(
         modifier = modifier.defaultMinSize(minHeight = 56.dp),
         kalendarHeaderKonfig = kalendarHeaderKonfig,
         titleText = title,
         canNavigateBack = canNavigateBack,
+        calendarIconEnabled = calendarIconEnabled,
         arrowShown = arrowShown,
         onPreviousClick = onPreviousClick,
+        showCalendarIcon = showCalendarIcon,
         onNextClick = onNextClick,
+        onNavigateToday = onNavigateToday,
         centerAligned = kalendarHeaderKonfig.centerAligned
     )
 }
@@ -90,7 +100,10 @@ private fun KalendarHeaderContent(
     titleText: String,
     onPreviousClick: () -> Unit,
     onNextClick: () -> Unit,
+    onNavigateToday: () -> Unit,
+    showCalendarIcon: Boolean,
     canNavigateBack: Boolean,
+    calendarIconEnabled: Boolean,
     centerAligned: Boolean,
     modifier: Modifier = Modifier,
     kalendarHeaderKonfig: KalendarHeaderKonfig = KalendarHeaderKonfig.default(),
@@ -136,6 +149,17 @@ private fun KalendarHeaderContent(
                     .align(Alignment.CenterVertically),
                 text = month,
                 style = kalendarHeaderKonfig.textStyle,
+            )
+        }
+        if (showCalendarIcon) {
+            KalendarIconButton(
+                modifier = Modifier.wrapContentSize(),
+                imageVector = Icons.Default.DateRange,
+                contentDescription = "Calendar Icon for navigating today",
+                enabled = calendarIconEnabled,
+                onClick = {
+                    onNavigateToday()
+                }
             )
         }
         if (arrowShown) {

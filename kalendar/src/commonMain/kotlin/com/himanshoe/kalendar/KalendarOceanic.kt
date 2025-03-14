@@ -1,14 +1,9 @@
 package com.himanshoe.kalendar
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,7 +22,6 @@ import com.himanshoe.kalendar.foundation.component.KalendarHeader
 import com.himanshoe.kalendar.foundation.component.config.KalendarDayKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarDayLabelKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarKonfig
-import com.himanshoe.kalendar.foundation.event.KalendarEvent
 import com.himanshoe.kalendar.foundation.event.KalendarEvents
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
@@ -92,7 +86,7 @@ private fun KalendarOceanicContent(
     var rangeStartDate by remember { mutableStateOf<LocalDate?>(null) }
     var rangeEndDate by remember { mutableStateOf<LocalDate?>(null) }
     var clickedNewDate by remember { mutableStateOf(selectedDate) }
-    val daysOfWeek = DayOfWeek.entries.toTypedArray().rotate(startDayOfWeek.ordinal)
+    val daysOfWeek = DayOfWeek.entries.rotate(startDayOfWeek.ordinal)
     val displayDates by remember(currentMonth, startDayOfWeek) {
         mutableStateOf(getMonthDates(currentMonth, startDayOfWeek))
     }
@@ -118,7 +112,7 @@ private fun KalendarOceanicContent(
         KalendarScaffold(
             modifier = Modifier.fillMaxWidth(),
             showDayLabel = showDayLabel,
-            dayOfWeek = { daysOfWeek.asList() },
+            dayOfWeek = { daysOfWeek },
             kalendarDayLabelKonfig = kalendarDayLabelKonfig,
             dates = { displayDates },
         ) { date ->

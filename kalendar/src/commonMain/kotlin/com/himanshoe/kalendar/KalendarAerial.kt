@@ -10,6 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +28,7 @@ import com.himanshoe.kalendar.foundation.component.config.KalendarDayLabelKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarHeaderKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarKonfig
 import com.himanshoe.kalendar.foundation.event.KalendarEvents
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
@@ -62,7 +64,7 @@ internal fun KalendarAerial(
 }
 
 @Composable
-fun KalendarAerialContent(
+private fun KalendarAerialContent(
     selectedDate: LocalDate,
     modifier: Modifier,
     showDayLabel: Boolean,
@@ -80,14 +82,15 @@ fun KalendarAerialContent(
     var currentDay by remember { mutableStateOf(selectedDate) }
     var rangeStartDate by remember { mutableStateOf<LocalDate?>(null) }
     var rangeEndDate by remember { mutableStateOf<LocalDate?>(null) }
-
+    val coroutineScope = rememberCoroutineScope()
     val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
     var clickedNewDate by remember { mutableStateOf(selectedDate) }
-    val daysOfWeek = DayOfWeek.entries.toTypedArray().rotate(startDayOfWeek.ordinal)
+    val daysOfWeek = DayOfWeek.entries.rotate(distance = startDayOfWeek.ordinal)
     val pagerState = rememberPagerState(
         initialPage = Int.MAX_VALUE / 2,
         pageCount = { Int.MAX_VALUE }
     )
+    val calendarIconEnabled = pagerState.currentPage != Int.MAX_VALUE / 2
     val headerText = remember(currentDay) {
         getWeekDates(
             currentDay = currentDay,
@@ -103,18 +106,34 @@ fun KalendarAerialContent(
             modifier = Modifier,
             title = headerText,
             arrowShown = false,
+            calendarIconEnabled = calendarIconEnabled,
+            showCalendarIcon = true,
+            onNavigateToday = {
+                if (calendarIconEnabled) {
+                    coroutineScope.launch {
+                        currentDay = today
+                        pagerState.animateScrollToPage(page = Int.MAX_VALUE / 2)
+                    }
+                }
+            },
             kalendarHeaderKonfig = kalendarHeaderKonfig,
             canNavigateBack = !restrictToCurrentWeek || currentDay > today,
         )
 
         HorizontalPager(state = pagerState, modifier = Modifier.fillMaxWidth()) { page ->
-            val startDate = selectedDate.plus((page - Int.MAX_VALUE / 2) * 7, DateTimeUnit.DAY)
-            val displayDates = getWeekDates(startDate, startDayOfWeek)
+            val startDate = selectedDate.plus(
+                value = (page - Int.MAX_VALUE / 2) * 7,
+                unit = DateTimeUnit.DAY
+            )
+            val displayDates = getWeekDates(
+                currentDay = startDate,
+                startDayOfWeek = startDayOfWeek
+            )
 
             KalendarScaffold(
                 modifier = Modifier.fillMaxWidth(),
                 showDayLabel = showDayLabel,
-                dayOfWeek = { daysOfWeek.asList() },
+                dayOfWeek = { daysOfWeek },
                 kalendarDayLabelKonfig = kalendarDayLabelKonfig,
                 dates = { displayDates },
             ) { date ->
@@ -150,11 +169,10 @@ fun KalendarAerialContent(
 
         LaunchedEffect(pagerState.currentPage) {
             val startDate = selectedDate.plus(
-                (pagerState.currentPage - Int.MAX_VALUE / 2) * 7,
-                DateTimeUnit.DAY
+                value = (pagerState.currentPage - Int.MAX_VALUE / 2) * 7,
+                unit = DateTimeUnit.DAY
             )
             currentDay = startDate
         }
     }
 }
-

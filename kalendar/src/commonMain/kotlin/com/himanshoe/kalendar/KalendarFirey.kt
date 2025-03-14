@@ -1,13 +1,8 @@
 package com.himanshoe.kalendar
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -90,7 +85,7 @@ private fun KalendarFireyContent(
     var rangeEndDate by remember { mutableStateOf<LocalDate?>(null) }
 
     var clickedNewDate by remember { mutableStateOf(selectedDate) }
-    val daysOfWeek = DayOfWeek.entries.toTypedArray().rotate(startDayOfWeek.ordinal)
+    val daysOfWeek = DayOfWeek.entries.rotate(startDayOfWeek.ordinal)
     val displayDates by remember(currentDay) {
         mutableStateOf(getWeekDates(currentDay, startDayOfWeek))
     }
@@ -103,6 +98,7 @@ private fun KalendarFireyContent(
             modifier = Modifier,
             title = displayDates.buildHeaderText(),
             arrowShown = arrowShown,
+            showCalendarIcon = false,
             kalendarHeaderKonfig = kalendarHeaderKonfig,
             canNavigateBack = !restrictToCurrentWeek || currentDay > today,
             onPreviousClick = {
@@ -116,7 +112,7 @@ private fun KalendarFireyContent(
         KalendarScaffold(
             modifier = Modifier.fillMaxWidth(),
             showDayLabel = showDayLabel,
-            dayOfWeek = { daysOfWeek.asList() },
+            dayOfWeek = { daysOfWeek },
             kalendarDayLabelKonfig = kalendarDayLabelKonfig,
             dates = { displayDates },
         ) { date ->
@@ -159,6 +155,6 @@ internal fun getWeekDates(currentDay: LocalDate, startDayOfWeek: DayOfWeek): Lis
     return (0..6).map { startOfWeek.plus(it, DateTimeUnit.DAY) }
 }
 
-internal fun Array<DayOfWeek>.rotate(n: Int): Array<DayOfWeek> {
-    return this.drop(n).toTypedArray() + this.take(n).toTypedArray()
+internal fun List<DayOfWeek>.rotate(distance: Int): List<DayOfWeek> {
+    return this.drop(distance) + this.take(distance)
 }
