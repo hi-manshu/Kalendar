@@ -2,7 +2,7 @@
 
 ### Screnshots
 
-<p align="center">
+<p align="center" style="display: flex; justify-content: center; align-items: center; height: 200px;">
   <img src="../img/solaris/SolarisAndroid.png" alt="SolarisAndroid" width="33%"/>
   <img src="../img/solaris/SolarisDesktop.png" alt="SolarisDesktop" width="33%"/>
   <img src="../img/solaris/SolarisIOS.png" alt="SolarisIOS" width="33%"/>
