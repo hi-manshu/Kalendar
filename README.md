@@ -36,8 +36,8 @@ So unless you fancy scribbling your dates on a Howler, let Kalendar handle your 
 
 - **Oceanic**: A majestic spell that conjures the MonthView..
 - **Firey**: A fiery enchantment that reveals the WeekView.
-- **Solaris[Solaris.md](doc/Solaris.md)**: A charm that lets you swipe through the calendar in MonthView, as if by magic.
-- **Aerial[Aerial.md](doc/Aerial.md)**: A spell that grants you the power to swipe through the calendar in WeekView, with the
+- **[Solaris](doc/Solaris.md)**: A charm that lets you swipe through the calendar in MonthView, as if by magic.
+- **[Aerial](doc/Aerial.md)**: A spell that grants you the power to swipe through the calendar in WeekView, with the
   flick of a wand.
 
 ## 🎉 Getting Started
