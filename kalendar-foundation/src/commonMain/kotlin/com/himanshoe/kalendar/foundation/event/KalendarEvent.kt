@@ -18,12 +18,44 @@ package com.himanshoe.kalendar.foundation.event
 
 import kotlinx.datetime.LocalDate
 
-data class KalendarEvent(
-    val date: LocalDate,
-    val eventName: String,
-    val eventDescription: String? = null
-)
+/**
+ * Represents an event in the calendar.
+ */
+interface KalenderEvent {
+    /**
+     * The date of the event.
+     */
+    val date: LocalDate
 
+    /**
+     * The name of the event.
+     */
+    val eventName: String
+
+    /**
+     * The description of the event.
+     */
+    val eventDescription: String?
+}
+
+/**
+ * A basic implementation of the [KalenderEvent] interface.
+ *
+ * @property date The date of the event.
+ * @property eventName The name of the event.
+ * @property eventDescription The description of the event.
+ */
+data class BasicKalendarEvent(
+    override val date: LocalDate,
+    override val eventName: String,
+    override val eventDescription: String?
+) : KalenderEvent
+
+/**
+ * A collection of calendar events.
+ *
+ * @property eventList The list of events.
+ */
 data class KalendarEvents(
-    val eventList: List<KalendarEvent> = emptyList()
+    val eventList: List<KalenderEvent> = emptyList()
 )

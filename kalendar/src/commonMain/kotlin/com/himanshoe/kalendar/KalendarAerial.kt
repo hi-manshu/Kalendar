@@ -44,6 +44,7 @@ import com.himanshoe.kalendar.foundation.component.config.KalendarDayLabelKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarHeaderKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarKonfig
 import com.himanshoe.kalendar.foundation.event.KalendarEvents
+import com.himanshoe.kalendar.foundation.event.KalenderEvent
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
@@ -159,7 +160,7 @@ private fun KalendarAerialContent(
                 KalendarDay(
                     date = date,
                     selectedRange = selectedRange.value,
-                    onDayClick = { clickedDate, events ->
+                    onDayClick = { clickedDate, events: List<KalenderEvent> ->
                         clickedDate.onDayClick(
                             events = events,
                             rangeStartDate = rangeStartDate,
