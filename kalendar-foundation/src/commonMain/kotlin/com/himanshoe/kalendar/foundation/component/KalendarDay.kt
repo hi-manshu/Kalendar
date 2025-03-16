@@ -41,8 +41,8 @@ import androidx.compose.ui.util.fastFilter
 import androidx.compose.ui.util.fastForEachIndexed
 import com.himanshoe.kalendar.foundation.action.KalendarSelectedDayRange
 import com.himanshoe.kalendar.foundation.component.config.KalendarDayKonfig
-import com.himanshoe.kalendar.foundation.event.KalendarEvent
 import com.himanshoe.kalendar.foundation.event.KalendarEvents
+import com.himanshoe.kalendar.foundation.event.KalenderEvent
 import com.himanshoe.kalendar.foundation.ext.circleLayout
 import com.himanshoe.kalendar.foundation.ext.dayBackgroundColor
 import kotlinx.datetime.Clock
@@ -58,7 +58,7 @@ fun KalendarDay(
     selectedDate: LocalDate = date,
     events: KalendarEvents = KalendarEvents(),
     dayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> },
+    onDayClick: (LocalDate, List<KalenderEvent>) -> Unit = { _, _ -> },
 ) {
     KalendarDayContent(
         date = date,
@@ -79,7 +79,7 @@ private fun KalendarDayContent(
     selectedDate: LocalDate = date,
     dayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
     events: KalendarEvents = KalendarEvents(),
-    onDayClick: (LocalDate, List<KalendarEvent>) -> Unit = { _, _ -> }
+    onDayClick: (LocalDate, List<KalenderEvent>) -> Unit = { _, _ -> }
 ) {
     val today = remember(TimeZone.currentSystemDefault()) {
         Clock.System.todayIn(TimeZone.currentSystemDefault())
@@ -108,7 +108,9 @@ private fun KalendarDayContent(
                 selectedRange = selectedRange,
                 colors = dayKonfig.selectedBackgroundColor.value
             )
-            .clickable { onDayClick(date, events.eventList) }
+            .clickable {
+                onDayClick(date, currentDayEvents)
+            }
             .circleLayout()
             .defaultMinSize(dayKonfig.size),
         verticalArrangement = Arrangement.Center,
@@ -135,7 +137,7 @@ private fun KalendarDayContent(
 
 @Composable
 private fun EventIndicators(
-    events: List<KalendarEvent>,
+    events: List<KalenderEvent>,
     dayKonfig: KalendarDayKonfig,
     modifier: Modifier = Modifier
 ) {

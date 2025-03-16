@@ -15,7 +15,6 @@
  */
 
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
@@ -77,6 +76,8 @@ kotlin {
             implementation(compose.foundation)
             implementation(project(":kalendar"))
             implementation(project(":kalendar-foundation"))
+//            implementation("com.himanshoe:kalendar:2.0.0-RC1")
+//            implementation("com.himanshoe:kalendar-foundation:1.0.0")
             implementation(compose.material)
             implementation(compose.ui)
             implementation(libs.kotlinx.datetime)

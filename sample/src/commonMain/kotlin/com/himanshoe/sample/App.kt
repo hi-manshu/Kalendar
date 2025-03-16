@@ -19,27 +19,26 @@ package com.himanshoe.sample
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.himanshoe.kalendar.Kalendar
 import com.himanshoe.kalendar.KalendarType
 import com.himanshoe.kalendar.foundation.action.OnDaySelectionAction
 import com.himanshoe.kalendar.foundation.event.KalendarEvents
+import com.himanshoe.kalendar.foundation.event.KalenderEvent
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
 @Composable
 fun App() {
     Column(modifier = Modifier.wrapContentSize().background(Color.Blue)) {
-//        Kalendar(
+        //        Kalendar(
 //            selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
 //            modifier = Modifier.fillMaxWidth(),
 //            events = KalendarEvents(),
@@ -73,13 +72,35 @@ fun App() {
 //        )
 //        Spacer(Modifier.height(16.dp))
 //
+        data class TestEvent(
+            override val date: LocalDate,
+            override val eventName: String,
+            override val eventDescription: String?,
+            val test: String
+        ) : KalenderEvent
+
         Kalendar(
             selectedDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
             modifier = Modifier.fillMaxWidth(),
-            events = KalendarEvents(),
+            events = KalendarEvents(
+                eventList = listOf(
+                    TestEvent(
+                        date = Clock.System.todayIn(TimeZone.currentSystemDefault()),
+                        eventName = "Event 1",
+                        eventDescription = "Event 1 Description",
+                        test = "Event 1 Description",
+                    ),
+                    TestEvent(
+                        date = Clock.System.todayIn(TimeZone.currentSystemDefault()),
+                        eventName = "Event 1",
+                        eventDescription = "Event 1 Description",
+                        test = "Event 1 Description"
+                    )
+                )
+            ),
             startDayOfWeek = DayOfWeek.MONDAY,
             kalendarType = KalendarType.Aerial,
-            onDaySelectionAction = OnDaySelectionAction.Range { date, events ->
+            onDaySelectionAction = OnDaySelectionAction.Single { date, events ->
                 println("Selected Date: $date with events: $events")
             },
         )

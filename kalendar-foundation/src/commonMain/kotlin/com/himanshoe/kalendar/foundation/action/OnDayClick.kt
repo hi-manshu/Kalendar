@@ -16,11 +16,11 @@
 
 package com.himanshoe.kalendar.foundation.action
 
-import com.himanshoe.kalendar.foundation.event.KalendarEvent
+import com.himanshoe.kalendar.foundation.event.KalenderEvent
 import kotlinx.datetime.LocalDate
 
 fun LocalDate.onDayClick(
-    events: List<KalendarEvent>,
+    events: List<KalenderEvent>,
     rangeStartDate: LocalDate?,
     rangeEndDate: LocalDate?,
     onDaySelectionAction: OnDaySelectionAction,
