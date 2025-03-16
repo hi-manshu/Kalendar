@@ -16,13 +16,13 @@
 
 package com.himanshoe.kalendar.foundation.action
 
-import com.himanshoe.kalendar.foundation.event.KalendarEvent
+import com.himanshoe.kalendar.foundation.event.KalenderEvent
 import kotlinx.datetime.LocalDate
 
 sealed class OnDaySelectionAction {
-    data class Single(val onDayClick: (LocalDate, List<KalendarEvent>) -> Unit) :
+    data class Single(val onDayClick: (LocalDate, List<KalenderEvent>) -> Unit) :
         OnDaySelectionAction()
 
-    data class Range(val onRangeSelected: (KalendarSelectedDayRange, List<KalendarEvent>) -> Unit) :
+    data class Range(val onRangeSelected: (KalendarSelectedDayRange, List<KalenderEvent>) -> Unit) :
         OnDaySelectionAction()
 }
