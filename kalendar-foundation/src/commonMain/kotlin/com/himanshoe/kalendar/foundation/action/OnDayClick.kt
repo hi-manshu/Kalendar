@@ -25,6 +25,7 @@ fun LocalDate.onDayClick(
     rangeEndDate: LocalDate?,
     onDaySelectionAction: OnDaySelectionAction,
     onClickedNewDate: (LocalDate) -> Unit,
+    onMultipleClickedNewDate: (LocalDate) -> Unit,
     onClickedRangeStartDate: (LocalDate?) -> Unit,
     onClickedRangeEndDate: (LocalDate?) -> Unit,
     onUpdateSelectedRange: (KalendarSelectedDayRange?) -> Unit,
@@ -57,6 +58,11 @@ fun LocalDate.onDayClick(
                 onDaySelectionAction.onRangeSelected(range, events)
             }
             onClickedNewDate(this)
+        }
+
+        is OnDaySelectionAction.Multiple -> {
+            onMultipleClickedNewDate(this)
+            onDaySelectionAction.onDayClick(this, events)
         }
     }
 }
