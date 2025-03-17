@@ -23,6 +23,9 @@ sealed class OnDaySelectionAction {
     data class Single(val onDayClick: (LocalDate, List<KalenderEvent>) -> Unit) :
         OnDaySelectionAction()
 
+    data class Multiple(val onDayClick: (LocalDate, List<KalenderEvent>) -> Unit) :
+        OnDaySelectionAction()
+
     data class Range(val onRangeSelected: (KalendarSelectedDayRange, List<KalenderEvent>) -> Unit) :
         OnDaySelectionAction()
 }

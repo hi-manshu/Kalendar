@@ -40,6 +40,7 @@ import com.himanshoe.kalendar.foundation.component.config.KalendarDayLabelKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarHeaderKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarKonfig
 import com.himanshoe.kalendar.foundation.event.KalendarEvents
+import com.himanshoe.kalendar.foundation.event.KalenderEvent
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
@@ -105,6 +106,7 @@ private fun KalendarFireyContent(
     val displayDates by remember(currentDay) {
         mutableStateOf(getWeekDates(currentDay, startDayOfWeek))
     }
+    var clickedNewDates by remember { mutableStateOf(listOf(selectedDate)) }
 
     Column(
         modifier = modifier.background(brush = Brush.linearGradient(backgroundColor.value)),
@@ -135,7 +137,8 @@ private fun KalendarFireyContent(
             KalendarDay(
                 date = date,
                 selectedRange = selectedRange.value,
-                onDayClick = { clickedDate, events ->
+                selectedDates = clickedNewDates,
+                onDayClick = { clickedDate, events: List<KalenderEvent> ->
                     clickedDate.onDayClick(
                         events = events,
                         rangeStartDate = rangeStartDate,
@@ -143,6 +146,15 @@ private fun KalendarFireyContent(
                         onDaySelectionAction = onDaySelectionAction,
                         onClickedNewDate = {
                             clickedNewDate = it
+                        },
+                        onMultipleClickedNewDate = { _clickedDate ->
+                            clickedNewDates = clickedNewDates.toMutableList().apply {
+                                if (clickedNewDates.contains(_clickedDate)) {
+                                    remove(_clickedDate)
+                                } else {
+                                    add(_clickedDate)
+                                }
+                            }
                         },
                         onClickedRangeStartDate = {
                             rangeStartDate = it

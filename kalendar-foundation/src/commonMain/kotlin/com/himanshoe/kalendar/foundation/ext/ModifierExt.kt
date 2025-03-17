@@ -53,11 +53,14 @@ fun Modifier.dayBackgroundColor(
     selected: Boolean,
     colors: List<Color>,
     selectedRange: KalendarSelectedDayRange?,
+    selectedDates: List<LocalDate>,
 ): Modifier {
     val inRange = selectedRange?.let { date == it.start || date == it.end } ?: false
+    val isSelectedDate = selectedDates.contains(date)
 
     val backgroundBrush = when {
         selected -> Brush.linearGradient(colors)
+        isSelectedDate -> Brush.linearGradient(colors)
         selectedRange != null && date in selectedRange.start..selectedRange.end -> {
             val alpha = if (inRange) FULL_ALPHA else TOWNED_DOWN_ALPHA
             Brush.linearGradient(colors.map { it.copy(alpha = alpha) })

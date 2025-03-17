@@ -54,6 +54,7 @@ import kotlinx.datetime.todayIn
 fun KalendarDay(
     date: LocalDate,
     modifier: Modifier = Modifier,
+    selectedDates: List<LocalDate> = emptyList(),
     selectedRange: KalendarSelectedDayRange? = null,
     selectedDate: LocalDate = date,
     events: KalendarEvents = KalendarEvents(),
@@ -67,6 +68,7 @@ fun KalendarDay(
         selectedRange = selectedRange,
         dayKonfig = dayKonfig,
         modifier = modifier,
+        selectedDates = selectedDates,
         onDayClick = onDayClick,
     )
 }
@@ -75,6 +77,7 @@ fun KalendarDay(
 private fun KalendarDayContent(
     date: LocalDate,
     modifier: Modifier = Modifier,
+    selectedDates: List<LocalDate> = emptyList(),
     selectedRange: KalendarSelectedDayRange? = null,
     selectedDate: LocalDate = date,
     dayKonfig: KalendarDayKonfig = KalendarDayKonfig.default(),
@@ -85,10 +88,15 @@ private fun KalendarDayContent(
         Clock.System.todayIn(TimeZone.currentSystemDefault())
     }
     val currentDay = today == date
-    val selected = date == selectedDate
-    val brush =
-        if (selected) Brush.linearGradient(dayKonfig.selectedTextColor.value) else dayKonfig.textStyle.brush
-    val fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
+    val selected = date == selectedDate || selectedDates.contains(date)
+    val brush = remember(selected) {
+        if (selected) {
+            Brush.linearGradient(dayKonfig.selectedTextColor.value)
+        } else {
+            dayKonfig.textStyle.brush
+        }
+    }
+    val fontWeight = remember(selected) { if (selected) FontWeight.Bold else FontWeight.Normal }
     val currentDayEvents = remember(events) { events.eventList.fastFilter { it.date == date } }
 
     Column(
@@ -104,6 +112,7 @@ private fun KalendarDayContent(
             .clip(CircleShape)
             .dayBackgroundColor(
                 selected = selected,
+                selectedDates = selectedDates,
                 date = date,
                 selectedRange = selectedRange,
                 colors = dayKonfig.selectedBackgroundColor.value

@@ -43,6 +43,7 @@ import com.himanshoe.kalendar.foundation.component.config.KalendarDayKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarDayLabelKonfig
 import com.himanshoe.kalendar.foundation.component.config.KalendarKonfig
 import com.himanshoe.kalendar.foundation.event.KalendarEvents
+import com.himanshoe.kalendar.foundation.event.KalenderEvent
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
@@ -107,6 +108,8 @@ private fun KalendarSolarisContent(
     val displayDates by remember(currentMonth, startDayOfWeek) {
         mutableStateOf(getMonthDates(currentMonth, startDayOfWeek))
     }
+    var clickedNewDates by remember { mutableStateOf(listOf(selectedDate)) }
+
     val pagerState = rememberPagerState(
         initialPage = Int.MAX_VALUE / 2,
         pageCount = { Int.MAX_VALUE }
@@ -147,10 +150,10 @@ private fun KalendarSolarisContent(
             ) { date ->
                 if (date.month == currentMonth.month) {
                     KalendarDay(
-                        modifier = Modifier,
                         date = date,
                         selectedRange = selectedRange.value,
-                        onDayClick = { clickedDate, events ->
+                        selectedDates = clickedNewDates,
+                        onDayClick = { clickedDate, events: List<KalenderEvent> ->
                             clickedDate.onDayClick(
                                 events = events,
                                 rangeStartDate = rangeStartDate,
@@ -158,6 +161,15 @@ private fun KalendarSolarisContent(
                                 onDaySelectionAction = onDaySelectionAction,
                                 onClickedNewDate = {
                                     clickedNewDate = it
+                                },
+                                onMultipleClickedNewDate = { _clickedDate ->
+                                    clickedNewDates = clickedNewDates.toMutableList().apply {
+                                        if (clickedNewDates.contains(_clickedDate)) {
+                                            remove(_clickedDate)
+                                        } else {
+                                            add(_clickedDate)
+                                        }
+                                    }
                                 },
                                 onClickedRangeStartDate = {
                                     rangeStartDate = it

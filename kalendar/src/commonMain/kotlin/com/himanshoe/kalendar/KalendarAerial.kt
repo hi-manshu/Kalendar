@@ -102,6 +102,7 @@ private fun KalendarAerialContent(
     val coroutineScope = rememberCoroutineScope()
     val selectedRange = remember { mutableStateOf<KalendarSelectedDayRange?>(null) }
     var clickedNewDate by remember { mutableStateOf(selectedDate) }
+    var clickedNewDates by remember { mutableStateOf(listOf(selectedDate)) }
     val daysOfWeek = DayOfWeek.entries.rotate(distance = startDayOfWeek.ordinal)
     val pagerState = rememberPagerState(
         initialPage = Int.MAX_VALUE / 2,
@@ -160,6 +161,7 @@ private fun KalendarAerialContent(
                 KalendarDay(
                     date = date,
                     selectedRange = selectedRange.value,
+                    selectedDates = clickedNewDates,
                     onDayClick = { clickedDate, events: List<KalenderEvent> ->
                         clickedDate.onDayClick(
                             events = events,
@@ -168,6 +170,15 @@ private fun KalendarAerialContent(
                             onDaySelectionAction = onDaySelectionAction,
                             onClickedNewDate = {
                                 clickedNewDate = it
+                            },
+                            onMultipleClickedNewDate = { _clickedDate ->
+                                clickedNewDates = clickedNewDates.toMutableList().apply {
+                                    if (clickedNewDates.contains(_clickedDate)) {
+                                        remove(_clickedDate)
+                                    } else {
+                                        add(_clickedDate)
+                                    }
+                                }
                             },
                             onClickedRangeStartDate = {
                                 rangeStartDate = it
