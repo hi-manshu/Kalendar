@@ -58,8 +58,8 @@ kalendar = "<version>"
 kalendarFoundation = "<version>"
 
 [libraries]
-charty = { module = "com.himanshoe:kalendar", version.ref = "kalendar" }
-charty = { module = "com.himanshoe:kalendar-foundation", version.ref = "kalendarFoundation" }
+kalendar = { module = "com.himanshoe:kalendar", version.ref = "kalendar" }
+kalendar-foundation = { module = "com.himanshoe:kalendar-foundation", version.ref = "kalendarFoundation" }
 ```
 
 </details>
